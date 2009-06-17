@@ -1,0 +1,10 @@
+config/database.yml
+*.tmproj
+
+._*
+
+.DS_Store
+log/*.log
+tmp/**/*
+doc/*
+cache/*
