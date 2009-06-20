@@ -1,8 +1,6 @@
-<div style="Float:right">
-  <%= render :partial => "person_sessions/login_area" %>
-  <h3 class="center">Free Adverts!<br>-short time only!<br><%= link_to 'Post new advert', new_advert_path %></h3>
-</div>
+<% @page_title = "asd" %>
 
+<% @title = "a" %>
 <h1>Marketplace</h1>
 <h2>For farm forestry</h2>
 <p>
@@ -27,7 +25,7 @@
          :with => 'query' %>
 
 <div id="table">
-<%= render :partial => "adverts_list" %>
+<%= render :partial => "adverts/adverts_list" %>
 </div>
 
 

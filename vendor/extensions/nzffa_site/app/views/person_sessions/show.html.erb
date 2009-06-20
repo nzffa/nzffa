@@ -1,0 +1,16 @@
+<% title "Person Session" %>
+
+<p>
+  <strong>Email:</strong>
+  <%=h @person_session.email %>
+</p>
+<p>
+  <strong>Password:</strong>
+  <%=h @person_session.password %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_person_session_path(@person_session) %> |
+  <%= link_to "Destroy", @person_session, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", person_sessions_path %>
+</p>

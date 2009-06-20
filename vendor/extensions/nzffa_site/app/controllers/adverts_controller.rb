@@ -1,4 +1,4 @@
-class AdvertsController < ApplicationController
+class AdvertsController < NzffaController
   before_filter :require_authorization, :only => [:edit, :update, :destroy] 
   
   def index
@@ -41,7 +41,7 @@ class AdvertsController < ApplicationController
 
   def new
     @advert = Advert.new
-    @user = User.new
+    @person = Person.new
   end
 
 
@@ -54,15 +54,15 @@ class AdvertsController < ApplicationController
     @advert = Advert.new(params[:advert])
     @advert.status = true
     
-    @advert.user = if current_user
-      current_user
+    @advert.person = if current_person
+      current_person
     else
-      @user = User.new(params[:user])
-      @user.adverts << @advert
-      @user
+      @person = Person.new(params[:person])
+      @person.adverts << @advert
+      @person
     end
     
-    if (current_user || @user.save) && @advert.save
+    if (current_person || @person.save) && @advert.save
       flash[:notice] = 'Advert was successfully created.'
       # BackOfficeMailer.deliver_advert_confirmation(@advert)
       redirect_to(@advert)

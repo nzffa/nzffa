@@ -1,2 +1,2 @@
-module UserBranchRolesHelper
+module PersonBranchRolesHelper
 end

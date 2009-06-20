@@ -14,7 +14,7 @@
 <% @branches.each do |branch| %>
   <tr class="<%= cycle("white_row", "dark_row") %>">
     <td><%=h branch.name %></td>
-    <td><%= link_to h(branch.secretary.name), edit_user_path(branch.secretary) if branch.secretary %></td>
+    <td><%= link_to h(branch.secretary.name), edit_person_path(branch.secretary) if branch.secretary %></td>
     <td><%=h branch.address %></td>
     <td><%=h branch.phone %></td>
     <td><%=h branch.cell %></td>

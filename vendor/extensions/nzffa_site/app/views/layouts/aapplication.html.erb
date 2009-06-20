@@ -8,13 +8,13 @@
   </head>
   <body>
     <div id="container">
-      <div id="user_nav">
-        <% if current_user %>
-          <%= current_user.name %>
-          <%= link_to "Edit Profile", edit_user_path(current_user) %> |
+      <div id="person_nav">
+        <% if current_person %>
+          <%= current_person.name %>
+          <%= link_to "Edit Profile", edit_person_path(current_person) %> |
           <%= link_to "Logout", logout_path %>
         <% else %>
-          <%= link_to "Register", new_user_path %> |
+          <%= link_to "Register", new_person_path %> |
           <%= link_to "Login", login_path %>
         <% end %>
       </div>

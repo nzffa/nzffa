@@ -1,4 +1,6 @@
-<% form_for @user_session do |f| %>
+<% title "New Person Session" %>
+
+<% form_for @person_session do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :email %><br />
@@ -10,3 +12,5 @@
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
+
+

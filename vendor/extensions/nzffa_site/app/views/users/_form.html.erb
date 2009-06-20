@@ -1,4 +1,4 @@
-<% form_for @user do |f| %>
+<% form_for @person do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :first_name %><br />
@@ -33,7 +33,7 @@
   
   <table>
     <tr><td>Role</td><td>Branch</td></tr>
-    <% f.fields_for :user_branch_roles do |u_form| %>
+    <% f.fields_for :person_branch_roles do |u_form| %>
       <tr>
         <td><%= u_form.collection_select :role_id, Role.all, :id, :name %></td>
         <td><%= u_form.collection_select :branch_id, Branch.all, :id, :name %></td>

@@ -1,19 +1,19 @@
-class UserSessionsController < ApplicationController
+class PersonSessionsController < ApplicationController
   
   def new
-    @user_session = UserSession.new
+    @person_session = PersonSession.new
   end
   
   def create
-    @user_session = UserSession.new(params[:user_session])
+    @person_session = PersonSession.new(params[:person_session])
     
-    flash[:notice] = "Successfully logged in." if @user_session.save
+    flash[:notice] = "Successfully logged in." if @person_session.save
     render :partial => "login_area", :layout => false
   end
   
   def destroy
-    @user_session = UserSession.find
-    @user_session.destroy
+    @person_session = PersonSession.find
+    @person_session.destroy
     
     flash[:notice] = "Successfully logged out."
     

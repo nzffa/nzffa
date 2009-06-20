@@ -24,7 +24,7 @@
   <%=h number_to_currency(@advert.dollars) %>
 </p>
 <p>
-  <%= mail_to @advert.user.email, "Send e-mail", :encode => :hex, :subject => @advert.title %>
+  <%= mail_to @advert.person.email, "Send e-mail", :encode => :hex, :subject => @advert.title %>
 </p>
 <p>
   <%=make_pretty h(@advert.body) %>

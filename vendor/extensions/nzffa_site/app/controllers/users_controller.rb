@@ -1,17 +1,17 @@
-class UsersController < ApplicationController
+class PersonsController < ApplicationController
 	
 	def index
-		@users = User.find(:all)
+		@persons = Person.find(:all)
 	end
 	
   def new
-    @user = User.new
+    @person = Person.new
   end
   
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:notice] = "Successfully created user."
+    @person = Person.new(params[:person])
+    if @person.save
+      flash[:notice] = "Successfully created person."
       redirect_to root_url
     else
       render :action => 'new'
@@ -19,13 +19,13 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    @person = Person.find(params[:id])
   end
   
   def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated user."
+    @person = Person.find(params[:id])
+    if @person.update_attributes(params[:person])
+      flash[:notice] = "Successfully updated person."
       redirect_to root_url
     else
       render :action => 'edit'

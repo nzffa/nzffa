@@ -6,10 +6,10 @@
 <h1>New advert</h1>
 
 <% render(:layout => "form_content") do %>
-    <% if !current_user %>
+    <% if !current_person %>
         <br>
-        <h1>New User</h1>
-        <% fields_for @user do |f| %>
+        <h1>New Person</h1>
+        <% fields_for @person do |f| %>
             <%= f.error_messages %>
             <p>
               <%= f.label :email %><br />

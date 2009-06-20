@@ -1,0 +1,79 @@
+body {	background-image: url(/images/design/bg2.jpg);  background-attachment: fixed;}
+body,p,td  { font-size: 11pt; font-family: Arial, Geneva, Verdana; color:#353535;}
+
+hr {
+    color: #060;
+    border: 0;
+    height: 1px;
+    background-color: #060;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.white_row { color:#FFF }
+.dark_row  { color:#CFC }
+.copy  { color: #BBB; font-size: 8pt }
+.style1 {color: #FFF; font-weight:normal;}
+.whitey li { color: #FFF; }
+.whitey li a { color: #FFF; }
+.whitey li a:visited { color: #FFF; }
+.phead, .phead2, .phead3  {
+	font-size:11pt;
+	font-weight : bold;
+}
+.phead  { color: #C00; }
+.phead2 { color: #909; }
+.phead3 { color: #099; }
+
+td.y0 {padding: 0px 8px}
+
+h1  { font-family: georgia, times, "Times New Roman"; font-size:40px; color: #600; margin-top: 0px; margin-bottom : 3px; font-weight:bold;}
+h2  { color: #060; margin-top: 6px; margin-bottom : 2px;
+	font: italic bold 28px georgia, times, "Times New Roman";
+}
+h3  { font-family: georgia, times, "Times New Roman"; font-size:18px; background-color: #fff3cc; margin-right: 1px; margin-left: 0px; padding: 3px 8px;/* border-top: 1px solid rgb(104,0,0)*/;
+	color: #600; font-style:italic}
+h4,h5,h6 { font-family: georgia, times, "Times New Roman"; background-color: #fff3cc; margin-right: 1px; margin-left: 0px; padding: 3px 8px; color: #600; font-style:italic;
+}
+
+a:link { color:#060 }
+a:visited { color:#060 }
+a:hover { color:#0F0 }
+a:active { color:#F00 } 
+
+#sn { 
+	width:178px;
+	background-image:url(/images/design/yellow_grad.jpg);
+/*	background-color:#fff3cc; 
+	border: 1px solid #663300;*/
+	cursor: pointer;
+}
+.snv {
+	border-top: 1px solid #ffffff;
+	border-bottom: 6px solid #ffffff;
+}
+.snv a {
+	font-size: 10pt;
+	line-height: 15px;
+	text-decoration:none;
+	width:178px;
+	display:block; 
+	box-sizing:border-box; 
+}
+.snA .snv a { padding: 3px 8px 3px 5px; }
+.snB .snv a { padding: 3px 8px 3px 15px; }
+
+/* IE box model workaround */
+html>body .snA .snv a { box-sizing:content-box; width:162px; }
+html>body .snB .snv a { box-sizing:content-box; width:160px; }
+.snOpen .snv { background-color: #ffffcc; }
+.currentsn .snv { background-color: #ffe479; }
+.currentsn a, .snOpen, .snOpen a, .snOpen a:hover, .snOpen a:visited { font-weight:normal; }
+.snv a, .snv a:hover, .snv a:visited { color:#600; text-decoration:none; }
+.snv a:hover { background-color:white; }
+ul {  color: #060; position:relative; list-style-image:url(/images/design/white-tree.gif) }
+
+.tc a:link { color: #600; }
+.tc a:visited { color: #600; }
+.tc a:hover { color: #F00; }
+.tc a:acteiv { color: #F00; }

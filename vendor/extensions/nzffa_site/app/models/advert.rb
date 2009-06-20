@@ -3,7 +3,8 @@ class Advert < ActiveRecord::Base
   belongs_to :person
   
   has_attached_file :image, :styles => { :medium => "640x480>", :thumb => "120x90>" },
-      :url         => "/attachments/:attachment/:id/:style/:filename",
+      :path        => ":rails_root/public/attachments/:attachment/:id/:style/basename.:extension",
+      :url         => "/attachments/:attachment/:id/:style/basename.:extension",
       :default_url => "/attachments/:attachment/missing/missing.png"
       
   validates_attachment_size :image, :in => 1.kilobytes..5.megabytes

@@ -3,18 +3,22 @@ class Person < ActiveRecord::Base
   
   acts_as_authentic do |c|
     c.login_field = "email"
-    c.crypted_password_field = "password"
+    c.crypted_password_field = "crypted_password"
     c.password_salt_field = "salt"
     c.crypto_provider = Authlogic::CryptoProviders::Sha1
   end
   
-  def perishable_token= *args
-    session_token = *args
-  end
-  
-  def perishable_token
-    session_token
-  end
+  # def persistence_token= *args
+  #   session_token = *args
+  # end
+  # 
+  # def persistence_token
+  #   session_token
+  # end
+  # 
+  # def persistence_token_changed?
+  #   true
+  # end
   
   has_many :adverts
   has_many :people_branch_roles
