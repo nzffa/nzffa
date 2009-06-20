@@ -8,3 +8,4 @@ log/*.log
 tmp/**/*
 doc/*
 cache/*
+public/assets/*
