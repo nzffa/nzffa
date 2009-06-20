@@ -6,11 +6,15 @@ class NzffaSiteExtension < Radiant::Extension
   description "Home for all dynamic NZFFA content, both user and admin side. Has adverts, members and wiki stuff."
   url "http://gunn.co.nz"
   
+  # require "authlogic"
+  # require "paperclip"
+  
   define_routes do |map|
-    map.namespace :admin, :member => { :remove => :get } do |admin|
-      admin.resources :marketplace
-    end
-    map.connect "marketplace", :controller => "adverts"
+    # map.namespace :admin, :member => { :remove => :get } do |admin|
+    #   admin.resources :marketplace
+    # end
+    # map.connect "marketplace", :controller => "adverts"
+    map.connect "", :controller => "adverts" 
   end
   
   def activate

@@ -1,0 +1,24 @@
+<h1>Editing user_branch_role</h1>
+
+<% form_for(@user_branch_role) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :role_id %><br />
+    <%= f.text_field :role_id %>
+  </p>
+  <p>
+    <%= f.label :branch_id %><br />
+    <%= f.text_field :branch_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @user_branch_role %> |
+<%= link_to 'Back', user_branch_roles_path %>

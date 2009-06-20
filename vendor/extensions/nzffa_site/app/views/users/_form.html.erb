@@ -1,0 +1,46 @@
+<% form_for @user do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </p>
+  <p>
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </p>
+  <p>
+    <%= f.label :email, "E-mail" %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </p>
+  <p>
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </p>
+  
+  
+
+
+    
+
+  
+  <table>
+    <tr><td>Role</td><td>Branch</td></tr>
+    <% f.fields_for :user_branch_roles do |u_form| %>
+      <tr>
+        <td><%= u_form.collection_select :role_id, Role.all, :id, :name %></td>
+        <td><%= u_form.collection_select :branch_id, Branch.all, :id, :name %></td>
+      </tr>
+    <% end %>      
+  </table>
+  
+  
+  <p><%= f.submit "Submit" %></p>
+<% end %>

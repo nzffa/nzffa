@@ -1,0 +1,29 @@
+<% form_for(@advert, :html => { :multipart => true }) do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label :title %> of your advert<br />
+      <%= f.text_field :title, :size=>70 %>
+    </p>
+    <p>
+      <%= f.label :body, "Description - include contact details" %><br />
+      <%= f.text_area :body, :size => "70x15" %>
+    </p>
+    <p>
+      <%= f.label :location %><br />
+      <%= f.text_field :location %>
+    </p>
+    <p>
+      <%= f.label :dollars %> <br />
+      $<%= f.text_field :dollars, :size=>10 %>NZD (leave blank if negotiable)
+    </p>
+    <p>
+      Advert Category:
+      <%= select(:advert, :ad_type, Advert.ad_types.map { |type| [type, type] }) %></p>
+    </p>
+      Photo: <%= f.file_field :image %>
+    <p>
+    <%= yield %>
+      <br><br>
+    <%= f.submit '- Create Advert -' %>
+  </p>
+<% end %>
