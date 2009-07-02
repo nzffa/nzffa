@@ -18,7 +18,7 @@
         <%= advert.location %><br>
         <!-- <%=h advert.ad_type %> -->
         <!-- Listed: <%= time_ago_in_words advert.created_at %> ago<br> -->
-        <%= distance_of_time_in_words(Time.now, advert.created_at+4.weeks, true) %> left<br>
+        <%= distance_of_time_in_words(Time.now, advert.created_at+10.weeks, true) %> left<br>
       </td>
       <td class="right"><% if advert.dollars %> <%= number_to_currency(advert.dollars) %><% end %></td>
 
