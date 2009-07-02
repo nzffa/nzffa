@@ -3,7 +3,7 @@ user: admin
 group: admin
 cwd: /home/admin/public_html/NZFFA.org.nz/current
 log_file: log/mongrel.log
-port: "3045"
+port: "3025"
 environment: production
 address: 127.0.0.1
 pid_file: tmp/pids/dispatch.pid
