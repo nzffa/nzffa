@@ -1,5 +1,5 @@
 class AdvertsController < NzffaController
-  radiant_layout "left_menu_and_logo"
+  radiant_layout "for_rails"
   before_filter :require_authorization, :only => [:edit, :update, :destroy] 
   
   def index
