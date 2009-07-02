@@ -10,6 +10,8 @@ class NzffaController < ActionController::Base
   after_filter :discard_flash_if_xhr
   helper_method :current_person, :admin?, :authorized_for?
   
+  
+  
   private
   
   def current_person_session  

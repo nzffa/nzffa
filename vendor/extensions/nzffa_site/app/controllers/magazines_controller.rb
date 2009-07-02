@@ -1,4 +1,4 @@
-class MagazinesController < ApplicationController
+class MagazinesController < NzffaController
   # GET /magazines
   # GET /magazines.xml
   def index

@@ -1,0 +1,4846 @@
+
+--- 
+assets: 
+  columns: 
+  - id
+  - caption
+  - title
+  - asset_file_name
+  - asset_content_type
+  - asset_file_size
+  - created_by_id
+  - updated_by_id
+  - created_at
+  - updated_at
+  records: 
+  - - "9"
+    - ""
+    - TitleBanner
+    - TitleBanner.swf
+    - application/x-shockwave-flash
+    - "20963"
+    - "1"
+    - 
+    - 2009-06-20 00:51:59
+    - 2009-06-20 00:51:59
+  - - "11"
+    - ""
+    - Panorama1
+    - Panorama1.jpg
+    - image/jpeg
+    - "48064"
+    - "1"
+    - 
+    - 2009-06-20 01:44:44
+    - 2009-06-20 01:44:44
+  - - "12"
+    - ""
+    - Panorama2
+    - Panorama2.jpg
+    - image/jpeg
+    - "58558"
+    - "1"
+    - 
+    - 2009-06-20 01:45:01
+    - 2009-06-20 01:45:01
+  - - "13"
+    - ""
+    - Panorama3
+    - Panorama3.jpg
+    - image/jpeg
+    - "59070"
+    - "1"
+    - 
+    - 2009-06-20 01:45:22
+    - 2009-06-20 01:45:22
+  - - "14"
+    - ""
+    - Panorama4
+    - Panorama4.jpg
+    - image/jpeg
+    - "70836"
+    - "1"
+    - 
+    - 2009-06-20 01:45:39
+    - 2009-06-20 01:45:39
+  - - "15"
+    - ""
+    - Panorama5
+    - Panorama5.jpg
+    - image/jpeg
+    - "50900"
+    - "1"
+    - 
+    - 2009-06-20 01:45:49
+    - 2009-06-20 01:45:49
+  - - "16"
+    - ""
+    - Panorama6
+    - Panorama6.jpg
+    - image/jpeg
+    - "57260"
+    - "1"
+    - 
+    - 2009-06-20 01:46:11
+    - 2009-06-20 01:46:11
+  - - "17"
+    - ""
+    - Panorama7
+    - Panorama7.jpg
+    - image/jpeg
+    - "59148"
+    - "1"
+    - 
+    - 2009-06-20 01:46:23
+    - 2009-06-20 01:46:23
+  - - "18"
+    - ""
+    - prebbles1
+    - prebbles1.jpg
+    - image/jpeg
+    - "92429"
+    - "1"
+    - 
+    - 2009-07-01 10:09:38
+    - 2009-07-01 10:09:38
+  - - "19"
+    - ""
+    - prebbles2
+    - prebbles2.jpg
+    - image/jpeg
+    - "75001"
+    - "1"
+    - 
+    - 2009-07-01 10:09:58
+    - 2009-07-01 10:09:58
+  - - "20"
+    - ""
+    - prebbles3
+    - prebbles3.jpg
+    - image/jpeg
+    - "72915"
+    - "1"
+    - 
+    - 2009-07-01 10:10:13
+    - 2009-07-01 10:10:13
+  - - "21"
+    - ""
+    - prebbles4
+    - prebbles4.jpg
+    - image/jpeg
+    - "128499"
+    - "1"
+    - 
+    - 2009-07-01 10:10:28
+    - 2009-07-01 10:10:28
+  - - "22"
+    - ""
+    - prebbles5
+    - prebbles5.jpg
+    - image/jpeg
+    - "122122"
+    - "1"
+    - 
+    - 2009-07-01 10:11:20
+    - 2009-07-01 10:11:20
+  - - "23"
+    - ""
+    - prebbles6
+    - prebbles6.jpg
+    - image/jpeg
+    - "97196"
+    - "1"
+    - 
+    - 2009-07-01 10:11:38
+    - 2009-07-01 10:11:38
+  - - "24"
+    - ""
+    - prebbles7
+    - prebbles7.jpg
+    - image/jpeg
+    - "89497"
+    - "1"
+    - 
+    - 2009-07-01 10:11:55
+    - 2009-07-01 10:11:55
+
+--- 
+config: 
+  columns: 
+  - id
+  - key
+  - value
+  - description
+  records: 
+  - - "1"
+    - admin.title
+    - Radiant CMS
+    - Title text displayed at the top of all administration screens.
+  - - "2"
+    - admin.subtitle
+    - Publishing for Small Teams
+    - The tagline displayed underneath the main administration title
+  - - "3"
+    - defaults.page.parts
+    - body
+    - |
+      Defines the page parts that a new page is created with.  It should be a list, separated by a comma and a space.  For example:
+      
+      bq. @body, extended, sidebar@
+
+  - - "4"
+    - defaults.page.status
+    - draft
+    - |
+      Defines the publishing status of new pages.  This can any one of:
+      
+      * draft
+      * published
+      * reviewed
+      * hidden
+
+  - - "5"
+    - defaults.page.filter
+    - ""
+    - |
+      Sets the text filter a new page has by default.  Valid options, in a vanilla Radiant install are:
+      
+      * _leave blank to set no default filter_
+      * Markdown
+      * SmartyPants
+      * Textile
+
+  - - "6"
+    - session_timeout
+    - "1209600"
+    - 
+  - - "7"
+    - assets.additional_thumbnails
+    - normal=640x640>
+    - 
+  - - "8"
+    - assets.display_size
+    - original
+    - 
+  - - "9"
+    - assets.content_types
+    - image/jpeg, image/pjpeg, image/gif, image/png, image/x-png, image/jpg, video/x-m4v, video/quicktime, application/x-shockwave-flash, audio/mpeg, video/mpeg
+    - 
+  - - "10"
+    - assets.max_asset_size
+    - "5"
+    - 
+  - - "11"
+    - assets.skip_filetype_validation
+    - "true"
+    - 
+  - - "12"
+    - roles.settings
+    - admin
+    - List of user roles that may see the settings tabs.
+
+--- 
+layouts: 
+  columns: 
+  - id
+  - name
+  - content
+  - created_at
+  - updated_at
+  - created_by_id
+  - updated_by_id
+  - content_type
+  - lock_version
+  records: 
+  - - "1"
+    - main
+    - |-
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+      	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+      
+      <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+      
+      <head>
+         <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+         <title>NZ Farm Forestry - <r:title/></title>
+         <link rel="stylesheet" href="/drop_down.css" type="text/css" media="screen" charset="utf-8">
+         <link rel="stylesheet" href="/style.css" type="text/css" media="screen" charset="utf-8">
+         <script type="text/javascript" src="/swfobject.js"></script>
+      </head>
+      
+      <body>
+         <div align="center">
+           <table width="900" border="0" cellspacing="0" cellpadding="0">
+             <tr>
+               <td>
+      	   <div id="banner_swf_holder">
+      	   <img src="/images/design/no_flash.jpg" width="900" height="220" alt="Flash not installed"/>
+               </div>
+                 <script type="text/javascript">
+         		// <![CDATA[
+         	var so = new SWFObject("<r:assets:url id="9"/>?data=<r:content part="banner_xml_url" inherit="true"/>?"+Math.round(Math.random()*1000000), "nzffa", 900, 220, "9", "#66CC00");
+         	so.addParam("scale", "noScale");
+         	so.write("banner_swf_holder");
+         		// ]]>
+         		</script>
+               </td>
+             </tr>
+             <tr>
+               <td bgcolor="#006600" background="/images/design/green_bevel.gif"><img src="/images/design/official_website.gif" class="midlogo"></td>
+             </tr>
+             <tr>
+               <td bgcolor="white">
+               <table width="900" border="0" cellspacing="0" cellpadding="0">
+             	 <tr>
+      
+                <r:content_for_layout/>
+      
+      	 </td></tr>
+      	 </table>
+      	 </td>
+            </tr>
+            <tr>
+              <td bgcolor="#660000" colspan="3"><img src="/images/design/wht_bg.gif" height="14" width="900" alt="Bottom"></td>
+            </tr>
+        </table>
+        <br>
+        <span class="copy">Copyright &copy; 1998-2009 www.NZFFA.org.nz All Rights 
+        Reserved | Site: <a href="http://Gunn.co.nz/"><font color="#bbbbbb">Gunn Interactive</font></a></span></div>
+      </div>
+      <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      var pageTracker = _gat._getTracker("UA-4295117-2");
+      pageTracker._initData();
+      pageTracker._trackPageview();
+      </script>
+      </body>
+      </html>
+    - 2009-06-17 08:42:58
+    - 2009-07-01 09:19:00
+    - "1"
+    - "1"
+    - ""
+    - "54"
+  - - "3"
+    - stylesheet
+    - <r:content/>
+    - 2009-06-17 09:45:18
+    - 2009-06-17 10:03:15
+    - "1"
+    - "1"
+    - text/css
+    - "1"
+  - - "4"
+    - xml
+    - <r:content/>
+    - 2009-06-20 00:31:21
+    - 2009-07-01 09:45:11
+    - "1"
+    - "1"
+    - text/xml
+    - "1"
+  - - "5"
+    - with-extended
+    - |-
+      <r:content/>
+      <r:content part="extended"/>
+    - 2009-06-20 06:28:28
+    - 2009-06-20 06:31:12
+    - "1"
+    - "1"
+    - ""
+    - "2"
+  - - "6"
+    - left_menu
+    - |-
+      <r:inside_layout name="main">
+      
+          <td valign="top">
+          <div id="sn">
+           <span class="snA"> 
+            <div class="snv">
+             <r:nav depth="1" ids_for_lis="true" include_root="true" expand_all="true" except=".(css|js|xml)/*$" />
+             <div class="left_nav_pic"><img src="/images/design/WhitePineCone_transp_lt.gif"></div>
+            </div>
+           </span>
+          </div>
+          </td>
+      
+          <r:content_for_layout/> 
+       
+      </r:inside_layout>
+    - 2009-06-21 02:23:29
+    - 2009-07-02 01:40:27
+    - "1"
+    - "1"
+    - ""
+    - "5"
+  - - "7"
+    - left_menu_and_logo
+    - |-
+      <r:inside_layout name="left_menu">
+      
+          <td valign="top" class="y0" width="721">
+          <div align="right" class="logo_bottom" ><img SRC="/images/design/logo3_03_w.gif"></div>
+          <r:content_for_layout/> 
+       
+      </r:inside_layout>
+    - 2009-06-21 02:26:57
+    - 2009-07-02 01:51:11
+    - "1"
+    - "1"
+    - ""
+    - "4"
+  - - "8"
+    - top_menu
+    - |-
+      <r:inside_layout name="main">
+      
+          <div align="right"><img SRC="/images/design/logo3_03w.gif"></div>
+          <r:content part="top_navigation" inherit="true"/>
+          <r:content_for_layout/> 
+       
+      </r:inside_layout>
+    - 2009-06-21 02:28:22
+    - 2009-06-21 02:28:22
+    - "1"
+    - 
+    - ""
+    - "0"
+  - - "9"
+    - left_menu_and_logo_SIGs
+    - |-
+      <r:inside_layout name="left_menu_and_logo">
+      
+          <h2><r:title/></h2>
+          <r:content_for_layout/>
+          <r:content part="extended"/>
+       
+      </r:inside_layout>
+    - 2009-06-22 10:46:18
+    - 2009-06-22 11:05:51
+    - "1"
+    - "1"
+    - ""
+    - "3"
+  - - "10"
+    - tree_grower
+    - |-
+      <r:inside_layout name="left_menu_and_logo">
+      
+      <h2>New Zealand Tree Grower</h2>
+      <h3>Featured in the <r:title/> issue:</h3>
+      <div class="right"><img src=../../images/design/tg-<r:title/>.gif class="bdr" align="right"/></div>
+      <ul>
+        <r:content_for_layout/>
+        <li>...and many others!</li>
+      </ul>
+      <b>Plus</b> our regular columns:
+      <ul>
+      <li>Industry news from across the country</li>
+      <li>Current Issues affecting <b>you</b>!</li>
+      <li>Safety, Activities, Book News... and <b>much much more!</b></li>
+      </ul>
+      <br/>Subscribe, or get it <span class="bold_red">Free</span> by <a href="/become-a-member">becoming a member</a>!<br/><br/>
+      <p>
+      <table border="0" cellspacing="1" cellpadding="5" bgcolor="#6666CC">
+      <tr><td bgcolor="#efefff"><div align="left"> 
+      <b><font color="#000099">Tree Grower article indices:</font></b><br>
+        <a href="/images/design/TG_Index1.html" target="_blank">1980-1989</a> |
+        <a href="/images/design/TG_Index2.html" target="_blank">1990-1994</a> | 
+        <a href="/images/design/TG_Index3.html" target="_blank">1995-1999</a> | 
+        <a href="/images/design/TG_Index4.html" target="_blank">2000-2003</a> | 
+        <a href="/images/design/TG_Index5.html" target="_blank">2004-2005</a>
+      </div></td></tr>
+      </table>
+      </p>
+      </r:inside_layout>
+    - 2009-06-23 23:00:30
+    - 2009-06-24 08:36:13
+    - "1"
+    - "1"
+    - ""
+    - "13"
+  - - "11"
+    - ffm
+    - |-
+      <r:inside_layout name="main">
+      
+      <td valign="top" class="y0" width="900">
+      <div align="right" class="logo_bottom_ffm"><img SRC="/images/design/logo3_03_w.gif"></div>
+      
+      <ul id="qm0" class="qmmc" style="position: relative; top: -25px">
+      
+      <li><a class="qmparent" href="http://www.nzffa.org.nz">Home</a>
+      
+      	<ul>
+      	<li><a href="/events">Events</a></li>
+      	<li><a href="http://www.nzffa.org.nz/index.cfm?id=3">Branches</a></li>
+      	<li><a href="/become-a-member"</a></li>
+      	<li><a href="http://nzffa.vint.co.nz">Marketplace</a></li>
+      	<li><a href="/tree-grower">Tree Grower</a></li>
+      	<li><a href="/market-report">Market Report</a></li>
+      	<li><a href="/presidents-comment">President's Comment</a></li>
+      	<li><a href="/farm-forestry-awards">FF Awards</a></li>
+      	<li><a href="/special-interest-groups">Special Interest Groups</a></li>
+      	</ul></li>
+      	            		
+      <li><a class="qmparent" href="/farm-forestry-model/">Farm Forestry Model</a>
+      
+      	<ul>
+      	<li><a href="/farm-forestry-model/trees-for-the-environment/">Trees for the environment</a></li>
+      	<li><a href="/farm-forestry-model/trees-for-farm-productivity/">Trees for farm productivity</a></li>
+      	<li><a href="/farm-forestry-model/trees-for-timber/">Trees for timber</a></li>
+      	<li><a href="/farm-forestry-model/trees-for-show/">Trees for show</a></li>
+      	<li><a href="/farm-forestry-model/trees-for-animal-welfare/">Trees for animal welfare</a></li>
+      	</ul></li>
+      
+      <li><a class="qmparent" href="/farm-forestry-model/which-tree-where">Which Tree Where?</a>
+      
+      	<ul>
+      	<li><a href="/farm-forestry-model/which-tree-where/which-species">Which Species?</a></li>
+      	<li><a href="/farm-forestry-model/which-tree-where/know-your-land">Know Your Land</a></li>
+      	<li><a href="/farm-forestry-model/which-tree-where/what-type-of-farm">What type of farm?</a></li>
+      	</ul></li>
+      
+      <li><a class="qmparent" href="/farm-forestry-model/the-basics">The Basics</a>
+      
+      	<ul>
+      	<li><a href="/farm-forestry-model/the-basics/establishment">Establishment</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/legal-and-insurance">Legal and Insurance</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/site-preparation-and-planting">Site Preparation and Planting</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/silviculture">Silviculture</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/weeds">Weeds</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/pests-and-diseases">Pests and Diseases</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/wind-and-fire-risk">Wind and Fire Risk</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/harvesting">Harvesting</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/marketing">Marketing</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/replanting">Replanting</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/health-and-safety">Health and Safety</a></li>
+      	<li><a href="/farm-forestry-model/the-basics/training">Training</a></li>
+      	</ul></li>
+      
+      <li><a class="qmparent" href="/farm-forestry-model/resource-centre">Resource Centre</a>
+      
+      	<ul>
+      	<li><a href="/farm-forestry-model/resource-centre/technical-articles">Technical Articles</a></li>
+      	<li><a href="http://www.nzffa.org.nz/index.cfm?id=2">Forestry Organisations</a></li>
+      	<li><a class="qmparent" href="/farm-forestry-model/resource-centre/case-studies">Case Studies</a>
+      
+      		<ul>
+      		<li><a href="/farm-forestry-model/resource-centre/case-studies/prebbles">Prebbles</a></li>
+      		</ul></li>
+      
+      	<li><a href="/farm-forestry-model/resource-centre/decision-support-software">Decision Support Software</a></li>
+      	<li><a href="/farm-forestry-model/resource-centre/codes-of-practice">Codes of Practice</a></li>
+      	<li><a href="http://www.nzffa.org.nz/index.cfm?id=13">Other Sources of Info</a></li>
+      	</ul></li>
+      
+      <li class="qmclear">&nbsp;</li>
+      </ul>
+          <r:content part="adverts" inherit="true"/>
+          <r:content_for_layout/>
+       </r:inside_layout>
+    - 2009-06-24 05:30:15
+    - 2009-07-01 05:52:55
+    - "1"
+    - "1"
+    - ""
+    - "28"
+  - - "12"
+    - ffm_basic
+    - |-
+      <r:inside_layout name="ffm">
+      
+          <h2>&nbsp;<r:title/></h2>
+          <r:content_for_layout/>
+      
+      </r:inside_layout>
+    - 2009-06-29 05:11:51
+    - 2009-07-01 05:39:21
+    - "1"
+    - "1"
+    - ""
+    - "12"
+  - - "14"
+    - ffm_case_study
+    - |-
+      <r:inside_layout name="ffm">
+      
+          <h2>&nbsp;Case Study: <r:title/></h2>
+          <r:content_for_layout/>
+      
+      </r:inside_layout>
+    - 2009-07-01 05:40:07
+    - 2009-07-01 05:40:07
+    - "1"
+    - 
+    - ""
+    - "0"
+  - - "15"
+    - javascript
+    - <r:content />
+    - 2009-07-01 09:50:07
+    - 2009-07-01 09:50:07
+    - "1"
+    - 
+    - text/javascript
+    - "0"
+  - - "16"
+    - case_study_xml
+    - |-
+      <TitleBanner colour="0xFF6600" alpha="1" frameRate="50" showDuration="9" fadeDuration="2" timeMultiplier="600">
+          <TextElement text="<r:parent:title /> " font="ItcKabBol" size="64" colour="0x003300" x="20" y="135" scale="none" blurX="9" blurY="9" alpha="1"/>
+          <TextElement text="<r:parent:title /> " font="ItcKabBol" size="64" colour="0xFFFFFF" x="20" y="135" scale="none"/>
+      
+          <StaticImageElement url="/images/design/tl_cnr.png"  width="7" height="8" x="0" y="0" alpha="1"/>
+          <StaticImageElement url="/images/design/tr_cnr.png"  width="7" height="8" x="893" y="0" alpha="1"/>
+          <StaticImageElement url="/images/design/shade_round_tl_gb.png"  width="275" height="100" x="625" y="120" alpha="0.60"/>
+          
+          <StaticImageElement url="/images/design/logo3_01.gif" scale="none" x="625" y="208"/>
+      	
+          <TextElement text="Farm Forestry Model " font="ItcKabDem" size="25" colour="0x003300" x="630" y="123" scale="fit" blurX="7" blurY="7" alpha="1"/>
+          <TextElement text="Farm Forestry Model " font="ItcKabDem" size="25" colour="0xFFFFFF" x="630" y="123" scale="fit"/>
+          <TextElement text="Case Study " font="ItcKabDem" size="25" colour="0x003300" x="640" y="147" scale="fit" blurX="7" blurY="7" alpha="1"/>
+          <TextElement text="Case Study " font="ItcKabDem" size="25" colour="0xFFFFFF" x="640" y="147" scale="fit"/>
+      
+          <r:assets:each>
+              <ImageElement url="<r:url/>" scale="crop" background="0x333333" alpha="1"/>
+          </r:assets:each>
+      </TitleBanner>
+    - 2009-07-01 10:50:28
+    - 2009-07-01 10:50:28
+    - "1"
+    - 
+    - ""
+    - "0"
+
+--- 
+page_attachments: 
+  columns: 
+  - id
+  - asset_id
+  - page_id
+  - position
+  records: 
+  - - "1"
+    - "11"
+    - "4"
+    - "1"
+  - - "2"
+    - "16"
+    - "4"
+    - "2"
+  - - "3"
+    - "13"
+    - "4"
+    - "3"
+  - - "4"
+    - "15"
+    - "4"
+    - "4"
+  - - "5"
+    - "12"
+    - "4"
+    - "5"
+  - - "6"
+    - "17"
+    - "4"
+    - "6"
+  - - "7"
+    - "21"
+    - "59"
+    - "1"
+  - - "8"
+    - "18"
+    - "59"
+    - "2"
+  - - "9"
+    - "24"
+    - "59"
+    - "3"
+  - - "10"
+    - "19"
+    - "59"
+    - "4"
+  - - "11"
+    - "20"
+    - "59"
+    - "5"
+  - - "12"
+    - "23"
+    - "59"
+    - "6"
+  - - "13"
+    - "22"
+    - "59"
+    - "7"
+
+--- 
+page_parts: 
+  columns: 
+  - id
+  - name
+  - filter_id
+  - content
+  - page_id
+  records: 
+  - - "1"
+    - body
+    - ""
+    - |-
+      <td valign="top" width="721">
+      <table cellpadding="0" cellspacing="0" border="0">
+      <tr><td valign="top">
+      	<img src="/images/design/welcome.gif" width="150" height="38" alt="Welcome" align="left">
+      		
+      		<!-- Google CSE Search Box Begins -->
+              <form action="http://www.google.com/cse" id="searchbox_004801257071898501026:endqjowixi4"> <input name="cx" value="004801257071898501026:endqjowixi4" type="hidden"> <input name="q" size="25" type="text"> <input name="sa" value="Search" type="submit"> </form>
+      
+              <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_004801257071898501026%3Aendqjowixi4&amp;lang=en"></script>
+             <!-- Google CSE Search Box Ends -->
+      		
+      		<br><br>
+      <b>Sharing our knowledge of growing trees and their vital contribution to sustainable, profitable land 
+      management</b>
+      <style type="text/css">@import url(http://www.google.com/cse/api/branding.css);</style>
+      		<br><br>
+                NZFFA was formed in 1957. Membership is spread over <a 
+      href="http://www.nzffa.org.nz/index.cfm?id=3">29 Branches</a> 
+      throughout NZ, and there are <a class="tc" href="http://www.nzffa.org.nz/special.cfm">5 special interest groups</a>. We estimate our members own or manage up to 100,000Ha of forest, and influence the management of a similar area. These forests consist of radiata pine, <a href="index.cfm?id=19">cypresses</a>, <a href="index.cfm?id=20">eucalypts</a>, Douglas fir, <a href="index.cfm?id=18">blackwoods</a>, poplars, other hardwoods, <a href="index.cfm?id=21">sequoia</a> and 
+      <a href="index.cfm?id=17">NZ indigenous species</a>.<br><br><br>
+      			<div align="center">
+               	<h3>Farm Forestry Model</h3>
+      			<p><strong><em>Trees for all reasons... or, everything you ever needed to know about growing trees but never knew where to find the information!<br><a href="ffm.cfm">Enter</a></em></strong></p>
+      			</div><br><br>
+      
+                <table border="0" cellpadding="2" cellspacing="2">
+                <tr> 
+                  <td><b>National Office</b> -<br>
+                	 POBox 1122, Wgtn, N.Z.
+                	</td>
+                	<td> </td>
+                  <td valign="top"><b>National President:</b><br>
+                	 Patrick Milne
+                	</td></tr> 
+                	<tr>
+                	  <td>
+                      <nobr><script type='text/javascript'>document.write("R-znvy: <n uers='znvygb:amssn@pyrne.arg.am'>amssn@pyrne.arg.am</n>".replace(/[a-zA-Z]/g, function(c){return String.fromCharCode((c<='Z'?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));
+                      </script></nobr><br>
+                 			<nobr>Ph: +64 4 472 0432</nobr>
+                	  </td>
+                	  <td> </td>
+                	  <td valign="top"><script type='text/javascript'>document.write("R-znvy: <n uers='znvygb:cngevpx@plcerff.pb.am'>cngevpx@plcerff.pb.am</n>".replace(/[a-zA-Z]/g, function(c){return String.fromCharCode((c<='Z'?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));
+                    </script></p></td>
+                </tr>
+                </table>
+              </td>
+              <td width="259" valign="top" background="/images/design/eucalypt_forest_bg.jpg" bgcolor="#006600" class="y0">
+      <img src="/images/design/logo3_03.gif">
+      <br>
+      <span class="whitey">
+              <h2 class="style1">&nbsp; &nbsp; Farm Forestry<br>&nbsp; &nbsp; - Headlines</h2>
+              <ul>
+      <li><a href="http://www.landvision.co.nz/articles/poplar.pdf" target=_blank>Poplar and Willow Breeding and Selection to Recommence</a><br>- January 2009<br><br>
+      <li><a href="pdf/2008_Post-election_brief-V5_251108.pdf" target=_blank>Combined Forestry Organisations deliver industry briefing document to new National Government</a><br>- November 2008<br><br>
+      <li><a href="pdf/IllegalLoggingStatement0808.pdf" target=_blank>Eliminating illegal forest products in New Zealand</a><br>- August 2008<br><br>
+      <li><a href="index.cfm?id=28">Imports from illegally-logged forests must stop</a><br>- August 2008<br><br>
+      <li>New Eucalypt Handbook in Best Practice With Farm Forestry Timber 
+      Species series <a href="http://www.scionresearch.com/other+publications.aspx?PageContentID=1237#eucalypts" 
+      target=_blank>now available on line</a><br><br>
+      <li><a href="http://www.nzffa.org.nz/pdf/Water_Partnership.pdf" target ="_blank">Forest growers unite with 
+      other primary 
+      sectors to commit to water quality targets</a><br><br>
+      
+      <li><i><a href="index.cfm?id=29">Article Archive</a></i><br><br>
+            </ul>
+      </span></td></tr></table>
+    - "1"
+  - - "2"
+    - extended
+    - ""
+    - ""
+    - "1"
+  - - "3"
+    - body
+    - ""
+    - |
+      /* @override http://localhost:4000/style.css */
+      
+      html body td * {
+      	text-align: left;
+      }
+      body { background-color: #600;	background-image: url(/images/design/bg2.jpg);  background-attachment: fixed;}
+      body,p,td  { font-size: 11pt; font-family: Arial, Geneva, Verdana; color:#353535;}
+      
+      hr  { color: #393; border: 0; height: 1px; background-color:#393; margin-top: 12px; margin-bottom: 12px; }
+      .copy  { color: #BBB; font-size: 8pt }
+      .style1 {color: #FFF; font-weight:normal;}
+      .whitey li { color: #FFF; }
+      .whitey li a { color: #FFF; }
+      .whitey li a:visited { color: #FFF; }
+      .phead, .phead2, .phead3  {
+      	font-size:11pt;
+      	font-weight : bold;
+      }
+      .phead  { color: #C00; }
+      .phead2 { color: #909; }
+      .phead3 { color: #099; }
+      
+      .large { font-size: 17pt;
+      	line-height: 35pt;
+      }
+      .midlogo { display: block }
+      .centre { text-align: center; }
+      .right { margin-right:25px }
+      img.bdr {
+          border: 1px solid #464;
+          padding: 5px;
+      }
+      .bold_red { color: #E00; font-weight: bold}
+      
+      td.y0 {padding: 0px 8px}
+      
+      h1  { font-family: georgia, times, "Times New Roman"; font-size:40px; color: #600; margin-top: 0px; margin-bottom : 1px; font-weight:bold;}
+      h2  { color: #060; margin-top: 4px; margin-bottom : 2px;
+      	font: italic bold 28px georgia, times, "Times New Roman";
+      }
+      h3  { font-family: georgia, times, "Times New Roman"; font-size:18px; background-color: #fff3cc; margin-right: 1px; margin-left: 0px; padding: 3px 8px;/* border-top: 1px solid rgb(104,0,0)*/;
+      	color: #600; font-style:italic}
+      h4,h5,h6 { font-family: georgia, times, "Times New Roman"; background-color: #fff3cc; margin-right: 1px; margin-left: 0px; padding: 3px 8px; color: #600; font-style:italic;
+      }
+      
+      a:link { color:#060 }
+      a:visited { color:#060 }
+      a:hover { color:#0F0 }
+      a:active { color:#F00 } 
+      
+      #sn { 
+      	width:178px;
+      	/*background-image:url(/images/design/yellow_grad.jpg);*/
+      /*	background-color:#fff3cc; 
+      	border: 1px solid #663300;*/
+      	cursor: pointer;
+      }
+      .snv {
+      	/*border-top: 1px solid #ffffff;
+      	border-bottom: 6px solid #ffffff;*/
+      }
+      .snv a {
+      	font-size: 10pt;
+      	line-height: 15px;
+      	text-decoration:none;
+      	width:178px;
+      	display:block; 
+      	box-sizing:border-box; 
+      }
+      .snA .snv a { padding: 3px 8px 3px 5px; }
+      .snB .snv a { padding: 3px 8px 3px 15px; }
+      
+      /* IE box model workaround */
+      html>body .snA .snv a { box-sizing:content-box; width:162px; }
+      html>body .snB .snv a { box-sizing:content-box; width:160px; }
+      .snOpen .snv { background-color: #ffffcc; }
+      .currentsn .snv { background-color: #ffe479; }
+      .currentsn a, .snOpen, .snOpen a, .snOpen a:hover, .snOpen a:visited { font-weight:normal; }
+      .snv a, .snv a:hover, .snv a:visited { color:#600; text-decoration:none; }
+      .snv a:hover { background-color:white; }
+      ul {  color: #060; position:relative; list-style-image:url(/images/design/white-tree.gif) }
+      
+      .tc a:link { color: #600; }
+      .tc a:visited { color: #600; }
+      .tc a:hover { color: #F00; }
+      .tc a:acteiv { color: #F00; }
+      
+      #banner_swf_holder {
+      	height: 220px;
+      }
+      
+      
+      .snv ul li {
+      	background-image:url(/images/design/yellow_grad.jpg);
+      	border-bottom: 4px solid #fff;
+      	border-top: 3px solid #fff;
+      }
+      .snv ul {
+      	list-style-type: none;
+      	list-style-image: none;
+      	width: 150px;
+      	overflow: hidden;
+      	position: static;
+      	margin-left: 8px;
+      	padding-left: 0;
+      	margin-top: 10px;
+      	padding-top: 0;
+      }
+      
+      .left_nav_column {
+      	background: url(/images/design/left_edge_bg.gif) repeat-y scroll -19px;
+      }
+      .logo_bottom img {
+      	position: relative;
+      	left: 542px;
+      }
+      .logo_bottom_ffm img {
+      	position: relative;
+      	left: 720px;
+      }
+      
+
+    - "2"
+  - - "5"
+    - body
+    - ""
+    - |
+      /*!!!!!!!!!!! QuickMenu Core CSS [Do Not Modify!] !!!!!!!!!!!!!*/
+      .qmmc .qmdivider{display:block;font-size:1px;border-width:0px;border-style:solid;position:relative;z-index:1;}.qmmc .qmdividery{float:left;width:0px;}.qmmc .qmtitle{display:block;cursor:default;white-space:nowrap;position:relative;z-index:1;}.qmclear {font-size:1px;height:0px;width:0px;clear:left;line-height:0px;display:block;float:none !important;}.qmmc {position:relative;zoom:1;z-index:10;}.qmmc a, .qmmc li {float:left;display:block;white-space:nowrap;position:relative;z-index:1;}.qmmc div a, .qmmc ul a, .qmmc ul li {float:none;}.qmsh div a {float:left;}.qmmc div{visibility:hidden;position:absolute;}.qmmc .qmcbox{cursor:default;display:inline-block;position:relative;z-index:1;}.qmmc .qmcbox a{display:inline;}.qmmc .qmcbox div{float:none;position:static;visibility:inherit;left:auto;}.qmmc li {z-index:auto;}.qmmc ul {left:-10000px;position:absolute;z-index:10;}.qmmc, .qmmc ul {list-style:none;padding:0px;margin:0px;}.qmmc li a {float:none;}.qmmc li:hover>ul{left:auto;}#qm0 ul {top:100%;}#qm0 ul li:hover>ul{top:0px;left:100%;}
+      
+      
+      /*!!!!!!!!!!! QuickMenu Styles [Please Modify!] !!!!!!!!!!!*/
+      
+      
+      	/* QuickMenu 0 */
+      
+      	/*"""""""" (MAIN) Container""""""""*/	
+      	#qm0	
+      	{	
+      		width:auto;
+      		background-color:transparent;
+      	}
+      
+      
+      	/*"""""""" (MAIN) Items""""""""*/	
+      	#qm0 a	
+      	{	
+      		padding:6px 17px 6px 8px;
+      		margin:0px -1px 0px 0px;
+      		background-color:#BEEEAA;
+      		color:#001100;
+      		font-family:Arial;
+      		font-size:14px;
+      		text-decoration:none;
+      		text-align:left;
+      		border-width:2px;
+      		border-style:solid;
+      		border-color:#FFFFFF;
+      	}
+      
+      
+      	/*"""""""" (MAIN) Hover State""""""""*/	
+      	#qm0 a:hover	
+      	{	
+      		background-color:#DDFFCC;
+      		text-decoration:none;
+      	}
+      
+      
+      	/*"""""""" (MAIN) Hover State - (duplicated for pure CSS)""""""""*/	
+      	#qm0 li:hover>a	
+      	{	
+      		background-color:#DDFFCC;
+      		text-decoration:none;
+      	}
+      
+      
+      	/*"""""""" (MAIN) Parent Hover State""""""""*/	
+      	#qm0 .qmparent:hover	
+      	{	
+      		background-color:#DDFFCC;
+      	}
+      
+      
+      	/*"""""""" (MAIN) Active State""""""""*/	
+      	body #qm0 .qmactive, body #qm0 .qmactive:hover	
+      	{	
+      		background-color:#DDFFCC;
+      		text-decoration:none;
+      	}
+      
+      
+      	/*"""""""" (SUB) Container""""""""*/	
+      	#qm0 div, #qm0 ul	
+      	{	
+      		padding:5px;
+      		margin:-1px 0px 0px 0px;
+      		background-color:#DDFFCC;
+      		border-width:1px;
+      		border-style:solid;
+      		border-color:#FFFFFF;
+      	}
+      
+      
+      	/*"""""""" (SUB) Items""""""""*/	
+      	#qm0 div a, #qm0 ul a	
+      	{	
+      		padding:2px 22px 2px 5px;
+      		background-color:transparent;
+      		color:#113311;
+      		border-width:0px;
+      		border-color:#FFFFFF;
+      	}
+      
+      
+      	/*"""""""" (SUB) Hover State""""""""*/	
+      	#qm0 div a:hover	
+      	{	
+      		background-color:#FFFFFF;
+      		color:#000000;
+      		text-decoration:none;
+      	}
+      
+      
+      	/*"""""""" (SUB) Hover State - (duplicated for pure CSS)""""""""*/	
+      	#qm0 ul li:hover>a	
+      	{	
+      		background-color:#FFFFFF;
+      		color:#000000;
+      		text-decoration:none;
+      	}
+      
+      
+      	/*"""""""" (SUB) Parent Hover State""""""""*/	
+      	#qm0 div .qmparent:hover	
+      	{	
+      		background-color:transparent;
+      	}
+      
+      
+      	/*"""""""" (SUB) Active State""""""""*/	
+      	body #qm0 div .qmactive, body #qm0 div .qmactive:hover	
+      	{	
+      		background-color:#FFFFFF;
+      		color:#004400;
+      		text-decoration:none;
+      	}
+      
+      
+      	/*"""""""" Individual Titles""""""""*/	
+      	#qm0 .qmtitle	
+      	{	
+      		cursor:default;
+      		padding:3px 0px 3px 4px;
+      		color:#444444;
+      		font-family:arial;
+      		font-size:11px;
+      		font-weight:bold;
+      	}
+      
+      
+      	/*"""""""" Individual Horizontal Dividers""""""""*/	
+      	#qm0 .qmdividerx	
+      	{	
+      		border-top-width:1px;
+      		margin:4px 0px 4px 0px;
+      		border-color:#BFBFBF;
+      	}
+      
+      
+      	/*"""""""" Individual Vertical Dividers""""""""*/	
+      	#qm0 .qmdividery	
+      	{	
+      		border-left-width:1px;
+      		height:15px;
+      		margin:4px 2px 0px 2px;
+      		border-color:#BFBFBF;
+      	}
+      
+      
+      	/*"""""""" (main) Rounded Items""""""""*/	
+      	#qm0 .qmritem span	
+      	{	
+      		border-color:#666666;
+      		background-color:#EEEEEE;
+      	}
+      
+      
+      	/*"""""""" (main) Rounded Items Content""""""""*/	
+      	#qm0 .qmritemcontent	
+      	{	
+      		padding:0px 0px 0px 4px;
+      	}
+      
+      
+      	/*"""""""" (sub) Rounded Items""""""""*/	
+      	#qm0 div .qmritem span	
+      	{	
+      		border-color:#666666;
+      		background-color:#EEEEEE;
+      	}
+      
+      
+      	/*"""""""" (sub) Rounded Items Content""""""""*/	
+      	#qm0 div .qmritemcontent	
+      	{	
+      		padding:0px 0px 0px 4px;
+      	}
+      
+      
+      	/* [Dividers] */
+      	.dvs {border-width:1px; border-style:solid; border-color:#363; padding-bottom:4px; margin-bottom:4px; }
+
+    - "3"
+  - - "6"
+    - extended
+    - ""
+    - ""
+    - "3"
+  - - "7"
+    - body
+    - ""
+    - |-
+      <TitleBanner colour="0xFF6600" alpha="1" frameRate="50" showDuration="9" fadeDuration="2" timeMultiplier="600">
+          <TextElement text="Farm Forestry " font="ItcKabBol" size="48" colour="0x003300" x="20" y="110" scale="none" blurX="9" blurY="9" alpha="1"/>
+          <TextElement text="Farm Forestry " font="ItcKabBol" size="48" colour="0xFFFFFF" x="20" y="110" scale="none"/>
+          <TextElement text="New Zealand " font="ItcKabBol" size="48" colour="0x003300" x="20" y="155" scale="none" blurX="9" blurY="9" alpha="1"/>
+          <TextElement text="New Zealand " font="ItcKabBol" size="48" colour="0xFFFFFF" x="20" y="155" scale="none"/>
+      
+          <StaticImageElement url="/images/design/tl_cnr.png"  width="7" height="8" x="0" y="0" alpha="1"/>
+          <StaticImageElement url="/images/design/tr_cnr.png"  width="7" height="8" x="893" y="0" alpha="1"/>
+          <StaticImageElement url="/images/design/shade_round_tl_gb.png"  width="275" height="100" x="625" y="120" alpha="0.60"/>
+          
+          <StaticImageElement url="/images/design/logo3_01.gif" scale="none" x="625" y="208"/>
+      	
+          <TextElement text="A Network of Successful " font="ItcKabDem" size="25" colour="0x003300" x="630" y="123" scale="fit" blurX="7" blurY="7" alpha="1"/>
+          <TextElement text="A Network of Successful " font="ItcKabDem" size="25" colour="0xFFFFFF" x="630" y="123" scale="fit"/>
+          <TextElement text="Tree Growers " font="ItcKabDem" size="25" colour="0x003300" x="630" y="147" scale="fit" blurX="7" blurY="7" alpha="1"/>
+          <TextElement text="Tree Growers " font="ItcKabDem" size="25" colour="0xFFFFFF" x="630" y="147" scale="fit"/>
+      
+          <r:assets:each>
+              <ImageElement url="<r:url/>" scale="crop" background="0x333333" alpha="1"/>
+          </r:assets:each>
+      </TitleBanner>
+    - "4"
+  - - "8"
+    - extended
+    - ""
+    - ""
+    - "4"
+  - - "9"
+    - body
+    - ""
+    - |-
+      /**
+       * SWFObject v1.5: Flash Player detection and embed - http://blog.deconcept.com/swfobject/
+       *
+       * SWFObject is (c) 2007 Geoff Stearns and is released under the MIT License:
+       * http://www.opensource.org/licenses/mit-license.php
+       *
+       */
+      if(typeof deconcept=="undefined"){var deconcept=new Object();}if(typeof deconcept.util=="undefined"){deconcept.util=new Object();}if(typeof deconcept.SWFObjectUtil=="undefined"){deconcept.SWFObjectUtil=new Object();}deconcept.SWFObject=function(_1,id,w,h,_5,c,_7,_8,_9,_a){if(!document.getElementById){return;}this.DETECT_KEY=_a?_a:"detectflash";this.skipDetect=deconcept.util.getRequestParameter(this.DETECT_KEY);this.params=new Object();this.variables=new Object();this.attributes=new Array();if(_1){this.setAttribute("swf",_1);}if(id){this.setAttribute("id",id);}if(w){this.setAttribute("width",w);}if(h){this.setAttribute("height",h);}if(_5){this.setAttribute("version",new deconcept.PlayerVersion(_5.toString().split(".")));}this.installedVer=deconcept.SWFObjectUtil.getPlayerVersion();if(!window.opera&&document.all&&this.installedVer.major>7){deconcept.SWFObject.doPrepUnload=true;}if(c){this.addParam("bgcolor",c);}var q=_7?_7:"high";this.addParam("quality",q);this.setAttribute("useExpressInstall",false);this.setAttribute("doExpressInstall",false);var _c=(_8)?_8:window.location;this.setAttribute("xiRedirectUrl",_c);this.setAttribute("redirectUrl","");if(_9){this.setAttribute("redirectUrl",_9);}};deconcept.SWFObject.prototype={useExpressInstall:function(_d){this.xiSWFPath=!_d?"expressinstall.swf":_d;this.setAttribute("useExpressInstall",true);},setAttribute:function(_e,_f){this.attributes[_e]=_f;},getAttribute:function(_10){return this.attributes[_10];},addParam:function(_11,_12){this.params[_11]=_12;},getParams:function(){return this.params;},addVariable:function(_13,_14){this.variables[_13]=_14;},getVariable:function(_15){return this.variables[_15];},getVariables:function(){return this.variables;},getVariablePairs:function(){var _16=new Array();var key;var _18=this.getVariables();for(key in _18){_16[_16.length]=key+"="+_18[key];}return _16;},getSWFHTML:function(){var _19="";if(navigator.plugins&&navigator.mimeTypes&&navigator.mimeTypes.length){if(this.getAttribute("doExpressInstall")){this.addVariable("MMplayerType","PlugIn");this.setAttribute("swf",this.xiSWFPath);}_19="<embed type=\"application/x-shockwave-flash\" src=\""+this.getAttribute("swf")+"\" width=\""+this.getAttribute("width")+"\" height=\""+this.getAttribute("height")+"\" style=\""+this.getAttribute("style")+"\"";_19+=" id=\""+this.getAttribute("id")+"\" name=\""+this.getAttribute("id")+"\" ";var _1a=this.getParams();for(var key in _1a){_19+=[key]+"=\""+_1a[key]+"\" ";}var _1c=this.getVariablePairs().join("&");if(_1c.length>0){_19+="flashvars=\""+_1c+"\"";}_19+="/>";}else{if(this.getAttribute("doExpressInstall")){this.addVariable("MMplayerType","ActiveX");this.setAttribute("swf",this.xiSWFPath);}_19="<object id=\""+this.getAttribute("id")+"\" classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" width=\""+this.getAttribute("width")+"\" height=\""+this.getAttribute("height")+"\" style=\""+this.getAttribute("style")+"\">";_19+="<param name=\"movie\" value=\""+this.getAttribute("swf")+"\" />";var _1d=this.getParams();for(var key in _1d){_19+="<param name=\""+key+"\" value=\""+_1d[key]+"\" />";}var _1f=this.getVariablePairs().join("&");if(_1f.length>0){_19+="<param name=\"flashvars\" value=\""+_1f+"\" />";}_19+="</object>";}return _19;},write:function(_20){if(this.getAttribute("useExpressInstall")){var _21=new deconcept.PlayerVersion([6,0,65]);if(this.installedVer.versionIsValid(_21)&&!this.installedVer.versionIsValid(this.getAttribute("version"))){this.setAttribute("doExpressInstall",true);this.addVariable("MMredirectURL",escape(this.getAttribute("xiRedirectUrl")));document.title=document.title.slice(0,47)+" - Flash Player Installation";this.addVariable("MMdoctitle",document.title);}}if(this.skipDetect||this.getAttribute("doExpressInstall")||this.installedVer.versionIsValid(this.getAttribute("version"))){var n=(typeof _20=="string")?document.getElementById(_20):_20;n.innerHTML=this.getSWFHTML();return true;}else{if(this.getAttribute("redirectUrl")!=""){document.location.replace(this.getAttribute("redirectUrl"));}}return false;}};deconcept.SWFObjectUtil.getPlayerVersion=function(){var _23=new deconcept.PlayerVersion([0,0,0]);if(navigator.plugins&&navigator.mimeTypes.length){var x=navigator.plugins["Shockwave Flash"];if(x&&x.description){_23=new deconcept.PlayerVersion(x.description.replace(/([a-zA-Z]|\s)+/,"").replace(/(\s+r|\s+b[0-9]+)/,".").split("."));}}else{if(navigator.userAgent&&navigator.userAgent.indexOf("Windows CE")>=0){var axo=1;var _26=3;while(axo){try{_26++;axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash."+_26);_23=new deconcept.PlayerVersion([_26,0,0]);}catch(e){axo=null;}}}else{try{var axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");}catch(e){try{var axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");_23=new deconcept.PlayerVersion([6,0,21]);axo.AllowScriptAccess="always";}catch(e){if(_23.major==6){return _23;}}try{axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash");}catch(e){}}if(axo!=null){_23=new deconcept.PlayerVersion(axo.GetVariable("$version").split(" ")[1].split(","));}}}return _23;};deconcept.PlayerVersion=function(_29){this.major=_29[0]!=null?parseInt(_29[0]):0;this.minor=_29[1]!=null?parseInt(_29[1]):0;this.rev=_29[2]!=null?parseInt(_29[2]):0;};deconcept.PlayerVersion.prototype.versionIsValid=function(fv){if(this.major<fv.major){return false;}if(this.major>fv.major){return true;}if(this.minor<fv.minor){return false;}if(this.minor>fv.minor){return true;}if(this.rev<fv.rev){return false;}return true;};deconcept.util={getRequestParameter:function(_2b){var q=document.location.search||document.location.hash;if(_2b==null){return q;}if(q){var _2d=q.substring(1).split("&");for(var i=0;i<_2d.length;i++){if(_2d[i].substring(0,_2d[i].indexOf("="))==_2b){return _2d[i].substring((_2d[i].indexOf("=")+1));}}}return "";}};deconcept.SWFObjectUtil.cleanupSWFs=function(){var _2f=document.getElementsByTagName("OBJECT");for(var i=_2f.length-1;i>=0;i--){_2f[i].style.display="none";for(var x in _2f[i]){if(typeof _2f[i][x]=="function"){_2f[i][x]=function(){};}}}};if(deconcept.SWFObject.doPrepUnload){if(!deconcept.unloadSet){deconcept.SWFObjectUtil.prepUnload=function(){__flash_unloadHandler=function(){};__flash_savedUnloadHandler=function(){};window.attachEvent("onunload",deconcept.SWFObjectUtil.cleanupSWFs);};window.attachEvent("onbeforeunload",deconcept.SWFObjectUtil.prepUnload);deconcept.unloadSet=true;}}if(!document.getElementById&&document.all){document.getElementById=function(id){return document.all[id];};}var getQueryParamValue=deconcept.util.getRequestParameter;var FlashObject=deconcept.SWFObject;var SWFObject=deconcept.SWFObject;
+    - "5"
+  - - "11"
+    - body
+    - ""
+    - |-
+      <h2>Forestry Organisations</h2>
+      
+      <table cellpadding="0" cellspacing="0" border="0">
+      <tr><td class="y0">
+      
+      <table class="orgs_table" border="0" cellpadding="4" cellspacing="2">
+      <tr height="58"> 
+      <td class="centre">
+       <a href="http://www.nzfoa.org.nz"><img height="59" width="70" 
+      SRC="/images/design/nzfoa_logo.gif" border="0" 
+      align="middle"></a></center></td>
+      <td height="58"><a href="http://www.nzfoa.org.nz">New Zealand 
+      Forest Owners Association</a><br> Representing the owners of 1.7M ha of 
+      pine production forests.</td>
+      </tr>
+      <tr height="58"> 
+      <td class="centre">
+       <a href="http://www.insights.co.nz"><img height="37" width="37" 
+      SRC="/images/design/fi-logo.gif" border="0"></a></center></td>
+      <td height="58"><a href="http://www.insights.co.nz">Forestry 
+      Insights</a><br> 
+      A learning resource for students and forestry industry 
+      trainees.</td>
+      </tr>
+      <tr> 
+      <td class="centre">
+      <a HREF="http://www.wenita.co.nz"><img 
+      SRC="/images/design/wenita-tiny-logo.gif" WIDTH="88" HEIGHT="70" 
+      BORDER="0"></a></td>
+      <td><a HREF="http://www.wenita.co.nz">Wenita Forest Products 
+      Limited</a><br>
+      Sourced from its own sustainably managed plantation 
+      forests,<br> <b>Wenita</b> 
+      supplies high quality log and lumber products to markets<br>
+      throughout New Zealand, Australia, Asia and the United States.</td>
+      </tr>
+      <tr> 
+      <td class="centre">
+      <a HREF="http://www.nationaltrust.org.nz"><img 
+      SRC="/images/design/QE2logo.gif" WIDTH="62" HEIGHT="62" 
+      BORDER="0"></a></td>
+      <td><a HREF="http://www.nationaltrust.org.nz">The QEII National 
+      Trust</a><br>
+      Works with a wide range of people and organisations throughout NZ,<br>
+      from landowners through to representatives of local and central government<br> 
+      <i>"to encourage and promote the provision, protection and enhancement 
+      of open space for the benefit and enjoyment of the people of New Zealand". 
+      </i></td>
+      </tr>
+      <tr> 
+      <td class="centre">
+       <a href="http://www.maf.govt.nz/Forestry"><img height="66" 
+      width="88" SRC="/images/design/logo2.gif" border="0"></a></center></td>
+      <td><a href="http://www.maf.govt.nz/Forestry">Ministry of 
+      Agriculture and 
+      Forestry</a><br>
+      The official website for the Ministry responsible for the forest 
+      industry in New Zealand. Includes Forest Management, Statistics, 
+      Biosecurity, East Coast Forestry Project and Sustainable Farming 
+      Fund.</td>
+      </tr>
+      <tr> 
+      <td class="centre">
+       <a href="http://www.forestry.org.nz/"><img height="66" width="65" 
+      SRC="/images/design/seal3.gif" border="0"></a></center></td>
+      <td><a href="http://www.forestry.org.nz/">Institute of 
+      Forestry</a><br>
+      The NZ Institute of Forestry is the professional association of 
+      qualified foresters and forestry consultants in NZ. It administers a 
+      registration system and ongoing training for its members.</td>
+      </tr>
+      <tr> 
+      <td class="centre">
+       <a href="http://www.fore.canterbury.ac.nz"><img height="66" 
+      width="64" SRC="/images/design/forlogo.gif" border="0"></a></center></td>
+      <td><a href="http://www.fore.canterbury.ac.nz">The New Zealand 
+      School of 
+      Forestry</a><br>
+      University of Canterbury. The only university department in
+      New Zealand offering professional forestry degrees.</td>
+      </tr>
+      <tr>
+      <td class="centre">
+      <a href="http://www.nzwood.co.nz"><img SRC="/images/design/NZ_Wood_logo.gif" 
+      width="78" height="84" border="0"></a>
+      </td>
+      <td><a href="http://www.nzwood.co.nz">NZ Wood</a><br>
+      A campaign funded by the forestry industry and the government to 
+      provide the knowledge and resources to promote the use of NZ wood and 
+      achieve beneficial environmental outcomes including fighting climate 
+      change.</td>
+      </tr>
+      <tr> 
+      <td><a href="http://www.woodnet.co.nz">
+      <img SRC="/images/design/woodnet-logo.gif" WIDTH="112" HEIGHT="23" BORDER="0"></a></td>
+      <td><a href="http://www.woodnet.co.nz">WoodNet</a><br>
+      A Marketing and Service facilitation company for anyone
+      who can give or gain value within the forest and timber 
+      industry.</td>
+      </tr>
+      <tr>
+      <td class="centre">
+      <a href="http://www.tanestrees.org.nz"><img height="70" 
+      width="58" SRC="/images/design/ttt-logo.gif" border="0"></a>
+      </td>
+      <td><a href="http://www.tanestrees.org.nz">Tane's Tree 
+      Trust</a><br>
+      To see the majority of New Zealand landowners successfully 
+      planting and sustainably managing indigenous trees for multiple 
+      uses by 2020.</td>
+      </tr>
+      <tr>
+      <td class="centre">
+      <a href="http://www.fitec.org.nz"><img SRC="/images/design/fitec.gif"  
+      width="110" height="53" border="0"></a>
+      </td>
+      <td><a href="http://www.fitec.org.nz">FITEC</a><br>
+      The forestry industry provider of career training in New Zealand.</td>
+      </tr>
+      <tr>
+      <td class="centre"><a href="http://www.scionresearch.com"><img 
+      SRC="/images/design/scion_logo.gif" alt="" width="112" height="25" 
+      border="0"></a></td>
+      <td><a href="http://www.scionresearch.com">Scion</a><br>
+      Scion is the trading name of the New Zealand Forest Research 
+      Institute, and represents the institute's legacy of expertise in 
+      forestry and biomaterials science.  Scion offers wide ranging 
+      technical and scientific capability for producing materials or 
+      creating products using renewable plant resources.</td>
+      </tr>
+      </table><br><br>
+      </td></tr>
+      
+      <tr><td class="y0">
+      <a name="Other Relevent Organisations"></a> 
+      
+      <h3>Other Relevent Organisations</h3>
+      
+      
+      <table border="0" cellpadding="2" cellspacing="2" width="85%">
+      <tr>
+      <td>National Institute of Water and Atmospheric Research Ltd 
+      (NIWA)</td>
+      <td valign="top"><a 
+      href="http://www.niwa.cri.nz">www.niwa.cri.nz</a></td>
+      </tr>
+      <tr>
+      <td>New Zealand Tree Crops Association</td>
+      <td><a 
+      href="http://www.nzero.co.nz/treecrop">www.nzero.co.nz/treecrop</
+      a></td>
+      </tr>
+      <tr>
+      <td>Provider of practical training courses in forestry.</td>
+      <td><a href="http://www.telford.ac.nz">www.telford.ac.nz</a></td>
+      </tr>
+      <tr>
+      <td>Provider of practical training courses in forestry.</td>
+      <td><a href="http://www.wairariki.ac.nz">www.wairariki.ac.nz</a></td>
+      </tr>
+      </table><br><br>
+      </td></tr>
+      </table>
+      </td>
+    - "6"
+  - - "12"
+    - extended
+    - ""
+    - ""
+    - "6"
+  - - "13"
+    - body
+    - ""
+    - |-
+      <form name="CFForm_1" action="member.cfm" method="POST" onsubmit="return _CF_checkCFForm_1(this)">
+      <blockquote>
+      <h2>NZFFA Membership</h2>
+      <br>
+      <table border="0" cellpadding="5" cellspacing="2" bgcolor="#009900">
+      	<tr>
+      		<td colspan="2" bgcolor="#009900"><font color="white" ><b>Become a Member - and get NZ Tree Grower magazine!</b></font></td>
+      	</tr>
+      	<tr>
+      		<td bgcolor="white" colspan="2">
+      			<div align="left">
+      				<font size="2" >Membership depends on your forest area:<br>
+      				</font>
+      				<table border="0" cellpadding="3" cellspacing="1">
+      					<tr>
+      						<td><img height="2" width="15" SRC="/images/design/spacer.gif"></td>
+      						<td><input type="radio" value="0-10Ha=$75" name="membership"></td>
+      						<td>
+      							<div align="right">
+      								<font size="2">0-10</font></div>
+      						</td>
+      						<td><font size="2">hectares of planted trees</font></td>
+      						<td><font size="2">NZ $75 (incl GST)</font></td>
+      					</tr>
+      					<tr>
+      						<td></td>
+      						<td><input type="radio" value="10-40Ha=$120" name="membership"></td>
+      						<td><font size="2">10-40</font></td>
+      						<td><font size="2">hectares of planted trees</font></td>
+      						<td><font size="2">NZ $120 (incl GST)</font></td>
+      					</tr>
+      					<tr>
+      						<td></td>
+      						<td><input type="radio" value="40+Ha=$180" name="membership"></td>
+      						<td>
+      							<div align="right">
+      								<font size="2">40+</font></div>
+      						</td>
+      						<td><font size="2">hectares of planted trees</font></td>
+      						<td><font size="2">NZ $180 (incl GST)</font></td>
+      					</tr>
+      				</table>
+      			</div>
+      			<p><font size="2">In addition to supporting this essential part of NZ's infrastructure, you receive:</font></p>
+      			<ul>
+      			  <li><font size="2">an annual subscription to <b>NZ Tree Grower</b></font>
+      			  <li><font size="2">newsletters from your branch, and</font> 
+      			  <li><font size="2">access to field days</font>
+      			</ul>
+      			</td>
+      	</tr>
+      	<tr>
+      		<td colspan="2" bgcolor="white"><font size="2" >Optional <a href="http://www.nzffa.org.nz/index.cfm?id=5#Special Interest Groups">Special Interest Groups:</a><br>
+      			</font>
+      			<table border="0" cellpadding="3" cellspacing="1">
+      				<tr>
+      					<td><img height="2" width="15" SRC="/images/design/spacer.gif"></td>
+      					<td><input type="checkbox" value="Indigenous-Forest-Section=$20" name="SpecialInterest1"></td>
+      					<td><font size="2">Indigenous Forest Section</font></td>
+      					
+       <td><font size="2">NZ $20 (incl GST)</font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="checkbox" value="AMIGO=$15" name="SpecialInterest2"></td>
+      					<td><font size="2">AMIGO</font><font size="1"> (Acacia Melanoxylon Interest Group Org)</font></td>
+      					<td><font size="2">NZ $15 (incl GST)</font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="checkbox" value="Eucalypt_Action_Group=$15" name="SpecialInterest3"></td>
+      					<td><font size="2">Eucalypt Action Group</font></td>
+      					<td><font size="2">NZ $15 (incl GST)</font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="checkbox" value="Cypress-Action-Group=$15" name="SpecialInterest4"></td>
+      					<td><font size="2">Cypress Action Group</font></td>
+      					
+       <td><font size="2">NZ $15 (incl GST)</font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="checkbox" value="Sequoia_Action_Group=$15" name="SpecialInterest5"></td>
+      					<td><font size="2">Sequoia Action Group</font></td>
+      					<td><font size="2">NZ $15 (incl GST)</font></td>
+      				</tr>
+      			</table>
+      		</td>
+      	</tr>
+      	<tr>
+      		<td colspan="2" bgcolor="#009900"><font color="white"><b>or - Just subscribe to NZ Tree Grower (quarterly)</b></font></td>
+      	</tr>
+      	<tr>
+      		<td bgcolor="white" colspan="2">
+      			<table border="0" cellpadding="3" cellspacing="1">
+      				<tr>
+      					<td><img height="2" width="15" SRC="/images/design/spacer.gif"></td>
+      					<td><input type="radio" value="NZ=$45" name="TreeGrower"></td>
+      					<td>
+      						<div align="right">
+      							<font size="2">NZ $45</font></div>
+      					</td>
+      					<td><font size="2">(incl GST) within <b>New Zealand</b></font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="radio" value="Australia=$50" name="TreeGrower"></td>
+      					<td><font size="2">NZ $50</font></td>
+      					<td><font size="2">within <b>Australia</b></font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="radio" value="World=$55" name="TreeGrower"></td>
+      					<td>
+      						<div align="right">
+      							<font size="2">NZ $55</font></div>
+      					</td>
+      					<td><font size="2">for the <b>Rest of the World</b></font></td>
+      				</tr>
+      			</table>
+      		</td>
+      	</tr>
+      	<tr>
+      		<td colspan="2"><font color="white"><b>Your Details</b></font></td>
+      	</tr>
+      	<tr>
+      		<td bgcolor="white">
+      			<div style="text-align:right">
+      				<font size="2" color="#00cc33">*</font><font size="2"> Name: <input type="text" name="Name" size="24"></font>
+      				<p><font size="2">Position: 
+      				  <input type="text" name="Position" size="24"></font></p>
+      				<p><font size="2">Address: </font>
+      				<font size="2"><input type="text" name="Address1" size="24"><br>
+      				</font><font size="2"><input type="text" name="Address2" size="24"><br>
+      				<input type="text" name="Address3" size="24"></font></p>
+      				<p><font size="2">Phone:<input type="text" name="Phone" size="18"></font></p>
+      				<p><font size="2">Fax:<input type="text" name="Fax" size="18"></font></p>
+      				<p><font size="2" color="#00cc33">*</font><font size="2"> E-mail: <input type="text" name="EMail" size="24"><br>
+      				</font><font size="2" color="#00cc33">*</font><font size="2"> </font><font size="1">Required</font></div>
+      		</td>
+      		<td bgcolor="white">
+      			<center>
+      				<font  color="#009900"><b>Network with Successful<br>
+      				Tree Growers!</b></font>
+      				<p><img height="182" width="258" SRC="/images/design/rainbow-blur.jpg">
+      		</center></td>
+      	</tr>
+      	<tr>
+      		<td colspan="2"><font color="white" ><b>Payment</b></font></td>
+      	</tr>
+      	<tr>
+      		<td colspan="2" bgcolor="white">
+      			<table border="0" cellpadding="2" cellspacing="0">
+      				<tr>
+      					<td width="24"><img height="2" width="23" SRC="/images/design/spacer.gif"></td>
+      					<td width="21"><input type="radio" value="Visa" name="PaymentUsing"></td>
+      					<td width="65"><font size="2">Visa</font></td>
+      					<td width="235" rowspan="3">
+      						<center>
+      							<font size="2">Card Number:<br>
+      							</font>
+      							<table border="0" cellpadding="3" cellspacing="1">
+      								<tr>
+      									<td><input type="text" name="CreditCard1" size="4" maxlength="4"></td>
+      									<td><input type="text" name="CreditCard2" size="4" maxlength="4"></td>
+      									<td><input type="text" name="CreditCard3" size="4" maxlength="4"></td>
+      									<td><input type="text" name="CreditCard4" size="4" maxlength="4"></td>
+      								</tr>
+      							</table>
+      						</center>
+      					</td>
+      					<td rowspan="3">
+      						<center>
+      							<font size="2">Expiry:<br>
+      							</font>
+      							<table border="0" cellpadding="2" cellspacing="2">
+      								<tr>
+      									<td><input type="text" name="expirymonth" size="3" maxlength="2">/<input type="text" name="expiryyear" size="3" maxlength="2"></td>
+      								</tr>
+      							</table>
+      						</center>
+      					</td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="radio" value="Mastercard" name="PaymentUsing"></td>
+      					<td><font size="2">Mastercard</font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="radio" value="Bankcard" name="PaymentUsing"></td>
+      					<td><font size="2">Bankcard</font></td>
+      				</tr>
+      				<tr>
+      					<td></td>
+      					<td><input type="radio" value="Cheque" name="PaymentUsing"></td>
+      					<td><font size="2">Cheque</font></td>
+      				  <td><font size="2">Name on card:</font>
+      					 <input type="text" name="nameoncreditcard" size="24"></td>
+      					<td></td>
+      				</tr>
+      			</table>
+      			<br>
+      			<font size="1" >Note: this form is not secured. You may also fax, or print and mail this form.</font>
+      			<p>
+      			<table border="0" cellpadding="2" cellspacing="2">
+      				<tr>
+      					<td><font size="2">Total Payment: </font></td>
+      					<td><font size="2">$ </font><font size="4"><input type="text" name="totalpayment" size="8"></font></td>
+      				</tr>
+      			</table>
+      			<p></p>
+      			<p><font size="2">Signature </font><font size="1">(if mailing or faxing): ______________________________________</font></p>
+      			<p><font size="1">
+      			<table border="0" cellpadding="0" cellspacing="0">
+      				<tr>
+      					<td valign="top"><font size="2">Comments: </font></td>
+      					<td><textarea name="Comments" cols="50" rows="4"></textarea></td>
+      				</tr>
+      			</table>
+      			</font><p></p>
+      			<center>
+      				<p><input type="submit" value="Submit this Form" name="submitButtonName"></p>
+      			</center>
+      			<p>
+      			<table border="0" cellpadding="2" cellspacing="2" width="99%">
+      				<tr>
+      				<td><img height="98" width="97" SRC="/images/design/nzffa-logo2.gif"></td>
+      		      <td>Cheques or Printouts to: <p>NZ Farm Forestry Association<br>
+      			      POBox 1122<br>
+      			      Wellington, New Zealand</td>
+      					<td>
+      					<div align="right"> <font size="2"><nobr>
+      					Phone: (04) 472 0432<br>
+      					Fax: (04) 473 6904</nobr></font></div>
+      					<div align="left">
+      					<p><font size="2"><nobr>Tax Invoice:</nobr></font><font size="2"><nobr><br>
+      					GST No: 13 864 503</nobr></font></div>
+      					</td>
+      				</tr>
+      			</table>
+      			<center>
+      			<p><font size="2">E-Mail: </font><a href="mailto:info@nzffa.org.nz"><font size="2">info@nzffa.org.nz</font></a>
+      		</center></td>
+      	</tr>
+      </table>
+      </font>
+      <p>
+      <table border="0" cellpadding="4" cellspacing="2">
+      <tr>
+        <td bgcolor="#009900"><font color="white"><b>&quot;Adding to pleasure and profit with trees&quot;</b></font></td>
+      </tr>
+      </table>
+      </blockquote>
+      <INPUT TYPE="Hidden" NAME="name_required"  VALUE="Please enter your NAME">
+      <INPUT TYPE="Hidden" NAME="email_required" VALUE="You must enter your E-Mail address.">
+      </form><img src="/images/design/spacer.gif" width="707" height="0">
+      
+      </td>
+    - "7"
+  - - "14"
+    - extended
+    - ""
+    - ""
+    - "7"
+  - - "15"
+    - body
+    - ""
+    - |-
+      <h2>Market Report</h2>
+      
+      <table cellpadding="0" cellspacing="0" border="0">
+      <tr><td class="y0">
+      </div><a name="Industry consolidation, yeah right!"></a> 
+      	
+      <h3>Industry consolidation, yeah right!</h3>
+      <img SRC="/images/design/wee-cone.jpg" ALIGN="RIGHT" border="1"> <P style="background-color:#ffcc00"><i><b> Domestic markets over the last three months have been dominated by what we might term a recessionary phase with mill slow-downs and closures predominating. For log exporters the scene has been somewhat more positive with a seemingly positive gain in market share leading to improved sales prices and better overall returns to growers. </b></i></p>
+      
+      My ring around has uncovered at least three mill closures in the last month but some mills are also expanding, adding new equipment and increasing production. This diverse outcome has never seemed more extreme.<br>
+      Mill closures usually have usually been forced, meaning that people are unexpectedly out of work and a few people are owed a lot of money they will probably never see. At a national level this is significant, at a local level this is very significant and personal. It is certainly time to be very careful out there. The heartless asset strippers would probably term this period as one of 'industry consolidation'.
+      
+      <h3>Export log sales</h3>
+      Since my February report log export prices have bubbled along with moderate increases on a monthly basis. A reasonable range of prices has been reported this month. This will be due to timing of sales and how both Forex and shipping charters are being managed.<br>
+      Shipping costs bottomed out at around US$22 to US$24 a cubic metre for January and February sales but have ballooned back up in recent times to the US$26 to US$30 mark. For the most part charterers have moved to the spot market and as there are plenty of vessels looking for work this allows them some negotiation space. Recent new vessels entering the Handy-class segment are finding few opportunities to scratch their paintwork with the prognosis suggesting a very subdued international demand for the rest of the year. The contrast to this is one report of a vessel not turning up at a New Zealand port for cargo as expected. This is not untypical of spot markets and vessels chasing the best option.
+      
+      <h3>Species substitution</h3>
+      For the first time in a long time we are seeing a very clear species substitution to radiata pine in our key markets of China, Korea and India. All indications are that this growth is sustainable as long as we match the competitor species prices, maintain an aggressive price hold or increase strategy and do not over-supply the markets. This may mean a big change in attitude for some New Zealand suppliers.<br>
+      Meanwhile China is proving to be one of our leading stars with a three dollar a cubic metre increase in sales prices for each of March and April. Volumes into this key market are on the increase and the hunger for our radiata pine looks to be increasing at an appreciable rate.
+      
+      <h3>Domestic log market</h3>
+      A common thread running through the log prices by region is a reduction in pruned log value and demand. One or two exceptions have been uncovered with a few log export orders taking up the supply slack. In general the higher end value pruned logs is not being actively sought in any region. For the most part prices are off by five dollars a tonne.<br>
+      Small branched framing logs, particularly in the larger diameter classes, vary in demand and prices are generally holding firm. I say generally because a couple of regions have reported some downward pressure on these logs. Suppliers have stated that they are not concerned about a reduced demand profile in the higher end unpruned domestic log as there is always plenty of space at the wharf. My hope is that these suppliers do not have short term memories and do not walk away from the much more important domestic market.
+      
+      <h3>Complexity and cost</h3>
+      Timber stress grading and treatment rules continue to add a layer of complexity and cost to growers, particularly in the South Island. The continuing absurdity surrounding stress grading must eventually play out to a level of common sense that has not been a significant component of the policy maker's rule books in recent times. In the meantime forest owners face continuing discounting for so-called low density logs forced on them by this unnecessary policy poltergeist.
+      
+      <h3>Some good news</h3>
+      Some sawmills are changing tack revisiting the lower end log quality options and turning them into various products and commodities which focus on the wood between the knots. In terms of future options this is good news.<br>
+      The changing scene as it effects New Zealand sawmills is clearly about marketing. Those with a sound portfolio of export customers are surviving and in some cases growing their business. This is no mean feat in the current climate.
+      Those with a focus on doing what they always did are getting a pasting.
+      
+      <p><b>Log price table key</b><br>
+      
+      <p><font color="#003300"><b>Understanding the figures 
+      (below)</b></font></p>
+      <ul>
+      <li>Domestic prices are per tonne landed "at mill door".
+      <li>Export prices are per JAS cubic metre landed "at wharf gate".
+      <li>The absence of data reflects insufficient sales.
+      <li>Prices above or below those indicated are entirely possible if 
+      wood quality exceeds or is below the normal market expectation.
+      <li>P1 AND P2 grades are pruned logs with a minimum 40cm 
+      SED and 34cm SED respectively (note <b>SED</b> = 
+      <b>S</b>mall <b>E</b>nd <b>D</b>iameter)											
+      <li>S30 and 
+      S20 grades are small branch logs with a minimum 30cm SED 
+      and 20cm SED respectively
+      <li>L30 grades are large branch logs with a minimum 30cm SED
+      <li>K grade are export logs sold to Korea. KA grade is better 
+      grade log with a minimum 30cm SED. K grade are smaller 
+      standard multi purpose logs and KI is a large branch large 
+      Industrial log.
+      <li>S30 price for Northern South Island relates to N35 grade<br>
+      
+      </ul>
+      <p><b><font size="-1">Radiata Pine Log prices</font></b><br>
+      </p>
+      <table width="100%" border="0" cellpadding="1" cellspacing="1" 
+      bgcolor="white">
+      <tr bgcolor="#ff3333">
+      	<td><b>NZ$ per tonne</b></td>
+      	<td><div align="center"><b>North NI</b></div></td>
+      	<td><div align="center"><b>Central NI</b></div></td>
+      	<td><div align="center"><b>SouthNI</b></div></td>
+      	<td><div align="center"><b>North SI</b></div></td>
+      	<td><div align="center"><b>Central SI</b></div></td>
+      	<td><div align="center"><b>South SI</b></div></td>
+      </tr>
+      <tr bgcolor="#ffe0e0">
+      	<td>P1 (P36-38)</td>
+      	<td><div align="center">115-125</div></td>
+      	<td><div align="center">121-126</div></td>
+      	<td><div align="center">115-120</div></td>
+      	<td><div align="center">113-128</div></td>
+      	<td><div align="center">120-125</div></td>
+      	<td><div align="center">120-125</div></td>
+      </tr>
+      <tr bgcolor="#ffbbbb">
+      	<td>S30</td>
+      	<td><div align="center">83-87</div></td>
+      	<td><div align="center">84-86</div></td>
+      	<td><div align="center">75-85</div></td>
+      	<td><div align="center">88-100</div></td>
+      	<td><div align="center">88-92</div></td>
+      	<td><div align="center">75-85</div></td>
+      </tr>
+      <tr bgcolor="#ffe0e0">
+      	<td>S20</td>
+      	<td><div align="center">73-76</div></td>
+      	<td><div align="center">64-66</div></td>
+      	<td><div align="center">68-72</div></td>
+      	<td><div align="center">84-88</div></td>
+      	<td><div align="center">72-77</div></td>
+      	<td><div align="center">60-65</div></td>
+      </tr>
+      <tr bgcolor="#ffbbbb">
+      	<td>L30/A30</td>
+      	<td><div align="center">-</div></td>
+      	<td><div align="center">59-61</div></td>
+      	<td><div align="center">-</div></td>
+      	<td><div align="center">-</div></td>
+      	<td><div align="center">64-69</div></td>
+      	<td><div align="center">65-70</div></td>
+      </tr>
+      <tr bgcolor="#ffe0e0">
+      	<td>Postwood</td>
+      	<td><div align="center">70-75</div></td>
+      	<td><div align="center">62-67</div></td>
+      	<td><div align="center">65-75</div></td>
+      	<td><div align="center">65-80</div></td>
+      	<td><div align="center">80-95</div></td>
+      	<td><div align="center">65-70</div></td>
+      </tr>
+      <tr bgcolor="#ffbbbb">
+      	<td>Chip</td>
+      	<td><div align="center">35-37</div></td>
+      	<td><div align="center">37-45</div></td>
+      	<td><div align="center">30-33</div></td>
+      	<td><div align="center">38-40</div></td>
+      	<td><div align="center">38-40</div></td>
+      	<td><div align="center">32-35</div></td>
+      </tr>
+      <tr bgcolor="#ff3333">
+      	<td><b>NZ$ per JAS</b></td>
+      	<td> </td>
+      	<td> </td>
+      	<td> </td>
+      	<td> </td>
+      	<td> </td>
+      	<td> </td>
+      </tr>
+      <tr bgcolor="#ffe0e0">
+      	<td>KA</td>
+      	<td><div align="center">85-87</div></td>
+      	<td><div align="center">87-89</div></td>
+      	<td><div align="center">78-80</div></td>
+      	<td><div align="center">82-84</div></td>
+      	<td><div align="center">74-78</div></td>
+      	<td><div align="center">78-80</div></td>
+      </tr>
+      <tr bgcolor="#ffbbbb">
+      	<td>K</td>
+      	<td><div align="center">79-81</div></td>
+      	<td><div align="center">80-82</div></td>
+      	<td><div align="center">66-68</div></td>
+      	<td><div align="center">70-74</div></td>
+      	<td><div align="center">67-69</div></td>
+      	<td><div align="center">73-75</div></td>
+      </tr>
+      <tr bgcolor="#ffe0e0">
+      	<td>KI</td>
+      	<td><div align="center">68-71</div></td>
+      	<td><div align="center">69-71</div></td>
+      	<td><div align="center">63-65</div></td>
+      	<td><div align="center">64-66</div></td>
+      	<td><div align="center">60-62</div></td>
+      	<td><div align="center">63-65</div></td>
+      </tr>
+      <tr bgcolor="#ffbbbb">
+      	<td>Pulp</td>
+      	<td><div align="center">58-64</div></td>
+      	<td><div align="center">-</div></td>
+      	<td><div align="center">-</div></td>
+      	<td><div align="center">-</div></td>
+      	<td><div align="center">-</div></td>
+      	<td><div align="center">-</div></td>
+      </tr>
+      </table>
+      
+      <p><b>Macrocarpa request</b><br>
+      Please e-mail me via <a href="mailto:allanl@laurieforestry.co.nz">AllanL@LaurieForestry.co.nz</a>
+      or phone 0274 321 420 if you can join my macrocarpa log price spying network.</p>
+      <table border="0" cellpadding="1" cellspacing="1">
+      <tr bgcolor="#006600">
+      	<td valign="top"><font color="white"><b>Macrocarpa</b></font></td>
+      	<td valign="top"><font color="white"><b>South Island</b></font></td>
+      	<td valign="top"><font color="white"><b>North Island</b></font></td>
+      </tr>
+      <tr bgcolor="#337733">
+      	<td valign="top"><font color="white"><b>Nov08 - Jan09 sales</b></font></td>
+      	<td valign="top"><font color="white"><b>Landed at mill 
+      door/tonne</b></font></td>
+      	<td valign="top"><font color="white"><b>Landed at mill 
+      door/tonne</b></font></td>
+      </tr>
+      <tr bgcolor="#449944">
+      	<td valign="top">Veneer/Slicer Min SED 46cm</td>
+      	<td valign="top">$400 - $420</td>
+      	<td valign="top">-</td>
+      </tr>
+      <tr bgcolor="#99cc99">
+      	<td valign="top">Pruned Min SED 40cm</td>
+      	<td valign="top">$220 - $240</td>
+      	<td valign="top">-</td>
+      </tr>
+      <tr bgcolor="#449944">
+      	<td valign="top">Pruned Min SED 30cm</td>
+      	<td valign="top">$130 - $150</td>
+      	<td valign="top">-</td>
+      </tr>
+      <tr bgcolor="#99cc99">
+      	<td valign="top">Small branch Min SED 30cm</td>
+      	<td valign="top">$125 - $130</td>
+      	<td valign="top">-</td>
+      </tr>
+      <tr bgcolor="#449944">
+      	<td valign="top">Small branch Min SED 20cm</td>
+      	<td valign="top">$90 - $100</td>
+      	<td valign="top">$85 - $100</td>
+      </tr>
+      <tr bgcolor="#99cc99">
+      	<td valign="top">Large branch/Boxing/Sleeper</td>
+      	<td valign="top">$80 - $90</td>
+      	<td valign="top">-</td>
+      </tr>
+      <tr bgcolor="#449944">
+      	<td valign="top">Firewood logs</td>
+      	<td valign="top">$60 - $70</td>
+      	<td valign="top">-</td>
+      </tr>
+      </table>
+      <p><b><i>Allan Laurie is the managing director of Laurie Forestry Ltd</i></b> <img 
+      src="http://www.nzffa.org.nz/pix/fir-4-branch.gif" align="absmiddle"></p><br><br>
+      	</td></tr>
+      </table>
+      
+      </td>
+    - "8"
+  - - "16"
+    - extended
+    - ""
+    - ""
+    - "8"
+  - - "17"
+    - body
+    - ""
+    - |-
+      <h2>Farm Forestry Awards</h2>
+      <br>
+      <h3>Husqvarna Farm Forester of the Year Awards</h3>
+      - Awards for both North and South Islands.<br>
+      <a href="pdf/Husqvarna_Award_Nomination_form_Jul08.doc" target="_blank">Download 
+      nomination form</a><br><br><br>
+      <h3>Michael Hay Memorial Award</h3>
+      Awarded to a younger member of NZFFA who is planting or establishing trees.<br>
+      <a href="pdf/Michael_Hay_Memorial_Award_nomination_form.doc" target="_blank">Download 
+      nomination form</a><br><br><br>
+      <h3>Transpower Landcare Trust Grants Award</h3>
+      - Awarded for Innovation in Sustainable Farm Forestry<br>
+      <a href="pdf/InnovAwardForm2009.doc" target="_blank">Download nomination form</a>
+      <br><br><br><br><br><br><br>
+      
+      </td>
+    - "9"
+  - - "19"
+    - body
+    - ""
+    - |-
+      <img height="138" width="200" src="/images/design/growth-rings.jpg" alt="Growth ring variations" align="right">
+      
+      <r:children:each>
+       <h3><r:title/></h3>
+       <r:content/>
+       <r:link/><br/><br/>
+      </r:children:each>
+    - "10"
+  - - "21"
+    - body
+    - ""
+    - |-
+      <table border="0" cellspacing="5" cellpadding="5" align="right">
+      <tr><td><fieldset>
+      <legend>Indigenous Forest Section</legend>
+      Kees Weytmans<br>
+      Knapdale Eco Lodge<br>
+      114 Snowsill Rd, Waihirere<br>
+      Ph: 06 862 5444
+      </fieldset></td></tr></table>
+      <p>Promotes indigenous forestry (including timber production), to manages these forests in 
+      an ecologically sustainable fashion so that they retain their unique characteristics for the 
+      benefit of future generations.</p>
+    - "11"
+  - - "22"
+    - extended
+    - ""
+    - "<br><br>\r\n\
+      <hr><h3>Natives for Timber or Amenity</h3>                                       \r\n\
+      <b>Introduction</b>\r\n\
+      <div align=right>June 2008</div><br>\r\n\
+      Nothing can be more rewarding for a forester than creating and nurturing a native \r\n\
+      plantation from 10 years on their size, growth rate, form \r\n\
+      and rapid maturation looks and feels more like our natural bush!!! But behind every success \r\n\
+      story there is a lot of work, and many others that \r\n\
+      have failed!! This article is written on the assumption you are interested in planting a 0.4 \r\n\
+      hectare block or more. Naturally established natives \r\n\
+      are generally not included in this summary. Nursery grown stock is not covered.<br><br>\r\n\
+      \r\n\
+      <b>Planning</b><br><br>\r\n\
+      \r\n\
+      Natives take a long time to establish. It may be 3-4 years after planting before you can be \r\n\
+      assured they are reasonably established. That \r\n\
+      translates into high costs \x13 allow $9-$10 per tree or shrub! A budget will be imperative to see \r\n\
+      you have enough money!!<br><br>\r\n\
+      \r\n\
+      But before you plant, check your local District Plan carefully! Don\x19t just take your council \r\n\
+      employee\x19s information as gospel either. A recent \r\n\
+      survey found many council employees gave out incorrect information on native plantings. \r\n\
+      Get a copy of the District Plan and research it \r\n\
+      carefully. Or talk to someone who has. Most District Plans have scattered, unrelated and \r\n\
+      conflicting references to forestry, and natives. Check the \r\n\
+      definitions! Forestry and natives may or may not be mutually exclusive terms. Some District \r\n\
+      Plans do not allow cutting down of any natives, \r\n\
+      planted or natural, over 3 metres in height. If you need a consent, get one! After your \r\n\
+      research, get a written affirmation from the council as to \r\n\
+      what the rules are, before you plant one stick, and keep this copy for ever! Also, check with \r\n\
+      your Regional Councils \x13 they are usually more \r\n\
+      helpful but only cover water and pest management concerns.<br><br>\r\n\
+      \r\n\
+      Outside of local council rules, generally the law; allows you to harvest native trees that have \r\n\
+      been planted unless you give up that right. Try to \r\n\
+      get the council to write down or \x18register\x19 the details of the natives you have \r\n\
+      planted.<br><br>\r\n\
+      \r\n\
+      <b>Tax Deductibility</b><br><br>\r\n\
+      \r\n\
+      This varies according to whether you are in business (by IRD rules) as a farmer, a forester, or \r\n\
+      a property developer! To be a forester, 2 hectares \r\n\
+      is often considered the minimum forested area, to show you are not a hobbyist. If the district \r\n\
+      plan disallows cutting down trees at the time you \r\n\
+      put your plantation in, you will not have a forestry business!<br><br>\r\n\
+      \r\n\
+      Most plantings will hopefully be deductible check with your chartered accountant consider \r\n\
+      using a company as natives are long term, and \r\n\
+      share ownership can protect you from a deemed sale. For your protection, make sure any \r\n\
+      purchase of an existing block (including natural bush) \r\n\
+      has an agreed valuation on the trees in the sale and purchase agreement. Forestry rights\x19may \r\n\
+      also be useful planning tools.<br><br>\r\n\
+      \r\n\
+      <b>Planting</b><br><br>\r\n\
+      \r\n\
+      The aim is to effect rapid crown cover, self sustaining growth and to shut out weeds. \r\n\
+      Anything over 2m x 2m initial planting spacing \r\n\
+      compromises this. Plant a tree height that can quickly get over grass height, but will not be \r\n\
+      socketed by wind and not sulk! Unless you are \r\n\
+      coastal, or a beech grower(!), hardwoods often require an already established nurse \r\n\
+      crop...quite a management art that!<br><br>\r\n\
+      \r\n\
+      <b>Weeds</b><br><br>\r\n\
+      \r\n\
+      Grass is your biggest threat in the first few years. Later on blackberry eventually establishes \r\n\
+      with any extra light and pulls down established trees \r\n\
+      - hence rapid canopy closure is the aim. The shrubby natives give your best crown closure. \r\n\
+      Gorse should be cleared before planting, and \r\n\
+      followed up with spot sprays.<br><br>\r\n\
+      \r\n\
+      \r\n\
+      Roundup and Galant (kills grasses only) can be used from planting and onwards. Residual \r\n\
+      weedicides knock natives. The spots around trees \r\n\
+      need to be at least 1m in diameter to stop grass falling in \x13 wider on the high side if sloping \r\n\
+      ground. Four to five sprays may be needed \r\n\
+      through to year 3, depending on growth. Costs 30&cent;-35&cent; per plant per time sprayed. \r\n\
+      Weedmats and mulches can be tried but they may stop \r\n\
+      summer rainfall being effective unless well designed and may be more labour intensive. \r\n\
+      Anyone want to try layers of plastic from balewrap with \r\n\
+      a few pitch fork holes in it, for aiding water run in?<br><br>\r\n\
+      \r\n\
+      <b>Tending</b><br><br>\r\n\
+      \r\n\
+      The jury is out on this still! Much will depend on your management. Pure specie stands will \r\n\
+      require thinning. Mixed timber trees with fast growth \r\n\
+      shrubs may well require earlier releasing and then later thinning. Blocks close to existing \r\n\
+      natural bush stands will more quickly have natural \r\n\
+      bush species introducing themselves. To make sure you have sufficient timber crop trees, \r\n\
+      pruning may well be wise. Prune similar to that done \r\n\
+      for Acacia melanoxylon: i.e. three rules:<ol>\r\n\
+      <li>If a branch is over 3 cm in diameter, take it off!\r\n\
+      <li>If the branch is 30 degrees or less to the main stem it is a steep angled branch; take if \r\n\
+      off no matter what the size!\r\n\
+      <li>Check the top 3 metres of the tree and form prune, so that you leave only one leader, \r\n\
+      now! All the rest of the branches should be retained \r\n\
+      to help maintain the rapid growth you want.</ol>\r\n\
+      For older existing trees of poor form \x13 give them a go \x13 prune them now \x13 you\x19ll always look \r\n\
+      back later glad that you did. Take up that jacksaw \r\n\
+      or chainsaw!<br><br>\r\n\
+      \r\n\
+      Final spacing?? Check known natural stands final spacing of the age you hope to harvest at. \r\n\
+      Acacia melanoxylon growers aim for fast fat trees in \r\n\
+      35-40 years. They want one good 6m log-tree about 200 stems per hectare final spacing. \r\n\
+      Podocarps can grow closer than that, and have better \r\n\
+      apical dominance and naturally good timber form!<br><br>\r\n\
+      \r\n\
+      Consider tending cost!!! Most natives respond to pruning. But with the long wait, will the \r\n\
+      outlay justify the cost? Should you management system \r\n\
+      reduce this? (e.g. planting into manuka/kanuka? Will you be patient for results? Will higher \r\n\
+      fire risk be a threat?) Prune for love and it won\x19t \r\n\
+      matter!!<br><br>\r\n\
+      \r\n\
+      <b>Species Choice</b><br><br>\r\n\
+      \r\n\
+      Totara and Kauri: Well known, fast, some research results available already, prime timber \r\n\
+      species.<br><br>\r\n\
+      \r\n\
+      Silver Beech and Black Beech: Have surprisingly fast growth rates most places in the North \r\n\
+      Island. Red beech is less reliable to establish. Correct \r\n\
+      beech soil mycorhiza should be included with your planted trees. Check what your \r\n\
+      nurseryman does (or knows!)<br><br>\r\n\
+      \r\n\
+      Kahikatea and Tanekaha: Less favoured timber species but fast growth in a wide variety of \r\n\
+      sites. Don\x19t stake drooping tanakaha leaders. They\x19ll \r\n\
+      right themselves.<br><br>\r\n\
+      \r\n\
+      Karamu: One of the fastest, best performing shrubby canopy covers!<br><br>\r\n\
+      \r\n\
+      Puriri, Rewarewa, Kokekohe & Mangeao: Most favoured manageable hardwoods for the North \r\n\
+      Island.<br><br>\r\n\
+      \r\n\
+      This article is based on a few people\x19s experiences only. The following publications and \r\n\
+      organisations and their field days are thoroughly<br> \r\n\
+      recommended for building your own knowledge, observations and contacts:<br><br>\r\n\
+      \r\n\
+      References<br><br>\r\n\
+      NZ Tree Grower articles (NZ Farm Forestry Association and their Indigenous Action Group, P \r\n\
+      O Box 1122, Wellington)\r\n\
+      Ph 04- 472-0432.<br>\r\n\
+      \x18Indigenous Forestry \x13 Sustainable Management\x19, Ministry of Agriculture, Forestry & \r\n\
+      Fisheries.<br>\r\n\
+      Tane Tree Trust; Leaflets & Field days, c/- I Barton, 40 Isabelle St, Pukekohe. Ph 09 239-2049\r\n"
+    - "11"
+  - - "23"
+    - body
+    - ""
+    - |-
+      <table border="0" cellspacing="5" cellpadding="5" align="right">
+      <tr><td><fieldset>
+      <legend>Amigo group</legend>
+      Kees Weytmans<br>
+      Knapdale Eco Lodge<br>
+      114 Snowsill Rd, Waihirere<br>
+      Ph: 06 862 5444
+      </fieldset></td></tr>
+      </table><p>Brings together members interested in growing Tasmanian Blackwood - 
+      professional forest researchers, timber marketers and commercial users in an information 
+      sharing network aimed at creating a sustainable NZ resource of plantation grown quality 
+      hardwood.</p>
+    - "12"
+  - - "24"
+    - extended
+    - ""
+    - |
+      <br><br>
+      Download the <a 
+      href="http://www.scionresearch.com/Portals/0/GrowingBlackwood.pdf">Blackwood (Acacia 
+      melanoxylon) Growers' Handbook</a> PDF (4.26Mb)
+      
+      <h3> Blackwood Handbook</h3>
+      <blockquote>
+      <fieldset>
+      <legend>
+      Best Practice with Farm Forestry Timber Species<br>
+      No. 4: BLACKWOODS<br>
+      Ian Nicholas
+      
+      </legend>
+      <table cellpadding="2" border="0">
+        <tbody>
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[1.7 Mb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW01-
+      Introduction%20and%20Chapter%201.pdf" target="_blank">Introduction and Chapter 1</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[346 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW02-
+      Chapter%202%20Blackwood.pdf" target="_blank">Chapter 2</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[336 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW03-
+      Chapter%203C%20Blackwood.pdf" target="_blank">Chapter 3C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[262 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW04-
+      Chapter%204C%20Blackwood.pdf" target="_blank">Chapter 4C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[492 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW05-
+      Chapter%205C%20Blackwood.pdf" target="_blank">Chapter 5</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>
+              [170 Kb]
+            </td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW06-
+      Chapter%206C%20Blackwood.pdf" target="_blank">Chapter 6C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[267 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW07-
+      Chapter%207C%20Blackwood.pdf" target="_blank">Chapter 7C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[643 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW08-
+      Chapter%208%20Blackwood.pdf" target="_blank">Chapter 8</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[911 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW09-
+      Chapter%209C%20Blackwood.pdf" target="_blank">Chapter 9C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[1.0 Mb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW10-
+      Chapter%2010%20Blackwood.pdf" target="_blank">Chapter 10</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[352 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW11-
+      Chapter%2011%20Blackwood.pdf" target="_blank">Chapter 11</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[271 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW12-
+      Chapter%2012%20C%20Blackwood.pdf" target="_blank">Chapter 12C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[167 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW13-
+      Chapter%2013%20C%20Blackwood.pdf" target="_blank">Chapter 13C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[595 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW14-
+      Chapter%2014%20C%20Blackwood.pdf" target="_blank">Chapter 14C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td>
+              <img src="http://www.scionresearch.com/Portals/0/pdf.gif">
+            </td>
+            <td>[456 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW15-
+      Chapter%2015%20C%20Blackwood.pdf" target="_blank">Chapter 15C</a>
+            </td>
+          </tr>
+      
+          <tr>
+            <td><img src="http://www.scionresearch.com/Portals/0/pdf.gif"></td>
+            <td>[139 Kb]</td>
+            <td>
+              <a href="http://www.scionresearch.com/Portals/0/BW16-
+      Chapter%2016%20C%20Blackwood.pdf" target="_blank">Chapter 16C</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </fieldset>
+      </blockquote>
+
+    - "12"
+  - - "25"
+    - body
+    - ""
+    - |-
+      <table border="0" cellspacing="5" cellpadding="5" align="right">
+      <tr><td><fieldset>
+      <legend>Cypress Action Group</legend>
+      Graham Milligan<br>
+      4 Level st, Dipton<br>
+      Ph: 03 248 5043
+      </fieldset>
+      </td></tr>
+      </table><p>There is a huge amount of innovative work on varieties, management and 
+      silvicultural regimes being undertaken by NZFFA 
+      members. This group collates existing research and pools the experience and knowledge of 
+      farm foresters growing 
+      cypresses.<br></p>
+    - "13"
+  - - "26"
+    - extended
+    - ""
+    - |-
+      <table cellpadding="0" cellspacing="0" border="0">
+      
+      <tr><td class="y0">
+      </div><a name=" Why should industry invest in cypresses and cypress research?"></a> 
+      
+      <h3> Why should industry invest in cypresses and cypress research?</h3>
+      <a href="pdf/FIDA_Cypress_report_18_Feb_08.pdf" target="_blank">A contract prepared for 
+      the cypress working group with 
+      the assistance of FIDA</a> January 2008<br>
+      (PDF file, 952 kb)<br><br>
+      </td></tr>
+      
+      <tr><td class="y0">
+      </div><a name="Cypress Handbook"></a> 
+      
+      <h3>Cypress Handbook</h3>
+      <blockquote>
+      <fieldset>
+      <legend>Best Practice with Farm Forestry Timber Species</legend>
+      No. 1: CYPRESSES<br>
+      <br>
+      Editor: Ian Nicholas<br>
+      <br>
+      Available as separate chapters to download below:
+      
+      <table cellspacing="0" cellpadding="2">
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[701 Kb]</td>
+        <td><a 
+      href="http://www.ensisjv.com/Portals/0/Cypresses_IntroductionandChapter1.pdf" 
+      target="_blank">Introduction 
+      and Chapter 1</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[175 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter2.pdf" 
+      target="_blank">Chapter 2</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[178 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter3.pdf" 
+      target="_blank">Chapter 3</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[327 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter4.pdf" 
+      target="_blank">Chapter 4</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[353 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter5.pdf" 
+      target="_blank">Chapter 5</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[163 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter6.pdf" 
+      target="_blank">Chapter 6</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[101 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter7.pdf" 
+      target="_blank">Chapter 7</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[126 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter8.pdf" 
+      target="_blank">Chapter 8</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[103 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter9.pdf" 
+      target="_blank">Chapter 9</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[159 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter10.pdf" 
+      target="_blank">Chapter 10</a></td>
+      </tr>
+      
+      <tr>
+        <td><img SRC="/images/design/pdf.gif" alt="pdf file"></td>
+        <td>[132 Kb]</td>
+        <td><a href="http://www.ensisjv.com/Portals/0/Cypresses_Chapter11and12.pdf" 
+      target="_blank">Chapter 11 and 
+      12</a></td>
+      </tr>
+      </table>
+      </fieldset>
+      </blockquote><br><br>
+      </td></tr>
+      
+      </table>
+    - "13"
+  - - "27"
+    - body
+    - ""
+    - |-
+      <table border="0" cellspacing="5" cellpadding="5" align="right">
+      <tr><td><fieldset>
+      <legend>Eucalypt Action Group</legend>
+      Angus Gordon<br>
+      Main Road South, RD3,<br>Taihape<br>
+      Ph: 06 388 1571
+      </fieldset>
+      </td></tr>
+      </table><p>Established as recently as April 2002, though eucalypts have been a particular 
+      focus of farm foresters since the earliest days of our association over 50 years ago. NZFFA is 
+      participating with <b><i>Forest Research</i></b> (formerly the NZ Forest Research 
+      Institute 
+      and now <b>Scion</b>) in a nation-wide series of trials with stringybark eucalypts because 
+      stringybarks have good sawing properties and are comparatively free from insect 
+      pests.</p>
+    - "14"
+  - - "28"
+    - extended
+    - ""
+    - |-
+      <br><br>
+      <a href="http://www.nzffa.org.nz/index.cfm?id=26">Stringybark eucalypt species trial 
+      report</a> -  July 2007<br><br>
+      <H3>Eucalypt Handbook</H3>
+      <blockquote>
+      <fieldset>
+        <legend>Best Practice with Farm Forestry Timber Species</legend>
+        No. 2: EUCALYPTS<br>
+        <br>
+        Editor: Ian Nicholas<br>
+        <br>
+        Available as separate chapters to download below:
+      
+      <TABLE cellSpacing="0" cellPadding="2">
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD style="WIDTH: 50px">[1.4 Mb]</TD>
+      <TD style="WIDTH: 300px"><A 
+      href="http://www.scionresearch.com/Portals/0/Eucalypt_IntroductionandChapter1C.pdf" 
+      target=_blank>Introduction and Chapter 1C</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[303 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter2C.pdf" 
+      target=_blank>Chapter 2C</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[921 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter3C.pdf" 
+      target=_blank>Chapter 3C</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[166 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter4B.pdf" 
+      target=_blank>Chapter 4B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[172 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter5B.pdf" 
+      target=_blank>Chapter 5B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[370 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter6B.pdf" 
+      target=_blank>Chapter 6B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[588 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter7B.pdf" 
+      target=_blank>Chapter 7B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[543 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter8B.pdf" 
+      target=_blank>Chapter 8B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[57 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter9B.pdf" 
+      target=_blank>Chapter 9B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[322 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter10B.pdf" 
+      target=_blank>Chapter 10B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[508 Kb]</TD>
+      <TD>
+      <P><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter11C.pdf" 
+      target=_blank>Chapter 11C</A></P></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[263 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter12B.pdf" 
+      target=_blank>Chapter 12B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[32 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter13B.pdf" 
+      target=_blank>Chapter 13B</A></TD></TR>
+      <TR>
+      <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD>
+      <TD>[239 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/Eucalypt_Chapter14B.pdf" 
+      target=_blank>Chapter 14B</A></TD></TR>
+      </table>
+      </fieldset>
+      </blockquote>
+      <H3>Eucalypt Posters</H3>
+      <blockquote>
+      <fieldset>
+        <legend>Single page illustrated research summaries</legend>
+        <br>
+        Scion Research and Sustainable Farming Fund<br>
+        <br>
+        Click below to download:
+      <TABLE cellSpacing="0" cellPadding="2">
+      <TR>
+        <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD><TD>[1.1 Mb]</TD><TD><A href="pdf/Stringybark_poster.pdf" 
+      target=_blank>Stringybark Eucalypt Evaluations in New Zealand</A></TD></TR>
+        <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD><TD>[2.8 Mb]</TD><TD><A href="pdf/Sawn_Timber_poster.pdf" 
+      target=_blank>Eucalypt Species for Sawn Timber</A></TD></TR>
+        <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD><TD>[1.7 Mb]</TD><TD><A href="pdf/Pruning_Eusc_poster.pdf" 
+      target=_blank>Comparison of Pruning Regimes for Nine-year-old Eucalyptus nitens</A></TD></TR>
+        <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD><TD>[2.8 Mb]</TD><TD><A href="pdf/Frost_Trial_poster.pdf" target=_blank>Siting 
+      Eucalypts</A></TD></TR>
+        <TD><img SRC="/images/design/pdf.gif" alt="pdf file"></TD><TD>[0.9 Mb]</TD><TD><A href="pdf/Branching_Patterns.pdf" 
+      target=_blank>Branching Patterns in E. regnans Second Logs</A></TD></TR>
+      </table>
+      </fieldset>
+      </blockquote>
+    - "14"
+  - - "29"
+    - body
+    - ""
+    - |-
+      <table border="0" cellspacing="5" cellpadding="5" align="right">
+      <tr><td><fieldset>
+      <legend>Sequoia Action Group</legend>
+      Russell Coker<br>
+      PO Box 29-274<br>
+      Christchurch<br>
+      Ph: 021 688 160
+      </fieldset>
+      </td></tr>
+      </table><p>Now that the old-growth redwood forests of western USA are no longer 
+      available 
+      as a source of 
+      this prized timber, attention is focussing on the very promising potential for sustainably 
+      plantation-grown redwood <i>Sequoia</i> in New Zealand.</p>
+    - "15"
+  - - "30"
+    - extended
+    - ""
+    - |-
+      <br>
+      <H3>Redwood Handbook</H3>
+      <blockquote>
+      <fieldset>
+        <legend>
+      Best Practice with Farm Forestry Timber Species<br>
+      No. 3: REDWOODS<br>
+      Ian Nicholas</legend>
+      <TABLE cellSpacing="2" cellPadding="2" border="0">
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[693 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW01-
+      Introduction_and_Chapter_1.pdf" target="_blank">Introduction and Chapter 
+      1</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[183 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW02-Chapter 2C Redwood.pdf" 
+      target="_blank">Chapter 2C</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[128 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW03-Chapter 3 RW pdf.pdf" 
+      target="_blank">Chapter 3</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[51 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW04-Chapter 4C Redwood.pdf" 
+      target="_blank">Chapter 4C</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[182 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW05-Chapter 5 RW pdf.pdf" 
+      target="_blank">Chapter 5</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[53 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW06-Chapter 6C Redwood.pdf" 
+      target="_blank">Chapter 6C</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[214 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW07-Chapter 7C Redwood.pdf" 
+      target="_blank">Chapter 7C</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[196 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW08-Chapter 8 RW pdf.pdf" 
+      target="_blank">Chapter 8</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[52 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW09-Chapter 9C Redwood.pdf" 
+      target="_blank">Chapter 9C</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[255 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW10-Chapter 10 RW pdf.pdf" 
+      target="_blank">Chapter 10</A></TD></TR>
+      <TR>
+      <TD><img src="/images/design/pdf.gif"></TD>
+      <TD>[245 Kb]</TD>
+      <TD><A href="http://www.scionresearch.com/Portals/0/RW11-Chapters 11,12, 13C 
+      Redwood.pdf" target="_blank">Chapter 11, 12, 13C</A></TD></TR></TABLE>
+      </fieldset>
+      </blockquote>
+    - "15"
+  - - "32"
+    - body
+    - ""
+    - |-
+      <h2><r:title/></h2>
+      <div class="right"><img src="../../images/design/patrick_milne.jpg" align="right"/></div>
+      The quarterly comment from the NZFFA's president.<br><br>
+      <ul>
+      <r:children:each>
+        <li><r:link/></li>
+      </r:children:each>
+      </ul>
+    - "16"
+  - - "33"
+    - extended
+    - ""
+    - ""
+    - "16"
+  - - "34"
+    - body
+    - ""
+    - |-
+      <H2>From the President</H2>
+      <hr noshade size="1">
+      <img src="/images/design/Patrick_Milne.jpg" border="0" align="right">
+      		
+      <h3>Gisborne Conference 2009</h3>
+      Congratulations to the Gisborne-East Coast Branch for a very successful annual conference. Nick Seymour and his very efficient team can feel well satisfied with their efforts in showcasing both farm forestry and land-use in the East Coast region.<br>
+      In addition to the normal business sessions, dinners, and award presentations, conference attendees visited a wide range of locations. The visit to Ray and Grace Newman's property Koro Station was memorable not only for their enthusiasm and sheer hard work but also the tenacity needed to successfully farm there.<br>
+      Another very interesting visit was the trip up the East Coast to Ruatoria to view and get a feel for the East Coast Forestry Project. This project aims to reduce erosion on susceptible land by retirement and afforestation. We certainly appreciated the scale of the problem. For example, it is estimated that there are around 10,000 hectares of eroding gully systems which have been treated to a greater or lesser extent.<br>
+      Since 1961, around 80,000 hectares have been planted to control this erosion, mostly radiata which has been managed for timber. High logging and transport costs will probably result in much of this forest not being economic to harvest. In response to this it was encouraging to see higher value species being planted, especially costal redwood. This long lived stable tree with a very extensive root system would seem ideally suited to much of this area and a recent sawing study from trees grown at Mangatu confirm that a high value timber can be produced from it.<br>
+      At the end of the conference I felt that it was a great pity that more of the wider farming community had not seen and experienced the benefits that flow from intelligently integrating trees and forestry with other land uses. The conference, along with the Tree Grower, is one of the most influential means the NZFFA has to promote itself and its objectives to other land users. Therein lies a challenge for both future conference organising committees and the executive.
+      
+      <h3>Award winners</h3>
+      I would like to congratulate this year's award winners - as with past winners they have demonstrated once again the relevance of the farm forestry model in aiding good land management and sustainability. The question for farm forestry and farm foresters is how we encourage more landowners to adopt our model. The NZFFA is very grateful to Husqvarna for their continued support of the farm forester of the year, the Landcare Trust for their environmental award and Audrey Hay for her award to support and encourage younger tree planters.
+      
+      <h3>Emissions Trading Scheme</h3>
+      To date the ETS is following the timeline set out in last year's legislation. So far the government has not indicated that there will be major changes to the Act, in fact they are signalling that the forestry component of it is likely to remain mostly unchanged. Recently eight million New Zealand Units were released and the first trades have occured at $20 a tonne of carbon.<br>
+      For most farm foresters there are still two very important deadlines. Firstly if you own less than fifty hectares of pre-1990 forest and wish to apply for an exemption to the ETS, then you have until the 30 June 2009. All pre-1990 forests or stands greater than two hectares are by default part of the ETS. Secondly all pre-1990 forest owners have until the 31 July 2009 to apply for a free allocation of NZ Units.<br>
+      MAF also has information available on its web site www.maf.govt.nz and via its 0800 CLIMATE hotline. The take home message is that unless you are a pre-1990 forest owner, there is no real urgency to do anything yet other than keeping up to date with developments.<br>
+      Pre-1990 forest owners with less than 50 hectares should now be thinking about whether or not to apply for an exemption to the ETS. Details of the application process, timelines, and information required from pre-1990 forest owners applying for a free allocation of NZ Units are expected any day now. The NZFFA will continue to take a very active role in promoting the ETS to members as more of the detail is clarified.	
+      <p><i><b>Patrick Milne,</b></i></p>
+      <p><i><b>President.</b></i>
+      <img height="31" width="18" src="/images/design/fir-4-branch.gif" align="middle"></p>	
+      <br><br>
+    - "17"
+  - - "35"
+    - extended
+    - ""
+    - ""
+    - "17"
+  - - "36"
+    - body
+    - ""
+    - "<H2>From the President</H2>\r\n\
+      \t\t\r\n\
+      <hr>\r\n\
+      <img src=\"/images/design/Patrick_Milne.jpg\" border=\"0\" align=\"right\">\r\n\
+      \t\t\r\n\
+      <h3>A cautious start to the year</h3>\r\n\
+      It has been a somewhat cautious start to the New Year for both the agriculture and forestry sector \x13 this caution will have been exacerbated further with the recent announcement of a drop in the dairy payout. In the forestry sector, both export and domestic log sales are still occurring, albeit at a reduced level. Apart from harvesting and replanting, there is little enthusiasm for any new forestry activity. This is a major concern to both government and policy makers. <br>\r\n\
+      The industry believed that the ETS would give it a kick start and is still hoping that this will be the case following the upcoming ministerial review. The NZFFA is looking forward to both a speedy conclusion to this review of the ETS, and the rapid implementation of any changes so that it is in place for the 2010 planting season.\r\n\
+      \r\n\
+      <h3>Conference 2009</h3>\r\n\
+      Planning is at well advanced stage for this conference. The Gisborne Branch has put together a very interesting range of field days and events for conference attendees. The registration form is in this <i>Tree Grower</i> and also available on line at www.nzffa.org.nz. Nick Seymour, the conference chairman, is still concerned that the effect of an increase in cost registration, Gisborne\x19s isolation and the current economic downturn will deter conference goers. So let us help him out by planning to attend and registering now.\r\n\
+      \r\n\
+      <h3>Association issues</h3>\r\n\
+      Following the Gisborne conference, Bruce Bulloch will be \x18retiring\x19 from his roles as Treasurer, Office Manager and the NZFFA \x18go to\x19 person. Over the least eight years Bruce has done a fantastic job of managing both the finances and the Wellington office. His departure will bring about some changes in Wellington \x13 these changes are currently being worked through by the executive and will be discussed in some detail at the conference.\r\n\
+      \r\n\
+      <h3>Emissions Trading Scheme</h3>\r\n\
+      The flagship of the Government initiatives to address climate change is its Emissions Trading Scheme or ETS. It came into force on the 26 September 2008 and is still in force even though there has been a change of government and ministerial review ordered. So far the government has not indicated that there will be major changes to the Act, in fact they are signalling that the forestry component of it is likely to remain mostly unchanged.<br>\r\n\
+      For most farm foresters there are still two very important deadlines in place. Firstly, if you own less than fifty hectares of pre-1990 forest and wish to apply for an exemption to the ETS, then you have until the 30 June 2009 to do so. Secondly, all pre-1990 forest owners have until the 31 July 2009 to apply for a free allocation of the NZ Units.<br>\r\n\
+      MAF also has extensive information available on its web site www.maf.govt.nz and its 0800 CLIMATE hotline is also very good.<br>\r\n\
+      The take-home message is that unless you are a pre-1990 forest owner, there is no real urgency to do anything yet, other than keeping up to date with developments. Pre-1990 forest owners with less than 50 hectares should now be thinking about whether or not to apply for an exemption to the ETS. Details of the application process, timelines, and information required from pre-1990 forest owners applying for a free allocation of NZ units are currently expected to be available late April 2009. The NZFFA will take a very active role in promoting the ETS to members once more of the detail has been clarified.\r\n\
+      <p><i><b>Patrick Milne,</b></i></p>\r\n\
+      <p><i><b>President.</b></i>\r\n\
+      <img height=\"31\" width=\"18\" src=\"/images/design/fir-4-branch.gif\" align=\"middle\"></p>\t\r\n\
+      <br><br>"
+    - "18"
+  - - "37"
+    - extended
+    - ""
+    - ""
+    - "18"
+  - - "38"
+    - body
+    - ""
+    - "<H2>From the President</H2>\r\n\
+      \t\t\r\n\
+      <hr>\r\n\
+      <img src=\"/images/design/Patrick_Milne.jpg\" border=\"0\" align=\"right\">\r\n\
+      \t\t\r\n\
+      It has not been a vintage year for farming and farm forestry \x13 dairying was probably the \r\n\
+      exception. Yet only two months ago the expectations for the next year were quite \r\n\
+      encouraging. What a difference now. Phrases such as credit crunch, banking crisis, recession \r\n\
+      and even depression have replaced those expectations. Add in climate change and an \r\n\
+      election and it is anyone\x19s guess as to what the next year holds for farming and farm \r\n\
+      forestry.<br><h4>Conference 2009</h4>Planning is well advanced for next year\x19s \r\n\
+      conference in Gisborne. The conference committee have put together a varied and interesting \r\n\
+      programme for us. The conference programme and registration form are included in this \r\n\
+      magazine so please register now. <br><h4>Emissions Trading Scheme</h4>The flagship \r\n\
+      of the government initiatives to address climate change is its Emissions Trading Scheme or \r\n\
+      ETS. It was passed on 26 September with over 700 amendments. Of all those amendments, \r\n\
+      the two most important for farm foresters relate to those who are pre-1990 forest owners. \r\n\
+      There are now two deadlines in place. First, if you own less than fifty hectares and wish to \r\n\
+      apply for an exemption to the ETS, then you have until the 30 June 2009. Secondly, all pre-\r\n\
+      1990 forest owners have until 30 June 1990 to apply for a free allocation of NZ Units. <br>\r\n\
+      The ETS is very complex and Piers Maclaren in his unique style simplifies it in an article on \r\n\
+      page 17. MAF also has extensive information available on its website. The message is that \r\n\
+      unless you are a pre-1990 forest owner, there is no real urgency to do anything yet. I would \r\n\
+      strongly advise anyone to wait and see how things develop. The NZFFA will take an active role \r\n\
+      in promoting the ETS to members once more of the detail has been clarified. <br>\r\n\
+      <h4>Afforestation Grants Scheme (AGS)</h4>This is another initiative announced by the \r\n\
+      government to address the effects of climate change. The AGS will provide funds for new \r\n\
+      plantings of trees on land that was not in forest at 1 January 1990. The AGS is split into two \r\n\
+      pools with half being allocated to Regional Councils for their sustainable land management \r\n\
+      projects and the remainder to a public pool. In the latter, applicants tender for as much \r\n\
+      funding as they wish with these tenders ranked according to the benefits of the planting and \r\n\
+      the tender price. <br>The AGS is targeting areas that are erosion prone, areas where a \r\n\
+      Regional Council requires forest cover, and areas where forest cover will improve water \r\n\
+      quality and enhance bio-diversity. The minimum application for the AGS is five hectares and \r\n\
+      it must be established at a minimum stocking of 800 stems per hectare. A wide range of \r\n\
+      species can be planted including radiata pine, eucalypts, cypresses, redwoods and \r\n\
+      indigenous species. Successful tender applicants sign an agreement which is valid for 10 \r\n\
+      years. Then you are free to enter the ETS, harvest or change land-use. <br>During the 10 \r\n\
+      years the government will accumulate any carbon credits and also accept and liability for \r\n\
+      carbon losses due to fire, wind or other natural disasters. The results of the first tender \r\n\
+      round were notified in August with the successful tender at approximately $1,800 per \r\n\
+      hectare. <br>I would like to congratulate both the government and MAF for the AGS. I think \r\n\
+      it is a very good scheme, although it might not suit everyone. If you have eligible land and \r\n\
+      would like to plant some trees, I encourage you to consider applying for a grant. <br>\r\n\
+      <h4>Environmental certification</h4>The NZFFA, with funding from FIDA, has \r\n\
+      commissioned a study on the benefits of environmental certification for its members and the \r\n\
+      feasibility of a NZFFA Group Certification Scheme. Certification has been around now for \r\n\
+      many years with most of the larger forest growers now certified with the Forest Stewardship \r\n\
+      Council (FSC). This is in stark contrast to the small grower where virtually none are certified. \r\n\
+      To date this has not been detrimental to the small grower but there is a distinct possibility \r\n\
+      that it could be in the future. The demand for certified wood seems to be on the increase \r\n\
+      and linked in with this are a chain of custody issues.<br>Currently all certified forests are \r\n\
+      assessed against an International Standard as there is no agreed New Zealand national \r\n\
+      standard. There was a very serious attempt to negotiate a national standard from 2000/03. \r\n\
+      However there was no agreement and it has been on hold for the last five years. Last month, \r\n\
+      representatives of NZFFA, NZFOA and environmental NGOs met again to see if a way could be \r\n\
+      found to restart the negotiation on a national standard. This meeting went very well, there \r\n\
+      was considerable goodwill around the table and all the participants were optimistic that \r\n\
+      progress can be made. In my next report I would like to be able to report that we have made \r\n\
+      some progress.\r\n\
+      <p><i><b>Patrick Milne,</b></i></p>\r\n\
+      <p><i><b>President.</b></i>\r\n\
+      <img height=\"31\" width=\"18\" src=\"/images/design/fir-4-branch.gif\" align=\"middle\"></p>\t\r\n\
+      <br><br>"
+    - "19"
+  - - "39"
+    - extended
+    - ""
+    - ""
+    - "19"
+  - - "40"
+    - body
+    - ""
+    - "<H2>President's Comment</H2>\r\n\
+      \t\t\r\n\
+      <hr>\r\n\
+      <img src=\"/images/design/Patrick_Milne.jpg\" border=\"0\" align=\"right\">\r\n\
+      \t\t\r\n\
+      <h4>Ashburton celebrates 50 years</h4>\r\n\
+      Congratulations go to the Ashburton Branch which celebrated its 50th anniversary on 22 \r\n\
+      June. The day started with a visit to the property and plantings by the original Branch \r\n\
+      President, Bill Buchan. Ashburton is now the sixth branch to have reached this milestone, and \r\n\
+      to have made it is testament to the commitment and enthusiasm of members and Branch \r\n\
+      committees during this time. Congratulations also go to Mark Robbins who was made a life \r\n\
+      member on the day.\r\n\
+      \r\n\
+      <h4>Farm forestry awards</h4>\r\n\
+      Nominations are currently being sought for the 2009 North and South Island Farm Forester of \r\n\
+      the Year, the Michael Hay Award awarded to a younger member of the NZFFA, and the \r\n\
+      Transpower Landcare Trust Grants Award for innovation in sustainable farm forestry. It is \r\n\
+      very important that the NZFFA continues to showcase and promote the outstanding efforts of \r\n\
+      the membership through these awards. I encourage all Branches to consider nominating \r\n\
+      appropriate members. Nomination forms can be obtained from Branch Secretaries or from \r\n\
+      the website.\r\n\
+      \r\n\
+      <h4>Conferences</h4>\r\n\
+      Denis Hocking and I recently attended the NZ Institute of Forestry Conference in Palmerston \r\n\
+      North where the theme was Forestry and Agriculture - Collaborating for Sustainability. A \r\n\
+      wide range of speakers discussed land-use issues including soil erosion, nutrient run-off, \r\n\
+      maintaining water quality and methods to address these issues. These are not new, with farm \r\n\
+      forestry being held up as the best model to address them.<br>\r\n\
+      There was a similar message from the Environmental Defence Society June conference \r\n\
+      \x18Conflict in Paradise - the Transforming of Rural New Zealand\x19 attended by Jim Cook. Just \r\n\
+      how the NZFFA can capitalise on this on this awareness is uncertain at this stage but at least \r\n\
+      we know we are on the right track. It is likely that carbon trading at the ETS will provide an \r\n\
+      opportunity. Until the appropriate legislation is passed and there is some certainty, it is still a \r\n\
+      case of \x18wait and see\x19.\r\n\
+      \r\n\
+      <h4>SFF Project - Adding to the farm forestry model</h4>\r\n\
+      The NZFFA was successful with an application in the latest round of the Sustainable Farm \r\n\
+      Fund to continue development of the farm forestry model. More specifically this application \r\n\
+      was to fund collection of information to add to the model. Updating the web site, and in \r\n\
+      particular the farm forestry model, is part of a strategy for a simple clear message promoting \r\n\
+      the benefits of farm forestry.\r\n\
+      \tIt needs to be supported with well-researched good practical examples that are easy to \r\n\
+      follow and convincing. If we can do nothing this well we will succeed in promoting farm \r\n\
+      forestry to a wider audience. This project is being progressed by Dean Satchell and Vivienne \r\n\
+      Mclean - you can see Dean\x19s influence already in the new look web site.\r\n\
+      \r\n\
+      <h4>Eucalypts in New Zealand</h4>\r\n\
+      The potential rewards for growing eucalypts in New Zealand has captivated a great number \r\n\
+      of farm foresters and foresters alike. The allure of very rapid growth, attractive high quality \r\n\
+      and durable timber along with pleasing aesthetics are just some of the many reasons for \r\n\
+      planting eucalypts. There have been many notable advocates in the past for eucalypts, \r\n\
+      including Neil Barr and Harry Bunn.<br>\r\n\
+      \tThe situation is very similar today within the membership of the Eucalypt Action Group \r\n\
+      and the diverse species theme of Future Forest Research. However, with the benefit of \r\n\
+      hindsight, it is fair to say that the genus has not yet lived up to expectations. As with all \r\n\
+      generalities, there are notable exceptions and it has been these that have fuelled the \r\n\
+      continued planting of eucalypts.<br>\r\n\
+      \tNew Zealand forestry has been very successful with radiata and a \x18one size fits all \r\n\
+      approach\x19. There has also been a tendency to try and grow eucalypts similarly, and this is \r\n\
+      probably the main reason for eucalypts under-achieving. Eucalypts are fairly site specific and \r\n\
+      while there are over 600 different species, there is a growing awareness that if they are sited \r\n\
+      correctly, they can be very rewarding to grow. In addition, different species can have vastly \r\n\
+      different timber properties which present enormous challenges for use. But there are some \r\n\
+      that are reasonably straight forward to deal with that will provide timbers with exactly the \r\n\
+      properties the world says it wants.<br>\r\n\
+      \tMention eucalypts to a forester and the first thing they will think of is pests and \r\n\
+      diseases. This is not without foundation. Many of the species that have been widely planted \r\n\
+      in the past have succumbed to different pests and diseases - but not all species and not on \r\n\
+      all sites. The take home message is we need to think locally when planting eucalypts and \r\n\
+      select species that are appropriate to the site, its soil, temperature, rainfall and aspect.\r\n\
+      <p><i><b>Patrick Milne,</b></i></p>\r\n\
+      <p><i><b>President.</b></i>\r\n\
+      <img height=\"31\" width=\"18\" src=\"/images/design/fir-4-branch.gif\" align=\"middle\"></p>\t\r\n\
+      <br><br>"
+    - "20"
+  - - "41"
+    - extended
+    - ""
+    - ""
+    - "20"
+  - - "42"
+    - body
+    - ""
+    - "<H2>From the President</H2>\r\n\
+      \t\t\r\n\
+      <hr>\r\n\
+      <img src=\"images/design/Patrick_Milne.jpg\" border=\"0\" align=\"right\">\r\n\
+      \t\t\r\n\
+      <h4>Conference another success</h4>\r\n\
+      Congratulations to the Central Canterbury Branch for a very successful annual conference. \r\n\
+      Brian Dixon and his very efficiency in showcasing farm forestry in Central Canterbury. In \r\n\
+      addition to the normal business sessions, dinners and award presentation, conference \r\n\
+      attendees visited a wide range of locations. These included a private native reserve, joint \r\n\
+      venture forests, current research trial and a high country station. The visit to John and \r\n\
+      Rosalie Wardle's property was memorable, not only for the enthusiasm and shear hard work, \r\n\
+      but also for their contribution to alternative management regimes for both beach and \r\n\
+      radiata.<br>\r\n\
+      At the end of the conference I felt that it was a great pity that more of the wider farming \r\n\
+      community had not seen and experienced the benefits that flow from intelligently integrating \r\n\
+      trees and forestry with other land uses. The conference along with the Tree Grower, is one of \r\n\
+      the most influential means that the NZFFA has to promote itself and its objectives to other \r\n\
+      land users. Therein lies a challenge for both future conference orgainising committees and \r\n\
+      the executive. <br>\r\n\
+      \r\n\
+      <h4>Award winners</h4>\r\n\
+      I would like to congratulate this year's award winners. As with past winners they have \r\n\
+      demonstrated once again the relevance of the farm forestry model in aiding good land \r\n\
+      management and sustainability. The question for farm forestry and farm foresters is how do \r\n\
+      we encourage more land owners to adopt our model. The NZFFA is very greatful to \r\n\
+      Husqvarna for their continued support of the farm forester of the year, transpower and the \r\n\
+      Landcare Trust for their environmental award and Audrey Hay for her new award to support \r\n\
+      and encourage younger tree planters. <br>\r\n\
+      \r\n\
+      <h4>Agriculture carbon footprint</h4>\r\n\
+      I have no doubt that most farm foresters will be following the current debate on the \r\n\
+      Emission Trading Scheme (ETS) and its effect on the agricultural sector. There are many \r\n\
+      predictions on what this impact might be -- ranging from little or no impact through to \r\n\
+      predictions that much of New Zealand agricultural future will be at risk under the conditions \r\n\
+      prevailing during 2006/07. As the debate continues, farm foresters are left wondering why \r\n\
+      the practical benefits of farm forestry are only paid lip-service to by the schemes designers, \r\n\
+      while at the same time much is made of yet to be developed new research and future \r\n\
+      technological advances. <br>\r\n\
+      There is no question that more trees and forestry are absolutely essential if New Zealand is \r\n\
+      ever going to be able to claim something akin to being sustainable. This is not just about \r\n\
+      balancing our carbon emissions. The country also needs more trees to protect its soils, \r\n\
+      enhance water quality, protect indigenous biodiversity and as shelter, shade or even \r\n\
+      emergency fodder for animal welfare. <br>\r\n\
+      Afforestation should not be considered in isolation, but it must be a key part of any strategy \r\n\
+      to tackle agricultural emissions. Looking at current sheep and beef country, if 10 per cent \r\n\
+      was in forestry, this would roughly balance the emissions from that industry for 30 to 40 \r\n\
+      years. I would have thought this was a very reasonable objective to aim for. Most in sheep \r\n\
+      and beef farm foresters would claim that 10 per cent is very easily attained and has minimal \r\n\
+      or no effect on farm productivity. With some imagination, I am sure farm forestry would also \r\n\
+      offer other agricultural sectors, such as dairying and cropping, the opportunity to offset \r\n\
+      emissions. <br>\r\n\
+      New Zealand used to be regarded as a world leader in farm forestry, but over the last decade \r\n\
+      interest has waned. We have lost our pre-eminent position, and we are now paying the price, \r\n\
+      be it in carbon changes, soil erosion, animal welfare or in rural amenity and landscape \r\n\
+      values. There has never been a stronger case for tree planting and New Zealand has one of \r\n\
+      the best tree growing environments in the world. The NZFAA's collective experience in \r\n\
+      planting, and managing a wide range of tree species in an even wider range of environments \r\n\
+      is a national asset. I would like to encourage the ETS designers to understand farm forestry, \r\n\
+      and why it has been successful and than to try to incorporate it in their scheme.\r\n\
+      \r\n\
+      <hr>\r\n\
+      \r\n\
+      <h4>From the Editor</h4>\r\n\
+      This issue of Tree Grower contains a bundle of articles that we hope you find \r\n\
+      interesting.<br>\r\n\
+      There are reports from the conference, summaries of the award presented, a special feature \r\n\
+      on Taranaki and two very useful articles on the Farm Forestry Model. <br>\r\n\
+      The field day reports from the conference will be continued in the August issue. The articles \r\n\
+      about the future of the NZFFA are meant to stimulate debate, so please take this opportunity \r\n\
+      to respond with useful comments or ideas. "
+    - "21"
+  - - "43"
+    - extended
+    - ""
+    - ""
+    - "21"
+  - - "44"
+    - body
+    - ""
+    - |
+      <h2>New Zealand Tree Grower</h2>
+      <h3>The official journal of the NZFFA</h3>
+      <r:children:last><div class="right"><img src=../../images/design/tg-<r:title/>.gif class="bdr" align="right"/></div></r:children:last>
+      Possibly the <b>World's best</b> source of information on farm forestry.<br/>
+      And it's <span class="bold_red">FREE</span> to members
+      <r:children:last><r:assets:first:image align="right" class="outline"/></r:children:last>
+      <br/>
+      <ul>
+        <r:children:each>
+        <li><r:link/></li>
+        </r:children:each>
+      </ul>
+      
+
+    - "22"
+  - - "45"
+    - extended
+    - ""
+    - ""
+    - "22"
+  - - "46"
+    - body
+    - ""
+    - |
+      <li>Indigenous Feature - trials, nurseries, long term growth</li>
+      <li>Selling alternative species</li>
+      <li>Good forest hygine</li>
+      <li>Multi-purpose eucalypt trial</li>
+      <li>The Kargan story</li>
+      <li>Lessons from Aquitane</li>
+
+    - "23"
+  - - "47"
+    - extended
+    - ""
+    - ""
+    - "23"
+  - - "50"
+    - body
+    - ""
+    - |-
+      <li>New adventures in Southland</li>
+      <li>Indigenous shelter planting</li>
+      <li>Farm forestry model - Dairy run-offs</li>
+      <li>Managing diverse species</li>
+      <li>A semblance of market confidence</li>
+      <li>Energy farming with willow</li>
+    - "25"
+  - - "51"
+    - extended
+    - ""
+    - ""
+    - "25"
+  - - "52"
+    - body
+    - ""
+    - |
+      <li>Dairy and farm forestry</li>
+      <li>Middle Districts feature</li>
+      <li>Carbon Update</li>
+      <li>Risk management with small woodlots</li>
+      <li>Log export sales starting to hum</li>
+      <li>Back to basics - thinning techniques</li>
+
+    - "26"
+  - - "53"
+    - extended
+    - ""
+    - ""
+    - "26"
+  - - "54"
+    - body
+    - ""
+    - |
+      <li>Marlborough Tree Growers Association</li>
+      <li>Totara return to Marlborough</li>
+      <li>Blackwood - let us not forget to coppice</li>
+      <li>The market is tough </li>
+      <li>Magnificent eucalypts </li>
+      <li>Redwoods in hill country</li>
+
+    - "27"
+  - - "55"
+    - extended
+    - ""
+    - ""
+    - "27"
+  - - "56"
+    - body
+    - ""
+    - |-
+      <li>Canterbury Conference field days</li>
+      <li>Making a difference with shelter</li>
+      <li>Wilding Corsican Pines</li>
+      <li>Costal Challenges for trees </li>
+      <li>Trees in the shadow of Mt Egmont</li>
+      <li>Japanese cedar comeback </li>
+    - "28"
+  - - "57"
+    - extended
+    - ""
+    - ""
+    - "28"
+  - - "58"
+    - body
+    - ""
+    - |-
+      <h3>What Is the Farm Forestry Model?</h3>
+      The Farm Forestry Model represents the accumulated knowledge and experience of NZ Farm Forestry Association members &#151; practical, high performing farmers and rural landowners, with over 50 years of growing trees for profit (and pleasure) as an integral part of their long term commitment to sustainable land management.<br><br>
+      In fact, we're proud to say Association members have been practising integrated land use strategies for decades, long before the concepts of 'sustainability' and 'environmental sustainability' achieved their current prominence.<br><br>
+      Today, trees have an even more vital role to play in offsetting the impacts of climate change.
+      <p>
+      <img src="/images/design/greenprint.jpg" width="608" height="471" alt="Farm Forestry Model">
+      </p>
+    - "29"
+  - - "60"
+    - body
+    - ""
+    - Trees provide a large range on environmental benefits. Besides being the "lungs of the planet", trees and forests hold soil together, preventing erosion and cycling nutrients thus preventing nutrient and soil loss. Water quality is thus improved. Biodiversity increases in forests and trees provide sanctuaries for wildlife.
+    - "30"
+  - - "61"
+    - extended
+    - ""
+    - ""
+    - "30"
+  - - "62"
+    - body
+    - ""
+    - Shelterbelts of trees can increase pasture productivity by providing a warmer microclimate. These trees can also yield valuable timber or fibre and can increase overall farm income.
+    - "31"
+  - - "63"
+    - extended
+    - ""
+    - ""
+    - "31"
+  - - "64"
+    - body
+    - ""
+    - Timber is a fantastic renewable resource. The carbon footprint from using trees as a building material is far less than competing materials such as steel and concrete. Furthermore, wood is an attractive and warm material to work with and live with.
+    - "32"
+  - - "65"
+    - extended
+    - ""
+    - ""
+    - "32"
+  - - "66"
+    - body
+    - ""
+    - Trees are a very attractive setting in any landscape. Deciduous trees provide wonderful autumn colours, while evergreen trees provide a forest setting, shade and tranquility.
+    - "33"
+  - - "67"
+    - extended
+    - ""
+    - ""
+    - "33"
+  - - "68"
+    - body
+    - ""
+    - Trees provide shelter and shade for animals. With better conditions and welfare comes healthier animals and higher productivity with less disease. Trees can also provide fodder in times of feed shortage.
+    - "34"
+  - - "69"
+    - extended
+    - ""
+    - ""
+    - "34"
+  - - "70"
+    - body
+    - ""
+    - Establishing the ideal location for the many species available.
+    - "35"
+  - - "71"
+    - extended
+    - ""
+    - ""
+    - "35"
+  - - "72"
+    - body
+    - ""
+    - What you need to know to make farm forestry work.
+    - "36"
+  - - "73"
+    - extended
+    - ""
+    - ""
+    - "36"
+  - - "74"
+    - body
+    - ""
+    - Your source for more detailed information.
+    - "37"
+  - - "75"
+    - extended
+    - ""
+    - ""
+    - "37"
+  - - "76"
+    - body
+    - ""
+    - |-
+      One of the most important decisions you can make.<br/>
+      Different species have vastly different success in different environments.<br/><br/>
+      <table border="0" cellspacing="5" cellpadding="5">
+      <tr>
+        <td bgcolor="#ffc473"><b>Dry Hot</b><hr/>Manuka<br>Eucalypts<br>Nikau palms</td>
+        <td bgcolor="#b1da9d"><b>Wet Hot</b><hr/>Punga<br>Kauri<br>Pohutukawa</td>
+        </tr>
+        <tr>
+        <td bgcolor="#bfcec0"><b>Dry Cold</b><hr/>Douglas Fir<br>Most Pines<br>Redwoods</td>
+        <td bgcolor="#80daf3"><b>Wet Cold</b><hr/>Beech<br>Cypress<br>Rhododendrons</td>
+      </tr>
+      </table>
+    - "38"
+  - - "77"
+    - extended
+    - ""
+    - ""
+    - "38"
+  - - "78"
+    - body
+    - ""
+    - |-
+      Nothing is more important.<br/>
+      Understanding where you can get the greatest benefit from trees is essential.
+    - "39"
+  - - "79"
+    - extended
+    - ""
+    - ""
+    - "39"
+  - - "80"
+    - body
+    - ""
+    - Optimisation of land depends on what your farm is primarily for.
+    - "40"
+  - - "81"
+    - extended
+    - ""
+    - ""
+    - "40"
+  - - "82"
+    - body
+    - ""
+    - |-
+      Establishing the land for planting.<br/>
+      <ul>
+      <li>Clearing</li>
+      <li>Spraying</li>
+      <li>Burning</li>
+      <li>Plowing</li>
+      <li>Landscaping</li>
+      <li>Seed-drilling</li>
+      </ul>
+    - "41"
+  - - "83"
+    - extended
+    - ""
+    - ""
+    - "41"
+  - - "84"
+    - body
+    - ""
+    - |-
+      Paperwork.<br/>
+      You might not like it, but there are good reasons for it!
+    - "42"
+  - - "85"
+    - extended
+    - ""
+    - ""
+    - "42"
+  - - "86"
+    - body
+    - ""
+    - Get ready... Go!
+    - "43"
+  - - "87"
+    - extended
+    - ""
+    - ""
+    - "43"
+  - - "88"
+    - body
+    - ""
+    - <p><i>... the growing and cultivation of trees</i></p>
+    - "44"
+  - - "89"
+    - extended
+    - ""
+    - ""
+    - "44"
+  - - "90"
+    - body
+    - ""
+    - What they get, your trees don't.
+    - "45"
+  - - "91"
+    - extended
+    - ""
+    - ""
+    - "45"
+  - - "92"
+    - body
+    - ""
+    - The natural world doesn't always work in our favour.
+    - "46"
+  - - "93"
+    - extended
+    - ""
+    - ""
+    - "46"
+  - - "94"
+    - body
+    - ""
+    - Dangerous basic elements of nature.
+    - "47"
+  - - "95"
+    - extended
+    - ""
+    - ""
+    - "47"
+  - - "96"
+    - body
+    - ""
+    - What goes up must come down.
+    - "48"
+  - - "97"
+    - extended
+    - ""
+    - ""
+    - "48"
+  - - "98"
+    - body
+    - ""
+    - Advertising, promoting and actions necessary for selling.
+    - "49"
+  - - "99"
+    - extended
+    - ""
+    - ""
+    - "49"
+  - - "100"
+    - body
+    - ""
+    - To be sustainable, you need to do it all over again.
+    - "50"
+  - - "101"
+    - extended
+    - ""
+    - ""
+    - "50"
+  - - "102"
+    - body
+    - ""
+    - |-
+      Forestry: no occupation has a greater draw on ACC.<br/>
+      Don't become a casualty!
+    - "51"
+  - - "103"
+    - extended
+    - ""
+    - ""
+    - "51"
+  - - "104"
+    - body
+    - ""
+    - Forewarned is forearmed; the nature of training.
+    - "52"
+  - - "105"
+    - extended
+    - ""
+    - ""
+    - "52"
+  - - "106"
+    - body
+    - ""
+    - |-
+      <ul>
+      <li>Article 1</li>
+      <li>Article 2</li>
+      <li>Article 3</li>
+      <li>Article 4</li>
+      <li>Article 5</li>
+      </ul>
+    - "53"
+  - - "107"
+    - extended
+    - ""
+    - ""
+    - "53"
+  - - "108"
+    - body
+    - ""
+    - |-
+      Often examples are more instructive than theory.<br/>
+      Here we present a series of real-life farm forestry case studies.
+      
+      <ul>
+        <li>Prebbles</li><br/>
+        <li>Case Study 2</li><br/>
+        <li>Case Study 3</li><br/>
+        <li>Case Study 4</li><br/>
+        <li>Case Study 5</li><br/>
+      </ul>
+    - "54"
+  - - "109"
+    - extended
+    - ""
+    - ""
+    - "54"
+  - - "110"
+    - body
+    - ""
+    - "Some tools that may help you in your forestry decisions:"
+    - "55"
+  - - "111"
+    - extended
+    - ""
+    - ""
+    - "55"
+  - - "112"
+    - body
+    - ""
+    - Some good rules of thumb to live by.
+    - "56"
+  - - "113"
+    - extended
+    - ""
+    - ""
+    - "56"
+  - - "114"
+    - body
+    - ""
+    - ""
+    - "57"
+  - - "115"
+    - extended
+    - ""
+    - ""
+    - "57"
+  - - "116"
+    - body
+    - ""
+    - |-
+      <h4>Planting for timber and shelter in Otago</h4>
+      
+      <img style="border: 1px solid ; width: 310px; height: 283px; float: left; margin-right: 5px;" alt="" src="/images/design/DSC_40050748.jpg">When John and Heather Prebble bought their farm at Mt Blue, Dunback, in
+      East Otago around 30 years ago, there weren&rsquo;t too many trees
+      in the landscape. The urgent priority was to establish a buffer against
+      the notorious nor-westers, and the next five years saw nearly 3.2 km of
+      shelterbelts planted to protect stock, crops and their home. Later the
+      emphasis moved to timber production &ndash; today there&rsquo;s
+      over 30ha of woodlots, including radiata, macrocarpa and
+      eucalyptus&nbsp;as well as poplars planted for fodder.<br>
+      
+      The landscape has been softened and tamed by the plantings, and the
+      gentle rural outlook is now a picture postcard of the farm forestry
+      model in action&hellip; trees planted for all the right reasons,
+      enhancing a productive livestock operation.<br>
+      
+      John and Heather now lease the farm to their son Mark, but their vision
+      and goals for the land haven&rsquo;t changed over the decades.<br><br>
+      
+      John is very clear about his farming philosophy, driven by his
+      over-riding goal to develop a sustainable farming system that takes
+      account of the climatic conditions:<br>
+      
+      <ul>
+      
+        <li>To farm the property in a sustainable manner using inputs in relation to carrying capacity</li><br>
+      
+        <li>To look after the soils by disturbing them as little as possible, with maximum use of direct drilling</li><br>
+      
+        <li>To produce quality stock and get satisfaction from farming, and</li><br>
+      
+        <li>To produce satisfactory financial returns.</li>
+      
+      </ul>
+      
+      And he&rsquo;s adamant that planting trees has played a vital role
+      in enhancing the farm&rsquo;s performance.<br>
+      
+      <h4>Land description</h4>
+      
+      The farm totals some 631 hectares, with soils comprising Claremont on
+      the downs and limestone on the hill country.<br>
+      
+      <img style="width: 539px; height: 206px; float: left; margin-right: 4px;" alt="" src="/images/design/prebble_scan_2B_1.jpg" border="1">Altitude
+      ranges from 61m asl up to 471m asl, from
+      the flats and rolling
+      downs to steeper hill country. Approximately 160ha of developed,
+      rolling to steep downs planted in modern pasture grasses are fenced
+      into 23 paddocks, and around 440ha of over-sown and top-dressed tussock
+      country are fenced into 6 [now 8?] blocks. There&rsquo;s also a 31
+      ha quarry and lime works on the property.<br><br>
+      
+      Despite frequent dry spells no irrigation is required, with sufficient
+      stock water available from county schemes and the farm&rsquo;s own
+      springs.<br>
+      [farm map]<br>
+      
+      <h4>Climate</h4>
+      
+      Temperature is described as a &ldquo;moderate&rdquo; 30+
+      degrees in summer, with frosts in winter.<br>
+      
+      Rainfall averages 650mm, unevenly spread, with yearly totals ranging
+      from 500mm &ndash; 1000mm. A dry summer period can be expected most
+      years, with the occasional severe drought, and it&rsquo;s rainfall
+      that dictates the carrying capacity of the property, with a tendency to
+      carry conservative stock numbers.<br>
+      
+      <h4>Farm Operation<img style="border: 1px solid ; margin-left: 5px; width: 200px; height: 130px; float: right;" alt="" src="/images/design/IMG_0745.jpg"></h4>
+      
+      The farm now runs 1750 ewes and 400 hoggets plus 75 beef cows and
+      winter calves for sale in spring.<br>
+      
+      Brassicas&nbsp;&nbsp; swedes, turnips, kale and rape
+      &ndash; are planted for summer lamb feed and winter feed. All crops
+      are direct drilled where possible, although some conventional sowing is
+      still done depending on circumstances.<br><br>
+      
+      <h3>The many roles of trees</h3>
+      
+      Trees were initially planted to provide shelter to enhance the
+      property, with woodlots for profit sited to make maximum use of poorer
+      land and also to provide shelter. All up over 34ha of woodlots,
+      including radiata, macrocarpa and eucalyptus, have been planted over
+      the years, along with 3.2km of shelterbelts and 1.5ha of fodder poplars.<br>
+      
+      <h4>Shelter</h4>
+      
+      <img style="width: 163px; height: 413px; float: left; margin-right: 5px;" alt="" src="/images/design/IMG_0746.jpg">Having planted
+      around 3.2 km of shelter belts as one of his first
+      priorities on taking over the farm, John Prebble just shakes his head
+      when the subject of ripping out shelter for dairy conversions comes up.
+      He says although he hasn&rsquo;t tried to quantify the benefits of
+      shelter on the property, the sheltered paddocks are now &ldquo;the
+      best on the place&rdquo;. Shelterbelts are a mix of P.
+      radiata/arizonica, Flevo poplars, P. muricata/arizonica planted in
+      1981-185 with some Leighton Green and Western Red Cedar planted in 1992
+      (Figure 1).<br><br>
+      
+      <span style="font-weight: bold;">Figure
+      1: SHELTERBELT PLANTINGS</span><br>
+      
+      <img style="width: 651px; height: 234px;" alt="" src="/images/design/Prebbles_figure1.jpg">&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; <br>
+      
+      Visiting in November, with signs of a possible summer drought already
+      concerning the Prebbles, the shelter effect was obvious. The Tank
+      Paddock had been sown in kale two days previously. Whereas all the
+      other paddocks were &ldquo;dry as a bone&rdquo; according to
+      John, a quick probe with his pocket knife showed that this paddock,
+      virtually surrounded on four sides by shelter, still had moisture in
+      it. [shot of pocketknife and moisture]<br>
+      
+      &ldquo;We&rsquo;ve noticed in the last few years, particularly
+      during the last couple of dry autumns, this one is the only one with
+      any green on it left on the place,&rdquo; he says.
+      <h4>Woodlots</h4>
+      
+      <img style="border: 1px solid ; margin-right: 5px; width: 195px; height: 348px; float: left;" alt="" src="/images/design/IMG_0737.jpg">All
+      told some 34 ha
+      of woodlots &ndash; mainly radiata and
+      macrocarpa, plus a small area of eucalyptus have
+      been planted for timber production, starting in 1989 and continuing
+      with annual plantings through to 1997 (Figure 2).<br><br>
+      
+      <span style="font-weight: bold;">Figure 2:&nbsp; WOODLOT PLANTINGS</span><br>
+      
+      <img style="width: 676px; height: 277px;" alt="" src="/images/design/Prebbles_fig2.jpg"><br>
+      
+      The oldest block, radiata pine planted in 1989, is now 20 years old and
+      the trees are growing well. Planted at 10 x 2 as an agroforestry block,
+      pruned at 4-5m and thinned to 240 sph, the GF22 trees are showing good
+      growth and form. This woodlot has a site index of 31 (307m3), which
+      John says is high for the district, the usual range being more like
+      25-31. Branching is quite fine, and there&rsquo;s not a lot of
+      taper.<br><br>
+      
+      When the trees were about 15m it was particularly good shelter at
+      shearing time, although that advantage isn&rsquo;t so great now
+      that the grass cover has reduced.<br><br>
+      
+      This block will be the first to be harvested, although that&rsquo;s
+      some years off yet and (understandably) the Prebbles say they will be
+      interested to see what the log prices will be like then.<br><br>
+      
+      <img style="border: 1px solid ; margin-right: 5px; margin-bottom: 5px; width: 400px; height: 267px; float: left;" alt="" src="/images/design/logging_2006.jpg">Meanwhile
+      they
+      have already experienced the practical realities of
+      harvesting, having sold some timber in 2006 after taking out a couple
+      of radiata shelter belts.<br><br>
+      
+      All up some 400t of logs were extracted, with a net return of around
+      $9,000. John says the best price for the sawlogs came from local mill
+      Hewvan Timber, realising 82t of S grade at $39 per tonne. The rest were
+      exported through Port Chalmers, a mix of Export A, K and K1 grades.<br><br>
+      
+      <img style="border: 1px solid ; width: 195px; height: 260px; float: right;" alt="" src="/images/design/DSC_40000743.jpg">It was a
+      good price at the
+      time for the sawlogs, says John, although
+      tinged with some disappointment at the volumes. The Prebbles had
+      expected they would get 150m3 or more in sawlogs, but a lot of the
+      pruned logs just didn&rsquo;t quite reach length specifications. It
+      was a good lesson learned.<br><br>
+      
+      &ldquo;Being shelterbelts we hadn&rsquo;t consciously pruned
+      them up to 6m and a lot of them were falling just that much
+      short,&rdquo; recalls John. &ldquo;It was just that last ring
+      of knots that was putting them out.&rdquo;<br><br>
+      
+      An unexpected bonus was being able to recover timber from three poplars
+      that would otherwise have been smashed when the radiata was felled. The
+      contractor felled them and pulled the logs out into the paddock.
+      They&rsquo;ve since been milled and treated for the top of a new
+      deck.<br><br>
+      
+      In the mid to late 90s the Prebbles carried out three joint venture
+      plantings, in partnership with ???. The joint venture structure brought
+      in useful cash flow that kept the planting momentum going [is this
+      true? need more here!].<br>
+      
+      <h4>Macrocarpas</h4>
+      
+      Some of the Prebbles earliest woodlot plantings were
+      macrocarpas. Longwoods from Edendale Nurseries in
+      1989 and more Longwoods from Fords Nurseries in 1990.<br><br>
+      
+      <img style="border: 1px solid ; margin-bottom: 5px; margin-right: 5px; width: 380px; height: 171px; float: left;" alt="" src="/images/design/DSC_39850728.jpg">The
+      onset of
+      canker in XXX had John scratching his head, until the
+      Prebble&rsquo;s forestry advisor, Dave Pearson, of Plantation
+      Management Services came across an old article describing the use of
+      boron as a remedy for canker.<br><br>
+      
+      Cypress canker (Seiridium cardinale and S.unicorne) is widespread
+      throughout New Zealand, and can kill young trees. For those growing
+      cypresses for timber production the impact can be severe, with the
+      disease reducing returns due to malformations and stem cankers. The
+      usual strategy is one of prevention, managed by selecting the
+      appropriate species for the site. Unfortunately C. macrocarpa is
+      particularly susceptible to the disease, suffering branch and stem
+      dieback. (For more information click <a href="http://www.nzffa.org.nz/pests/diseases/Cypress_canker/Cypress_canker.html">here</a>)<br><br>
+      
+      The decision was made to apply a tonne of boron, not only to the
+      macrocarpas but also to two small blocks of pines. The boron was
+      applied by helicopter in xxx 2008 [???], and within six months the
+      change was dramatic.<br><br>
+      
+      The trees have gone from what John describes as a &ldquo;sickly
+      yellowy-green&rdquo; to a better, healthier green and the canker
+      has seemed to not get any worse, he says John. He believes the boron
+      does seem to have controlled the disease, with only a few trees showing
+      lingering signs of yellowing. His plan is to let the stand stabilise
+      then thin out the affected stems and finish pruning the good trees.<br><br>
+      
+      Although the Prebbles did a lot of planting early on, woodlot planting
+      has virtually ceased in recent years so John can complete pruning and
+      thinning on the existing stands. He&rsquo;s used contractors in the
+      past as well as doing a lot of the work himself, but says
+      he&rsquo;ll finish doing the &ldquo;tidying up&rdquo;
+      himself. With son Mark now leasing the farm, John sees future timber
+      sales as an aid to succession planning, although any further planting
+      will most likely be more shelter.<br>
+      
+      <h4>Fodder</h4>
+      
+      <img style="width: 345px; height: 232px; float: left; margin-right: 5px; margin-bottom: 5px;" alt="" src="/images/design/DSC_39910734.jpg" border="1">The
+      Prebbles&rsquo; interest in planting poplars for stock fodder
+      started back in 1989, when they planted 500 Flevo (P. deltoides x
+      nigra) wands supplied by the Otago Catchment Board. The 1.5 ha block
+      was established and managed purely as a way of feeding stock during
+      drought.<br><br>
+      
+      Reading the handbook Growing Poplar and Willow Trees on Farms, it seems
+      Flevo would not normally be regarded as the ideal species for sites
+      prone to mid-summer drought and has since been superceded by newer
+      clones. However it is recommended as a fodder resource because of its
+      large leaves and many branches.<br><br>
+      
+      In 1998, under severe drought conditions, 33 steers were fed 10 trees
+      every day, with results that have since been described as
+      &ldquo;amazing&rdquo; by the Ballance Award regional
+      co-ordinator Rhys Millar.<br><br>
+      
+      John says the cattle did do quite well, although they did damage the
+      trees. He only puts sheep in there now because cattle stripped the bark
+      off so badly. Last autumn he ran around 300 ewes in the block. The
+      trees have recovered quite quickly and are coming away again well, and
+      will be available to feed off in two years time.<br><br>
+      
+      <img style="width: 337px; height: 273px; float: right; margin-left: 5px; margin-bottom: 5px;" alt="" src="/images/design/DSC_39890732.jpg" border="1">In 2004 John
+      helped Barrie Wills of Central Environmental Services,
+      Alexandra, and land and forest consultant Murray Harris set up a trial
+      with a grant from the Sustainable Farming Fund (SFF Project #04/089) to
+      evaluate the effects of simple practical pruning treatments on tree
+      fodder production and possible leaf retention. The project looked at
+      quantifying dry matter yield and analysed the quality of the feed.<br><br>
+      
+      Well-placed fencing for maximum animal control during grazing is seen
+      as the key to good utilisation of tree fodder. The trial concluded that
+      autumn pruning produced greater biomass within the relatively short two
+      growing season period from pruning to harvest. Eliminating smaller
+      branches during pruning improved yield initially but was eventually
+      offset by a decrease in edible fodder. In his report on the project
+      Barry Wills says when trimming larger trees for the first time
+      horizontal cuts should be avoided, as it restricts wound healing and
+      meristem development (from which new branches arise).<br><br>
+      
+      The treatments applied to the trees had a negligible effect on leaf
+      retention at the end of the growing season and using combinations of
+      different poplar species or cultivars was seen as a more effective way
+      of extending the fodder supply.<br><br>
+      
+      In 2006 John and Heather received a special regional Ballance Award in
+      recognition of their work with the project.
+    - "58"
+  - - "117"
+    - extended
+    - ""
+    - ""
+    - "58"
+  - - "118"
+    - adverts
+    - ""
+    - |-
+      <table style="margin-left: 12px; text-align: left; width: 268px; position: relative; top:-20px" border="0" cellpadding="2" cellspacing="0" bgcolor="#f3f3f3" align="right">
+        <tr><td>
+              <style type="text/css">@import url(http://www.google.com/cse/api/branding.css);</style>
+              <form action="http://www.google.com/cse" id="searchbox_004801257071898501026:endqjowixi4">
+              <input name="cx" value="004801257071898501026:endqjowixi4" type="hidden"> 
+              <input name="q" size="25" type="text"> <input name="sa" value="Search" type="submit"> 
+              </form>
+            <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_004801257071898501026%3Aendqjowixi4&amp;lang=en"></script>
+        </td></tr>  
+        <tr><td><img src="/images/design/Husqvarna_top.jpg" width="268" height="79" alt="Husqvarna"><br>
+        </td></tr>  
+        <tr><td><img src="/images/design/Husqvarna_action.jpg" width="268" height="142" alt="Husqvarna Action">
+        </td></tr>  
+         <tr><td style="padding:10px;">
+            <span class="large">About Husqvarna</span><br>
+             <div style="text-align: justify; font-size:12px;">The
+      Husqvarna Group is the world's largest producer of chainsaws,
+      lawn mowers and other petrol-powered garden equipment such as trimmers
+      and leaf blowers, as well as one of the world's largest producers
+      of garden tractors. Husqvarna is also one of the world's largest
+      producers of cutting equipment for the construction and stone industries.<br>
+           </div><br>
+      <div style="font-size:12px;">The product offering comprises equipment for both consumers and <br>
+      professional users.<br/><br/>
+           Husqvarna Outdoor Products,<br>
+           PO Box 76-437, Manukau City, Auckland</div>
+        </td></tr>
+         <tr><td>
+           <img src="/images/design/Husqvarna_bot.jpg" width="268" height="53" alt=" ">
+         </td></tr>
+      </table>
+    - "29"
+  - - "119"
+    - banner_xml_url
+    - ""
+    - /data.xml
+    - "1"
+  - - "120"
+    - body
+    - ""
+    - ""
+    - "59"
+  - - "121"
+    - extended
+    - ""
+    - ""
+    - "59"
+  - - "122"
+    - banner_xml_url
+    - ""
+    - <r:url />/data.xml
+    - "54"
+  - - "123"
+    - body
+    - ""
+    - |-
+      <TitleBanner colour="0xFF6600" alpha="1" frameRate="50" showDuration="9" fadeDuration="2" timeMultiplier="600">
+          <TextElement text="Case Study " font="ItcKabBol" size="48" colour="0x003300" x="20" y="110" scale="none" blurX="9" blurY="9" alpha="1"/>
+          <TextElement text="Case Study " font="ItcKabBol" size="48" colour="0xFFFFFF" x="20" y="110" scale="none"/>
+          <TextElement text="List " font="ItcKabBol" size="48" colour="0x003300" x="20" y="155" scale="none" blurX="9" blurY="9" alpha="1"/>
+          <TextElement text="List " font="ItcKabBol" size="48" colour="0xFFFFFF" x="20" y="155" scale="none"/>
+      
+          <StaticImageElement url="/images/design/tl_cnr.png"  width="7" height="8" x="0" y="0" alpha="1"/>
+          <StaticImageElement url="/images/design/tr_cnr.png"  width="7" height="8" x="893" y="0" alpha="1"/>
+          <StaticImageElement url="/images/design/shade_round_tl_gb.png"  width="275" height="100" x="625" y="120" alpha="0.60"/>
+          
+          <StaticImageElement url="/images/design/logo3_01.gif" scale="none" x="625" y="208"/>
+      	
+          <TextElement text="A Network of Successful " font="ItcKabDem" size="25" colour="0x003300" x="630" y="123" scale="fit" blurX="7" blurY="7" alpha="1"/>
+          <TextElement text="A Network of Successful " font="ItcKabDem" size="25" colour="0xFFFFFF" x="630" y="123" scale="fit"/>
+          <TextElement text="Tree Growers " font="ItcKabDem" size="25" colour="0x003300" x="630" y="147" scale="fit" blurX="7" blurY="7" alpha="1"/>
+          <TextElement text="Tree Growers " font="ItcKabDem" size="25" colour="0xFFFFFF" x="630" y="147" scale="fit"/>
+      
+          <r:assets:each>
+              <ImageElement url="<r:url/>" scale="crop" background="0x333333" alpha="1"/>
+          </r:assets:each>
+      </TitleBanner>
+    - "60"
+  - - "124"
+    - extended
+    - ""
+    - ""
+    - "60"
+
+--- 
+pages: 
+  columns: 
+  - id
+  - title
+  - slug
+  - breadcrumb
+  - class_name
+  - status_id
+  - parent_id
+  - layout_id
+  - created_at
+  - updated_at
+  - published_at
+  - created_by_id
+  - updated_by_id
+  - virtual
+  - lock_version
+  - description
+  - keywords
+  - position
+  records: 
+  - - "1"
+    - home
+    - /
+    - home
+    - ""
+    - "100"
+    - 
+    - "6"
+    - 2009-06-17 09:13:51
+    - 2009-06-22 04:40:23
+    - 2009-06-17 21:13:51
+    - "1"
+    - "1"
+    - false
+    - "5"
+    - ""
+    - ""
+    - "0"
+  - - "2"
+    - style.css
+    - style.css
+    - style.css
+    - ""
+    - "100"
+    - "1"
+    - "3"
+    - 2009-06-17 09:17:22
+    - 2009-06-21 00:40:50
+    - 2009-06-17 21:17:22
+    - "1"
+    - "1"
+    - false
+    - "5"
+    - ""
+    - ""
+    - "5"
+  - - "3"
+    - drop_down.css
+    - drop_down.css
+    - drop_down.css
+    - ""
+    - "100"
+    - "1"
+    - "3"
+    - 2009-06-17 09:23:24
+    - 2009-06-21 00:40:50
+    - 2009-06-17 21:23:24
+    - "1"
+    - "1"
+    - false
+    - "4"
+    - ""
+    - ""
+    - "6"
+  - - "4"
+    - data.xml
+    - data.xml
+    - data.xml
+    - ""
+    - "100"
+    - "1"
+    - "4"
+    - 2009-06-20 00:30:59
+    - 2009-06-21 00:40:50
+    - 2009-06-20 13:39:14
+    - "1"
+    - "1"
+    - false
+    - "5"
+    - ""
+    - ""
+    - "8"
+  - - "5"
+    - swfobject.js
+    - swfobject.js
+    - swfobject.js
+    - ""
+    - "100"
+    - "1"
+    - "15"
+    - 2009-06-20 01:39:47
+    - 2009-07-01 09:50:19
+    - 2009-06-20 13:40:05
+    - "1"
+    - "1"
+    - false
+    - "8"
+    - ""
+    - ""
+    - "7"
+  - - "6"
+    - Forestry Organisations
+    - forestry-organisations
+    - Forestry Organisations
+    - ""
+    - "100"
+    - "1"
+    - "7"
+    - 2009-06-20 02:53:31
+    - 2009-06-22 07:59:20
+    - 2009-06-20 14:53:46
+    - "1"
+    - "1"
+    - false
+    - "7"
+    - ""
+    - ""
+    - "1"
+  - - "7"
+    - Become a Member
+    - become-a-member
+    - Become a Member
+    - ""
+    - "100"
+    - "1"
+    - "7"
+    - 2009-06-20 03:16:59
+    - 2009-06-22 07:59:13
+    - 2009-06-20 15:16:59
+    - "1"
+    - "1"
+    - false
+    - "6"
+    - ""
+    - ""
+    - "0"
+  - - "8"
+    - Market Report
+    - market-report
+    - Market Report
+    - ""
+    - "100"
+    - "1"
+    - "7"
+    - 2009-06-20 03:35:37
+    - 2009-06-22 07:59:00
+    - 2009-06-20 15:35:37
+    - "1"
+    - "1"
+    - false
+    - "7"
+    - ""
+    - ""
+    - "2"
+  - - "9"
+    - Farm Forestry Awards
+    - farm-forestry-awards
+    - Farm Forestry Awards
+    - ""
+    - "100"
+    - "1"
+    - "7"
+    - 2009-06-20 04:15:19
+    - 2009-06-22 07:59:34
+    - 2009-06-20 16:15:19
+    - "1"
+    - "1"
+    - false
+    - "6"
+    - ""
+    - ""
+    - "3"
+  - - "10"
+    - Special Interest Groups
+    - special-interest-groups
+    - Special Interest Groups
+    - ""
+    - "100"
+    - "1"
+    - "9"
+    - 2009-06-20 04:23:38
+    - 2009-06-22 10:55:28
+    - 2009-06-20 16:23:38
+    - "1"
+    - "1"
+    - false
+    - "8"
+    - ""
+    - ""
+    - "4"
+  - - "11"
+    - Indigenous Forest Section
+    - indigenous-forest-section
+    - Indigenous Forest Section
+    - ""
+    - "100"
+    - "10"
+    - 
+    - 2009-06-20 04:35:03
+    - 2009-06-22 10:58:22
+    - 2009-06-20 16:35:03
+    - "1"
+    - "1"
+    - false
+    - "3"
+    - ""
+    - ""
+    - "3"
+  - - "12"
+    - Acacia Melanoxylon Interest Group Organisation
+    - acacia-melanoxylon-interest-group-organisation
+    - Acacia Melanoxylon Interest Group Organisation
+    - ""
+    - "100"
+    - "10"
+    - 
+    - 2009-06-20 04:46:02
+    - 2009-06-22 10:55:36
+    - 2009-06-20 16:46:02
+    - "1"
+    - "1"
+    - false
+    - "5"
+    - ""
+    - ""
+    - "0"
+  - - "13"
+    - Cypress Action Group
+    - cypress-action-group
+    - Cypress Action Group
+    - ""
+    - "100"
+    - "10"
+    - 
+    - 2009-06-20 04:51:08
+    - 2009-06-22 10:56:14
+    - 2009-06-20 16:51:08
+    - "1"
+    - "1"
+    - false
+    - "3"
+    - ""
+    - ""
+    - "1"
+  - - "14"
+    - Eucalypt Action Group
+    - eucalypt-action-group
+    - Eucalypt Action Group
+    - ""
+    - "100"
+    - "10"
+    - 
+    - 2009-06-20 04:54:29
+    - 2009-06-22 10:56:22
+    - 2009-06-20 16:54:29
+    - "1"
+    - "1"
+    - false
+    - "3"
+    - ""
+    - ""
+    - "2"
+  - - "15"
+    - Sequoia Action Group
+    - sequoia-action-group
+    - Sequoia Action Group
+    - ""
+    - "100"
+    - "10"
+    - 
+    - 2009-06-20 04:59:52
+    - 2009-06-22 09:50:14
+    - 2009-06-20 16:59:52
+    - "1"
+    - "1"
+    - false
+    - "3"
+    - ""
+    - ""
+    - "4"
+  - - "16"
+    - President's Comment
+    - presidents-comment
+    - President's Comment
+    - ""
+    - "100"
+    - "1"
+    - "7"
+    - 2009-06-23 06:40:01
+    - 2009-06-23 06:43:05
+    - 2009-06-23 18:41:30
+    - "1"
+    - "1"
+    - false
+    - "2"
+    - ""
+    - ""
+    - "0"
+  - - "17"
+    - President's Comment May 2009
+    - presidents-comment-may-2009
+    - President's Comment May 2009
+    - ""
+    - "100"
+    - "16"
+    - 
+    - 2009-06-23 06:41:03
+    - 2009-06-23 06:55:42
+    - 2009-06-23 18:41:53
+    - "1"
+    - "1"
+    - false
+    - "2"
+    - ""
+    - ""
+    - "0"
+  - - "18"
+    - President's Comment Feb 2009
+    - presidents-comment-feb-2009
+    - President's Comment Feb 2009
+    - ""
+    - "100"
+    - "16"
+    - 
+    - 2009-06-23 06:57:28
+    - 2009-06-23 07:07:09
+    - 2009-06-23 18:57:28
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "19"
+    - President's Comment Nov 2008
+    - presidents-comment-nov-2008
+    - President's Comment Nov 2008
+    - ""
+    - "100"
+    - "16"
+    - 
+    - 2009-06-23 07:00:30
+    - 2009-06-23 07:07:20
+    - 2009-06-23 19:00:30
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "20"
+    - President's Comment Aug 2008
+    - presidents-comment-aug-2008
+    - President's Comment Aug 2008
+    - ""
+    - "100"
+    - "16"
+    - 
+    - 2009-06-23 07:02:17
+    - 2009-06-23 07:04:36
+    - 2009-06-23 19:02:17
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "21"
+    - President's Comment May 2008
+    - presidents-comment-may-2008
+    - President's Comment May 2008
+    - ""
+    - "100"
+    - "16"
+    - 
+    - 2009-06-23 07:18:20
+    - 2009-06-23 07:18:20
+    - 2009-06-23 19:18:20
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "22"
+    - Tree Grower
+    - tree-grower
+    - Tree Grower
+    - ""
+    - "100"
+    - "1"
+    - "7"
+    - 2009-06-23 22:40:17
+    - 2009-06-23 22:42:13
+    - 2009-06-24 10:41:25
+    - "1"
+    - "1"
+    - false
+    - "3"
+    - ""
+    - ""
+    - "0"
+  - - "23"
+    - May-2009
+    - may-2009
+    - May-2009
+    - ""
+    - "100"
+    - "22"
+    - "10"
+    - 2009-06-23 22:46:45
+    - 2009-06-23 23:32:59
+    - 2009-06-24 11:32:59
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "25"
+    - February-2009
+    - february-2009
+    - February-2009
+    - ""
+    - "100"
+    - "22"
+    - "10"
+    - 2009-06-24 03:47:20
+    - 2009-06-24 03:47:46
+    - 2009-06-24 15:47:20
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "26"
+    - November-2008
+    - november-2008
+    - November-2008
+    - ""
+    - "100"
+    - "22"
+    - "10"
+    - 2009-06-24 03:53:38
+    - 2009-06-24 03:54:42
+    - 2009-06-24 15:53:38
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "27"
+    - August-2008
+    - august-2008
+    - August-2008
+    - ""
+    - "100"
+    - "22"
+    - "10"
+    - 2009-06-24 04:21:34
+    - 2009-06-24 04:21:34
+    - 2009-06-24 16:21:34
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "28"
+    - May-2008
+    - may-2008
+    - May-2008
+    - ""
+    - "100"
+    - "22"
+    - "10"
+    - 2009-06-24 04:47:18
+    - 2009-06-24 04:47:32
+    - 2009-06-24 16:47:31
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "29"
+    - Farm Forestry Model
+    - farm-forestry-model
+    - Farm Forestry Model
+    - ""
+    - "100"
+    - "1"
+    - "12"
+    - 2009-06-24 05:27:14
+    - 2009-07-01 05:43:22
+    - 2009-06-24 17:27:14
+    - "1"
+    - "1"
+    - false
+    - "4"
+    - ""
+    - ""
+    - "0"
+  - - "30"
+    - Trees for the Environment
+    - trees-for-the-environment
+    - Trees for the Environment
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 11:06:23
+    - 2009-06-30 13:14:54
+    - 2009-06-29 23:06:23
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "31"
+    - Trees for Farm Productivity
+    - trees-for-farm-productivity
+    - Trees for Farm Productivity
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 11:07:54
+    - 2009-06-30 13:15:05
+    - 2009-06-29 23:07:54
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "32"
+    - Trees for Timber
+    - trees-for-timber
+    - Trees for Timber
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 11:08:56
+    - 2009-06-30 13:15:13
+    - 2009-06-29 23:08:56
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "33"
+    - Trees for Show
+    - trees-for-show
+    - Trees for Show
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 11:09:36
+    - 2009-06-30 13:15:22
+    - 2009-06-29 23:09:36
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "34"
+    - Trees for Animal Welfare
+    - trees-for-animal-welfare
+    - Trees for Animal Welfare
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 11:10:25
+    - 2009-06-30 13:15:34
+    - 2009-06-29 23:10:25
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "35"
+    - Which Tree Where
+    - which-tree-where
+    - Which Tree Where
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 12:37:18
+    - 2009-06-29 12:38:42
+    - 2009-06-30 00:37:18
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "36"
+    - The Basics
+    - the-basics
+    - The Basics
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 12:38:31
+    - 2009-06-29 12:38:31
+    - 2009-06-30 00:38:31
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "37"
+    - Resource Centre
+    - resource-centre
+    - Resource Centre
+    - ""
+    - "100"
+    - "29"
+    - 
+    - 2009-06-29 12:39:42
+    - 2009-06-29 12:39:42
+    - 2009-06-30 00:39:42
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "38"
+    - Which species?
+    - which-species
+    - Which species?
+    - ""
+    - "100"
+    - "35"
+    - 
+    - 2009-06-30 00:56:17
+    - 2009-06-30 03:46:11
+    - 2009-06-30 12:56:42
+    - "1"
+    - "1"
+    - false
+    - "2"
+    - ""
+    - ""
+    - "0"
+  - - "39"
+    - Know your land
+    - know-your-land
+    - Know your land
+    - ""
+    - "100"
+    - "35"
+    - 
+    - 2009-06-30 03:43:26
+    - 2009-06-30 03:43:26
+    - 2009-06-30 15:43:26
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "40"
+    - What type of farm?
+    - what-type-of-farm
+    - What type of farm?
+    - ""
+    - "100"
+    - "35"
+    - 
+    - 2009-06-30 03:45:43
+    - 2009-06-30 03:45:43
+    - 2009-06-30 15:45:43
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "41"
+    - Establishment
+    - establishment
+    - Establishment
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 03:51:03
+    - 2009-06-30 03:51:03
+    - 2009-06-30 15:51:03
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "42"
+    - Legal and Insurance
+    - legal-and-insurance
+    - Legal and Insurance
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 03:52:00
+    - 2009-06-30 04:38:06
+    - 2009-06-30 15:52:00
+    - "1"
+    - "1"
+    - false
+    - "2"
+    - ""
+    - ""
+    - "0"
+  - - "43"
+    - Site Preparation and Planting
+    - site-preparation-and-planting
+    - Site Preparation and Planting
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 04:40:44
+    - 2009-06-30 04:40:44
+    - 2009-06-30 16:40:44
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "44"
+    - Silviculture
+    - silviculture
+    - Silviculture
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:00:51
+    - 2009-06-30 05:00:51
+    - 2009-06-30 17:00:51
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "45"
+    - Weeds
+    - weeds
+    - Weeds
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:01:40
+    - 2009-06-30 05:01:40
+    - 2009-06-30 17:01:40
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "46"
+    - Pests and Diseases
+    - pests-and-diseases
+    - Pests and Diseases
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:02:46
+    - 2009-06-30 05:02:46
+    - 2009-06-30 17:02:46
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "47"
+    - Wind and Fire Risk
+    - wind-and-fire-risk
+    - Wind and Fire Risk
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:03:33
+    - 2009-06-30 05:03:33
+    - 2009-06-30 17:03:33
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "48"
+    - Harvesting
+    - harvesting
+    - Harvesting
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:05:08
+    - 2009-06-30 05:05:08
+    - 2009-06-30 17:05:08
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "49"
+    - Marketing
+    - marketing
+    - Marketing
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:07:31
+    - 2009-06-30 05:07:31
+    - 2009-06-30 17:07:31
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "50"
+    - Replanting
+    - replanting
+    - Replanting
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:09:32
+    - 2009-06-30 05:09:32
+    - 2009-06-30 17:09:32
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "51"
+    - Health and Safety
+    - health-and-safety
+    - Health and Safety
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:15:40
+    - 2009-06-30 05:15:40
+    - 2009-06-30 17:15:40
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "52"
+    - Training
+    - training
+    - Training
+    - ""
+    - "100"
+    - "36"
+    - 
+    - 2009-06-30 05:30:03
+    - 2009-06-30 05:30:03
+    - 2009-06-30 17:30:03
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "53"
+    - Technical Articles
+    - technical-articles
+    - Technical Articles
+    - ""
+    - "100"
+    - "37"
+    - 
+    - 2009-06-30 05:32:03
+    - 2009-06-30 05:32:03
+    - 2009-06-30 17:32:03
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "54"
+    - Case Studies
+    - case-studies
+    - Case Studies
+    - ""
+    - "100"
+    - "37"
+    - 
+    - 2009-06-30 12:23:24
+    - 2009-07-01 04:58:11
+    - 2009-07-01 00:26:19
+    - "1"
+    - "1"
+    - false
+    - "3"
+    - ""
+    - ""
+    - "0"
+  - - "55"
+    - Decision Support Software
+    - decision-support-software
+    - Decision Support Software
+    - ""
+    - "100"
+    - "37"
+    - 
+    - 2009-06-30 12:25:14
+    - 2009-06-30 12:26:28
+    - 2009-07-01 00:26:28
+    - "1"
+    - "1"
+    - false
+    - "1"
+    - ""
+    - ""
+    - "0"
+  - - "56"
+    - Codes of Practice
+    - codes-of-practice
+    - Codes of Practice
+    - ""
+    - "100"
+    - "37"
+    - 
+    - 2009-06-30 12:26:03
+    - 2009-06-30 12:26:03
+    - 2009-07-01 00:26:03
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "57"
+    - Other Sources of Info
+    - other-sources-of-info
+    - Other Sources of Info
+    - ""
+    - "100"
+    - "37"
+    - 
+    - 2009-06-30 12:26:54
+    - 2009-06-30 12:26:54
+    - 2009-07-01 00:26:54
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+  - - "58"
+    - Prebbles
+    - prebbles
+    - Prebbles
+    - ""
+    - "100"
+    - "54"
+    - "14"
+    - 2009-06-30 13:06:43
+    - 2009-07-01 05:45:47
+    - 2009-07-01 01:11:01
+    - "1"
+    - "1"
+    - false
+    - "4"
+    - ""
+    - ""
+    - "0"
+  - - "59"
+    - data.xml
+    - data.xml
+    - data.xml
+    - ""
+    - "100"
+    - "58"
+    - "16"
+    - 2009-07-01 09:24:26
+    - 2009-07-01 10:56:17
+    - 2009-07-01 21:24:26
+    - "1"
+    - "1"
+    - false
+    - "2"
+    - ""
+    - ""
+    - "0"
+  - - "60"
+    - data.xml
+    - data.xml
+    - data.xml
+    - ""
+    - "100"
+    - "54"
+    - "4"
+    - 2009-07-01 09:29:07
+    - 2009-07-01 09:29:07
+    - 2009-07-01 21:29:07
+    - "1"
+    - 
+    - false
+    - "0"
+    - ""
+    - ""
+    - "0"
+
+--- 
+users: 
+  columns: 
+  - id
+  - name
+  - email
+  - login
+  - password
+  - created_at
+  - updated_at
+  - created_by_id
+  - updated_by_id
+  - admin
+  - developer
+  - notes
+  - lock_version
+  - salt
+  - session_token
+  records: 
+  - - "1"
+    - admin
+    - 
+    - admin
+    - 1fdb96225caf9f0cedeca4a96fc3d803a690bb3d
+    - 2009-06-17 05:19:31
+    - 2009-06-30 02:56:28
+    - 
+    - 
+    - true
+    - false
+    - 
+    - "2"
+    - 75d7d6dd3d127e8c1ef9adb284e0de6ebe5519fb
+    - b6141316b16a92282d671a9646e40c51e8b2bb16

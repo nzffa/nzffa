@@ -28,7 +28,7 @@ class Advert < ActiveRecord::Base
   
   # we have to use a lambda here, so that 4.weeks.ago, and Time.now are calculated at request time,
   # not at application start time.
-  named_scope :active,  lambda { |*args| {:conditions => { :created_at => 4.weeks.ago..Time.now, :status => true} }}
+  named_scope :active,  lambda { |*args| {:conditions => { :created_at => 10.weeks.ago..Time.now, :status => true} }}
   named_scope :disabled, :conditions => { :status=> false } 
   
   def dollars

@@ -1,13 +1,18 @@
 class CreatePeople < ActiveRecord::Migration
   def self.up
-    add_column :persons, :first_name, :string
-    add_column :persons, :last_name, :string
-    add_column :persons, :phone, :string
+    create_table :people do |t|
+      t.string :email
+      t.string :crypted_password
+      t.string :password_salt
+      t.string :persistence_token
+      t.string :phone
+      t.string :first_name
+      t.string :last_name
+      t.timestamps
+    end
   end
   
   def self.down
-    remove_column :persons, :phone
-    remove_column :persons, :last_name
-    remove_column :persons, :first_name
+    drop_table :people
   end
 end

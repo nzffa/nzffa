@@ -22,9 +22,9 @@ class NzffaSiteExtension < Radiant::Extension
       admin.resources "marketplace"
     end
     
-    map.resources :magazines
+    # map.resources :magazines
 
-    map.resources :presidentials
+    # map.resources :presidentials
 
     map.resources :person_branch_roles
 
@@ -37,9 +37,8 @@ class NzffaSiteExtension < Radiant::Extension
 
     map.show_login_area "show_login_area", :controller => "person_sessions", :action => "show_login_area"
 
-    map.login "login", :controller => "person_sessions", :action => "new"
-    map.logout "logout", :controller => "person_sessions", :action => "destroy"
-    map.resources :person_sessions
+    map.person_login "person_login", :controller => "person_sessions", :action => "new"
+    map.person_logout "person_logout", :controller => "person_sessions", :action => "destroy"
     map.resources :person_sessions
 
     map.resources :people

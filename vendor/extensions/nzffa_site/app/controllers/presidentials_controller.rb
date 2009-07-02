@@ -1,4 +1,4 @@
-class PresidentialsController < ApplicationController
+class PresidentialsController < NzffaController
   # GET /presidentials
   # GET /presidentials.xml
   def index

@@ -1,24 +1,5 @@
 class Person < ActiveRecord::Base
-  set_table_name "users"
-  
-  acts_as_authentic do |c|
-    c.login_field = "email"
-    c.crypted_password_field = "crypted_password"
-    c.password_salt_field = "salt"
-    c.crypto_provider = Authlogic::CryptoProviders::Sha1
-  end
-  
-  # def persistence_token= *args
-  #   session_token = *args
-  # end
-  # 
-  # def persistence_token
-  #   session_token
-  # end
-  # 
-  # def persistence_token_changed?
-  #   true
-  # end
+  acts_as_authentic
   
   has_many :adverts
   has_many :people_branch_roles
@@ -30,7 +11,4 @@ class Person < ActiveRecord::Base
   def full_name
     first_name + " " + last_name
   end
-  
-  
-  
 end

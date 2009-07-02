@@ -2,10 +2,10 @@
   <% if current_person %>  
     <%# link_to "Edit profile", edit_person_path(:current) %>
     <%= current_person.email %> | 
-    <%= link_to_remote "Logout", :update => "login_area", :url=>logout_path %>
+    <%= link_to_remote "Logout", :update => "login_area", :url=>person_logout_path %>
   <% else %>  
     <%# link_to "Register", new_person_path %>  
-    <%# link_to "Log in", login_path %>
+    <%# link_to "Log in", person_login_path %>
     
     
     

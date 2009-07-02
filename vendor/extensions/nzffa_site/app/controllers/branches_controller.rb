@@ -1,4 +1,4 @@
-class BranchesController < ApplicationController
+class BranchesController < NzffaController
   # GET /branches
   # GET /branches.xml
   def index

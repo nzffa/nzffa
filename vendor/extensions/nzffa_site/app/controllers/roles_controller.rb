@@ -1,4 +1,4 @@
-class RolesController < ApplicationController
+class RolesController < NzffaController
   # GET /roles
   # GET /roles.xml
   def index
