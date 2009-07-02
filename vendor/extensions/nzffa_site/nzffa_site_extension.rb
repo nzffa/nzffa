@@ -1,12 +1,13 @@
 # Uncomment this if you reference any of your controllers in activate
 # require_dependency 'application'
+# require File.join(File.dirname(__FILE__), '/vendor/gems/authlogic-2.0.13/init.rb')
 
 class NzffaSiteExtension < Radiant::Extension
   version "1.0"
   description "Home for all dynamic NZFFA content, both person and admin side. Has adverts, members and wiki stuff."
   url "http://gunn.co.nz"
   
-  require "authlogic"
+  # require "authlogic"
   # require "paperclip"
   
   define_routes do |map|

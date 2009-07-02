@@ -28,6 +28,9 @@ Radiant::Initializer.run do |config|
     :secret      => 'ed8f6453669558233fab451bd6182d34819d0201'
   }
 
+
+  config.gem "authlogic"
+
   # Comment out this line if you want to turn off all caching, or
   # add options to modify the behavior. In the majority of deployment 
   # scenarios it is desirable to leave Radiant's cache enabled and in
