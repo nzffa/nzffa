@@ -23,15 +23,17 @@ class NzffaSiteExtension < Radiant::Extension
       admin.resources "marketplace"
     end
     
+    # Don't think we want these:
     # map.resources :magazines
-
     # map.resources :presidentials
 
-    map.resources :person_branch_roles
-
-    map.resources :roles
-
-    map.resources :branches
+    # figure out these later:
+    # map.resources :person_branch_roles
+    # map.resources :roles
+    # map.resources :branches
+    
+    # map.resources :people
+    
 
     # map.connect "adverts/list", :controller => "adverts", :action => "list"
     map.resources :adverts
@@ -42,15 +44,15 @@ class NzffaSiteExtension < Radiant::Extension
     map.person_logout "person_logout", :controller => "person_sessions", :action => "destroy"
     map.resources :person_sessions
 
-    map.resources :people
-
-    map.root :controller => "adverts"  
+    
+    # shouldn't be root
+    # map.root :controller => "adverts"  
     
     
   end
   
   def activate
-    admin.tabs.add "Marketplace", "/admin/marketplace", :before => "Snippets", :visibility => [:all]
+    admin.tabs.add "Marketplace", "/admin/marketplace", :before => "Snippets", :visibility => [:admin]
   end
   
   def deactivate
