@@ -1,0 +1,32 @@
+<%= will_paginate @adverts %>
+<br>
+<table style="width:100%">
+  <tr>
+    <th class="center"><%= advert_order_link "date" %></th>
+    <th class="left"><%= advert_order_link "title" %></th>
+    <th class="right"><%= advert_order_link "price" %></th>
+  </tr>
+  <tr>
+    <td colspan="6"><hr/></td>
+  </tr>
+  <% @adverts.each do |advert| %>
+    <tr style="vertical-align:top">
+      <td class="advert_image_td center"><%= link_to (image_tag(advert.image.url(:thumb))), advert %></td>
+      <td class="left">
+        <%= ad_type_badge(advert.ad_type) %><b class="title"><%= link_to h(advert.title), advert %></b><br>
+        <span class="ad_snippet"><%=h advert.snippet %></span><br>
+        <%= advert.location %><br>
+        <!-- <%=h advert.ad_type %> -->
+        <!-- Listed: <%= time_ago_in_words advert.created_at %> ago<br> -->
+        <%= distance_of_time_in_words(Time.now, advert.created_at+10.weeks, true) %> left<br>
+      </td>
+      <td class="right"><% if advert.dollars %> <%= number_to_currency(advert.dollars) %><% end %></td>
+
+    </tr>
+    <tr>
+      <td colspan="6"><hr/></td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<%= will_paginate @adverts%>

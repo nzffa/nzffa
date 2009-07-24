@@ -1,0 +1,12 @@
+The following advert has been submitted to appear on: http://nzffa.vint.co.nz/marketplace
+Please confirm that 
+a) this person is a current member,
+b) the advert is appropriate for the website
+
+Title: <%= @advert.title %>
+Text:  <%= @advert.body %>
+
+
+Go to this address to approve: <%= advert_url @advert, :host => "localhost:3000" %>
+
+<%= @advert %>

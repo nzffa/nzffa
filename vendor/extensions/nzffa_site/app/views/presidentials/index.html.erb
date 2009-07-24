@@ -1,0 +1,24 @@
+<h1>Listing presidentials</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Name</th>
+    <th>Body</th>
+  </tr>
+
+<% @presidentials.each do |presidential| %>
+  <tr>
+    <td><%=h presidential.title %></td>
+    <td><%=h presidential.name %></td>
+    <td><%=h presidential.body %></td>
+    <td><%= link_to 'Show', presidential %></td>
+    <td><%= link_to 'Edit', edit_presidential_path(presidential) %></td>
+    <td><%= link_to 'Destroy', presidential, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New presidential', new_presidential_path %>

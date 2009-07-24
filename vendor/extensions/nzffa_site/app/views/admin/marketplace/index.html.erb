@@ -1,0 +1,43 @@
+<% @page_title = "asd" %>
+
+<% @title = "a" %>
+<h1>Marketplace</h1>
+<h2>For farm forestry</h2>
+<p>
+<form name="sform" action="" style="display:inline;">
+<label for="item_name">Filter on item name  : </label>
+<%= text_field_tag("query", params['query'], :size => 10 ) %>
+</form>
+
+<%= image_tag("spinner.gif",
+              :align => "absmiddle",
+              :border => 0,
+              :id => "spinner",
+              :style =>"display: none;" ) %>
+</p>
+
+<%= observe_field 'query',  :frequency => 2,
+         :update => 'table',
+         :before => "Element.show('spinner')",
+         :success => "Element.hide('spinner')",
+         :url => {:action => 'index'},
+         :method => "get",
+         :with => 'query' %>
+
+<div id="table">
+<%= render :partial => "adverts/adverts_list" %>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+  var container = $(document.body)
+  container.observe('click', function(e) {
+        var el = e.element();
+        if (el.match('.pagination a')) {
+           new Ajax.Updater("table", el.href, { method: 'get', parameters:'query=' + encodeURIComponent($("query").value) })
+          //<%= remote_function :url=>"/", :update=>"table" %>
+          e.stop()
+        }
+      })
+</script>
+<br><br>

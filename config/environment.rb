@@ -24,9 +24,12 @@ Radiant::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random,
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_radiant_NZFFA_session',
+    :session_key => '_radiant_Nzffa_session',
     :secret      => 'ed8f6453669558233fab451bd6182d34819d0201'
   }
+
+
+  config.gem "authlogic"
 
   # Comment out this line if you want to turn off all caching, or
   # add options to modify the behavior. In the majority of deployment 

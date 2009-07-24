@@ -1,0 +1,18 @@
+<p>
+  <b>Title:</b>
+  <%=h @presidential.title %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @presidential.name %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @presidential.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_presidential_path(@presidential) %> |
+<%= link_to 'Back', presidentials_path %>

@@ -9,4 +9,5 @@ tmp/**/*
 doc/*
 cache/*
 public/assets/*
+public/attachments/*
 public/images/design/*

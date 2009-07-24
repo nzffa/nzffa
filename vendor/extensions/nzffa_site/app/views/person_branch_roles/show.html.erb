@@ -1,0 +1,18 @@
+<p>
+  <b>Person:</b>
+  <%=h @person_branch_role.person_id %>
+</p>
+
+<p>
+  <b>Role:</b>
+  <%=h @person_branch_role.role_id %>
+</p>
+
+<p>
+  <b>Branch:</b>
+  <%=h @person_branch_role.branch_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_person_branch_role_path(@person_branch_role) %> |
+<%= link_to 'Back', person_branch_roles_path %>

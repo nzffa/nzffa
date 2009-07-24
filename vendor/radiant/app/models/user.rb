@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   def forget_me
     update_attribute(:session_token, nil)
   end
-
+  
   private
   
     def validate_length_of_password?
