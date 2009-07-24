@@ -29,8 +29,11 @@ namespace :deploy do
   desc "Add symlinks to the database.yml file, and public assets."
   task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    
     run "ln -nfs #{shared_path}/public/attachments #{release_path}/public/attachments"
     run "ln -nfs #{shared_path}/public/assets #{release_path}/public/assets"
+    
+    run "ln -nfs #{shared_path}/public/images/design #{release_path}/public/images/design"
   end
 end
 
