@@ -51,5 +51,9 @@ class Advert < ActiveRecord::Base
       body
     end
   end
-
+  
+  def to_param
+		"#{id}-#{title}".gsub(/[^a-zA-Z0-9]/,"-")
+	end
+	
 end

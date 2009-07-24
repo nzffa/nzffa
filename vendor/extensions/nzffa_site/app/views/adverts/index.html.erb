@@ -1,14 +1,14 @@
 <script src="/javascripts/prototype.js" type="text/javascript" charset="utf-8"></script>
 <div style="Float:right">
   <%= render :partial => "person_sessions/login_area" %>
-  <h3 class="center">Free Adverts!<br>-short time only!<br><%= link_to 'Post new advert', new_advert_path %></h3>
+  <h3 class="center">Free Adverts!<br>-instant search!<br><%= link_to 'Post new advert', new_advert_path %></h3>
 </div>
 
 <h1>Marketplace</h1>
 <h2>For farm forestry</h2>
 <p>
 <form name="sform" action="" style="display:inline;">
-<label for="item_name">Filter on item name  : </label>
+<label for="item_name">Start typing to search: </label>
 <%= text_field_tag("query", params['query'], :size => 10 ) %>
 </form>
 
