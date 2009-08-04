@@ -34,6 +34,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/public/assets #{release_path}/public/assets"
     
     run "ln -nfs #{shared_path}/public/images/design #{release_path}/public/images/design"
+    run "ln -nfs #{shared_path}/public/executive_newsletters #{release_path}/public/executive_newsletters"
   end
 end
 
