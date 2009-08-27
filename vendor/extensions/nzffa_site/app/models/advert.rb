@@ -26,9 +26,18 @@ class Advert < ActiveRecord::Base
     end
   end
   
+  def self.first_live_day
+    number_of_days = if Radiant::Config["nzffa.advert_days_live"]
+      Radiant::Config["nzffa.advert_days_live"].to_i
+    else
+      100
+    end
+    number_of_days.days.ago
+  end
+  
   # we have to use a lambda here, so that 4.weeks.ago, and Time.now are calculated at request time,
   # not at application start time.
-  named_scope :active,  lambda { |*args| {:conditions => { :created_at => 10.weeks.ago..Time.now, :status => true} }}
+  named_scope :active,  lambda { |*args| {:conditions => { :created_at => Advert.first_live_day..Time.now, :status => true} }}
   named_scope :disabled, :conditions => { :status=> false } 
   
   def dollars
