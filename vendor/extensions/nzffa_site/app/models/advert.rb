@@ -26,13 +26,16 @@ class Advert < ActiveRecord::Base
     end
   end
   
-  def self.first_live_day
-    number_of_days = if Radiant::Config["nzffa.advert_days_live"]
+  def self.days_live
+    if Radiant::Config["nzffa.advert_days_live"]
       Radiant::Config["nzffa.advert_days_live"].to_i
     else
       100
     end
-    number_of_days.days.ago
+  end
+  
+  def self.first_live_day
+    Advert.days_live.days.ago
   end
   
   # we have to use a lambda here, so that 4.weeks.ago, and Time.now are calculated at request time,
@@ -59,6 +62,10 @@ class Advert < ActiveRecord::Base
     else
       body
     end
+  end
+  
+  def expiry_time
+    created_at+Advert.days_live.days
   end
   
   def to_param
