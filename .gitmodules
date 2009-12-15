@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/cap_gunn"]
+	path = vendor/plugins/cap_gunn
+	url = git@github.com:gunn/cap_gunn.git
