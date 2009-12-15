@@ -25,6 +25,16 @@ class NzffaParse
     dirs.last( dirs_after_root_count )
   end
   
+  def relative_path path
+    NzffaParse.array_to_path(relative_path_array( path ))
+  end
+  
+  def self.parent_path path
+    array = NzffaParse.path_to_array( path )
+    array.pop
+    NzffaParse.array_to_path(array)
+  end
+  
   def self.array_to_path array
     "/#{array.join("/")}"
   end
@@ -63,6 +73,7 @@ class NzffaParse
   end
 
   def process_file file_path, dir
+    puts "file_path: #{file_path}"
     doc = open(file_path) { |f| Hpricot(f) }
     home_link = '<a href="../../Forestry-pests-and-diseases.html">Home</a><br />'
     body_string = (doc/'body').inner_html.to_s
@@ -77,12 +88,11 @@ class NzffaParse
     end
     
     radiant_path = File.basename(file_path.sub(/\.[a-z]{1,5}\Z/i, ""))==File.basename(dir) ? dir : file_path.sub(/\.[a-z]{1,5}\Z/i, "")
-    make_radiant_page! doc, body_string, radiant_path
+    make_radiant_page_from_doc! doc, body_string, radiant_path
     
   end
 
   def process_link link, file_path
-    
     case link["href"]
     when /\Ahttp:\/\//      # if link does not begin with an http...
     when /\A\//             # ... and is not site-absolute...
@@ -125,23 +135,50 @@ class NzffaParse
     
   end
   
-  def make_radiant_page! doc, content, radiant_path
-    parent_path_array = NzffaParse.path_to_array(radiant_path)
-    parent_path_array.pop
-    parent_path = NzffaParse.array_to_path(parent_path_array)
-    # Page.find_by_url(parent_paths)
-    # parent_id = ??
-    
-    puts title = (doc/"title").inner_html.to_s
-    puts slug = NzffaParse.path_to_array(radiant_path).last
-    puts breadcrumb = title
-    puts
-    status_id = 100 # 100=published
-    # exit
+  def make_radiant_page_from_doc! doc, content, radiant_path
+    puts "from doc"
+    make_radiant_page! (doc/"title").inner_html.to_s, content, radiant_path
   end
   
-  def make_blank_radiant_page! title
+  def make_blank_radiant_page! radiant_path
+    puts "blank"
+    content = "<ul><r:children:each>
+    <li><r:link/></li>
+</r:children:each></ul>"
     
+    title = NzffaParse.path_to_array(radiant_path).last
+    
+    make_radiant_page! title, content, radiant_path
+  end
+  
+  def make_radiant_page! title, content, radiant_path
+    puts "make!"
+    
+    parent_path = NzffaParse.parent_path(relative_path( radiant_path ))
+    puts "parent_path!!! #{parent_path}"
+    
+    parent = Page.find_by_url(parent_path)
+    
+    new_page = Page.create do |page|
+      page.title = title.to_s
+      page.slug = NzffaParse.path_to_array(radiant_path).last.gsub( /[^-_.A-Za-z0-9]/, "" )
+      page.breadcrumb = page.title
+      
+      page.status_id = 100 # 100=published
+      page.created_by_id = 1
+      
+      page.parent_id = parent.id
+    end
+    
+    new_page_part = PagePart.create do |page_part|
+      page_part.name = "body"
+      page_part.content = content.to_s
+    end
+    
+    new_page.save
+    new_page_part.page = new_page
+    new_page_part.save
+    # exit
   end
 end
 
@@ -150,8 +187,8 @@ namespace :nzffa do
   
 desc "Recursively adds add the pests and diseases pages to the DB"
 task :add => :environment do
-  np = NzffaParse.new "/Users/Mini"
-  np.process_dir "/Users/Mini/farm-forestry-model/", false
+  np = NzffaParse.new "/Users/Mini/farm-forestry-model"
+  np.process_dir "/Users/Mini/farm-forestry-model", false
 end
 
 end

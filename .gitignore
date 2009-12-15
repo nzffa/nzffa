@@ -4,11 +4,5 @@ config/database.yml
 ._*
 
 .DS_Store
-log/*.log
-tmp/**/*
 doc/*
 cache/*
-public/assets/*
-public/attachments/*
-public/images/design/*
-public/images/u/*
