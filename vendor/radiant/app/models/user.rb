@@ -66,6 +66,19 @@ class User < ActiveRecord::Base
     update_attribute(:session_token, nil)
   end
   
+  
+  
+  #TODO: suss change, change back?
+  def password
+    crypted_password
+  end
+  
+  def password= *args
+    crypted_password= *args
+  end
+  
+  
+  
   private
   
     def validate_length_of_password?

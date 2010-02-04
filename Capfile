@@ -6,7 +6,7 @@ set :app_name,     "nzffa.org.nz"
 
 # ================================
 
-set :application, "210.5.53.33"
+set :application, "nzffa.org.nz"
  
 role :app, application
 role :web, application
