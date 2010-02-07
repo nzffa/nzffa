@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :set_current_user
+  before_filter :set_timezone
   before_filter :set_javascripts_and_stylesheets
   
   attr_accessor :config, :cache
@@ -35,6 +36,8 @@ class ApplicationController < ActionController::Base
       'index'
     when 'new','create'
       'new'
+    when 'show'
+      'show'
     when 'edit', 'update'
       'edit'
     when 'remove', 'destroy'
@@ -55,6 +58,10 @@ class ApplicationController < ActionController::Base
   
     def set_current_user
       UserActionObserver.current_user = current_user
+    end
+
+    def set_timezone
+      Time.zone = Radiant::Config['local.timezone'] || Time.zone_default
     end
   
     def set_javascripts_and_stylesheets

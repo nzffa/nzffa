@@ -68,7 +68,8 @@ class User < ActiveRecord::Base
   
   
   
-  #TODO: suss change, change back?
+  
+  # TODO: suss change, change back?
   def password
     crypted_password
   end
@@ -76,9 +77,10 @@ class User < ActiveRecord::Base
   def password= *args
     crypted_password= *args
   end
+  # /TODO
   
   
-  
+
   private
   
     def validate_length_of_password?

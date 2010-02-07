@@ -62,5 +62,23 @@ describe ApplicationController do
       controller.template_name.should == 'remove'
       end
     end
+    it "should return 'show' when the action_name is show" do
+      controller.stub!(:action_name).and_return('show')
+      controller.template_name.should == 'show'
+    end
+  end
+
+  describe "set_timezone" do
+    it "should use Radiant::Config['local.timezone']" do
+      Radiant::Config['local.timezone'] = 'Kuala Lumpur'
+      controller.send(:set_timezone)
+      Time.zone.name.should == 'Kuala Lumpur'
+    end
+
+    it "should default to config.time_zone" do
+      Radiant::Config.initialize_cache # to clear out setting from previous tests
+      controller.send(:set_timezone)
+      Time.zone.name.should == 'UTC'
+    end
   end
 end

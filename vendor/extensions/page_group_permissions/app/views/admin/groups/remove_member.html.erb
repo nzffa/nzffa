@@ -1,6 +1,0 @@
-<h1>Remove Member</h1>
-<p>Are you sure you want to remove <strong><%=h @user.name %></strong> from the group <strong><%= @group.name %></strong>?</p>
-
-<% form_for :user, :url => remove_member_admin_group_path(@group, :user_id => @user) do -%>
-  <p class="buttons"><%= submit_tag "Remove Member", :class => 'button' %> or <%= link_to 'Cancel', admin_groups_url %></p>
-<% end -%>

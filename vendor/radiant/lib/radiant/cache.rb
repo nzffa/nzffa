@@ -16,9 +16,11 @@ module Radiant
       self.use_x_sendfile = options.delete(:use_x_sendfile) if options[:use_x_sendfile]
       self.use_x_accel_redirect = options.delete(:use_x_accel_redirect) if options[:use_x_accel_redirect]
       Rack::Cache.new(app, {
-          :entitystore => "radiant:cache/entity", 
-          :metastore => "radiant:cache/meta",
-          :verbose => false}.merge(options))
+          :entitystore => "radiant:tmp/cache/entity",
+          :metastore => "radiant:tmp/cache/meta",
+          :verbose => false,
+          :allow_reload => false,
+          :allow_revalidate => false}.merge(options))
     end
 
     def self.clear
@@ -27,7 +29,7 @@ module Radiant
     end
 
     class EntityStore < Rack::Cache::EntityStore::Disk
-      def initialize(root="#{Rails.root}/cache/entity")
+      def initialize(root="#{Rails.root}/tmp/cache/entity")
         super
         Radiant::Cache.entity_stores << self
       end
@@ -38,7 +40,7 @@ module Radiant
     end
 
     class MetaStore < Rack::Cache::MetaStore::Disk
-      def initialize(root="#{Rails.root}/cache/meta")
+      def initialize(root="#{Rails.root}/tmp/cache/meta")
         super
         Radiant::Cache.meta_stores << self
       end
@@ -48,7 +50,7 @@ module Radiant
       end
 
       private
-      def restore_response(hash, body)
+      def restore_response(hash, body=nil)
         # Cribbed from the Rack::Cache source
         status = hash.delete('X-Status').to_i
         response = Rack::Cache::Response.new(status, hash, body)
@@ -57,14 +59,14 @@ module Radiant
         if Radiant::Cache.use_x_sendfile
           accelerate(response, 'X-Sendfile', File.expand_path(body.path))
         elsif Radiant::Cache.use_x_accel_redirect
-          virtual_path = File.expand_path(body.path) 
+          virtual_path = File.expand_path(body.path)
           entity_path = File.expand_path(Radiant::Cache.entity_stores.first.root)
           virtual_path[entity_path] = Radiant::Cache.use_x_accel_redirect
           accelerate(response,'X-Accel-Redirect', virtual_path)
         end
         response
       end
-      
+
       def accelerate(response, header, value)
         response.headers[header] = value
         response.body = []

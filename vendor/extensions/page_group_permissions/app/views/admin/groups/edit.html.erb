@@ -1,7 +1,0 @@
-<h1 id="edit_page">Edit Group</h1>
-
-<% form_for @group, :url => admin_group_path(@group) do |f| %>
-  <%= render :partial => "form", :locals => {:f => f} %>
-<% end -%>
-
-<%= focus "group_name" %>

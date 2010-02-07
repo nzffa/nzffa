@@ -90,6 +90,9 @@ Asset.MakeDroppables = function () {
         }
       });      
     	box.addClassName('droppable');
+    	if(init_load_wym_editor()){
+    	  init_load_wym_editor();
+    	}
     }
   });
 }

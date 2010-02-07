@@ -52,7 +52,7 @@ class NzffaSiteExtension < Radiant::Extension
   end
   
   def activate
-    admin.tabs.add "Marketplace", "/admin/marketplace", :before => "Snippets", :visibility => [:admin]
+    # admin.tabs.add "Marketplace", "/admin/marketplace", :before => "Snippets", :visibility => [:admin]
   end
   
   def deactivate
