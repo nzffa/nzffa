@@ -68,18 +68,6 @@ class User < ActiveRecord::Base
   
   
   
-  
-  # TODO: suss change, change back?
-  def password
-    crypted_password
-  end
-  
-  def password= *args
-    crypted_password= *args
-  end
-  # /TODO
-  
-  
 
   private
   
