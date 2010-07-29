@@ -22,3 +22,6 @@
 [submodule "vendor/extensions/navigation_tags"]
 	path = vendor/extensions/navigation_tags
 	url = git://github.com/gunn/navigation_tags.git
+[submodule "vendor/extensions/paperclipped"]
+	path = vendor/extensions/paperclipped
+	url = git://github.com/spanner/paperclipped.git
