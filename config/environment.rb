@@ -17,7 +17,7 @@ Radiant::Initializer.run do |config|
   # Only load the extensions named here, in the order given. By default all
   # extensions in vendor/extensions are loaded, in alphabetical order. :all
   # can be used as a placeholder for all extensions not explicitly named.
-  config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all ]
+  config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
   
   config.gem 'authlogic'
 
