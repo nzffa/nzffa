@@ -16,7 +16,10 @@ module Nzffa::ReaderExtensions
     
     self.first_name = name_parts[0] if self.first_name.blank? && name_parts[0]
     self.last_name  = name_parts[1] if self.last_name.blank? && name_parts[1]
-    
+  end
+  
+  def name_changed?
+    first_name_changed? || last_name_changed?
   end
   
 end

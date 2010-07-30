@@ -1,0 +1,26 @@
+- include_stylesheet('admin/reader')
+
+%h1 Readers
+
+- if !@readers.empty?
+  %table#readers.index{:cellspacing=>"0", :border=>"0", :cellpadding=>"0"}
+    %thead
+      %tr
+        %th.reader Name / Login
+        %th.reader_description Self-description
+    %tbody
+      - @readers.each do |reader|
+        %tr.node.level-1
+          %td{:class => reader.activated? ? 'reader activated' : 'reader inactive'}
+            = link_to gravatar_for(reader, {:size => 24}, {:width => 24, :height => 24}), edit_admin_reader_url(reader)
+            = link_to reader.name, edit_admin_reader_url(reader), :class => reader.trusted? ? '' : 'untrusted'
+            - unless reader.notes.blank?
+              %p.admin_notes
+                %strong
+                  note:
+                = reader.notes
+              
+          %td.reader_description
+            - reader.groups.each do |group|
+              = group.name
+            / = truncate_and_textilize(reader.description, 24)
