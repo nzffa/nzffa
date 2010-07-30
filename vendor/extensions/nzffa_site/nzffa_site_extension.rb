@@ -1,6 +1,6 @@
 class NzffaSiteExtension < Radiant::Extension
   version "1.0"
-  description "Home for all dynamic NZFFA content, both person and admin side. Has adverts, members and wiki stuff."
+  description "Home for all NZFFA specific alterations, both frontend and admin side. Has adverts, members tracking through reader extension."
   url "http://gunn.co.nz"
   
   define_routes do |map|
@@ -19,7 +19,8 @@ class NzffaSiteExtension < Radiant::Extension
   end
   
   def activate
-    # admin.tabs.add "Marketplace", "/admin/marketplace", :before => "Snippets", :visibility => [:admin]
+    Reader.send :include, Nzffa::ReaderExtensions
+    User.send :include, Nzffa::UserExtensions
   end
 
 end
