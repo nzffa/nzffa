@@ -37,17 +37,7 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.integer  "updated_by_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "branches", :force => true do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "phone"
-    t.string   "cell"
-    t.string   "fax"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.boolean  "furniture",          :default => false
   end
 
   create_table "config", :force => true do |t|
@@ -66,20 +56,18 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
+    t.text     "description"
     t.text     "notes"
-    t.integer  "created_by"
-    t.integer  "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "homepage_id"
+    t.integer  "site_id"
+    t.integer  "lock_version"
+    t.boolean  "public"
+    t.text     "invitation"
   end
-
-  create_table "groups_users", :id => false, :force => true do |t|
-    t.integer "group_id"
-    t.integer "user_id"
-  end
-
-  add_index "groups_users", ["group_id"], :name => "index_groups_users_on_group_id"
-  add_index "groups_users", ["user_id"], :name => "index_groups_users_on_user_id"
 
   create_table "layouts", :force => true do |t|
     t.string   "name",          :limit => 100
@@ -90,6 +78,34 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.integer  "updated_by_id"
     t.string   "content_type",  :limit => 40
     t.integer  "lock_version",                 :default => 0
+  end
+
+  create_table "memberships", :force => true do |t|
+    t.integer "group_id"
+    t.integer "reader_id"
+  end
+
+  create_table "message_readers", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "message_id"
+    t.integer  "reader_id"
+    t.datetime "sent_at"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "site_id"
+    t.string   "subject"
+    t.text     "body"
+    t.text     "filter_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "lock_version"
+    t.string   "function_id"
+    t.integer  "status_id",     :default => 1
+    t.integer  "layout_id"
+    t.integer  "group_id"
   end
 
   create_table "page_attachments", :force => true do |t|
@@ -135,21 +151,56 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
   add_index "pages", ["slug", "parent_id"], :name => "pages_child_slug"
   add_index "pages", ["virtual", "status_id"], :name => "pages_published"
 
-  create_table "person_branch_roles", :force => true do |t|
-    t.integer  "person_id"
-    t.integer  "role_id"
-    t.integer  "branch_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "permissions", :force => true do |t|
+    t.integer "group_id"
+    t.integer "page_id"
   end
 
-  add_index "person_branch_roles", ["branch_id"], :name => "index_person_branch_roles_on_branch_id"
-  add_index "person_branch_roles", ["person_id"], :name => "index_person_branch_roles_on_person_id"
-  add_index "person_branch_roles", ["role_id"], :name => "index_person_branch_roles_on_role_id"
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
+  create_table "readers", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "user_id"
+    t.string   "login",                   :limit => 40, :default => "",   :null => false
+    t.string   "honorific"
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "email"
+    t.text     "description"
+    t.text     "notes"
+    t.string   "fax"
+    t.string   "mobile"
+    t.datetime "activated_at"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "address_3"
+    t.string   "address_4"
+    t.string   "postcode"
+    t.string   "country"
+    t.string   "billing_address_1"
+    t.string   "billing_address_2"
+    t.string   "billing_address_3"
+    t.string   "billing_address_4"
+    t.string   "billing_postcode"
+    t.string   "billing_country"
+    t.string   "contact_person"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.boolean  "trusted",                               :default => true
+    t.boolean  "receive_email",                         :default => true
+    t.boolean  "receive_essential_email",               :default => true
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "provisional_password"
+    t.integer  "login_count",                           :default => 0,    :null => false
+    t.integer  "failed_login_count",                    :default => 0,    :null => false
+    t.string   "session_token"
+    t.datetime "last_request_at"
+    t.datetime "last_login_at"
+    t.string   "persistence_token"
+    t.string   "single_access_token"
+    t.string   "perishable_token"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.string   "clear_password"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -183,6 +234,19 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.datetime "updated_at"
   end
 
+  create_table "submenu_links", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "submenu_links", ["site_id", "user_id"], :name => "index_links_by_site_and_user"
+
   create_table "super_fields", :force => true do |t|
     t.integer  "field_holder_id"
     t.string   "field_holder_type"
@@ -194,24 +258,23 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name",              :limit => 100
+    t.string   "name",          :limit => 100
     t.string   "email"
-    t.string   "login",             :limit => 40,  :default => "",    :null => false
-    t.string   "crypted_password",  :limit => 40
+    t.string   "login",         :limit => 40,  :default => "",    :null => false
+    t.string   "password",      :limit => 40
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
-    t.boolean  "admin",                            :default => false, :null => false
-    t.boolean  "developer",                        :default => false, :null => false
+    t.boolean  "admin",                        :default => false, :null => false
+    t.boolean  "developer",                    :default => false, :null => false
     t.text     "notes"
-    t.integer  "lock_version",                     :default => 0
+    t.integer  "lock_version",                 :default => 0
     t.string   "salt"
     t.string   "session_token"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone"
-    t.string   "persistence_token"
   end
 
   add_index "users", ["login"], :name => "login", :unique => true
