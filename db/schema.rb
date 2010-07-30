@@ -156,6 +156,15 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.integer "page_id"
   end
 
+  create_table "reader_group_payments", :force => true do |t|
+    t.integer  "reader_id"
+    t.integer  "group_id"
+    t.float    "amount"
+    t.date     "payment_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "readers", :force => true do |t|
     t.integer  "site_id"
     t.integer  "user_id"
