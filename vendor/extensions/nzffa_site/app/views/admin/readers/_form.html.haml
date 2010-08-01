@@ -1,3 +1,6 @@
+- content_for 'page_css' do
+  = css_for_readers_groups @reader
+
 - if @reader.errors.any?
   %p.haserror
     %strong
@@ -56,27 +59,6 @@
         = f.password_field "password_confirmation", :class => 'textbox', :value => '', :maxlength => 40
     %tr
       %th.label
-        = f.label :description, "Readers description", :class => 'optional'
-      %td.field
-        = f.text_area "description", :size => '40x4', :class => "textarea" 
-      %td.help
-        Optional.
-    %tr
-      %th.label
-        = f.label :fax, "fax", :class => 'optional'
-      %td.field
-        = f.text_field "fax", :class => 'textbox', :maxlength => 40
-      %td.help
-        Optional.
-    %tr
-      %th.label
-        = f.label :mobile, "mobile", :class => 'optional'
-      %td.field
-        = f.text_field "mobile", :class => 'textbox', :maxlength => 40
-      %td.help
-        Optional.
-    %tr
-      %th.label
         = f.label :address_1, "Address", :class => 'required'
       %td.field
         - 1.upto 4 do |n|
@@ -84,9 +66,9 @@
       %td.help Required.
     %tr
       %th.label
-        = f.label :country, "Country", :class => 'required'
+        = f.label :country_code, "Country", :class => 'required'
       %td.field
-        = f.text_field "country", :class => 'textbox', :maxlength => 127
+        = country_select(:reader, :country_code, ["AU", "NZ"], :prompt => true, :value => @reader.country_code)
       %td.help 
         Required.
     %tr
@@ -96,56 +78,95 @@
         = f.text_field "postcode", :class => 'textbox', :maxlength => 10
       %td.help 
         Required.
-    %tr
-      %th.label
-        = f.label :billing_address_1, "Billing Address", :class => 'optional'
-      %td.field
-        - 1.upto 4 do |n|
-          = f.text_field "billing_address_#{n}", :class => 'textbox', :maxlength => 255
-      %td.help
-        Optional.
-    %tr
-      %th.label
-        = f.label :billing_country, "Billing Country", :class => 'optional'
-      %td.field
-        = f.text_field "billing_country", :class => 'textbox', :maxlength => 10
-      %td.help
-        Optional.
-    %tr
-      %th.label
-        = f.label :billing_postcode, "Billing Post Code", :class => 'optional'
-      %td.field
-        = f.text_field "billing_postcode", :class => 'textbox', :maxlength => 10
-      %td.help
-        Optional.
-    %tr
-      %th.label
-        = f.label :contact_person, "Contact Person", :class => 'optional'
-      %td.field
-        = f.text_field "contact_person", :class => 'textbox', :maxlength => 40
-      %td.help
-        Optional.        
-    - if false
+  %p
+    = link_to("Toggle optional fields", "#", :onclick => "Effect.toggle('optional_fields', 'blind', { duration: 0.3 });")
+  #optional_fields
+    %table.fieldset{:cellpadding=>0, :cellspacing=>0, :border=>0}
       %tr
         %th.label
-          = f.label :trusted, 'Trusted?'
-        %td.field{:style=>"text-align: left;"}
-          %span.checkbox
-            = f.check_box "trusted"
+          = f.label :billing_address_1, "Billing Address", :class => 'optional'
+        %td.field
+          - 1.upto 4 do |n|
+            = f.text_field "billing_address_#{n}", :class => 'textbox', :maxlength => 255
         %td.help
-          True by default. Uncheck to limit a reader's actions on the site.
-    %tr
-      %th.label
-        = f.label :notes, "Admin notes", :class => 'optional'
-      %td.field
-        ~ f.text_area "notes", :size => '40x4', :class => "textarea" 
-      %td.help
-        Optional.
+          Optional.
+      %tr
+        %th.label
+          = f.label :billing_country_code, "Billing Country", :class => 'optional'
+        %td.field
+          = country_select(:reader, :billing_country_code, ["AU", "NZ"], :prompt => true, :value => @reader.billing_country_code)
+        %td.help
+          Optional.
+      %tr
+        %th.label
+          = f.label :billing_postcode, "Billing Post Code", :class => 'optional'
+        %td.field
+          = f.text_field "billing_postcode", :class => 'textbox', :maxlength => 10
+        %td.help
+          Optional.
+      %tr
+        %th.label
+          = f.label :description, "Readers description", :class => 'optional'
+        %td.field
+          = f.text_area "description", :size => '40x4', :class => "textarea" 
+        %td.help
+          Optional.
+      %tr
+        %th.label
+          = f.label :fax, "fax", :class => 'optional'
+        %td.field
+          = f.text_field "fax", :class => 'textbox', :maxlength => 40
+        %td.help
+          Optional.
+      %tr
+        %th.label
+          = f.label :mobile, "mobile", :class => 'optional'
+        %td.field
+          = f.text_field "mobile", :class => 'textbox', :maxlength => 40
+        %td.help
+          Optional.
+      %tr
+        %th.label
+          = f.label :contact_person, "Contact Person", :class => 'optional'
+        %td.field
+          = f.text_field "contact_person", :class => 'textbox', :maxlength => 40
+        %td.help
+          Optional.        
+      - if false
+        %tr
+          %th.label
+            = f.label :trusted, 'Trusted?'
+          %td.field{:style=>"text-align: left;"}
+            %span.checkbox
+              = f.check_box "trusted"
+          %td.help
+            True by default. Uncheck to limit a reader's actions on the site.
+      %tr
+        %th.label
+          = f.label :notes, "Admin notes", :class => 'optional'
+        %td.field
+          ~ f.text_area "notes", :size => '40x4', :class => "textarea" 
+        %td.help
+          Optional.
+  %br
+  %h2 Groups
+  %p#reader_groups
+    = pretty_groups @reader.groups
+  
+  %br
+  %h2 Group Payments
+  %p
+    [Member has made no payments]
+  %br
 
 
   = updated_stamp @reader  
-  %p.buttons
+  %p
     = save_model_button(@reader)
     = save_model_and_continue_editing_button(@reader)
     or 
     = link_to "Cancel", admin_readers_path
+
+:javascript
+  $('optional_fields').hide();
+  
