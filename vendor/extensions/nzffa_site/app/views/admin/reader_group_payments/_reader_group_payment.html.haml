@@ -2,4 +2,5 @@
 %tr
   %td= number_to_currency payment.amount
   %td= pretty_groups payment.group if payment.group
-  %td= payment.payment_date
+  %td.right= payment.payment_date.strftime("%Y %B %d")
+  %td &nbsp;

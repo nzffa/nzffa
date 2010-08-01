@@ -1,5 +1,9 @@
 - content_for 'page_css' do
   = css_for_readers_groups @reader
+  :plain
+    .left { text-align: left; }
+    .right { text-align: right; }
+    input.error { border: 2px solid #D00; background-color: #FFF0F0; }
 
 - if @reader.errors.any?
   %p.haserror
@@ -155,7 +159,7 @@
     = save_model_and_continue_editing_button(@reader)
     or 
     = link_to "Cancel", admin_readers_path
-          
+%hr{:width => "100%"}
           
 %br
 %h2 Groups
@@ -163,22 +167,24 @@
   = pretty_groups @reader.groups
   %br
   = link_to "Edit groups", admin_groups_path
-
+%hr{:width => "100%"}
 %br
 %h2 Group Payments
 - remote_form_for :reader_group_payment, ReaderGroupPayment.new, :url => admin_reader_group_payments_path do |f|
-  %table#reader_group_payments.fieldset{:cellpadding=>0, :cellspacing=>0, :border=>0}
-    %thead
-      %th Amount paid
-      %th Group
-      %th Date paid on
-    = render @reader.reader_group_payments
-  = "$#{f.text_field :amount}"
-  = date_select :reader_group_payment, :payment_date
-  = f.select :group_id, @reader.groups.map { |group| [group.name, group.id] }
   = f.hidden_field :reader_id, :value => @reader.id
-  = f.submit "Add Payment"
-      
+  %table.fieldset{:cellpadding=>0, :cellspacing=>0, :border=>0}
+    %thead
+      %th.left Amount paid
+      %th.left Group
+      %th.right Date paid on
+      %th &nbsp;
+    = render @reader.reader_group_payments
+    %tr#reader_group_payment_inputs
+      %td= "$#{f.text_field :amount}"
+      %td= f.select :group_id, @reader.groups.map { |group| [group.name, group.id] }
+      %td.right= date_select(:reader_group_payment, :payment_date)
+      %td.right= f.submit("+ Add Payment")
+%br
 
 :javascript
   $('optional_fields').hide();
