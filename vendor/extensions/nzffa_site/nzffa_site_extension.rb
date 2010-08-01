@@ -8,10 +8,11 @@ class NzffaSiteExtension < Radiant::Extension
   define_routes do |map|
     map.namespace :admin do |admin|
       admin.resources "marketplace"
-      # admin.reader_search "/admin/readers/search", :controller => "readers", :action => "search"
     end
     
-    map.reader_search "/admin/readers_search", :controller => "admin/readers", :action => "search"
+    map.namespace :admin, :path_prefix => 'admin/readers' do |admin|
+      admin.readers_search "search", :controller => "readers", :action => "search"
+    end
     
     map.resources :adverts
 
@@ -20,6 +21,10 @@ class NzffaSiteExtension < Radiant::Extension
     map.person_login "person_login", :controller => "person_sessions", :action => "new"
     map.person_logout "person_logout", :controller => "person_sessions", :action => "destroy"
     map.resources :person_sessions
+  end
+  
+  extension_config do |config|
+    config.gem 'color'
   end
   
   def activate

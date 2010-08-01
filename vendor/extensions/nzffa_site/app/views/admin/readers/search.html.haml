@@ -1,12 +1,23 @@
 - include_stylesheet('admin/reader')
 
+- content_for 'page_css' do
+  = css_for_readers_groups @readers
+
 %h1 Readers
+
+- form_tag admin_readers_search_path, :method => "get" do
+  = label_tag(:q, "Search for:")
+  = text_field_tag(:q, params[:q])
+  = submit_tag("Search")
+
+%br
 
 - if !@readers.empty?
   %table#readers.index{:cellspacing=>"0", :border=>"0", :cellpadding=>"0"}
     %thead
       %tr
         %th.reader Name / Login
+        %th.reader_groups Groups
         %th.reader_description Self-description
     %tbody
       - @readers.each do |reader|
@@ -20,7 +31,7 @@
                   note:
                 = reader.notes
               
+          %td.reader_groups
+            = pretty_groups reader.groups
           %td.reader_description
-            - reader.groups.each do |group|
-              = group.name
-            / = truncate_and_textilize(reader.description, 24)
+            = truncate_and_textilize(reader.description, 24)
