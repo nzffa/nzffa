@@ -1,6 +1,5 @@
-- reader_group_payment ||= @reader_group_payment
+- payment = reader_group_payment || @reader_group_payment
 %tr
-  %td
-    = number_to_currency reader_group_payment.amount
-  %td
-    = reader_group_payment.payment_date
+  %td= number_to_currency payment.amount
+  %td= pretty_groups payment.group if payment.group
+  %td= payment.payment_date

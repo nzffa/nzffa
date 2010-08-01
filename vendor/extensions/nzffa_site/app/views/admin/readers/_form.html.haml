@@ -170,10 +170,12 @@
   %table#reader_group_payments.fieldset{:cellpadding=>0, :cellspacing=>0, :border=>0}
     %thead
       %th Amount paid
+      %th Group
       %th Date paid on
     = render @reader.reader_group_payments
   = "$#{f.text_field :amount}"
   = date_select :reader_group_payment, :payment_date
+  = f.select :group_id, @reader.groups.map { |group| [group.name, group.id] }
   = f.hidden_field :reader_id, :value => @reader.id
   = f.submit "Add Payment"
       

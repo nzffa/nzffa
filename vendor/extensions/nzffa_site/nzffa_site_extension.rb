@@ -30,6 +30,8 @@ class NzffaSiteExtension < Radiant::Extension
   end
   
   def activate
+    ApplicationHelper.send :include, Nzffa::ReadersHelper
+    
     Admin::ReadersController.send :include, Nzffa::Admin::ReadersControllerExtensions
     
     Reader.send :include, Nzffa::ReaderExtensions
