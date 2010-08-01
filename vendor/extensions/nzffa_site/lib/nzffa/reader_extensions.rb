@@ -3,6 +3,7 @@ module Nzffa::ReaderExtensions
   def self.included base
     base.class_eval {
       default_scope :order => 'first_name ASC'
+      has_many :reader_group_payments
     }
   end
   

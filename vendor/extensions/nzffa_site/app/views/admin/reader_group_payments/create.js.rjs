@@ -1,0 +1,1 @@
+page.insert_html :bottom, "reader_group_payments", :partial => "reader_group_payment", :object => @reader_group_payment

@@ -149,23 +149,34 @@
         %td.help
           Optional.
   %br
-  %h2 Groups
-  %p#reader_groups
-    = pretty_groups @reader.groups
-  
-  %br
-  %h2 Group Payments
-  %p
-    [Member has made no payments]
-  %br
-
-
   = updated_stamp @reader  
-  %p
+  %p.buttons
     = save_model_button(@reader)
     = save_model_and_continue_editing_button(@reader)
     or 
     = link_to "Cancel", admin_readers_path
+          
+          
+%br
+%h2 Groups
+%p#reader_groups
+  = pretty_groups @reader.groups
+  %br
+  = link_to "Edit groups", admin_groups_path
+
+%br
+%h2 Group Payments
+- remote_form_for :reader_group_payment, ReaderGroupPayment.new, :url => admin_reader_group_payments_path do |f|
+  %table#reader_group_payments.fieldset{:cellpadding=>0, :cellspacing=>0, :border=>0}
+    %thead
+      %th Amount paid
+      %th Date paid on
+    = render @reader.reader_group_payments
+  = "$#{f.text_field :amount}"
+  = date_select :reader_group_payment, :payment_date
+  = f.hidden_field :reader_id, :value => @reader.id
+  = f.submit "Add Payment"
+      
 
 :javascript
   $('optional_fields').hide();

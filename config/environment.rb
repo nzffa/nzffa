@@ -19,6 +19,7 @@ Radiant::Initializer.run do |config|
   # can be used as a placeholder for all extensions not explicitly named.
   config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
   
+  config.gem 'inherited_resources', :version => "1.0.6"
   config.gem 'authlogic'
 
   # Your secret key for verifying cookie session data integrity.

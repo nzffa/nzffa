@@ -8,6 +8,7 @@ class NzffaSiteExtension < Radiant::Extension
   define_routes do |map|
     map.namespace :admin do |admin|
       admin.resources "marketplace"
+      admin.resources :reader_group_payments
     end
     
     map.namespace :admin, :path_prefix => 'admin/readers' do |admin|
@@ -25,6 +26,7 @@ class NzffaSiteExtension < Radiant::Extension
   
   extension_config do |config|
     config.gem 'color'
+    config.gem 'inherited_resources', :version => "1.0.6"
   end
   
   def activate

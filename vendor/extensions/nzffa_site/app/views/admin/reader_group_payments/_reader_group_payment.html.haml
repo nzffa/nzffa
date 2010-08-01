@@ -1,0 +1,6 @@
+- reader_group_payment ||= @reader_group_payment
+%tr
+  %td
+    = number_to_currency reader_group_payment.amount
+  %td
+    = reader_group_payment.payment_date
