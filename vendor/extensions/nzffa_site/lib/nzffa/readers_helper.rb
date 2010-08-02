@@ -2,9 +2,19 @@ module Nzffa::ReadersHelper
   def self.included(base)
     base.class_eval {
         def pretty_groups groups
-          [groups].flatten.inject("") do |styled_string, group|
-            styled_string << content_tag(:span, group.name, :class => "group_tag #{group.name.parameterize}")+" "
-          end
+          [groups].flatten.inject([]) { |array, group|
+            array << group_tag(group)
+          }.join(" ")
+        end
+        
+        def pretty_group_links groups
+          [groups].flatten.inject([]) { |array, group|
+            array << link_to(group_tag(group), admin_group_path(group), :class => "group_link")
+          }.join(" ")
+        end
+        
+        def group_tag group
+          content_tag(:span, group.name, :class => "group_tag #{group.name.parameterize}")
         end
 
         def css_for_readers_groups readers
@@ -14,12 +24,15 @@ module Nzffa::ReadersHelper
           css = groups.map { |group|
             group_name = group.name.parameterize #should take care of dumb inputs for us
             hue = ((Math.sin(group.id*431.26570001)+1)/2)*20000 % 360
-            colour = Color::HSL.new(hue, 50, 60).html
-            hover_colour = Color::HSL.new(hue, 50, 80).html
-            ".group_tag.#{group_name} { background-color: #{colour}; } \n.group_tag:hover.#{group_name} { background-color: #{hover_colour}; }"
+            colour = Color::HSL.new(hue, 50, 68).html
+            hover_colour = Color::HSL.new(hue, 50, 85).html
+            ".group_tag.#{group_name} { background-color: #{colour}; } \na:hover .group_tag.#{group_name} { background-color: #{hover_colour}; }"
           }.join("\n")
 
           css << "
+a.group_link {
+  text-decoration: none;
+}
 .group_tag {
 	padding: 2px 12px;
 	border-radius: 3px;
