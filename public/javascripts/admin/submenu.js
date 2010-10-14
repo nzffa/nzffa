@@ -11,7 +11,8 @@ var SiteChooser = Class.create({
     this.choices.observe('mouseout', this.hideSoon.bindAsEventListener(this));
     this.fx = null;
     this.delay = null;
-    this.hide();
+	
+	Element.hide(this.choices);
   },
   show: function (event) {
     this.interrupt();
@@ -19,10 +20,10 @@ var SiteChooser = Class.create({
   },
   hide: function (event) {
     this.interrupt();
-    this.fx = Effect.Fade(this.choices, { duration: 1 });
+    this.fx = Effect.Fade(this.choices, { duration: 0.5 });
   },
   hideSoon: function (event) {
-    this.delay = this.hide.bind(this).delay(0.5);
+    this.delay = this.hide.bind(this).delay(0.3);
   },
   interrupt: function () {
     if (this.fx) this.fx.cancel();
