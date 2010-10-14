@@ -117,6 +117,13 @@
           Optional.
       %tr
         %th.label
+          = f.label :phone, "phone", :class => 'optional'
+        %td.field
+          = f.text_field "phone", :class => 'textbox', :maxlength => 40
+        %td.help
+          Optional.
+      %tr
+        %th.label
           = f.label :fax, "fax", :class => 'optional'
         %td.field
           = f.text_field "fax", :class => 'textbox', :maxlength => 40
