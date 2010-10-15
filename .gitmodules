@@ -28,3 +28,6 @@
 [submodule "vendor/plugins/country_select"]
 	path = vendor/plugins/country_select
 	url = git@github.com:gunn/country_select.git
+[submodule "vendor/extensions/direct_link"]
+	path = vendor/extensions/direct_link
+	url = git@github.com:gunn/radiant-direct_link-extension.git
