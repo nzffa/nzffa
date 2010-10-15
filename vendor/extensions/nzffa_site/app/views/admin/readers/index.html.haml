@@ -1,0 +1,41 @@
+- include_stylesheet('admin/reader')
+
+- content_for 'page_css' do
+  = css_for_readers_groups @readers
+
+%h1 Readers
+
+- form_tag admin_readers_path, :method => "get" do
+  = label_tag(:q, "Search for:")
+  = text_field_tag(:q, params[:q])
+  = submit_tag("Search")
+
+%br
+
+- if !@readers.empty?
+  - paginated_section @readers do
+    %br
+    %table#readers.index{:cellspacing=>"0", :border=>"0", :cellpadding=>"0"}
+      %thead
+        %tr
+          %th.reader Name / Login
+          %th.reader_groups Groups
+          %th.reader_description{ :style => "white-space:nowrap;" } Self-description
+      %tbody
+        - @readers.each do |reader|
+          %tr.node.level-1
+            %td{:class => reader.activated? ? 'reader activated' : 'reader inactive'}
+              = link_to gravatar_for(reader, {:size => 24}, {:width => 24, :height => 24}), edit_admin_reader_url(reader)
+              = link_to reader.name, edit_admin_reader_url(reader), :class => reader.trusted? ? '' : 'untrusted'
+              - unless reader.notes.blank?
+                %p.admin_notes
+                  %strong
+                    note:
+                  = reader.notes
+            
+            %td.reader_groups
+              = pretty_groups reader.groups
+            %td.reader_description
+              -# textilize was taking up ~40% of render time.
+              -# truncate_and_textilize(reader.description, 24)
+              = truncate(reader.description, :length => 24)
