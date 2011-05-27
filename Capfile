@@ -25,7 +25,7 @@ set :repository,   "#{base_path}/#{app_name}.git"
 set :current_path, "#{base_path}/current"
 set :shared_path,  "#{base_path}/shared"
 
-set :local_base_path,    "/Users/Arthur/Work/live/#{app_name}"
+set :local_base_path,    File.expand_path("../..", __FILE__)
 set :local_repository,   "#{local_base_path}/#{app_name}.git"
 set :local_current_path, "#{local_base_path}/current"
 set :local_shared_path,  "#{local_base_path}/shared"
