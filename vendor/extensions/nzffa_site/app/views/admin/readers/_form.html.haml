@@ -63,51 +63,51 @@
         = f.password_field "password_confirmation", :class => 'textbox', :value => '', :maxlength => 40
     %tr
       %th.label
-        = f.label :billing_address_1, "Billing Address", :class => 'optional'
+        = f.label :billing_address_1, "Billing Address", :class => 'required'
       %td.field
         - 1.upto 4 do |n|
           = f.text_field "billing_address_#{n}", :class => 'textbox', :maxlength => 255
       %td.help
-        Optional.
+        Required.
     %tr
       %th.label
-        = f.label :billing_country_code, "Billing Country", :class => 'optional'
+        = f.label :billing_country_code, "Billing Country", :class => 'required'
       %td.field
         = country_select(:reader, :billing_country_code, ["AU", "NZ"], :prompt => true, :value => @reader.billing_country_code)
       %td.help
-        Optional.
+        Required.
     %tr
       %th.label
-        = f.label :billing_postcode, "Billing Post Code", :class => 'optional'
+        = f.label :billing_postcode, "Billing Post Code", :class => 'required'
       %td.field
         = f.text_field "billing_postcode", :class => 'textbox', :maxlength => 10
       %td.help
-        Optional.
+        Required.
   %p
     = link_to("Toggle optional fields", "#", :onclick => "Effect.toggle('optional_fields', 'blind', { duration: 0.3 });")
   #optional_fields
     %table.fieldset{:cellpadding=>0, :cellspacing=>0, :border=>0}
       %tr
         %th.label
-          = f.label :address_1, "Address", :class => 'required'
+          = f.label :address_1, "Address", :class => 'optional'
         %td.field
           - 1.upto 4 do |n|
             = f.text_field "address_#{n}", :class => 'textbox', :maxlength => 255
-        %td.help Required.
+        %td.help Optional.
       %tr
         %th.label
-          = f.label :country_code, "Country", :class => 'required'
+          = f.label :country_code, "Country", :class => 'optional'
         %td.field
           = country_select(:reader, :country_code, ["AU", "NZ"], :prompt => true, :value => @reader.country_code)
         %td.help 
-          Required.
+          Optional.
       %tr
         %th.label
-          = f.label :postcode, "Post Code", :class => 'required'
+          = f.label :postcode, "Post Code", :class => 'optional'
         %td.field
           = f.text_field "postcode", :class => 'textbox', :maxlength => 10
         %td.help 
-          Required.
+          Optional.
       %tr
         %th.label
           = f.label :description, "Readers description", :class => 'optional'
