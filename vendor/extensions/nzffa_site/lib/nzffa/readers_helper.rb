@@ -2,7 +2,7 @@ module Nzffa::ReadersHelper
   def self.included(base)
     base.class_eval {
         def pretty_groups groups
-          [groups].flatten.inject([]) { |array, group|
+          [groups].flatten.compact.inject([]) { |array, group|
             array << group_tag(group)
           }.join(" ")
         end
