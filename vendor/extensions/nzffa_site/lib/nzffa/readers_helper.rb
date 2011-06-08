@@ -8,7 +8,7 @@ module Nzffa::ReadersHelper
         end
         
         def pretty_group_links groups
-          [groups].flatten.inject([]) { |array, group|
+          [groups].flatten.compact.inject([]) { |array, group|
             array << link_to(group_tag(group), admin_group_path(group), :class => "group_link")
           }.join(" ")
         end
