@@ -20,7 +20,9 @@ module Nzffa::ReadersHelper
         def css_for_readers_groups readers
           # this should handle either a single reader, or an array being passed in:
           groups = [readers].flatten.map(&:groups).flatten
-
+          # remove any nils!:
+          groups = groups.compact
+          
           css = groups.map { |group|
             group_name = group.name.parameterize #should take care of dumb inputs for us
             hue = ((Math.sin(group.id*431.26570001)+1)/2)*20000 % 360
