@@ -15,7 +15,7 @@ class ReaderNotifier < ActionMailer::Base
     content_type("text/html")
     subject (prefix || '') + message.subject
     recipients(reader.email)
-    from message.created_by.email
+    from sender.email
     subject message.subject
     sent_on(Time.now)
 
