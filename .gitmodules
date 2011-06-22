@@ -1,12 +1,6 @@
 [submodule "vendor/plugins/cap_gunn"]
 	path = vendor/plugins/cap_gunn
 	url = git@github.com:gunn/cap_gunn.git
-[submodule "vendor/extensions/reader"]
-	path = vendor/extensions/reader
-	url = git://github.com/gunn/radiant-reader-extension.git
-[submodule "vendor/extensions/reader_group"]
-	path = vendor/extensions/reader_group
-	url = git://github.com/gunn/radiant-reader_group-extension.git
 [submodule "vendor/extensions/submenu"]
 	path = vendor/extensions/submenu
 	url = git://github.com/gunn/radiant-submenu-extension.git
