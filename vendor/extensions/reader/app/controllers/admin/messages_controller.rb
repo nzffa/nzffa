@@ -24,7 +24,7 @@ class Admin::MessagesController < Admin::ResourceController
       redirect_to admin_message_url(@message)
       return
     end
-    failures = @message.deliver(@readers) || []
+    failures = @message.deliver(@readers, current_user) || []
     if failures.any?
       if failures.length == @readers.length
         flash[:error] = "All deliveries failed"
