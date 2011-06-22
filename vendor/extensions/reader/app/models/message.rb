@@ -52,9 +52,9 @@ class Message < ActiveRecord::Base
     recipients.include?(reader)
   end
 
-  def preview(reader=nil)
+  def preview(reader=nil, sender=nil)
     reader ||= possible_readers.first || Reader.find_or_create_for_user(created_by)
-    ReaderNotifier.create_message(reader, self)
+    ReaderNotifier.create_message(reader, self, sender)
   end
   
   def function
