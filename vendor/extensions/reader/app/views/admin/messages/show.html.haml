@@ -71,7 +71,7 @@
     - preview.preview_headers do
       .message_header
         %ul
-          - @message.preview.each_header do |name, value|
+          - @message.preview(nil, current_user).each_header do |name, value|
             %li{:class => name}
               = "#{name}:"
               %strong
