@@ -8,3 +8,4 @@ cache/*
 db/csvs/*
 
 .livereload
+.rvmrc
