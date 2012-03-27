@@ -6,6 +6,7 @@
 doc/*
 cache/*
 db/csvs/*
+shared/
 
 .livereload
 .rvmrc

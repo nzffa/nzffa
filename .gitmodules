@@ -1,27 +1,27 @@
 [submodule "vendor/plugins/cap_gunn"]
-	path = vendor/plugins/cap_gunn
-	url = git@github.com:gunn/cap_gunn.git
+  path = vendor/plugins/cap_gunn
+  url = git@github.com:gunn/cap_gunn.git
 [submodule "vendor/extensions/submenu"]
-	path = vendor/extensions/submenu
-	url = git://github.com/gunn/radiant-submenu-extension.git
+  path = vendor/extensions/submenu
+  url = git://github.com/gunn/radiant-submenu-extension.git
 [submodule "vendor/extensions/share_layouts"]
-	path = vendor/extensions/share_layouts
-	url = git://github.com/gunn/radiant-share-layouts-extension.git
+  path = vendor/extensions/share_layouts
+  url = git://github.com/gunn/radiant-share-layouts-extension.git
+[submodule "vendor/extensions/mailer"]
+  path = vendor/extensions/mailer
+  url = git://github.com/spanner/radiant-mailer-extension.git
+[submodule "vendor/extensions/navigation_tags"]
+  path = vendor/extensions/navigation_tags
+  url = git://github.com/gunn/navigation_tags.git
+[submodule "vendor/extensions/paperclipped"]
+  path = vendor/extensions/paperclipped
+  url = git://github.com/spanner/paperclipped.git
+[submodule "vendor/plugins/country_select"]
+  path = vendor/plugins/country_select
+  url = git@github.com:gunn/country_select.git
+[submodule "vendor/extensions/direct_link"]
+  path = vendor/extensions/direct_link
+  url = git@github.com:gunn/radiant-direct_link-extension.git
 [submodule "vendor/extensions/drag_order"]
 	path = vendor/extensions/drag_order
-	url = git://github.com/spanner/radiant-drag-order.git
-[submodule "vendor/extensions/mailer"]
-	path = vendor/extensions/mailer
-	url = git://github.com/spanner/radiant-mailer-extension.git
-[submodule "vendor/extensions/navigation_tags"]
-	path = vendor/extensions/navigation_tags
-	url = git://github.com/gunn/navigation_tags.git
-[submodule "vendor/extensions/paperclipped"]
-	path = vendor/extensions/paperclipped
-	url = git://github.com/spanner/paperclipped.git
-[submodule "vendor/plugins/country_select"]
-	path = vendor/plugins/country_select
-	url = git@github.com:gunn/country_select.git
-[submodule "vendor/extensions/direct_link"]
-	path = vendor/extensions/direct_link
-	url = git@github.com:gunn/radiant-direct_link-extension.git
+	url = git://github.com/bright4/radiant-drag-order.git
