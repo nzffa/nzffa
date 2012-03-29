@@ -7,6 +7,9 @@ doc/*
 cache/*
 db/csvs/*
 shared/
+tmp/*
+config/database.yml
+log/*
 
 .livereload
 .rvmrc

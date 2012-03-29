@@ -1,0 +1,50 @@
+load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
+
+set :app_name, "nzffa"
+set :application, "nzffa"
+
+# ================================
+
+desc "apply production config"
+task :production do
+  set :user, "admin"
+  set :port, 36633
+
+  set :app_host, "nzffa.org.nz"
+  role :app, app_host
+  role :web, app_host
+  role :db,  app_host, :primary => true
+
+  set :base_path,    "/home/admin/sites/#{app_name}.org.nz"
+  set :repository,   "#{base_path}/#{app_name}.org.nz.git"
+  set :current_path, "#{base_path}/current"
+  set :shared_path,  "#{base_path}/shared"
+
+  set :local_base_path,    File.expand_path("../..", __FILE__)
+  set :local_repository,   "#{local_base_path}/#{app_name}.org.nz.git"
+  set :local_current_path, "#{local_base_path}/current"
+  set :local_shared_path,  "#{local_base_path}/shared"
+end
+
+desc "apply staging config"
+task :staging do
+  set :user, "nzfffa"
+
+  set :app_host, "nzffa.enspiral.info"
+  role :app, app_host
+  role :web, app_host
+  role :db,  app_host, :primary => true
+
+  set :base_path,    "/home/#{user}/staging"
+  # set :repository,   "#{base_path}/#{app_name}.git"
+  set :current_path, "#{base_path}/current"
+  set :shared_path,  "#{base_path}/shared"
+
+end
+
+# ================================
+
+set :scm, :git
+set :branch,      "origin/master"
+
