@@ -33,6 +33,7 @@ GEM
     responders (0.4.8)
     sanitize (1.2.0)
       nokogiri (~> 1.4.1)
+    will_paginate (2.3.11)
 
 PLATFORMS
   ruby
@@ -46,3 +47,4 @@ DEPENDENCIES
   mysql (= 2.8.1)
   rails (= 2.3.5)
   sanitize (= 1.2.0)
+  will_paginate (= 2.3.11)

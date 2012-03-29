@@ -7,6 +7,8 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 require File.join(File.dirname(__FILE__), 'boot')
 
+# This is needed if using a recent version of rubygems.
+# Can be removed if rails can be upgraded to 2.3.11
 if Gem::VERSION >= "1.3.6"
     module Rails
         class GemDependency

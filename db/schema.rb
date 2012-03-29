@@ -151,6 +151,18 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
   add_index "pages", ["slug", "parent_id"], :name => "pages_child_slug"
   add_index "pages", ["virtual", "status_id"], :name => "pages_published"
 
+  create_table "people", :force => true do |t|
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.string   "phone"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "permissions", :force => true do |t|
     t.integer "group_id"
     t.integer "page_id"
@@ -163,6 +175,17 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.date     "payment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "year_for"
+  end
+
+  create_table "reader_group_payments_dummy", :force => true do |t|
+    t.integer  "reader_id"
+    t.integer  "group_id"
+    t.float    "amount"
+    t.date     "payment_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "year_for"
   end
 
   create_table "readers", :force => true do |t|
@@ -183,13 +206,13 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.string   "address_3"
     t.string   "address_4"
     t.string   "postcode"
-    t.string   "country"
+    t.string   "country_code"
     t.string   "billing_address_1"
     t.string   "billing_address_2"
     t.string   "billing_address_3"
     t.string   "billing_address_4"
     t.string   "billing_postcode"
-    t.string   "billing_country"
+    t.string   "billing_country_code"
     t.string   "contact_person"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
@@ -212,6 +235,7 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.string   "clear_password"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "phone"
   end
 
   create_table "sessions", :force => true do |t|
@@ -236,13 +260,6 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
 
   add_index "snippets", ["name"], :name => "name", :unique => true
 
-  create_table "string_fields", :force => true do |t|
-    t.integer  "super_field_id"
-    t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "submenu_links", :force => true do |t|
     t.string   "name"
     t.string   "url"
@@ -255,16 +272,6 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
   end
 
   add_index "submenu_links", ["site_id", "user_id"], :name => "index_links_by_site_and_user"
-
-  create_table "super_fields", :force => true do |t|
-    t.integer  "field_holder_id"
-    t.string   "field_holder_type"
-    t.integer  "field_id"
-    t.string   "field_type"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "name",          :limit => 100
@@ -281,9 +288,6 @@ ActiveRecord::Schema.define(:version => 20081203140407) do
     t.integer  "lock_version",                 :default => 0
     t.string   "salt"
     t.string   "session_token"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phone"
   end
 
   add_index "users", ["login"], :name => "login", :unique => true
