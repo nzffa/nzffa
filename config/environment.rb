@@ -7,6 +7,17 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 require File.join(File.dirname(__FILE__), 'boot')
 
+if Gem::VERSION >= "1.3.6"
+    module Rails
+        class GemDependency
+            def requirement
+                r = super
+                (r == Gem::Requirement.default) ? nil : r
+            end
+        end
+    end
+end
+
 require 'radius'
 
 Radiant::Initializer.run do |config|
@@ -18,7 +29,7 @@ Radiant::Initializer.run do |config|
   # extensions in vendor/extensions are loaded, in alphabetical order. :all
   # can be used as a placeholder for all extensions not explicitly named.
   config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
-  
+
   config.gem 'inherited_resources', :version => "1.0.6"
   config.gem 'authlogic'
 
@@ -30,7 +41,7 @@ Radiant::Initializer.run do |config|
     :session_key => '_radiant_Nzffa_session',
     :secret      => 'ed8f6453669558233fab451bd6182d34819d0201'
   }
-  
+
   # Comment out this line if you want to turn off all caching, or
   # add options to modify the behavior. In the majority of deployment
   # scenarios it is desirable to leave Radiant's cache enabled and in
