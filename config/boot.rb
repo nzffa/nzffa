@@ -1,6 +1,8 @@
 # Don't change this file!
 # Configure your app in config/environment.rb and config/environments/*.rb
 
+require 'thread' # this is a hack until it can be upgraded to rails 2.3.11
+
 RAILS_ROOT = File.expand_path("#{File.dirname(__FILE__)}/..") unless defined?(RAILS_ROOT)
 
 module Rails
