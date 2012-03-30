@@ -15,3 +15,15 @@ Install capistrano and extensions on your local machine:
 
   gem install capistrano capistrano-ext
 
+== ENSPIRAL STAGING SERVER
+
+To access:
+
+ssh nzffa@nzffa.org.nz
+
+Contact Craig to get your public ssh key on that server first.
+
+To update the staging server to match production
+
+cd ~/staging/current
+bundle exec rake sync RAILS_ENV=staging
