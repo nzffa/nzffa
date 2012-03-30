@@ -16,12 +16,6 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-
-ActionMailer::Base.delivery_method = :sendmail
-ActionMailer::Base.sendmail_settings = {
-  :location => '/usr/sbin/sendmail',
-  :arguments => '-i -t'
-}
 ActionMailer::Base.perform_deliveries = false
 config.action_mailer.raise_delivery_errors = false
 ActionMailer::Base.default_charset = "iso-8859-1"
