@@ -30,3 +30,10 @@ task :sync => [:environment] do
   echo_and_run "mysql -u #{local_config["username"]} #{local_config["database"]} #{password_arg} < ./db/production_data.sql"
   echo_and_run "#{rsync_command} #{host}:/home/admin/sites/nzffa.org.nz/shared/public/* #{local_shared_path}"
 end
+
+task :symlink => [:environment] do
+  echo_and_run "ln -s #{Rails.root.join('shared/assets')} public/assets"
+  echo_and_run "ln -s #{Rails.root.join('shared/attachments')} public/attachments"
+  echo_and_run "ln -s #{Rails.root.join('shared/executive_newsletters')} public/executive_newsletters"
+  echo_and_run "ln -s #{Rails.root.join('shared/images/design')} public/images/design"
+end
