@@ -13,3 +13,7 @@ log/*
 
 .livereload
 .rvmrc
+public/assets
+public/attachments
+public/executive_newsletters
+public/images/design
