@@ -1,8 +1,6 @@
 # Don't change this file!
 # Configure your app in config/environment.rb and config/environments/*.rb
 
-require 'thread' # this is a hack until it can be upgraded to rails 2.3.11
-
 RAILS_ROOT = File.expand_path("#{File.dirname(__FILE__)}/..") unless defined?(RAILS_ROOT)
 
 module Rails
@@ -40,7 +38,7 @@ module Radiant
     def vendor?
       File.exist?("#{RAILS_ROOT}/vendor/radiant")
     end
-
+    
     def app?
       File.exist?("#{RAILS_ROOT}/lib/radiant.rb")
     end
@@ -48,7 +46,7 @@ module Radiant
     def preinitialize
       load(preinitializer_path) if File.exist?(preinitializer_path)
     end
-
+    
     def loaded_via_gem?
       pick_boot.is_a? GemBoot
     end
@@ -61,16 +59,8 @@ module Radiant
   class Boot
     def run
       load_initializer
-
-      Rails::Initializer.class_eval do
-        def load_gems
-          @bundler_loaded ||= Bundler.require :default, Rails.env
-        end
-      end
-
-      Rails::Initializer.run(:set_load_path)
     end
-
+    
     def load_initializer
       begin
         require 'radiant'
@@ -85,10 +75,10 @@ module Radiant
 
   class VendorBoot < Boot
     def load_initializer
-      $LOAD_PATH.unshift "#{RAILS_ROOT}/vendor/radiant/lib"
+      $LOAD_PATH.unshift "#{RAILS_ROOT}/vendor/radiant/lib" 
       super
     end
-
+        
     def load_error_message
       "Please verify that vendor/radiant contains a complete copy of the Radiant sources."
     end
@@ -96,7 +86,7 @@ module Radiant
 
   class AppBoot < Boot
     def load_initializer
-      $LOAD_PATH.unshift "#{RAILS_ROOT}/lib"
+      $LOAD_PATH.unshift "#{RAILS_ROOT}/lib" 
       super
     end
 
@@ -111,7 +101,7 @@ module Radiant
       load_radiant_gem
       super
     end
-
+      
     def load_error_message
      "Please reinstall the Radiant gem with the command 'gem install radiant'."
     end
@@ -129,7 +119,7 @@ module Radiant
 
     class << self
       def rubygems_version
-        Gem::RubyGemsVersion if defined? Gem::RubyGemsVersion
+        Gem::RubyGemsVersion rescue nil
       end
 
       def gem_version

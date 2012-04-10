@@ -30,10 +30,13 @@ Radiant::Initializer.run do |config|
   # Only load the extensions named here, in the order given. By default all
   # extensions in vendor/extensions are loaded, in alphabetical order. :all
   # can be used as a placeholder for all extensions not explicitly named.
-  config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
+  # config.extensions = [ :all ]
 
-  config.gem 'inherited_resources', :version => "1.0.6"
-  config.gem 'authlogic'
+  # By default, only English translations are loaded. Remove any of these from
+  # the list below if you'd like to provide any of the supported languages
+  config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
+  config.extensions -= [:dutch_language_pack, :french_language_pack, :german_language_pack,
+                        :italian_language_pack, :japanese_language_pack, :russian_language_pack]
 
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
@@ -79,6 +82,7 @@ Radiant::Initializer.run do |config|
   # Set the default field error proc
   config.action_view.field_error_proc = Proc.new do |html, instance|
     if html !~ /label/
+      # %{<span class="error-with-field">#{html} <span class="error">#{[instance.error_message].flatten.first}</span></span>}
       %{<div class="error-with-field">#{html} <small class="error">&bull; #{[instance.error_message].flatten.first}</small></div>}
     else
       html
