@@ -1,40 +1,38 @@
+== Development Installation
 
-== Installation and Setup
+1. Clone project from github at https://github.com/enspiral/nzffa
+2. Fetch Submodules:
+     git submodule init
+     git submodule update
+3. Fetch production data
+     bundle exec rake sync
+4. Create symlinks
+     bundle exec rake symlink
 
-Once you have extracted the files into the directory where you would like to
-install Radiant:
+== Deployment
 
-1. Create the MySQL/PostgreSQL/SQLite/SQL Server/DB2 databases for your Web
-   site. You only need to create the "production" database, but you may also
-   want to create the "development" and "test" databases if you are developing
-   extensions or running tests.
+Install capistrano and extensions on your local machine:
 
-2. Edit config/database.yml to taste.  There are example files available for
-   various databases in the config directory.
+  gem install capistrano capistrano-ext
 
-3. Run the database bootstrap rake task:
-   
-     % rake production db:bootstrap
-   
-   (If you would like bootstrap your development database run `rake
-   development db:bootstrap`.)
-   
-   If you get the error "no such file to load -- spec/rake/spectask" please
-   install Rspec (gem install rspec).
+Deploy to staging or production server with:
 
-4. Start it like a normal Rails application. To test execute:
-   
-     % script/server -e production
-   
-   And open your Web browser on port 3000 (http://localhost:3000). The
-   administrative interface is available at /admin/. By default the bootstrap
-   rake task creates a user called "admin" with a password of "radiant".
+cap staging deploy
 
-When using Radiant on a production system you may also need to set permissions
-on the public and cache directories so that your Web server can access those
-directories with the user that it runs under.
+or
 
-Once you've installed Radiant on your own Web site, be sure to add your name
-and Web site to the list of radiant users:
+cap production deploy
 
-http://wiki.github.com/radiant/radiant/radiant-users
+
+== ENSPIRAL STAGING SERVER
+
+To access:
+
+ssh nzffa@nzffa.org.nz
+
+Contact Craig to get your public ssh key on that server first.
+
+To update the staging server to match production
+
+cd ~/staging/current
+bundle exec rake sync RAILS_ENV=staging

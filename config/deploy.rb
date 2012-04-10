@@ -26,12 +26,10 @@ after "deploy:update_code", "custom:symlink"
 namespace(:custom) do
   task :symlink, :roles => :app do
     link_from_shared_to_current('config')
-    run <<-CMD
-      ln -nfs #{shared_path}/public/assets #{release_path}/public/assets
-      ln -nfs #{shared_path}/public/attachments #{release_path}/public/attachments
-      ln -nfs #{shared_path}/public/executive_newsletters #{release_path}/public/executive_newsletters
-      ln -nfs #{shared_path}/public/images/design #{release_path}/public/images/design
-    CMD
+    run "ln -nfs #{shared_path}/public/assets #{release_path}/public/assets"
+    run "ln -nfs #{shared_path}/public/attachments #{release_path}/public/attachments"
+    run "ln -nfs #{shared_path}/public/executive_newsletters #{release_path}/public/executive_newsletters"
+    run "ln -nfs #{shared_path}/public/images/design #{release_path}/public/images/design"
   end
 end
 

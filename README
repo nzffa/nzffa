@@ -9,21 +9,3 @@ Current Radiant version is: 0.8.1 Luster
 
 The NZFFA website source code is released under the MIT license and is copyright (c) 2011 NZFFA.
 
-== Deployment
-
-Install capistrano and extensions on your local machine:
-
-  gem install capistrano capistrano-ext
-
-== ENSPIRAL STAGING SERVER
-
-To access:
-
-ssh nzffa@nzffa.org.nz
-
-Contact Craig to get your public ssh key on that server first.
-
-To update the staging server to match production
-
-cd ~/staging/current
-bundle exec rake sync RAILS_ENV=staging
