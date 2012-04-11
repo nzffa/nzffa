@@ -20,6 +20,8 @@ if Gem::VERSION >= "1.3.6"
     end
 end
 
+require 'will_paginate'
+require 'will_paginate/view_helpers'
 require 'radius'
 
 Radiant::Initializer.run do |config|
@@ -34,7 +36,8 @@ Radiant::Initializer.run do |config|
 
   # By default, only English translations are loaded. Remove any of these from
   # the list below if you'd like to provide any of the supported languages
-  config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
+  config.extensions = [ :all ]
+  # config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
   config.extensions -= [:dutch_language_pack, :french_language_pack, :german_language_pack,
                         :italian_language_pack, :japanese_language_pack, :russian_language_pack]
 
@@ -96,3 +99,4 @@ Radiant::Initializer.run do |config|
     end
   end
 end
+
