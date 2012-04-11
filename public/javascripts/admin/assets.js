@@ -1,7 +1,7 @@
 document.observe("dom:loaded", function() {
-  if($('asset-bucket')){
-    new Draggable('asset-bucket', { starteffect: false, endeffect: false });
-  }
+  // if($('asset-bucket')){
+  //   new Draggable('asset-bucket', { starteffect: false, endeffect: false });
+  // }
   if($('page-attachments')){
     Asset.ChooseTabByName('page-attachments');
   }
@@ -98,7 +98,7 @@ Asset.ShowBucket = Behavior.create({
   onclick: function(e){
     e.stop();
     var element = $('asset-bucket');
-    center(element);
+    element.centerInViewport();
     element.toggle();
     Asset.MakeDroppables();
   }
@@ -139,7 +139,6 @@ Asset.FileTypes = Behavior.create({
 Asset.WaitingForm = Behavior.create({
   onsubmit: function(e){
     this.element.addClassName('waiting');
-    $('asset_submit').disable();
     return true;
   }
 });
@@ -147,13 +146,17 @@ Asset.WaitingForm = Behavior.create({
 Asset.ResetForm = function (name) {
   var element = $('asset-upload');
   element.removeClassName('waiting');
-  $('asset_submit').enable();
   element.reset();
+  Asset.MakeDroppables();
 }
 
 Asset.AddAsset = function (name) {
   element = $(name); 
   asset = element.select('.asset')[0];
+  if (window.console && window.console.log) {
+    console.log('inserted element is ', element);
+    console.log('contained asset is ', asset);
+  }
   if (asset) {
     new Draggable(asset, { revert: true });
   }
