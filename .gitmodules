@@ -10,9 +10,6 @@
 [submodule "vendor/extensions/mailer"]
   path = vendor/extensions/mailer
   url = git://github.com/spanner/radiant-mailer-extension.git
-[submodule "vendor/extensions/paperclipped"]
-  path = vendor/extensions/paperclipped
-  url = git://github.com/spanner/paperclipped.git
 [submodule "vendor/plugins/country_select"]
   path = vendor/plugins/country_select
   url = git@github.com:gunn/country_select.git
