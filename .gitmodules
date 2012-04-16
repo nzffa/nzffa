@@ -1,6 +1,3 @@
-[submodule "vendor/plugins/cap_gunn"]
-  path = vendor/plugins/cap_gunn
-  url = git@github.com:gunn/cap_gunn.git
 [submodule "vendor/extensions/submenu"]
   path = vendor/extensions/submenu
   url = git://github.com/gunn/radiant-submenu-extension.git
