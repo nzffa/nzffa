@@ -10,7 +10,7 @@ set :group, "www-data"
 
 set :scm, :git
 set :repository, "git://github.com/enspiral/nzffa.git"
-set :branch, 'master'
+set :branch, $1 if `git branch` =~ /\* (\S+)\s/m
 set :deploy_via, :remote_cache
 
 namespace :deploy do
