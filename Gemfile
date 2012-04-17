@@ -63,5 +63,6 @@ group :test do
   gem "rspec-rails",      "~> 1.3.3"
   gem "sqlite3",          "~> 1.3.4"
   gem 'autotest'
+  gem 'autotest-fsevent'
   gem 'autotest-growl'
 end
