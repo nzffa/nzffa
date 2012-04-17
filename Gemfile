@@ -56,11 +56,12 @@ gem "mysql", "~> 2.8.1"
 # end
 
 # If you're running tests or specs
-# group :test do
-#   gem "cucumber-rails",   "~> 0.3.2"
-#   gem "database_cleaner", "~> 0.6.5"
-#   gem "webrat",           "~> 0.7.3"
-#   gem "rspec-rails",      "~> 1.3.3"
-#   gem "sqlite3",          "~> 1.3.4"
-#   gem "ZenTest",          "4.6.0"
-# end
+group :test do
+  gem "cucumber-rails",   "~> 0.3.2"
+  gem "database_cleaner", "~> 0.6.5"
+  gem "webrat",           "~> 0.7.3"
+  gem "rspec-rails",      "~> 1.3.3"
+  gem "sqlite3",          "~> 1.3.4"
+  gem 'autotest'
+  gem 'autotest-growl'
+end
