@@ -7,21 +7,6 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 require File.join(File.dirname(__FILE__), 'boot')
 
-# This is needed if using a recent version of rubygems.
-# Can be removed if rails can be upgraded to 2.3.11
-if Gem::VERSION >= "1.3.6"
-    module Rails
-        class GemDependency
-            def requirement
-                r = super
-                (r == Gem::Requirement.default) ? nil : r
-            end
-        end
-    end
-end
-
-require 'will_paginate'
-require 'will_paginate/view_helpers'
 require 'radius'
 
 Radiant::Initializer.run do |config|
@@ -33,21 +18,17 @@ Radiant::Initializer.run do |config|
   # extensions in vendor/extensions are loaded, in alphabetical order. :all
   # can be used as a placeholder for all extensions not explicitly named.
   # config.extensions = [ :all ]
-
-  # By default, only English translations are loaded. Remove any of these from
-  # the list below if you'd like to provide any of the supported languages
-  config.extensions = [ :all ]
-  # config.extensions = [ :share_layouts, :submenu, :reader, :reader_group, :paperclipped, :all, :nzffa_site ]
-  config.extensions -= [:dutch_language_pack, :french_language_pack, :german_language_pack,
-                        :italian_language_pack, :japanese_language_pack, :russian_language_pack]
+  
+  # Unload the extensions named here.
+  # config.ignore_extensions []
 
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random,
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_radiant_Nzffa_session',
-    :secret      => 'ed8f6453669558233fab451bd6182d34819d0201'
+    :key => '_nzffa_session',
+    :secret      => '9252a50cf7a383524d891d8937775f7dc4ddf413'
   }
 
   # Comment out this line if you want to turn off all caching, or
@@ -85,8 +66,7 @@ Radiant::Initializer.run do |config|
   # Set the default field error proc
   config.action_view.field_error_proc = Proc.new do |html, instance|
     if html !~ /label/
-      # %{<span class="error-with-field">#{html} <span class="error">#{[instance.error_message].flatten.first}</span></span>}
-      %{<div class="error-with-field">#{html} <small class="error">&bull; #{[instance.error_message].flatten.first}</small></div>}
+      %{<span class="error-with-field">#{html} <span class="error">#{[instance.error_message].flatten.first}</span></span>}
     else
       html
     end
@@ -99,4 +79,3 @@ Radiant::Initializer.run do |config|
     end
   end
 end
-

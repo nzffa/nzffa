@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091003095744) do
+ActiveRecord::Schema.define(:version => 20120209231801) do
 
   create_table "adverts", :force => true do |t|
     t.integer  "person_id"
@@ -38,6 +38,10 @@ ActiveRecord::Schema.define(:version => 20091003095744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "furniture",          :default => false
+    t.string   "uuid"
+    t.integer  "original_width"
+    t.integer  "original_height"
+    t.string   "original_extension"
   end
 
   create_table "config", :force => true do |t|
@@ -114,10 +118,18 @@ ActiveRecord::Schema.define(:version => 20091003095744) do
     t.integer "position"
   end
 
+  create_table "page_fields", :force => true do |t|
+    t.integer "page_id"
+    t.string  "name"
+    t.string  "content"
+  end
+
+  add_index "page_fields", ["page_id", "name", "content"], :name => "index_page_fields_on_page_id_and_name_and_content"
+
   create_table "page_parts", :force => true do |t|
     t.string  "name",      :limit => 100
     t.string  "filter_id", :limit => 25
-    t.text    "content"
+    t.text    "content",   :limit => 16777215
     t.integer "page_id"
   end
 
@@ -125,10 +137,10 @@ ActiveRecord::Schema.define(:version => 20091003095744) do
 
   create_table "pages", :force => true do |t|
     t.string   "title"
-    t.string   "slug",          :limit => 100
-    t.string   "breadcrumb",    :limit => 160
-    t.string   "class_name",    :limit => 25
-    t.integer  "status_id",                    :default => 1,     :null => false
+    t.string   "slug",                   :limit => 100
+    t.string   "breadcrumb",             :limit => 160
+    t.string   "class_name",             :limit => 25
+    t.integer  "status_id",                             :default => 1,     :null => false
     t.integer  "parent_id"
     t.integer  "layout_id"
     t.datetime "created_at"
@@ -136,14 +148,13 @@ ActiveRecord::Schema.define(:version => 20091003095744) do
     t.datetime "published_at"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
-    t.boolean  "virtual",                      :default => false, :null => false
-    t.integer  "lock_version",                 :default => 0
-    t.string   "description"
-    t.string   "keywords"
+    t.boolean  "virtual",                               :default => false, :null => false
+    t.integer  "lock_version",                          :default => 0
     t.date     "appears_on"
     t.date     "expires_on"
-    t.integer  "position",                     :default => 0,     :null => false
+    t.integer  "position",                              :default => 0,     :null => false
     t.integer  "group_id"
+    t.text     "allowed_children_cache"
   end
 
   add_index "pages", ["class_name"], :name => "pages_class_name"
