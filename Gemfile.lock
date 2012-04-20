@@ -100,6 +100,7 @@ GEM
       tzinfo (~> 0.3.31)
       will_paginate (~> 2.3.11)
     radiant-archive-extension (1.0.7)
+    radiant-ck_editor_filter-extension (0.2.5)
     radiant-clipped-extension (1.0.17)
       acts_as_list (= 0.1.4)
       paperclip (~> 2.5.0)
@@ -158,6 +159,7 @@ DEPENDENCIES
   hpricot
   mysql (~> 2.8.1)
   radiant (~> 1.0.1)
+  radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-navigation_tags-extension (~> 0.2.6)!
   rspec-rails (~> 1.3.3)
   sqlite3 (~> 1.3.4)
