@@ -17,21 +17,7 @@ gem 'hpricot'
 # gem "therubyrhino" # Mozilla Rhino for JRuby
 # gem "johnson" # Mozilla SpiderMonkey for Ruby
 
-# SQLite is the default database connection but only suitable for local use
-# gem "sqlite3", "~> 1.3.4"
-
-# To use MySQL
 gem "mysql", "~> 2.8.1"
-
-# Postgres
-# gem "pg", "~> 0.11.0"
-
-# IBM DB2
-# gem "db2", "~> 2.6.2"
-
-# SQL Server
-# gem "tiny_tds"
-# gem "activerecord-sqlserver-adapter", "~> 3.1.0"
 
 # Language packs
 # gem "radiant-dutch_language_pack-extension",    "~> 1.0.0"
@@ -41,19 +27,7 @@ gem "mysql", "~> 2.8.1"
 # gem "radiant-japanese_language_pack-extension", "~> 1.0.0"
 # gem "radiant-russian_language_pack-extension",  "~> 1.0.0"
 
-# A standard gem extension
-# gem "radiant-example-extension", :version => "~> 1.0.0"
-
-# Your own forked extension
-# gem "radiant-modified-extension", :git => "git://github.com/your/fork.git"
-
-# A local extension in development
-# gem "radiant-new-extension", :path => "/path/to/extension/root"
-
-# Gems you would like to have in your development environment
-# group :development do
-#   gem "wirble"
-# end
+gem "radiant-navigation_tags-extension", "~> 0.2.6", :git => 'git://github.com/enspiral/navigation_tags.git'
 
 # If you're running tests or specs
 group :test do

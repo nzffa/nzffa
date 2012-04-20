@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/enspiral/navigation_tags.git
+  revision: 090c4cb3f5e2471cf135d0370592c6970574871d
+  specs:
+    radiant-navigation_tags-extension (0.2.6)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -152,6 +158,7 @@ DEPENDENCIES
   hpricot
   mysql (~> 2.8.1)
   radiant (~> 1.0.1)
+  radiant-navigation_tags-extension (~> 0.2.6)!
   rspec-rails (~> 1.3.3)
   sqlite3 (~> 1.3.4)
   webrat (~> 0.7.3)
