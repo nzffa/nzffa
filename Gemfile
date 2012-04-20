@@ -29,6 +29,7 @@ gem "mysql", "~> 2.8.1"
 
 gem "radiant-navigation_tags-extension", "~> 0.2.6", :git => 'git://github.com/enspiral/navigation_tags.git'
 gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
+gem "radiant-settings-extension", "~> 1.1.1", :git => 'git@github.com:enspiral/radiant-settings.git'
 
 # If you're running tests or specs
 group :test do
