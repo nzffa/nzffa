@@ -31,6 +31,7 @@ gem "radiant-navigation_tags-extension", "~> 0.2.6", :git => 'git://github.com/e
 gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'git@github.com:enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
+gem "radiant-scheduler-extension", "~> 1.0.0"
 
 # This gem causes a lot of spec failures in radiant core specs
 #gem "radiant-reorder_children-extension", "~> 1.0.6"
