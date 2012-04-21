@@ -32,7 +32,7 @@ gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'git@github.com:enspiral/radiant-settings.git'
 
 # If you're running tests or specs
-group :test do
+group :test, :cucumber do
   gem "cucumber-rails",   "~> 0.3.2"
   gem "database_cleaner", "~> 0.6.5"
   gem "webrat",           "~> 0.7.3"
@@ -41,4 +41,8 @@ group :test do
   gem 'autotest'
   gem 'autotest-fsevent'
   gem 'autotest-growl'
+end
+
+group :development do
+  gem 'capistrano'
 end
