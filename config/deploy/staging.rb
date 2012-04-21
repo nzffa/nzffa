@@ -9,7 +9,6 @@ role :db,  solo_host, :primary => true
 
 set :use_sudo, false
 
-set :git_enable_submodules, 1
 set :ssh_options, {:forward_agent => true}
 
 task :setup_env do
