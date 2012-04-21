@@ -32,8 +32,10 @@ task :sync => [:environment] do
 end
 
 task :symlink => [:environment] do
-  echo_and_run "ln -s #{Rails.root.join('shared/assets')} public/assets"
-  echo_and_run "ln -s #{Rails.root.join('shared/attachments')} public/attachments"
-  echo_and_run "ln -s #{Rails.root.join('shared/executive_newsletters')} public/executive_newsletters"
-  echo_and_run "ln -s #{Rails.root.join('shared/images/design')} public/images/design"
+  echo_and_run "ln -sf #{Rails.root.join('shared/assets')} public/"
+  echo_and_run "mkdir -p public/system"
+  echo_and_run "ln -sf #{Rails.root.join('shared/assets')} public/system/"
+  echo_and_run "ln -sf #{Rails.root.join('shared/attachments')} public/"
+  echo_and_run "ln -sf #{Rails.root.join('shared/executive_newsletters')} public/"
+  echo_and_run "ln -sf #{Rails.root.join('shared/images/design')} public/images/"
 end
