@@ -32,6 +32,9 @@ gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'git@github.com:enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
 
+# This gem causes a lot of spec failures in radiant core specs
+#gem "radiant-reorder_children-extension", "~> 1.0.6"
+
 # I don't like the look of this extension, I'd like to see if we can do without it. It's probably only
 # needed to support the radiant_layout tag inside the nzffa_site extension. We'll see if that's still
 # needed with more current radiant version.
