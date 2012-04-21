@@ -43,6 +43,10 @@ gem "radiant-scheduler-extension", "~> 1.0.0"
 # The above gem uses rr for mocking
 # gem 'rr', :group => :test
 
+# This depends on radiant-layouts-extension, so above problems need to be resolved before this can
+# be included.
+# gem "radiant-reader-extension", :git => 'git://github.com/spanner/radiant-reader-extension.git'
+
 # If you're running tests or specs
 group :test, :cucumber do
   gem "cucumber-rails",   "~> 0.3.2"
