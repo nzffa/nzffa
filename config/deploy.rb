@@ -12,6 +12,7 @@ set :scm, :git
 set :repository, "git://github.com/enspiral/nzffa.git"
 set :branch, $1 if `git branch` =~ /\* (\S+)\s/m
 set :deploy_via, :remote_cache
+set :bundle_without, [:development, :test, :cucumber]
 
 namespace :deploy do
   task :restart do
