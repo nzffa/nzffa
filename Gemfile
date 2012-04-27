@@ -33,15 +33,11 @@ gem "radiant-settings-extension", "~> 1.1.1", :git => 'git@github.com:enspiral/r
 gem 'radiant-mailer-extension'
 gem "radiant-scheduler-extension", "~> 1.0.0"
 
-# I don't like the look of this extension, I'd like to see if we can do without it. It's probably only
-# needed to support the radiant_layout tag inside the nzffa_site extension. We'll see if that's still
-# needed with more current radiant version.
-# gem 'radiant-layouts-extension', :git => 'git://github.com/radiant/radiant-share-layouts-extension.git'
+gem 'radiant-layouts-extension', :git => 'git@github.com:enspiral/radiant-share-layouts-extension.git'
 # The above gem uses rr for mocking
-# gem 'rr', :group => :test
+gem 'rr', :group => :test
 
-# This depends on radiant-layouts-extension, so above problems need to be resolved before this can
-# be included.
+# This depends on radiant-layouts-extension
 # gem "radiant-reader-extension", :git => 'git://github.com/spanner/radiant-reader-extension.git'
 
 # If you're running tests or specs
