@@ -33,13 +33,6 @@ gem "radiant-settings-extension", "~> 1.1.1", :git => 'git@github.com:enspiral/r
 gem 'radiant-mailer-extension'
 gem "radiant-scheduler-extension", "~> 1.0.0"
 
-# Previously we used this extension from Arthur. It seems unecessary now that radiant has a preview button.
-# Check with Dean.
-# https://github.com/gunn/radiant-direct_link-extension
-
-# This gem causes a lot of spec failures in radiant core specs
-#gem "radiant-reorder_children-extension", "~> 1.0.6"
-
 # I don't like the look of this extension, I'd like to see if we can do without it. It's probably only
 # needed to support the radiant_layout tag inside the nzffa_site extension. We'll see if that's still
 # needed with more current radiant version.
