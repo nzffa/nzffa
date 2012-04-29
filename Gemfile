@@ -38,7 +38,7 @@ gem 'radiant-layouts-extension', :git => 'git@github.com:enspiral/radiant-share-
 gem 'rr', :group => :test
 
 # This depends on radiant-layouts-extension
-# gem "radiant-reader-extension", :git => 'git://github.com/spanner/radiant-reader-extension.git'
+gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
 
 # If you're running tests or specs
 group :test, :cucumber do

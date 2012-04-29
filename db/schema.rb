@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421082121) do
+ActiveRecord::Schema.define(:version => 20120429013739) do
 
   create_table "adverts", :force => true do |t|
     t.integer  "person_id"
@@ -71,7 +71,11 @@ ActiveRecord::Schema.define(:version => 20120421082121) do
     t.integer  "lock_version"
     t.boolean  "public"
     t.text     "invitation"
+    t.string   "slug"
+    t.string   "ancestry"
   end
+
+  add_index "groups", ["ancestry"], :name => "index_groups_on_ancestry"
 
   create_table "layouts", :force => true do |t|
     t.string   "name",          :limit => 100
@@ -87,6 +91,8 @@ ActiveRecord::Schema.define(:version => 20120421082121) do
   create_table "memberships", :force => true do |t|
     t.integer "group_id"
     t.integer "reader_id"
+    t.string  "role"
+    t.boolean "admin"
   end
 
   create_table "message_readers", :force => true do |t|
@@ -109,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20120421082121) do
     t.string   "function_id"
     t.integer  "status_id",     :default => 1
     t.integer  "layout_id"
-    t.integer  "group_id"
+    t.datetime "sent_at"
   end
 
   create_table "page_attachments", :force => true do |t|
@@ -176,7 +182,8 @@ ActiveRecord::Schema.define(:version => 20120421082121) do
 
   create_table "permissions", :force => true do |t|
     t.integer "group_id"
-    t.integer "page_id"
+    t.integer "permitted_id"
+    t.string  "permitted_type"
   end
 
   create_table "reader_group_payments", :force => true do |t|
@@ -202,10 +209,9 @@ ActiveRecord::Schema.define(:version => 20120421082121) do
   create_table "readers", :force => true do |t|
     t.integer  "site_id"
     t.integer  "user_id"
-    t.string   "login",                   :limit => 40, :default => "",   :null => false
     t.string   "honorific"
-    t.string   "last_name"
-    t.string   "first_name"
+    t.string   "surname"
+    t.string   "forename"
     t.string   "email"
     t.text     "description"
     t.text     "notes"
@@ -227,14 +233,14 @@ ActiveRecord::Schema.define(:version => 20120421082121) do
     t.string   "contact_person"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
-    t.boolean  "trusted",                               :default => true
-    t.boolean  "receive_email",                         :default => true
-    t.boolean  "receive_essential_email",               :default => true
+    t.boolean  "trusted",                 :default => true
+    t.boolean  "receive_email",           :default => true
+    t.boolean  "receive_essential_email", :default => true
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "provisional_password"
-    t.integer  "login_count",                           :default => 0,    :null => false
-    t.integer  "failed_login_count",                    :default => 0,    :null => false
+    t.integer  "login_count",             :default => 0,    :null => false
+    t.integer  "failed_login_count",      :default => 0,    :null => false
     t.string   "session_token"
     t.datetime "last_request_at"
     t.datetime "last_login_at"
@@ -247,6 +253,20 @@ ActiveRecord::Schema.define(:version => 20120421082121) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone"
+    t.string   "organisation"
+    t.string   "post_line1"
+    t.string   "post_line2"
+    t.string   "post_organisation"
+    t.string   "post_city"
+    t.string   "post_province"
+    t.string   "post_country"
+    t.boolean  "unshareable"
+    t.text     "unshared"
+    t.datetime "current_login_at"
+    t.string   "nickname"
+    t.string   "name"
+    t.date     "dob"
+    t.boolean  "dob_secret"
   end
 
   create_table "sessions", :force => true do |t|
