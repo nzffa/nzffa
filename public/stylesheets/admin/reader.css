@@ -1,67 +1,131 @@
-#content table.index tr.node td.reader {
-  width: 35%;
-  padding: .5em;
+/* index page */
+/* line 6, ../sass/admin/reader.sass */
+#messages_table td.message_sent {
+  color: #666666;
+  font-size: 80%;
 }
-
-#content table.index tr.node td.inactive {
-  opacity: 0.4;
-}
-
-#content table.index tr.node td.reader_description {
-  padding: .5em;
-}
-
-#content table.index tr.node td.reader_description p {
-  margin-top: 0;
-}
-
-#content table.index .node .reader small {
-  color: #666;
-  font-size: 90%;
-  font-style: italic;
+/* line 10, ../sass/admin/reader.sass */
+#messages_table td.name span.function {
+  color: #cc0000;
+  font-size: 80%;
   font-weight: normal;
-  margin-left: .5em;
+}
+/* line 14, ../sass/admin/reader.sass */
+#messages_table td.name span.function a {
+  color: #0066cc;
 }
 
-#content table.index .node .reader a, #content table.index .node .reader a:visited {
-  font-size: 115%;
-  font-weight: bold;
-  color: black;
+/* line 19, ../sass/admin/reader.sass */
+#readers_table tbody tr.disabled {
+  color: #aaaaaa;
+}
+/* line 21, ../sass/admin/reader.sass */
+#readers_table tbody tr.disabled a {
+  color: #999999;
+}
+
+/* show and send page */
+/* line 26, ../sass/admin/reader.sass */
+div#preview {
+  float: left;
+  width: 65%;
+  margin-bottom: 50px;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  background-color: white;
+}
+/* line 32, ../sass/admin/reader.sass */
+div#preview .message_header {
+  padding: 10px;
+  overflow: hidden;
+  background-color: #eeeeee;
+  color: #333333;
+  font-size: 80%;
+  line-height: 1.5;
+}
+/* line 39, ../sass/admin/reader.sass */
+div#preview .message_header ul {
+  margin: 0;
+  padding: 6px 14px;
+  list-style-type: none;
+}
+/* line 43, ../sass/admin/reader.sass */
+div#preview .message_header ul li.subject {
+  font-size: 1.6em;
+  margin-top: 6px;
+}
+/* line 46, ../sass/admin/reader.sass */
+div#preview .message_header ul li.mime-version, div#preview .message_header ul li.content-type {
+  display: none;
+}
+/* line 49, ../sass/admin/reader.sass */
+div#preview .message_body iframe.message_body {
+  width: 99%;
+  height: 520px;
+  margin: 0;
+  border: 0;
+  overflow: auto;
+}
+/* line 56, ../sass/admin/reader.sass */
+div#preview div.preview_controls {
+  height: 24px;
+}
+/* line 58, ../sass/admin/reader.sass */
+div#preview div.preview_controls p {
+  margin: 2px 14px;
+  text-align: right;
+}
+/* line 61, ../sass/admin/reader.sass */
+div#preview div.preview_controls a {
   text-decoration: none;
+  color: #cc0000;
 }
 
-#content table.index .node .reader a.untrusted, #content table.index .node .reader a.untrusted:visited {
-  color: #c00;
+/* line 65, ../sass/admin/reader.sass */
+div#deliver {
+  position: relative;
+  float: left;
+  width: 27%;
+  margin-left: 2%;
+}
+/* line 70, ../sass/admin/reader.sass */
+div#deliver ul#select_recipients {
+  height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+/* line 74, ../sass/admin/reader.sass */
+div#deliver ul#select_recipients label.select_all {
+  color: #cc0000;
+  font-size: 80%;
 }
 
-#content table.index .node .reader a:hover, #content table.index .node .reader a:visited:hover {
-  color: blue;
-  text-decoration: underline;
+/* edit pages */
+/* line 83, ../sass/admin/reader.sass */
+#content form p span.filter {
+  float: right;
+  width: 400px;
+  text-align: right;
+}
+/* line 87, ../sass/admin/reader.sass */
+#content form p span.filter label {
+  display: inline;
+}
+/* line 89, ../sass/admin/reader.sass */
+#content form p textarea {
+  width: 100%;
 }
 
-#content table.index tr.node td.reader_description {
-  color: #999;
+/* line 92, ../sass/admin/reader.sass */
+ul.help {
+  list-style: square;
+  color: #666666;
+  font-size: 85%;
 }
-
-#content table.index p.admin_notes {
-  color: #c00;
-  margin: 0 0 0 40px;
+/* line 96, ../sass/admin/reader.sass */
+ul.help code {
+  color: #cc0000;
+  font-size: 115%;
 }
-
-#content table.index p.admin_notes {
-  color: #c00;
-  margin: 0 0 0 40px;
-}
-
-p.haserror {
-  border-left-width: 4px;
-  border-left-style: solid;
-  border-left-color: #c00;
-  padding-left: 12px;
-  color: #c00; }
-  p.haserror input, p.haserror textarea {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #c00; }
-  p.haserror label {
-    color: #c00; }
