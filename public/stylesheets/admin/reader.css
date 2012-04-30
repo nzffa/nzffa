@@ -463,3 +463,11 @@ a.group_link {
   color: #2d2d2d;
   white-space: nowrap;
 }
+
+/* line 312, ../sass/admin/reader.sass */
+#index_search_bar {
+  background-color: #777777;
+  padding: 6px 10px;
+  text-align: right;
+  color: white;
+}
