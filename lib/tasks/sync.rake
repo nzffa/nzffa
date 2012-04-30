@@ -35,6 +35,7 @@ end
 
 task :symlink => [:environment] do
   echo_and_run "ln -sf #{Rails.root.join('shared/assets')} public/"
+  echo_and_run "rm public/system"
   echo_and_run "mkdir -p public/system"
   echo_and_run "ln -sf #{Rails.root.join('shared/assets')} public/system/"
   echo_and_run "ln -sf #{Rails.root.join('shared/attachments')} public/"
