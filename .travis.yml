@@ -1,3 +1,4 @@
+script: "bundle exec rake travis"
 before_script:
   - cp config/database.travis.yml config/database.yml
   - mysql -e 'create database nzffa_test;'
