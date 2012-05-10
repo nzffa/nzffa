@@ -1,0 +1,6 @@
+test:
+  adapter: mysql
+  username: root
+  reconnect: true
+  database: nzffa_test
+  password:
