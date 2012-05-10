@@ -2,8 +2,6 @@ before_script:
   - cp config/database.travis.yml config/database.yml
   - mysql -e 'create database nzffa_test;'
   - bundle exec rake db:schema:load
-  - bundle exec rake db:migrate
-  - bundle exec rake db:migrate:extensions
 before_install:
   - gem update --system
   - gem --version
