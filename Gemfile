@@ -29,16 +29,16 @@ gem "mysql", "~> 2.8.1"
 
 gem "radiant-navigation_tags-extension", "~> 0.2.6", :git => 'git://github.com/enspiral/navigation_tags.git'
 gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
-gem "radiant-settings-extension", "~> 1.1.1", :git => 'git@github.com:enspiral/radiant-settings.git'
+gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
 gem "radiant-scheduler-extension", "~> 1.0.0"
 
-gem 'radiant-layouts-extension', :git => 'git@github.com:enspiral/radiant-share-layouts-extension.git'
+gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
 # The above gem uses rr for mocking
 gem 'rr', :group => :test
 
 # This depends on radiant-layouts-extension
-gem "radiant-reader-extension", :git => 'git@github.com:enspiral/radiant-reader-extension.git'
+gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
 # gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
 
 # If you're running tests or specs

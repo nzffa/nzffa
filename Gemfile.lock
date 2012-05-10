@@ -5,7 +5,7 @@ GIT
     radiant-navigation_tags-extension (0.2.6)
 
 GIT
-  remote: git@github.com:enspiral/radiant-reader-extension.git
+  remote: git://github.com/enspiral/radiant-reader-extension.git
   revision: e7704de109371a77d6e48277f361e369fd02396c
   specs:
     radiant-reader-extension (3.0.38)
@@ -20,14 +20,14 @@ GIT
       vcard (~> 0.1.1)
 
 GIT
-  remote: git@github.com:enspiral/radiant-settings.git
+  remote: git://github.com/enspiral/radiant-settings.git
   revision: 205a0af20cd878259f2c7df42d40beadfde33c38
   specs:
     radiant-settings-extension (1.1.2)
       radiant (>= 0.9.1)
 
 GIT
-  remote: git@github.com:enspiral/radiant-share-layouts-extension.git
+  remote: git://github.com/enspiral/radiant-share-layouts-extension.git
   revision: e62392e917839095da521f6ca4197e600e494cf1
   specs:
     radiant-layouts-extension (1.1.3)
