@@ -38,7 +38,7 @@ cap production deploy
 ```
 
 
-== ENSPIRAL STAGING SERVER
+## ENSPIRAL STAGING SERVER
 
 To access:
 
