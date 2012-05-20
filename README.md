@@ -43,7 +43,7 @@ cap production deploy
 To access:
 
 ```bash
-ssh nzffa@nzffa.org.nz
+ssh nzffa@nzffa.enspiral.info
 ```
 
 Contact Craig to get your public ssh key on that server first.
