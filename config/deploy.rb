@@ -31,6 +31,7 @@ namespace(:custom) do
     run "ln -nfs #{shared_path}/public/attachments #{release_path}/public/attachments"
     run "ln -nfs #{shared_path}/public/executive_newsletters #{release_path}/public/executive_newsletters"
     run "ln -nfs #{shared_path}/public/images/design #{release_path}/public/images/design"
+    run "ln -nfs #{shared_path}/public/images/assets #{release_path}/public/images/admin/assets"
   end
 end
 
