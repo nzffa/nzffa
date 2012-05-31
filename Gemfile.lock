@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
-  revision: e7704de109371a77d6e48277f361e369fd02396c
+  revision: 0654b4dcb1d2e348ccd5fa900aea6777670812c8
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -91,7 +91,7 @@ GEM
     diff-lcs (1.1.3)
     execjs (1.3.0)
       multi_json (~> 1.0)
-    fastercsv (1.5.4)
+    fastercsv (1.5.5)
     ffi (1.0.11)
     fssm (0.2.9)
     gherkin (2.9.3)
