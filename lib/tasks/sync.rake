@@ -5,7 +5,7 @@ end
 
 desc "Make local develoment site look like the live site"
 task :sync => [:environment] do
-  host = 'admin@nzffa.org.nz'
+  host = 'admin@210.5.53.49'
   port = '36633'
   ssh_host = "-p #{port} #{host}"
   path = '/home/admin/sites/nzffa.org.nz/current'
