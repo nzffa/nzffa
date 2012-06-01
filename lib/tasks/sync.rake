@@ -17,6 +17,8 @@ task :sync => [:environment] do
     "./shared/"
   when 'staging'
     Rails.root.join('../../shared/public/').to_s
+  when 'production'
+    Rails.root.join('../../shared/public/').to_s
   else
     raise ArgumentError, "Environment #{Rails.env.inspect} not supported"
   end
