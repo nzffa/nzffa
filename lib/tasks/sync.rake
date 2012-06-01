@@ -12,6 +12,7 @@ task :sync => [:environment] do
   rsync_command = "rsync -az --progress -e 'ssh -p #{port}'"
   local_shared_path = "./shared/"
 
+
   local_shared_path = case Rails.env
   when 'development'
     "./shared/"
