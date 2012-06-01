@@ -7,3 +7,5 @@ before_install:
   - gem update --system
   - gem --version
 
+notifications:
+  campfire: enspiral:f10283f8b70c9c73a0100bdfbfe8f71b7722a488@506651
