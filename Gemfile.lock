@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
-  revision: 873990c91c8c7362a39aafc1da72efc574ca576b
+  revision: 79d615b196229c31752fef3c2537d5abae18bd41
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -52,8 +52,9 @@ GEM
     acts_as_tree (0.1.1)
     ancestry (1.2.5)
       activerecord (>= 2.2.2)
-    authlogic (2.1.6)
-      activesupport
+    authlogic (2.1.8)
+      activerecord (~> 2.3.0)
+      activesupport (~> 2.3.0)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     autotest-fsevent (0.2.8)
@@ -72,7 +73,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.3.1)
+    coffee-script-source (1.3.3)
     color (1.4.1)
     compass (0.11.7)
       chunky_png (~> 1.2)
@@ -89,19 +90,19 @@ GEM
     database_cleaner (0.6.7)
     delocalize (0.2.6)
     diff-lcs (1.1.3)
-    execjs (1.3.0)
+    execjs (1.4.0)
       multi_json (~> 1.0)
     fastercsv (1.5.5)
     ffi (1.0.11)
     fssm (0.2.9)
     gherkin (2.9.3)
       json (>= 1.4.6)
-    haml (3.1.4)
-    highline (1.6.11)
+    haml (3.1.6)
+    highline (1.6.12)
     hpricot (0.8.6)
-    json (1.6.6)
+    json (1.7.3)
     mime-types (1.18)
-    multi_json (1.3.2)
+    multi_json (1.3.6)
     mysql (2.8.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -110,7 +111,7 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    nokogiri (1.5.2)
+    nokogiri (1.5.3)
     paperclip (2.5.2)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -187,10 +188,10 @@ GEM
     rubypants (0.2.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.1.15)
+    sass (3.1.19)
     snail (0.5.7)
     sqlite3 (1.3.6)
-    stringex (1.3.2)
+    stringex (1.3.3)
     sys-uname (0.9.0)
       ffi (>= 1.0.0)
     term-ansicolor (1.0.7)
