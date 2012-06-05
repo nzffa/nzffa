@@ -239,8 +239,8 @@ ActiveRecord::Schema.define(:version => 20120510225903) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "provisional_password"
-    t.integer  "login_count",             :default => 0,    :null => false
-    t.integer  "failed_login_count",      :default => 0,    :null => false
+    t.integer  "login_count",             :default => 0,     :null => false
+    t.integer  "failed_login_count",      :default => 0,     :null => false
     t.string   "session_token"
     t.datetime "last_request_at"
     t.datetime "last_login_at"
@@ -267,6 +267,7 @@ ActiveRecord::Schema.define(:version => 20120510225903) do
     t.string   "name"
     t.date     "dob"
     t.boolean  "dob_secret"
+    t.boolean  "disabled",                :default => false
   end
 
   create_table "sessions", :force => true do |t|
