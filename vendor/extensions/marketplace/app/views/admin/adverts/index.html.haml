@@ -15,7 +15,7 @@
       %tr
         %td=advert.reader.name if advert.reader
         %td=advert.title
-        %td=advert.category
+        %td=advert.categories.join(', ')
         %td=advert.snippet
         %td=advert.price
         %td=advert.expires_on

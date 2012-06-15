@@ -1,0 +1,22 @@
+%h1 Your Company Listing
+%p Your company listing never expires
+
+-form_for @advert, :html => {:multipart => true} do |f|
+  =f.error_messages
+  =f.hidden_field :is_company_listing, true
+  %br
+  =f.label :categories
+  =f.select :categories, options_for_select(Advert::CATEGORIES, f.object.categories), :multiple => true
+  %br
+  =f.label :price
+  =f.text_field :price
+  %br
+  =f.label :title
+  =f.text_field :title
+  %br
+  =f.label :body
+  =f.text_area :body
+  %br
+  =f.label :image
+  =f.file_field :image
+  =f.submit

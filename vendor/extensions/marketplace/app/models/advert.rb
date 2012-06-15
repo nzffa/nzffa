@@ -13,12 +13,13 @@ class Advert < ActiveRecord::Base
   named_scope :not_expired, lambda { {:conditions => ['expires_on > ?', Date.today]} }
   named_scope :published, lambda { {:conditions => {:is_published => true}} }
 
-  validates_presence_of :reader, :expires_on
+  validates_presence_of :reader
+  validates_presence_of :expires_on, :unless => :is_company_listing
 
   validates_length_of :title, :minimum => 3
   validates_length_of :body, :minimum => 15
 
-  validates_inclusion_of :category, :in => CATEGORIES
+  #validates_inclusion_of :category, :in => CATEGORIES
 
   def snippet
     if body.length > 78
@@ -31,4 +32,12 @@ class Advert < ActiveRecord::Base
   def to_param
 		"#{id}-#{title}".gsub(/[^a-zA-Z0-9]/,"-")
 	end
+
+  def categories
+    self[:categories].split('|')
+  end
+
+  def categories=(list)
+    self[:categories] = list.join('|')
+  end
 end

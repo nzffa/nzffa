@@ -1,5 +1,4 @@
-%h1 Edit Advert
--form_for [:admin, @advert], :html => {:multipart => true} do |f|
+-form_for @advert, :html => {:multipart => true} do |f|
   =f.error_messages
   =f.label 'Author'
   =f.select :reader_id, options_for_select(Reader.all.map{|r| [r.name, r.id]}, f.object.id), {}, :class => 'chzn-select'
@@ -11,7 +10,7 @@
   =f.check_box :is_published
   %br
   =f.label :categories
-  =select_tag 'advert[categories]', options_for_select(Advert::CATEGORIES, f.object.categories), :multiple => true
+  =f.select :categories, options_for_select(Advert::CATEGORIES, f.object.categories), :multiple => true
   %br
   =f.label 'Expires on'
   =f.text_field :expires_on, :class => 'ui-datepicker'

@@ -7,14 +7,14 @@
   %strong Author
   =@advert.reader.name if @advert.reader
 %p 
-  %strong Category
-  =@advert.category
+  %strong Categories
+  =@advert.categories.join(', ')
 %p 
   %strong Title
   =@advert.title
 %p 
   %strong Body
-  =simple_format @advert.body
+  = make_pretty h(@advert.body)
 %p 
   %strong Price
   =@advert.price

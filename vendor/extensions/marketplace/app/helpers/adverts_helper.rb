@@ -1,9 +1,5 @@
 module AdvertsHelper
   
-  def title text
-    "<h2>#{text}</h2>"
-  end
-  
   def make_pretty string
     string.gsub("\n", "<br/>")
   end

@@ -2,12 +2,24 @@ class AdvertsController < ApplicationController
   radiant_layout "for_rails"
   before_filter :load_own_advert, :only => [:edit, :update, :destroy]
 
+  def edit_company_listing
+    @advert = Advert.find(:first, :conditions => {:is_company_listing => true, :reader_id => current_reader.id})
+    unless @advert
+      @advert = Advert.new
+    end
+  end
+
   def new
     @advert = Advert.new
   end
 
   def index
-    @adverts = Advert.active.paginate(:all, index_params)
+    @adverts = Advert.paginate(:all, index_params)
+
+    if request.xhr?
+      render :partial => 'table', :layout => false
+    end
+
   end
 
   def show
@@ -18,8 +30,7 @@ class AdvertsController < ApplicationController
   end
 
   def create
-    @advert = current_user.adverts.build(params[:advert])
-
+    @advert = current_reader.adverts.build(params[:advert])
     if @advert.save
       flash[:notice] = 'Advert was successfully created.'
       redirect_to @advert
@@ -42,14 +53,11 @@ class AdvertsController < ApplicationController
     redirect_to(adverts_url)
   end
 
+
   protected
 
-  def require_advert_author
-    if @advert
-      unless @advert.author == current_user
-        redirect_to adverts_index
-      end
-    end
+  def load_own_advert
+    @advert = Advert.find(:all, :conditions => {:id => params[:id], :reader_id => current_reader.id})
   end
 
   def index_params
@@ -58,7 +66,7 @@ class AdvertsController < ApplicationController
     find_options[:per_page] = 8
 
     unless params[:query].nil?
-      fields = %w[ad_type location title body]
+      fields = %w[category location title body]
       like_string = fields.map { |field| "#{field} LIKE ?" }.join(" OR ")
       array_of_search_term = fields.map { |field| "%#{params[:query]}%" }
 

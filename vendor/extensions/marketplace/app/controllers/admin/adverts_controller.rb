@@ -1,5 +1,6 @@
 class Admin::AdvertsController < ApplicationController
   before_filter :load_advert, :only => [:show, :edit, :update, :destroy]
+  helper :adverts
 
   def index
     @adverts = Advert.all

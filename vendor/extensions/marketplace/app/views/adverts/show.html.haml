@@ -1,0 +1,26 @@
+%div{:style => "padding: 0 20px 0 20px"}
+  %div{:style => "float:right; padding: 20px; text-align:right;"}
+    = link_to 'Back to Marketplace', adverts_path
+    %br
+    %br
+      - if @advert.reader == current_reader
+        = link_to 'Delete', @advert, :method => :delete, :confirm => "Really Delete?"
+        |
+        =link_to 'Edit', [:edit, @advert]
+  %p
+    %h1 Showing advert
+    %br
+      -#= ad_type_badge(@advert.category)
+      =@advert.categories.join(', ')
+      / <h1 class="main title"><haml:loud> @advert.title </haml:loud></h1>
+      %b.main.title= h @advert.title
+  %p
+    = image_tag(@advert.image.url(:medium))
+  %p
+    = h @advert.location
+  %p
+    = h number_to_currency(@advert.price)
+  %p
+    = mail_to @advert.reader.email, "Send e-mail", :subject => @advert.title if @advert.reader
+  %p
+    = make_pretty h(@advert.body)

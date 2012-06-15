@@ -1,0 +1,24 @@
+%script{:type => 'text/javascript', :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
+%div{:style => 'float: right'}
+  %h3{:class => 'center'} Free Adverts!
+  =link_to 'Post new advert', [:new, :advert]
+  =link_to 'Edit your company listing', [:edit_company_listing, :advert]
+%h1 Marketplace
+%h2 For farm forestry
+%p
+  %form#query-form{:action => '/', :method => :get}
+    =label_tag 'Search:'
+    =text_field_tag 'query', params[:query], :size => 10
+
+:javascript
+  $('form#query-form').submit(function(e){
+    e.preventDefault();
+    $('#table').text('Loading...');
+    $.get('/adverts.js',
+      $('form#query-form').serialize(),
+      function(data){ $('#table').html(data) });
+  });
+
+
+%div#table
+  =render :partial => 'table'
