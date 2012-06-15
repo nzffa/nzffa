@@ -1,0 +1,14 @@
+8C Craig: Users can login at: http://nzffa.org.nz/specialty-timber-market/participate/membership/
+6R Rob: Site admins can manage (create/edit/delete) everyone's listings in the backend.
+2R Display listings: index and show
+4R Search listings
+
+3C Users can access private "specialty timber group" members only area
+
+3R Users can add their own listings.
+1R Users can edit listings.
+1R Users can remove listings.
+1R Listings have an expiry date.
+8R Users get an expiry notification when expiry is imminent and can extend listing time.
+4R Each user has a single company listing which does not expire as long as they remain members. Company listings display in the same list as product listings, and are searchable based on keywords.
+3R Listings have categories: Services, For Sale, Wanted. A listing can belong to multiple categories.

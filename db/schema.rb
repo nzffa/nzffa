@@ -9,22 +9,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120510225903) do
+ActiveRecord::Schema.define(:version => 20120614032528) do
 
   create_table "adverts", :force => true do |t|
-    t.integer  "person_id"
     t.string   "title"
     t.string   "location"
     t.text     "body"
-    t.string   "ad_type"
-    t.boolean  "status"
+    t.string   "category"
+    t.boolean  "is_published",                                      :default => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "price"
+    t.decimal  "price",              :precision => 10, :scale => 2
+    t.date     "expires_on"
+    t.integer  "reader_id"
+    t.string   "timber_species"
+    t.boolean  "is_company_listing",                                :default => false
   end
 
   create_table "assets", :force => true do |t|

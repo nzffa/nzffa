@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :adverts
 
   map.namespace :admin do |admin|
-    admin.resources :marketplace
+    admin.resources :adverts, :except => [:new, :create]
   end
 
   map.show_login_area "show_login_area", :controller => "person_sessions", :action => "show_login_area"

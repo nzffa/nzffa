@@ -1,0 +1,27 @@
+%h1 Advert
+=link_to 'index', [:admin, :adverts]
+=link_to 'edit', edit_admin_advert_path(@advert)
+=link_to 'destroy', admin_advert_path(@advert), :method => :delete, :confirm => "Really delete ?"
+
+%p 
+  %strong Author
+  =@advert.reader.name if @advert.reader
+%p 
+  %strong Category
+  =@advert.category
+%p 
+  %strong Title
+  =@advert.title
+%p 
+  %strong Body
+  =simple_format @advert.body
+%p 
+  %strong Price
+  =@advert.price
+%p 
+  %strong Expires On
+  =@advert.expires_on
+
+%p
+  %strong Image
+  =image_tag(@advert.image.url(:medium)) if @advert.image

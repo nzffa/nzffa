@@ -1,0 +1,30 @@
+need to generate an expires_on for each existing advert
+
+User
+  first_name
+  last_name
+  email
+  region
+  postal_address
+  physical_address
+  phone
+  mobile
+  fax
+  company_name
+  office_holder
+  business_description
+  membership type
+  billing_postcode
+  admin_notes
+  ffr_contact:boolean
+  buyer_of
+
+listing
+  contact_person
+  supplier_of
+  services
+  website
+  timer_species
+  body
+  company_listing:boolean
+  

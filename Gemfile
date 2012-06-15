@@ -5,7 +5,6 @@ source :rubygems
 
 gem "radiant", "~> 1.0.1"
 gem 'hpricot'
-
 # alternatively, in development
 # gem "radiant", :path => "/path/to/radiant/root"
 
@@ -42,7 +41,7 @@ gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reade
 # gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
 
 # If you're running tests or specs
-group :test, :cucumber do
+group :test, :cucumber, :development do
   gem "cucumber-rails",   "~> 0.3.2"
   gem "database_cleaner", "~> 0.6.5"
   gem "webrat",           "~> 0.7.3"
