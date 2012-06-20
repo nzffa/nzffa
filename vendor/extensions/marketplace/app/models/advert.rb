@@ -34,7 +34,11 @@ class Advert < ActiveRecord::Base
 	end
 
   def categories
-    self[:categories].split('|')
+    if self[:categories]
+      self[:categories].split('|')
+    else
+      []
+    end
   end
 
   def categories=(list)

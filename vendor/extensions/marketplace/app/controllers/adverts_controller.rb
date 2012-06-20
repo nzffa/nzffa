@@ -4,8 +4,8 @@ class AdvertsController < ApplicationController
 
   def edit_company_listing
     @advert = Advert.find(:first, :conditions => {:is_company_listing => true, :reader_id => current_reader.id})
-    unless @advert
-      @advert = Advert.new
+    if @advert.nil?
+      @advert = Advert.new(:is_company_listing => true)
     end
   end
 
