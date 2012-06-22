@@ -1,8 +1,11 @@
 %table{:style => "width:100%"}
   %thead
-    %th.center= advert_order_link "date"
-    %th.left= advert_order_link "title"
-    %th.right= advert_order_link "price"
+    %th
+      %a.sortby{:href => '#', :data => {:column => 'date'}} Date
+    %th
+      %a.sortby{:href => '#', :data => {:column => 'title'}} title
+    %th
+      %a.sortby{:href => '#', :data => {:column => 'price'}} price
   %tbody
     %tr
       %td{:colspan => "6"}
@@ -11,7 +14,7 @@
       %tr{:style => "vertical-align:top"}
         %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
         %td.left
-          = ad_type_badge(advert.category)
+          = ad_type_badge(advert.categories.first)
           %b.title= link_to h(advert.title), advert
           %br
             %span.ad_snippet= h advert.snippet

@@ -17,13 +17,21 @@ class AdvertsController < ApplicationController
     @adverts = Advert.paginate(:all, index_params)
 
     if request.xhr?
-      render :partial => 'table', :layout => false
+      render :layout => false
     end
+  end
 
+  def index_table
+    @adverts = Advert.paginate(:all, index_params)
+    render :partial => 'table', :layout => false
   end
 
   def show
     @advert = Advert.find_by_id(params[:id])
+
+    if request.xhr?
+      render :layout => false
+    end
   end
 
   def edit
@@ -66,7 +74,7 @@ class AdvertsController < ApplicationController
     find_options[:per_page] = 8
 
     unless params[:query].nil?
-      fields = %w[category location title body]
+      fields = %w[categories location title body]
       like_string = fields.map { |field| "#{field} LIKE ?" }.join(" OR ")
       array_of_search_term = fields.map { |field| "%#{params[:query]}%" }
 

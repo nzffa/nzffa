@@ -5,4 +5,5 @@ module RadiantMarketplaceExtension
   URL         = "http://example.com/marketplace"
   AUTHORS     = ["Your Name"]
   EMAIL       = ["your email"]
+
 end

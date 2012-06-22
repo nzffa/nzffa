@@ -14,6 +14,7 @@ class MarketplaceExtension < Radiant::Extension
   end
 
   def activate
+    Page.class_eval { include Marketplace }
     tab 'Content' do
       add_item "Marketplace", "/admin/marketplace", :after => "Pages"
     end
