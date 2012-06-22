@@ -8,6 +8,7 @@
 %p
   %form#query-form{:action => index_table_adverts_path, :method => :get}
     =hidden_field_tag 'sort', 'date'
+    =hidden_field_tag 'page', ''
     =label_tag 'Search:'
     =text_field_tag 'query', params[:query], :size => 10
 
@@ -17,6 +18,7 @@
 :javascript
   $('form#query-form').submit(function(e){
     e.preventDefault();
+    $('input#page').attr('value', '1');
     $('#table').text('Loading...');
     $.get('/adverts/index_table.js',
       $('form#query-form').serialize(),
@@ -31,4 +33,15 @@
       $('form#query-form').serialize(),
       function(data){ $('#table').html(data) });
 
+  });
+
+  $('div#table').on('click', '.pagination a', function(e){
+    e.preventDefault();
+    $('#table').text('Loading...');
+    regex = new RegExp("\\d$");
+    page_num = regex.exec($(this).attr('href'));
+    $('input#page').attr('value', page_num);
+    $.get('/adverts/index_table.js',
+      $('form#query-form').serialize(),
+      function(data){ $('#table').html(data) });
   });
