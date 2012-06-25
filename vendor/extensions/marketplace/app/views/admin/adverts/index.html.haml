@@ -5,7 +5,6 @@
     %th Title
     %th Category
     %th Snippet
-    %th Price
     %th Expires On
     %th show
     %th edit
@@ -17,7 +16,6 @@
         %td=advert.title
         %td=advert.categories.join(', ')
         %td=advert.snippet
-        %td=advert.price
         %td=advert.expires_on
         %td=link_to 'show', [:admin, advert]
         %td=link_to 'edit', [:edit, :admin, advert]

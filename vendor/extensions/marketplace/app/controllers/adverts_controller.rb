@@ -1,12 +1,10 @@
-class AdvertsController < ApplicationController
+class AdvertsController < SiteController
   radiant_layout "for_rails"
-  before_filter :load_own_advert, :only => [:edit, :update, :destroy]
+  before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
+  before_filter :load_advert, :only => [:edit, :update, :destroy]
+  before_filter :require_current_reader, :except => [:index, :show, :index_table]
 
   def edit_company_listing
-    @advert = Advert.find(:first, :conditions => {:is_company_listing => true, :reader_id => current_reader.id})
-    if @advert.nil?
-      @advert = Advert.new(:is_company_listing => true)
-    end
   end
 
   def new
@@ -15,10 +13,12 @@ class AdvertsController < ApplicationController
 
   def index
     @adverts = Advert.paginate(:all, index_params)
+    render :layout => false if request.xhr?
+  end
 
-    if request.xhr?
-      render :layout => false
-    end
+  def my_adverts
+    @adverts = Advert.find(:all, :conditions => {:is_company_listing => false, :reader_id => current_reader.id})
+    render :layout => false if request.xhr?
   end
 
   def index_table
@@ -28,23 +28,13 @@ class AdvertsController < ApplicationController
 
   def show
     @advert = Advert.find_by_id(params[:id])
-
-    if request.xhr?
-      render :layout => false
-    end
+    render :layout => false if request.xhr?
   end
 
   def edit
   end
 
-  def create
-    @advert = current_reader.adverts.build(params[:advert])
-    if @advert.save
-      flash[:notice] = 'Advert was successfully created.'
-      redirect_to @advert
-    else
-      render :action => "new"
-    end
+  def renew_advert
   end
 
   def update
@@ -56,21 +46,49 @@ class AdvertsController < ApplicationController
     end
   end
 
+  def create
+    params[:advert][:reader_id]=current_reader.id
+    @advert = Advert.new(params[:advert])
+    @advert.expires_on = 1.month.from_now unless @advert.is_company_listing?
+    if @advert.save
+      flash[:notice] = 'Advert was successfully created.'
+      redirect_to @advert
+    else
+      if @advert.is_company_listing?
+        render :action => 'edit_company_listing'
+      else
+        render :action => "new"
+      end
+    end
+  end
+
   def destroy
     @advert.destroy
-    redirect_to(adverts_url)
+    redirect_to(my_adverts_adverts_path)
   end
 
 
   protected
 
-  def load_own_advert
-    @advert = Advert.find(:all, :conditions => {:id => params[:id], :reader_id => current_reader.id})
+
+  def load_company_listing
+    @company_listing = Advert.find(:first, :conditions => {:is_company_listing => true, :reader_id => current_reader.id})
+    if @company_listing.nil?
+      @company_listing = Advert.new(:is_company_listing => true, :reader => current_reader)
+    end
+  end
+
+  def load_advert
+    @advert = Advert.find params[:id], :conditions => {:reader_id => current_reader.id}
   end
 
   def index_params
     find_options = {}
-    find_options[:page] = params[:page]
+    if params[:page] and params[:page].to_i > 0
+      find_options[:page] = params[:page]
+    else
+      find_options[:page] = 1
+    end
     find_options[:per_page] = 8
 
     unless params[:query].nil?
@@ -92,5 +110,12 @@ class AdvertsController < ApplicationController
       find_options[:order] = order_options[params[:sort]]
     end
     find_options
+  end
+
+  def require_current_reader
+    unless current_reader
+      flash[:error] = 'Sorry, but you must be logged in to do this'
+      redirect_to root_path
+    end
   end
 end

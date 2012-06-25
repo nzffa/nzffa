@@ -1,30 +1,28 @@
-need to generate an expires_on for each existing advert
+need to find out what groups they indended with those ids
 
-User
-  first_name
-  last_name
-  email
-  region
-  postal_address
-  physical_address
-  phone
-  mobile
-  fax
-  company_name
-  office_holder
-  business_description
-  membership type
-  billing_postcode
-  admin_notes
-  ffr_contact:boolean
-  buyer_of
+what are the reqest specs for this?
 
-listing
-  contact_person
-  supplier_of
-  services
-  website
-  timer_species
-  body
-  company_listing:boolean
-  
+Where do readers login?
+
+Reader manages listings
+  url and radiant tag r:my_adverts via js
+  adverts/my_adverts *
+  new advert *
+  edit adverts *
+  delete adverts 
+  edit_company_listing *
+  extend expiry
+
+
+admin manages listings
+  current user required
+  index at admin/adverts
+  edit, create advert
+
+  index at admin/adverts/company_listings 
+  edit, create company listing
+ 
+  delete advert
+
+add chosen js
+

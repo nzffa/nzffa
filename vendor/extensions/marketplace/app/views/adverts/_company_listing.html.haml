@@ -1,0 +1,43 @@
+%b.main.title= h @advert.title
+%h2=@advert.reader.name
+%img{:src => @advert.image(:medium)}
+
+%p=@advert.business_description
+
+%p
+  Region
+  =@advert.reader.region
+
+%p
+  Contact person:
+  =@advert.reader.contact_person
+%p
+  Phone:
+  =@advert.reader.phone
+%p
+  Fax:
+  =@advert.reader.fax
+%p
+  Mobile:
+  =@advert.reader.mobile
+%p
+  Email:
+  =@advert.reader.email
+%p
+  Website:
+  =link_to @advert.website, @advert.website
+%p
+  Timber species:
+  =@advert.timber_species.join ', '
+%p
+  Timber for sale:
+  =@advert.timber_for_sale.join ', '
+%p
+  Buyer of:
+  =@advert.buyer_of.join ', '
+%p
+  Supplier of:
+  =@advert.supplier_of.join ', '
+%p
+  Services:
+  =@advert.services.join ', '

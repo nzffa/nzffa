@@ -1,0 +1,8 @@
+%tr
+  %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
+  %td.left
+    = ad_type_badge(advert.categories.first) unless advert.categories.empty?
+    %b.title= link_to h(advert.title), advert
+    %span.ad_snippet= h advert.snippet
+    %br
+    = advert.location

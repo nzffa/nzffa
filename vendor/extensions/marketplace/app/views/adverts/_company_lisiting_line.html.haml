@@ -1,0 +1,7 @@
+%tr
+  %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
+  %td.left
+    %b.title= link_to h(advert.reader.name), advert
+    = advert.reader.region
+    %br
+    %span.ad_snippet= h advert.reader.business_description

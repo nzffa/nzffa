@@ -1,23 +1,93 @@
 %h1 Your Company Listing
 %p Your company listing never expires
 
--form_for @advert, :html => {:multipart => true} do |f|
+-form_for @company_listing, :html => {:multipart => true} do |f|
   =f.error_messages
   =f.hidden_field :is_company_listing
+  -f.fields_for :reader do |rf|
+    =f.label :Region
+    =select_tag 'advert[reader_attributes][region]', options_for_select(Advert::REGIONS, rf.object.region)
+    %p
+      =rf.label :company_name
+      %br
+      =rf.text_field :name
+    %p
+      =rf.label :contact_person
+      %br
+      =rf.text_field :contact_person
+    %p
+      =rf.label :phone
+      %br
+      =rf.text_field :phone
+    %p
+      =rf.label :fax
+      %br
+      =rf.text_field :fax
+    %p
+      =rf.label :mobile
+      %br
+      =rf.text_field :mobile
+    %p
+      =rf.label :email
+      %br
+      =rf.text_field :email
+    %p
+      =rf.label :billing_address
+      %br
+      =rf.text_field :billing_address_1
+      %br
+      =rf.text_field :billing_address_2
+      %br
+      =rf.text_field :billing_address_3
+      %br
+      =rf.text_field :billing_address_4
+      %br
+      Postcode:
+      =rf.text_field :billing_postcode
+    %p
+      =rf.label 'Physical Address'
+      %br
+      =rf.text_area :address_1
+
   %p
-    =f.label :categories
-    =select_tag 'advert[categories]', options_for_select(Advert::CATEGORIES, f.object.categories), :multiple => true
+    =f.label :website
+    %br
+    =f.text_field :website
+
   %p
-    =f.label :price
-    =f.text_field :price
+    =f.label :business_description
+    %br
+    =f.text_area :business_description
+
   %p
-    =f.label :title
-    =f.text_field :title
+    =f.label :timber_species
+    %br
+    =select_tag 'advert[timber_species]', options_for_select(Advert.timber_species_options, f.object.timber_species), :multiple => true
+
   %p
-    =f.label :body
-    =f.text_area :body
+    =f.label :timber_for_sale
+    %br
+    =select_tag 'advert[timber_for_sale]', options_for_select(Advert.timber_for_sale_options, f.object.timber_for_sale), :multiple => true
+
+  %p
+    =f.label :buyer_of
+    %br
+    =select_tag 'advert[buyer_of]', options_for_select(Advert.timber_species_options, f.object.buyer_of), :multiple => true
+
+  %p
+    =f.label :supplier_of
+    %br
+    =select_tag 'advert[supplier_of]', options_for_select(Advert.timber_species_options, f.object.supplier_of), :multiple => true
+
+  %p
+    =f.label :services
+    %br
+    =select_tag 'advert[services]', options_for_select(Advert.services_options, f.object.services), :multiple => true
+
   %p
     =f.label :image
+    %br
     =f.file_field :image
+
   %p
     =f.submit

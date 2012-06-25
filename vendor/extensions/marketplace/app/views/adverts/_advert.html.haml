@@ -1,0 +1,16 @@
+%div{:style => "padding: 0 20px 0 20px"}
+  %div{:style => "float:right; padding: 20px; text-align:right;"}
+    = link_to 'Back to Marketplace', adverts_path
+    = link_to 'My Adverts', my_adverts_adverts_path
+  %p
+    %b.main.title= h advert.title
+    %br
+      =advert.categories.join(', ')
+  %p
+    = image_tag(advert.image.url(:medium))
+  %p
+    = h advert.location
+  %p
+    = mail_to advert.reader.email, "Send e-mail", :subject => advert.title if advert.reader
+  %p
+    = make_pretty h(advert.body)

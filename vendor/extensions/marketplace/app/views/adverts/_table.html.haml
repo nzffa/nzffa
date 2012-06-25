@@ -1,36 +1,21 @@
 %table{:style => "width:100%"}
-  %thead
-    %th
-      %a.sortby{:href => '#', :data => {:column => 'date'}} Date
-    %th
-      %a.sortby{:href => '#', :data => {:column => 'title'}} title
-    %th
-      %a.sortby{:href => '#', :data => {:column => 'price'}} price
   %tbody
-    %tr
-      %td{:colspan => "6"}
-        %hr/
     - @adverts.each do |advert|
-      %tr{:style => "vertical-align:top"}
-        %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
-        %td.left
-          = ad_type_badge(advert.categories.first)
-          %b.title= link_to h(advert.title), advert
-          %br
+      %tr
+        -if advert.is_company_listing?
+          %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
+          %td.left
+            %b.title= link_to h(advert.reader.name), advert
+            = advert.reader.region
+            %br
+            %span.ad_snippet= h advert.business_description
+        -else
+          %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
+          %td.left
+            = ad_type_badge(advert.categories.first) unless advert.categories.empty?
+            %b.title= link_to h(advert.title), advert
             %span.ad_snippet= h advert.snippet
             %br
-              = advert.location
-              %br
-                / <haml:loud>h advert.category </haml:loud>
-                / Listed: <haml:loud> time_ago_in_words advert.created_at </haml:loud> ago<br>
-                = distance_of_time_in_words(Time.now, advert.expires_on, true) if advert.expires_on
-                left
-                %br
-        %td.right
-          - if advert.price
-            = number_to_currency(advert.price)
-      %tr
-        %td{:colspan => "6"}
-          %hr/
+            = advert.location
 %br
   = will_paginate @adverts
