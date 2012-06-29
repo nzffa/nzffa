@@ -67,8 +67,16 @@ class Advert < ActiveRecord::Base
   
   def timber_species_terms=(list)
     self[:timber_species] = list.join(', ')
+  end
+
+  def timber_for_sale_terms
+    self[:timber_for_sale].split(', ')
   rescue
     []
+  end
+  
+  def timber_for_sale_terms=(list)
+    self[:timber_for_sale] = list.join(', ')
   end
 
   def timber_species

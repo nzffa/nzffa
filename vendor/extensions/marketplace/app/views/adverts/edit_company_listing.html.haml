@@ -74,12 +74,12 @@
   %p
     =f.label :timber_species
     %br
-    =select_tag 'advert[timber_species_terms]', options_for_select(Advert.timber_species_options.map{|o| [o,o] }), :multiple => true, :style => 'width: 300px'
+    =f.hidden_field :timber_species, :style => 'width: 300px'
 
   %p
     =f.label :timber_for_sale
     %br
-    =f.hidden_field :timber_for_sale, :style => 'width: 300px'
+    =select_tag 'advert[timber_for_sale_terms]', options_for_select(Advert.timber_for_sale_options.map{|o| [o,o] }, f.object.timber_for_sale_terms), :multiple => true, :style => 'width: 300px'
 
   %p
     =f.label :buyer_of
@@ -105,8 +105,8 @@
     =f.submit
 
 :javascript
-  $('#advert_timber_species_terms').select2()
-  $('#advert_timber_for_sale').select2({tags: #{Advert.timber_for_sale_options.to_json}})
+  $('#advert_timber_species').select2({tags: #{Advert.timber_for_sale_options.to_json}})
+  $('#advert_timber_for_sale_terms').select2()
   $('#advert_buyer_of').select2({tags: #{Advert.buyer_of_options.to_json}})
   $('#advert_supplier_of').select2({tags: #{Advert.supplier_of_options.to_json}})
   $('#advert_services').select2({tags: #{Advert.services_options.to_json}})
