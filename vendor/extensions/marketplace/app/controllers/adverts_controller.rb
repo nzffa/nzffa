@@ -5,10 +5,12 @@ class AdvertsController < SiteController
   before_filter :require_current_reader, :except => [:index, :show, :index_table]
 
   def edit_company_listing
+    render :layout => false if request.xhr?
   end
 
   def new
     @advert = Advert.new
+    render :layout => false if request.xhr?
   end
 
   def index
