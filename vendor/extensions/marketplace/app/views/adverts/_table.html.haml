@@ -5,5 +5,8 @@
         =render :partial => 'company_listing_line', :locals => {:advert => advert}
       -else
         =render :partial => 'advert_line', :locals => {:advert => advert}
+      %tr
+        %td{:colspan => 2}
+          %hr
 %br
 = will_paginate @adverts

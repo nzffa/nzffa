@@ -1,13 +1,10 @@
 %h1 My Adverts
--if @company_listing
-  =link_to 'See my company listing', advert_path(@company_listing)
-  %br
-  =link_to 'Edit my company listing', [:edit_company_listing, :adverts]
-  %br
--else
-  =link_to 'Create my company listing', [:edit_company_listing, :adverts]
-  %br
-
+-#-if @company_listing
+  -#=link_to 'Edit my company listing', [:edit_company_listing, :adverts]
+  -#%br
+-#-else
+  -#=link_to 'Create my company listing', [:edit_company_listing, :adverts]
+  -#%br
 
 %table
   %thead
@@ -27,4 +24,4 @@
         %td=link_to 'edit', [:edit, advert]
         %td=link_to 'destroy', advert, :method => :delete, :confirm => "Really delete advert titled: '#{advert.title}'?"
 
-=link_to 'Create Advert', [:new, :advert]
+-#=link_to 'Create Advert', [:new, :advert]
