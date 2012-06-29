@@ -74,7 +74,7 @@ class Advert < ActiveRecord::Base
   rescue
     []
   end
-  
+
   def timber_for_sale_terms=(list)
     self[:timber_for_sale] = list.join(', ')
   end
@@ -105,11 +105,23 @@ class Advert < ActiveRecord::Base
 
 
   def reader_physical_address
-    "#{reader.address_1}, #{reader.address_2}, #{reader.address_3}, #{reader.address_4}"
+    lines = []
+    [:address_1, :address_2, :address_3, :address_4].each do |method|
+      if reader.send(method).present?
+        lines << reader.send(method)
+      end
+    end
+    lines.join(', ')
   end
 
   def reader_postal_address
-    "#{reader.billing_address_1}, #{reader.billing_address_2}, #{reader.billing_address_3}, #{reader.billing_address_4}"
+    lines = []
+    [:billing_address_1, :billing_address_2, :billing_address_3, :billing_address_4].each do |method|
+      if reader.send(method).present?
+        lines << reader.send(method)
+      end
+    end
+    lines.join(', ')
   end
 
   def self.buyer_of_options
