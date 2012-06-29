@@ -59,6 +59,18 @@ class Advert < ActiveRecord::Base
     end
   end
 
+  def timber_species_terms
+    self[:timber_species].split(', ')
+  rescue
+    []
+  end
+  
+  def timber_species_terms=(list)
+    self[:timber_species] = list.join(', ')
+  rescue
+    []
+  end
+
   def timber_species
     self[:timber_species] || ''
   end
@@ -90,6 +102,14 @@ class Advert < ActiveRecord::Base
 
   def reader_postal_address
     "#{reader.billing_address_1}, #{reader.billing_address_2}, #{reader.billing_address_3}, #{reader.billing_address_4}"
+  end
+
+  def self.buyer_of_options
+    ['Timber', 'Logs', 'Standing trees', 'Firewood']
+  end
+
+  def self.supplier_of_options
+    'Timber, logs, Sawmills, Machinery, Firewood, Trees, Structural Glulam, Glue-laminated timber panels, Outdoor furniture, Indoor furniture, Trusses'.split(', ')
   end
 
   def self.timber_species_options

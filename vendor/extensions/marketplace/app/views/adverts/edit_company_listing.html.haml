@@ -1,7 +1,7 @@
 -#%script{:type => 'text/javascript', :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
 %script{:type => 'text/javascript', :src => '/jquery-1.6.2.min.js'}
 %script{:type => 'text/javascript', :src => '/select2.min.js'}
-%h1 Your Company Listing
+-#%h1 Your Company Listing
 
 -form_for @company_listing, :html => {:multipart => true} do |f|
   =f.error_messages
@@ -12,6 +12,7 @@
     =f.text_field :company_name
   -f.fields_for :reader do |rf|
     =f.label :Region
+    %br
     =select_tag 'advert[reader_attributes][region]', options_for_select(Advert::REGIONS, rf.object.region)
     %p
       =rf.label :contact_person
@@ -73,7 +74,7 @@
   %p
     =f.label :timber_species
     %br
-    =f.hidden_field :timber_species, :style => 'width: 300px'
+    =select_tag 'advert[timber_species_terms]', options_for_select(Advert.timber_species_options.map{|o| [o,o] }), :multiple => true, :style => 'width: 300px'
 
   %p
     =f.label :timber_for_sale
@@ -104,8 +105,8 @@
     =f.submit
 
 :javascript
-  $('#advert_timber_species').select2({tags: #{Advert.timber_species_options.to_json}})
+  $('#advert_timber_species_terms').select2()
   $('#advert_timber_for_sale').select2({tags: #{Advert.timber_for_sale_options.to_json}})
-  $('#advert_buyer_of').select2({tags: #{Advert.timber_species_options.to_json}})
-  $('#advert_supplier_of').select2({tags: #{Advert.timber_species_options.to_json}})
-  $('#advert_services').select2({tags: #{Advert.timber_species_options.to_json}})
+  $('#advert_buyer_of').select2({tags: #{Advert.buyer_of_options.to_json}})
+  $('#advert_supplier_of').select2({tags: #{Advert.supplier_of_options.to_json}})
+  $('#advert_services').select2({tags: #{Advert.services_options.to_json}})
