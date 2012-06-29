@@ -74,6 +74,7 @@ class AdvertsController < SiteController
 
 
   def load_company_listing
+    return unless current_reader
     @company_listing = Advert.find(:first, :conditions => {:is_company_listing => true, :reader_id => current_reader.id})
     if @company_listing.nil?
       @company_listing = Advert.new(:is_company_listing => true, :reader => current_reader)

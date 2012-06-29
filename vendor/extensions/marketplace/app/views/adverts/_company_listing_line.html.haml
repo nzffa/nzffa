@@ -3,7 +3,7 @@
     %table
       %tr
         %td{:colspan => 2}
-          %b.title= link_to h(advert.company_name), advert
+          %b.title= link_to h(advert.reader.organisation), advert
           =advert.reader.region
           %br
           =advert.business_description

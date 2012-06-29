@@ -31,11 +31,15 @@ columns = "
   adverts.buyer_of"
 
 # what groups what entry in the groups column gets us
-#groups_for = {
-  #"Newsletter" => [Group.find(230)],
-  #"Associate"  => [Group.find(229)],
-  #"NZFFA"      => [Group.find(229), Group.find(100)]
-#}
+groups_for = {
+#80 NZ Tree Grower (NZ)
+#100  NZFFA Admin Levy 
+#229  Farm Forestry Timbers
+#230  FFT Newsletter
+  "Newsletter" => [Group.find(230)],
+  "Associate"  => [Group.find(229), Group.find(100)],
+  "NZFFA"      => [Group.find(100), Group.find(80), Group.find(230)]
+}
 
 # create hash from columns
 h = {}
@@ -62,7 +66,7 @@ CSV.foreach("FFT_Data.csv") do |row|
 
   reader = Reader.new values_for(h["readers"], row)
   group_name = row[h["membership"]["group"]]
-  #reader.groups += groups_for[group_name]
+  reader.groups += groups_for[group_name]
   reader.save(false)
 
   advert_values = values_for(h["adverts"], row).merge(
