@@ -9,14 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120629033552) do
+ActiveRecord::Schema.define(:version => 20120629055751) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
     t.string   "location"
     t.text     "body"
     t.string   "categories"
-    t.boolean  "is_published",         :default => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -35,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20120629033552) do
     t.text     "business_description"
     t.text     "admin_notes"
     t.boolean  "ffr_contact"
-    t.string   "company_name"
   end
 
   create_table "assets", :force => true do |t|
