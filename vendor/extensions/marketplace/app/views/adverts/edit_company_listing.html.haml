@@ -6,13 +6,13 @@
 -form_for @company_listing, :html => {:multipart => true} do |f|
   =f.error_messages
   =f.hidden_field :is_company_listing
+  %p
+    =f.label :company_name
+    %br
+    =f.text_field :company_name
   -f.fields_for :reader do |rf|
     =f.label :Region
     =select_tag 'advert[reader_attributes][region]', options_for_select(Advert::REGIONS, rf.object.region)
-    %p
-      =rf.label :company_name
-      %br
-      =rf.text_field :name
     %p
       =rf.label :contact_person
       %br
