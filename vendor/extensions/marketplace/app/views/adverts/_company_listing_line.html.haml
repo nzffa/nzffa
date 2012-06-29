@@ -1,0 +1,42 @@
+%tr{:style => 'vertical-align:top'}
+  %td
+    %table
+      %tr
+        %td{:colspan => 2}
+          %b.title= link_to h(advert.reader.name), advert
+          =advert.reader.region
+      %tr
+        %td
+          %b Contact person:
+          #{advert.reader.contact_person}
+          %br
+          %b Phone number:
+          #{advert.reader.phone}, Fax number #{advert.reader.fax}, Mobile number #{advert.reader.mobile}
+          %br
+          %b Postal address:
+          #{advert.reader_postal_address}
+          %br
+          %b Physical address:
+          #{advert.reader_physical_address}
+          %br
+          %b Email address:
+          #{advert.reader.email}
+          -if advert.website.present?
+            %br
+            %b Website:
+            #{link_to(advert.website, advert.website)}
+        %td
+          %b Timber species:
+          =advert.timber_species.split(',').join(', ')
+          %br
+          %b Supplier of:
+          =advert.supplier_of.split(',').join(', ')
+          %br
+          %b Timber for sale:
+          =advert.timber_for_sale.split(',').join(', ')
+          %br
+          %b Buyer of:
+          =advert.buyer_of.split(',').join(', ')
+          %br
+          %b Services:
+          =advert.services.split(',').join(', ')

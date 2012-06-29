@@ -33,7 +33,7 @@ class Advert < ActiveRecord::Base
 
   validates_length_of :title, :minimum => 3, :unless => :is_company_listing
   validates_length_of :body, :minimum => 15, :unless => :is_company_listing
-  validate :one_company_listing_per_reader
+  #validate :one_company_listing_per_reader
 
   accepts_nested_attributes_for :reader
 
@@ -59,68 +59,37 @@ class Advert < ActiveRecord::Base
     end
   end
 
+  def timber_species
+    self[:timber_species] || ''
+  end
+
+  def supplier_of
+    self[:supplier_of] || ''
+  end
+
+  def timber_for_sale
+    self[:timber_for_sale] || ''
+  end
+
+  def buyer_of
+    self[:buyer_of] || ''
+  end
+
+  def services
+    self[:services] || ''
+  end
+
   def categories=(list)
     self[:categories] = list.join '|'
   end
 
-  def timber_species
-    self[:timber_species].split ' ,'
-  rescue NoMethodError
-    []
+
+  def reader_physical_address
+    "#{reader.address_1}, #{reader.address_2}, #{reader.address_3}, #{reader.address_4}"
   end
 
-  def timber_species=(list)
-    self[:timber_species] = list.join ', '
-  rescue NoMethodError
-    ''
-  end
-
-  def timber_for_sale
-    self[:timber_for_sale].split ' ,'
-  rescue NoMethodError
-    []
-  end
-
-  def timber_for_sale=(list)
-    self[:timber_for_sale] = list.join ' ,'
-  rescue NoMethodError
-    ''
-  end
-
-  def buyer_of
-    self[:buyer_of].split ' ,'
-  rescue NoMethodError
-    []
-  end
-
-  def buyer_of=(list)
-    self[:buyer_of] = list.join ' ,'
-  rescue NoMethodError
-    ''
-  end
-
-  def supplier_of
-    self[:supplier_of].split ', '
-  rescue NoMethodError
-    []
-  end
-
-  def supplier_of=(list)
-    self[:supplier_of] = list.join ', '
-  rescue NoMethodError
-    ''
-  end
-
-  def services
-    self[:services].split ', '
-  rescue NoMethodError
-    []
-  end
-
-  def services=(list)
-    self[:services] = list.join ', '
-  rescue NoMethodError
-    ''
+  def reader_postal_address
+    "#{reader.billing_address_1}, #{reader.billing_address_2}, #{reader.billing_address_3}, #{reader.billing_address_4}"
   end
 
   def self.timber_species_options
@@ -182,10 +151,10 @@ class Advert < ActiveRecord::Base
   def one_company_listing_per_reader
     if is_company_listing?
       existing = Advert.find(:all, :conditions => {:is_company_listing => true, :reader_id => reader_id})
-      if existing.size == 0 or (existing.size == 1 && existing[0].reader_id == reader_id)
+      if [0,1].include? existing.size
         # thats good
       else
-        self.errors.add(:is_company_listing, "There is already a company listing for this reader id #{reader_id}")
+        self.errors.add(:is_company_listing, "There is already a company listing for this reader id #{reader_id} n: #{existing.size}")
       end
     end
   end

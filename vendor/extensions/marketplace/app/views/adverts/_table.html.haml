@@ -1,21 +1,9 @@
 %table{:style => "width:100%"}
   %tbody
     - @adverts.each do |advert|
-      %tr
-        -if advert.is_company_listing?
-          %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
-          %td.left
-            %b.title= link_to h(advert.reader.name), advert
-            = advert.reader.region
-            %br
-            %span.ad_snippet= h advert.business_description
-        -else
-          %td.advert_image_td.center= link_to (image_tag(advert.image.url(:thumb))), advert
-          %td.left
-            = ad_type_badge(advert.categories.first) unless advert.categories.empty?
-            %b.title= link_to h(advert.title), advert
-            %span.ad_snippet= h advert.snippet
-            %br
-            = advert.location
+      -if advert.is_company_listing?
+        =render :partial => 'company_listing_line', :locals => {:advert => advert}
+      -else
+        =render :partial => 'advert_line', :locals => {:advert => advert}
 %br
-  = will_paginate @adverts
+= will_paginate @adverts

@@ -1,5 +1,7 @@
+-#%script{:type => 'text/javascript', :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
+%script{:type => 'text/javascript', :src => '/jquery-1.6.2.min.js'}
+%script{:type => 'text/javascript', :src => '/select2.min.js'}
 %h1 Your Company Listing
-%p Your company listing never expires
 
 -form_for @company_listing, :html => {:multipart => true} do |f|
   =f.error_messages
@@ -16,7 +18,7 @@
       %br
       =rf.text_field :contact_person
     %p
-      =rf.label :phone
+      =label_tag 'Phone'
       %br
       =rf.text_field :phone
     %p
@@ -32,7 +34,7 @@
       %br
       =rf.text_field :email
     %p
-      =rf.label :billing_address
+      =label_tag 'Postal Address'
       %br
       =rf.text_field :billing_address_1
       %br
@@ -45,9 +47,18 @@
       Postcode:
       =rf.text_field :billing_postcode
     %p
-      =rf.label 'Physical Address'
+      =label_tag 'Physical Address'
       %br
-      =rf.text_area :address_1
+      =rf.text_field :address_1
+      %br
+      =rf.text_field :address_2
+      %br
+      =rf.text_field :address_3
+      %br
+      =rf.text_field :address_4
+      %br
+      Postcode:
+      =rf.text_field :postcode
 
   %p
     =f.label :website
@@ -62,27 +73,27 @@
   %p
     =f.label :timber_species
     %br
-    =select_tag 'advert[timber_species]', options_for_select(Advert.timber_species_options, f.object.timber_species), :multiple => true
+    =f.hidden_field :timber_species, :style => 'width: 300px'
 
   %p
     =f.label :timber_for_sale
     %br
-    =select_tag 'advert[timber_for_sale]', options_for_select(Advert.timber_for_sale_options, f.object.timber_for_sale), :multiple => true
+    =f.hidden_field :timber_for_sale, :style => 'width: 300px'
 
   %p
     =f.label :buyer_of
     %br
-    =select_tag 'advert[buyer_of]', options_for_select(Advert.timber_species_options, f.object.buyer_of), :multiple => true
+    =f.hidden_field :buyer_of,  :style => 'width: 300px'
 
   %p
     =f.label :supplier_of
     %br
-    =select_tag 'advert[supplier_of]', options_for_select(Advert.timber_species_options, f.object.supplier_of), :multiple => true
+    =f.hidden_field :supplier_of,  :style => 'width: 300px'
 
   %p
     =f.label :services
     %br
-    =select_tag 'advert[services]', options_for_select(Advert.services_options, f.object.services), :multiple => true
+    =f.hidden_field :services, :style => 'width: 300px'
 
   %p
     =f.label :image
@@ -91,3 +102,10 @@
 
   %p
     =f.submit
+
+:javascript
+  $('#advert_timber_species').select2({tags: #{Advert.timber_species_options.to_json}})
+  $('#advert_timber_for_sale').select2({tags: #{Advert.timber_for_sale_options.to_json}})
+  $('#advert_buyer_of').select2({tags: #{Advert.timber_species_options.to_json}})
+  $('#advert_supplier_of').select2({tags: #{Advert.timber_species_options.to_json}})
+  $('#advert_services').select2({tags: #{Advert.timber_species_options.to_json}})

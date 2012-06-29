@@ -28,16 +28,16 @@
   =link_to @advert.website, @advert.website
 %p
   Timber species:
-  =@advert.timber_species.join ', '
+  =@advert.timber_species.split(',').join ', '
 %p
   Timber for sale:
-  =@advert.timber_for_sale.join ', '
+  =@advert.timber_for_sale.split(',').join ', '
 %p
   Buyer of:
-  =@advert.buyer_of.join ', '
+  =@advert.buyer_of.split(',').join ', '
 %p
   Supplier of:
-  =@advert.supplier_of.join ', '
+  =@advert.supplier_of.split(',').join ', '
 %p
   Services:
-  =@advert.services.join ', '
+  =@advert.services.split(',').join ', '
