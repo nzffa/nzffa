@@ -12,7 +12,7 @@
   =render :partial => 'table'
 
 :javascript
-  $('form#query-form').submit(function(e){
+  $('form#query-form').change(function(e){
     e.preventDefault();
     $('input#page').attr('value', '1');
     $('#table').text('Loading...');

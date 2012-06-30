@@ -6,5 +6,4 @@ class ExpiryMailer < ActionMailer::Base
     sent_on Time.now
     body({:advert => advert, :reader => advert.reader})
   end
-
 end
