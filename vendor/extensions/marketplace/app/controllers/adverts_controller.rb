@@ -1,8 +1,11 @@
 class AdvertsController < SiteController
+  MY_ADVERTS_URL = 'http://nzffa.enspiral.info/specialty-timber-market/marketplace/my-adverts/'
+
   radiant_layout "for_rails"
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
-  before_filter :load_advert, :only => [:edit, :update, :destroy]
+  before_filter :load_advert, :only => [:edit, :update, :destroy, :renew_advert]
   before_filter :require_current_reader, :except => [:index, :show, :index_table]
+  #before_filter :require_fft_group, :except => [:index, :show, :index_table]
 
   def edit_company_listing
     render :layout => false if request.xhr?
@@ -36,13 +39,16 @@ class AdvertsController < SiteController
   def edit
   end
 
-  def renew_advert
+  def extend
+    @advert.update_attribute(:expires_on, 1.month.from_now)
+    alert[:notice] = "Advert will expire on #{@advert.expires_on}"
+    redirect_to MY_ADVERTS_URL
   end
 
   def update
     if @advert.update_attributes(params[:advert])
       flash[:notice] = 'Advert was successfully updated.'
-      redirect_to @advert
+      redirect_to MY_ADVERTS_URL
     else
       render :action => "edit"
     end
@@ -54,7 +60,7 @@ class AdvertsController < SiteController
     @advert.expires_on = 1.month.from_now unless @advert.is_company_listing?
     if @advert.save
       flash[:notice] = 'Advert was successfully created.'
-      redirect_to @advert
+      redirect_to MY_ADVERTS_URL
     else
       if @advert.is_company_listing?
         render :action => 'edit_company_listing'
@@ -66,7 +72,7 @@ class AdvertsController < SiteController
 
   def destroy
     @advert.destroy
-    redirect_to(my_adverts_adverts_path)
+    redirect_to MY_ADVERTS_URL
   end
 
 
@@ -92,15 +98,17 @@ class AdvertsController < SiteController
     else
       find_options[:page] = 1
     end
+    puts find_options[:page]
     find_options[:per_page] = 8
 
     unless params[:query].nil?
-      fields = %w[categories location title body]
+      fields = %w[categories location title body supplier_of buyer_of services website timber_for_sale business_description readers.organisation readers.description]
       like_string = fields.map { |field| "#{field} LIKE ?" }.join(" OR ")
       array_of_search_term = fields.map { |field| "%#{params[:query]}%" }
 
       find_options[:conditions] = [like_string, *array_of_search_term]
     end
+    find_options[:joins] = :reader
 
     order_options = { 'title'          => 'title DESC',
                       'price'          => 'price DESC',
@@ -121,4 +129,12 @@ class AdvertsController < SiteController
       redirect_to root_path
     end
   end
+
+  def require_fft_group
+    unless current_reader.group_ids.include? 229
+      flash[:error] = 'Sorry, but you must belong to Farm Forestry Timbers Group'
+      redirect_to root_path
+    end
+  end
+
 end

@@ -33,9 +33,9 @@
 
   $('div#table').on('click', '.pagination a', function(e){
     e.preventDefault();
-    $('#table').text('Loading...');
-    regex = new RegExp("\\d$");
-    page_num = regex.exec($(this).attr('href'));
+    regex = new RegExp("page=(\\d+)");
+    page_num = regex.exec($(this).attr('href'))[1];
+    $('#table').text('Loading page '+page_num+'...');
     $('input#page').attr('value', page_num);
     $.get('/adverts/index_table.js',
       $('form#query-form').serialize(),

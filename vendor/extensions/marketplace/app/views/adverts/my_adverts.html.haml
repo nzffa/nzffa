@@ -21,7 +21,8 @@
         %td=advert.categories.join(', ')
         %td=advert.snippet
         %td=advert.expires_on
-        %td=link_to 'edit', [:edit, advert]
-        %td=link_to 'destroy', advert, :method => :delete, :confirm => "Really delete advert titled: '#{advert.title}'?"
+        %td=link_to 'Extend Expiry', [:extend, advert], :method => :put
+        %td=link_to 'Edit', [:edit, advert]
+        %td=link_to 'Destroy', advert, :method => :delete, :confirm => "Really delete advert titled: '#{advert.title}'?"
 
 -#=link_to 'Create Advert', [:new, :advert]

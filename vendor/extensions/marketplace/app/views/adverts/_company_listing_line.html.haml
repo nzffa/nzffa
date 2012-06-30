@@ -22,7 +22,7 @@
             #{advert.reader.fax}
           -if advert.reader.mobile.present?
             ,
-            %b Mobile number
+            %b Mobile number:
             #{advert.reader.mobile}
             %br
           -if advert.reader_postal_address.present?
@@ -38,8 +38,11 @@
             #{advert.reader.email}
             %br
           -if advert.website.present?
+            -url = advert.website
+            -unless advert.website =~ /^http:\/\//
+              - url = 'http://'+advert.website
             %b Website:
-            #{link_to(advert.website, advert.website)}
+            #{link_to(advert.website, url, :target => '_blank')}
         %td
           -if advert.timber_species.present?
             %b Timber species:

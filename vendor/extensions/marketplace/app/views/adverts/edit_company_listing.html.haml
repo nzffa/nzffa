@@ -100,7 +100,7 @@
     =f.submit
 
 :javascript
-  $('#advert_timber_species').select2({tags: #{Advert.timber_for_sale_options.to_json}})
+  $('#advert_timber_species').select2({tags: #{Advert.timber_species_options.to_json}})
   $('#advert_timber_for_sale_terms').select2()
   $('#advert_buyer_of').select2({tags: #{Advert.buyer_of_options.to_json}})
   $('#advert_supplier_of').select2({tags: #{Advert.supplier_of_options.to_json}})
