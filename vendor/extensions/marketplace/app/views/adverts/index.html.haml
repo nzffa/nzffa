@@ -12,8 +12,11 @@
   =render :partial => 'table'
 
 :javascript
-  $('form#query-form').change(function(e){
+  $('form#query-form').submit(function(e){
     e.preventDefault();
+  });
+
+  $('form#query-form').keypress(function(e){
     $('input#page').attr('value', '1');
     $('#table').text('Loading...');
     $.get('/adverts/index_table.js',
