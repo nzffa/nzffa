@@ -18,7 +18,7 @@ module AdvertsHelper
 
 	def ad_type_badge(ad_type)
 		%Q{<span class="#{ ad_type.downcase.gsub(" ", "_") } ad_type">
-      #{ ad_type }
+      #{ ad_type.titleize }
     </span>}
 	end
 end

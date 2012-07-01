@@ -1,11 +1,6 @@
 %div{:style => "padding: 0 20px 0 20px"}
-  %div{:style => "float:right; padding: 20px; text-align:right;"}
-    = link_to 'Back to Marketplace', adverts_path
-    = link_to 'My Adverts', my_adverts_adverts_path
-  %p
-    %b.main.title= h advert.title
-    %br
-      =advert.categories.join(', ')
+  %p= ad_type_badge(advert.categories.first) unless advert.categories.empty?
+  %h2= h advert.title
   %p
     = image_tag(advert.image.url(:medium))
   %p
@@ -14,3 +9,32 @@
     = mail_to advert.reader.email, "Send e-mail", :subject => advert.title if advert.reader
   %p
     = make_pretty h(advert.body)
+
+  %hr
+
+  %h2=advert.reader.organisation
+
+  %p=advert.business_description
+
+  %p
+    Region
+    =advert.reader.region
+
+  %p
+    Contact person:
+    =advert.reader.contact_person
+  %p
+    Phone:
+    =advert.reader.phone
+  %p
+    Fax:
+    =advert.reader.fax
+  %p
+    Mobile:
+    =advert.reader.mobile
+  %p
+    Email:
+    =advert.reader.email
+  %p
+    Website:
+    =link_to advert.website, advert.website

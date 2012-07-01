@@ -6,4 +6,6 @@
         %td.left
           = ad_type_badge(advert.categories.first) unless advert.categories.empty?
           %b.title= link_to h(advert.title), advert
-          %span.ad_snippet= h advert.snippet
+          =advert.location
+          %span.ad_snippet
+            = h advert.snippet

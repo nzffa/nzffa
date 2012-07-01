@@ -1,7 +1,7 @@
 class AdvertsController < SiteController
   MY_ADVERTS_URL = '/specialty-timber-market/marketplace/my-adverts/'
 
-  radiant_layout "for_rails"
+  radiant_layout "ffm_specialty_timbers"
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
   before_filter :load_advert, :only => [:edit, :update, :destroy, :renew]
   before_filter :require_current_reader, :except => [:index, :show, :index_table]

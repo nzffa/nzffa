@@ -39,6 +39,15 @@ class Advert < ActiveRecord::Base
 
   #validates_inclusion_of :category, :in => CATEGORIES
 
+
+  def website
+    unless self[:website] =~ /^http:\/\//
+      'http://'+self[:website].to_s
+    else
+      self[:website].to_s
+    end
+  end
+
   def snippet
     if body and body.length > 78
       body[0..78]+"..."
@@ -100,7 +109,11 @@ class Advert < ActiveRecord::Base
   end
 
   def categories=(list)
-    self[:categories] = list.join '|'
+    if list.is_a? String
+      self[:categories] = list
+    else
+      self[:categories] = list.join '|'
+    end
   end
 
 

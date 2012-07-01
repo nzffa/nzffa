@@ -1,5 +1,11 @@
+%script{:type => 'text/javascript', :src => '/jquery-1.6.2.min.js'}
+%script{:type => 'text/javascript', :src => '/select2.min.js'}
+
 -form_for @advert, :html => {:multipart => true} do |f|
   =f.error_messages
+  %p
+    =f.label :location
+    =select_tag 'advert[location]', options_for_select(Advert::REGIONS, f.object.location)
   %p
     =f.label :title
     %br
@@ -9,11 +15,14 @@
     %br
     =f.text_area :body
   %p
-    =f.label :categories
+    =f.label :category
     %br
-    =select_tag 'advert[categories]', options_for_select(Advert::CATEGORIES, f.object.categories), :multiple => true
+    =select_tag 'advert[categories]', options_for_select(Advert::CATEGORIES, f.object.categories)
   %p
     =f.label :image
     %br
     =f.file_field :image
   =f.submit
+
+:javascript
+  $('#advert_categories').select2()
