@@ -1,9 +1,9 @@
 class AdvertsController < SiteController
-  MY_ADVERTS_URL = 'http://nzffa.enspiral.info/specialty-timber-market/marketplace/my-adverts/'
+  MY_ADVERTS_URL = '/specialty-timber-market/marketplace/my-adverts/'
 
   radiant_layout "for_rails"
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
-  before_filter :load_advert, :only => [:edit, :update, :destroy, :renew_advert]
+  before_filter :load_advert, :only => [:edit, :update, :destroy, :renew]
   before_filter :require_current_reader, :except => [:index, :show, :index_table]
   #before_filter :require_fft_group, :except => [:index, :show, :index_table]
 
@@ -39,9 +39,9 @@ class AdvertsController < SiteController
   def edit
   end
 
-  def extend
+  def renew
     @advert.update_attribute(:expires_on, 1.month.from_now)
-    alert[:notice] = "Advert will expire on #{@advert.expires_on}"
+    flash[:notice] = "Advert will expire on #{@advert.expires_on}"
     redirect_to MY_ADVERTS_URL
   end
 

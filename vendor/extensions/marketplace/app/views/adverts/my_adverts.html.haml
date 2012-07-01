@@ -1,19 +1,12 @@
--#%h1 My Adverts
--#-if @company_listing
-  -#=link_to 'Edit my company listing', [:edit_company_listing, :adverts]
-  -#%br
--#-else
-  -#=link_to 'Create my company listing', [:edit_company_listing, :adverts]
-  -#%br
-
 %table
   %thead
     %th Title
     %th Categories
     %th Snippet
     %th Expires On
-    %th edit
-    %th destroy
+    %th Extend
+    %th Edit
+    %th Delete
   %tbody
     -@adverts.each do |advert|
       %tr
@@ -21,8 +14,8 @@
         %td=advert.categories.join(', ')
         %td=advert.snippet
         %td=advert.expires_on
-        %td=link_to 'Extend Expiry', [:extend, advert], :method => :put
+        %td=link_to 'Extend', [:renew, advert], :method => :put, :confirm => "This will extend your advert expiry until #{1.month.from_now.to_date}"
         %td=link_to 'Edit', [:edit, advert]
-        %td=link_to 'Destroy', advert, :method => :delete, :confirm => "Really delete advert titled: '#{advert.title}'?"
+        %td=link_to 'Delete', advert, :method => :delete, :confirm => "Really delete advert titled: '#{advert.title}'?"
 
 -#=link_to 'Create Advert', [:new, :advert]
