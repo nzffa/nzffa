@@ -38,9 +38,6 @@
             =mail_to(advert.reader.email)
             %br
           -if advert.website.present?
-            -url = advert.website
-            -unless advert.website =~ /^http:\/\//
-              - url = 'http://'+advert.website
             %b Website:
             #{link_to(advert.website, url, :target => '_blank')}
         %td

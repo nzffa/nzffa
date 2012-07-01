@@ -6,17 +6,15 @@
     %th Category
     %th Snippet
     %th Expires On
-    %th show
     %th edit
     %th destroy
   %tbody
     -@adverts.each do |advert|
       %tr
-        %td=advert.reader.name if advert.reader
+        %td=advert.reader.organisation
         %td=advert.title
         %td=advert.categories.join(', ')
         %td=advert.snippet
         %td=advert.expires_on
-        %td=link_to 'show', [:admin, advert]
         %td=link_to 'edit', [:edit, :admin, advert]
-        %td=link_to 'destroy', [:admin, advert], :method => :delete, :confirm => "Really delete advert titled: '#{advert.title}'?"
+        %td=link_to 'destroy', [:admin, advert], :method => :delete, :confirm => "Really delete advert from '#{advert.reader.organisation}'?"

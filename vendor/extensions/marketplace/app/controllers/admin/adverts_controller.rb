@@ -15,7 +15,7 @@ class Admin::AdvertsController < ApplicationController
   def update
     @advert.update_attributes params[:advert]
     if @advert.valid?
-      redirect_to [:admin, @advert], :notice => 'Updated advert'
+      redirect_to [:admin, :adverts], :notice => 'Updated advert'
     else
       render :edit
     end
