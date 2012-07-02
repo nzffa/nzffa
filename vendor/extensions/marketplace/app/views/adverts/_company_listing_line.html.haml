@@ -62,5 +62,6 @@
             =advert.buyer_of.split(',').join(', ')
             %br
           -if advert.services.present?
-            %b Services:
+            %b
+              %span{:class => 'listing_title services'} Services:
             =advert.services.split(',').join(', ')
