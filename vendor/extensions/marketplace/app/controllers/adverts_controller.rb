@@ -101,10 +101,10 @@ class AdvertsController < SiteController
     puts find_options[:page]
     find_options[:per_page] = 8
 
-    unless params[:query].nil?
+    unless params[:query].blank?
       fields = %w[categories location title body supplier_of buyer_of services website timber_for_sale business_description readers.organisation readers.description]
       like_string = fields.map { |field| "#{field} LIKE ?" }.join(" OR ")
-      array_of_search_term = fields.map { |field| "%#{params[:query]}%" }
+      array_of_search_term = fields.map { |field| "%#{params[:query].split(' ').join('%')}%" }
 
       find_options[:conditions] = [like_string, *array_of_search_term]
     end
