@@ -103,11 +103,15 @@ class AdvertsController < SiteController
 
     unless params[:query].blank?
       fields = %w[categories location title body supplier_of buyer_of services website timber_for_sale business_description readers.organisation readers.description]
-      like_string = fields.map { |field| "#{field} LIKE ?" }.join(" OR ")
-      array_of_search_term = fields.map { |field| "%#{params[:query].split(' ').join('%')}%" }
+      terms = params[:query].split(' ')
 
-      find_options[:conditions] = [like_string, *array_of_search_term]
+      query = terms.map{ |term| fields.map { |field| "#{field} LIKE ?" }.join(" OR ")}.join(" AND ")
+      values = terms.map{ |term| ["%#{term}%"] * fields.size }.flatten
+
+
+      find_options[:conditions] = [query, *values]
     end
+
     find_options[:joins] = :reader
 
     order_options = { 'title'          => 'title DESC',
