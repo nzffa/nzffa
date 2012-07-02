@@ -11,7 +11,7 @@
   %tbody
     -@adverts.each do |advert|
       %tr
-        %td=advert.reader.organisation
+        %td=advert.reader.name
         %td=advert.title
         %td=advert.categories.join(', ')
         %td=advert.snippet
