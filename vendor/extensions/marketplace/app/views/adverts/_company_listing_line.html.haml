@@ -39,7 +39,7 @@
             %br
           -if advert.website.present?
             %b Website:
-            #{link_to(advert.website, url, :target => '_blank')}
+            #{link_to(advert.website, advert.website, :target => '_blank')}
         %td
           -if advert.timber_species.present?
             %b Timber species:
