@@ -105,7 +105,8 @@ class AdvertsController < SiteController
       fields = %w[categories location title body supplier_of buyer_of services website timber_for_sale business_description readers.organisation readers.description]
       terms = params[:query].split(' ')
 
-      query = terms.map{ |term| fields.map { |field| "#{field} LIKE ?" }.join(" OR ")}.join(" AND ")
+      query = terms.map{ |term| fields.map { |field| "#{field} LIKE ?" }.join(" OR ")}.join(") AND (")
+      query = "("+query+")"
       values = terms.map{ |term| ["%#{term}%"] * fields.size }.flatten
 
 
