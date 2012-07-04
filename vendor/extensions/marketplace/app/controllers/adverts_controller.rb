@@ -110,10 +110,10 @@ class AdvertsController < SiteController
                   services
                   readers.website
                   timber_for_sale
+                  timber_species
                   business_description
                   readers.organisation
-                  readers.forename
-                  readers.surname
+                  readers.name
                   readers.description
                   readers.physical_address
                   readers.post_line1

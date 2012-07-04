@@ -29,7 +29,7 @@
       =rf.text_field :organisation
     =f.label :Region
     %br
-    =select_tag 'advert[reader_attributes][region]', options_for_select(Advert::REGIONS, rf.object.region)
+    =select_tag 'advert[reader_attributes][region]', options_for_select(['Please Select', Advert::REGIONS].flatten, rf.object.region)
     %p
       =rf.label :contact_person
       %br
