@@ -4,9 +4,6 @@
 -form_for @advert, :html => {:multipart => true} do |f|
   =f.error_messages
   %p
-    =f.label :location
-    =select_tag 'advert[location]', options_for_select(Advert::REGIONS, f.object.location)
-  %p
     =f.label :title
     %br
     =f.text_field :title

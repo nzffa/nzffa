@@ -1,5 +1,13 @@
 module AdvertsHelper
   
+  def ensure_http(address)
+    unless address =~ /^http:\/\//
+      'http://'+address.to_s
+    else
+      address
+    end
+  end
+
   def make_pretty string
     string.gsub("\n", "<br/>")
   end

@@ -37,9 +37,9 @@
             %b Email address:
             =mail_to(advert.reader.email)
             %br
-          -if advert.website.present?
+          -if advert.reader.website.present?
             %b Website:
-            #{link_to(advert.website, advert.website, :target => '_blank')}
+            #{link_to(ensure_http(advert.reader.website), ensure_http(advert.reader.website), :target => '_blank')}
         %td
           -if advert.timber_species.present?
             %b Timber species:

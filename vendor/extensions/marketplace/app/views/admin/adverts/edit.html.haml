@@ -53,34 +53,25 @@
     %p
       =label_tag 'Postal Address'
       %br
-      =rf.text_field :billing_address_1
+      =rf.text_field :post_line1
       %br
-      =rf.text_field :billing_address_2
+      =rf.text_field :post_line2
       %br
-      =rf.text_field :billing_address_3
+      =rf.text_field :post_city
       %br
-      =rf.text_field :billing_address_4
-      %br
-      Postcode:
-      =rf.text_field :billing_postcode
-    %p
-      =label_tag 'Physical Address'
-      %br
-      =rf.text_field :address_1
-      %br
-      =rf.text_field :address_2
-      %br
-      =rf.text_field :address_3
-      %br
-      =rf.text_field :address_4
+      =rf.text_field :post_country
       %br
       Postcode:
       =rf.text_field :postcode
+    %p
+      =label_tag 'Physical Address'
+      %br
+      =rf.text_area :physical_address
 
-  %p
-    =f.label :website
-    %br
-    =f.text_field :website
+    %p
+      =rf.label :website
+      %br
+      =rf.text_field :website
 
   %p
     =f.label :business_description
@@ -116,9 +107,8 @@
     =f.submit
 
 :javascript
-  $('#advert_timber_species').select2({tags: #{Advert.timber_species_options.to_json}})
-  $('#advert_timber_for_sale_terms').select2()
-  $('#advert_buyer_of').select2({tags: #{Advert.buyer_of_options.to_json}})
-  $('#advert_supplier_of').select2({tags: #{Advert.supplier_of_options.to_json}})
-  $('#advert_services').select2({tags: #{Advert.services_options.to_json}})
-  =f.submit
+  $('#advert_timber_species').select2({tags: #{Advert.timber_species_options.to_json}});
+  $('#advert_timber_for_sale_terms').select2();
+  $('#advert_buyer_of').select2({tags: #{Advert.buyer_of_options.to_json}});
+  $('#advert_supplier_of').select2({tags: #{Advert.supplier_of_options.to_json}});
+  $('#advert_services').select2({tags: #{Advert.services_options.to_json}});

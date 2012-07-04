@@ -8,6 +8,6 @@
           %b.title= link_to h(advert.title), advert
           %br
           =advert.reader.organisation if advert.reader
-          =advert.location
+          =advert.reader.region
           %span.ad_snippet
             = h advert.snippet

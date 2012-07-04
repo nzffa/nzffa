@@ -4,7 +4,7 @@
   %p
     = image_tag(advert.image.url(:medium))
   %p
-    = h advert.location
+    = h advert.reader.region
   %p
     = mail_to advert.reader.email, "Send e-mail", :subject => advert.title if advert.reader
   %p
@@ -37,4 +37,4 @@
     =advert.reader.email
   %p
     Website:
-    =link_to advert.website, advert.website
+    =link_to ensure_http(advert.reader.website), ensure_http(advert.reader.website)

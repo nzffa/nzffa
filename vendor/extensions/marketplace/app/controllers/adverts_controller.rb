@@ -102,7 +102,23 @@ class AdvertsController < SiteController
     find_options[:per_page] = 8
 
     unless params[:query].blank?
-      fields = %w[categories location title body supplier_of buyer_of services website timber_for_sale business_description readers.organisation readers.description]
+      fields = %w[categories
+                  title
+                  body
+                  supplier_of
+                  buyer_of
+                  services
+                  readers.website
+                  timber_for_sale
+                  business_description
+                  readers.organisation
+                  readers.forename
+                  readers.surname
+                  readers.description
+                  readers.physical_address
+                  readers.post_line1
+                  readers.post_line2
+                  readers.region]
       terms = params[:query].split(' ')
 
       query = terms.map{ |term| fields.map { |field| "#{field} LIKE ?" }.join(" OR ")}.join(") AND (")

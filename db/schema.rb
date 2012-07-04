@@ -9,11 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120629055751) do
+ActiveRecord::Schema.define(:version => 20120704024148) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
-    t.string   "location"
     t.text     "body"
     t.string   "categories"
     t.string   "image_file_name"
@@ -30,7 +29,6 @@ ActiveRecord::Schema.define(:version => 20120629055751) do
     t.text     "supplier_of"
     t.text     "buyer_of"
     t.text     "services"
-    t.text     "website"
     t.text     "business_description"
     t.text     "admin_notes"
     t.boolean  "ffr_contact"
@@ -227,18 +225,12 @@ ActiveRecord::Schema.define(:version => 20120629055751) do
     t.string   "fax"
     t.string   "mobile"
     t.datetime "activated_at"
-    t.string   "address_1"
-    t.string   "address_2"
-    t.string   "address_3"
-    t.string   "address_4"
-    t.string   "postcode"
+    t.string   "physical_address"
     t.string   "country_code"
-    t.string   "billing_address_1"
-    t.string   "billing_address_2"
-    t.string   "billing_address_3"
-    t.string   "billing_address_4"
-    t.string   "billing_postcode"
-    t.string   "billing_country_code"
+    t.string   "post_line1"
+    t.string   "post_line2"
+    t.string   "region"
+    t.string   "postcode"
     t.string   "contact_person"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
@@ -263,8 +255,6 @@ ActiveRecord::Schema.define(:version => 20120629055751) do
     t.datetime "updated_at"
     t.string   "phone"
     t.string   "organisation"
-    t.string   "post_line1"
-    t.string   "post_line2"
     t.string   "post_organisation"
     t.string   "post_city"
     t.string   "post_province"
@@ -277,7 +267,7 @@ ActiveRecord::Schema.define(:version => 20120629055751) do
     t.date     "dob"
     t.boolean  "dob_secret"
     t.boolean  "disabled",                :default => false
-    t.string   "region"
+    t.string   "website"
   end
 
   create_table "sessions", :force => true do |t|

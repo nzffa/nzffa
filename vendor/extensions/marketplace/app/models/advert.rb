@@ -40,14 +40,6 @@ class Advert < ActiveRecord::Base
   #validates_inclusion_of :category, :in => CATEGORIES
 
 
-  def website
-    unless self[:website] =~ /^http:\/\//
-      'http://'+self[:website].to_s
-    else
-      self[:website].to_s
-    end
-  end
-
   def snippet
     if body and body.length > 78
       body[0..78]+"..."
@@ -118,18 +110,12 @@ class Advert < ActiveRecord::Base
 
 
   def reader_physical_address
-    lines = []
-    [:address_1, :address_2, :address_3, :address_4].each do |method|
-      if reader.send(method).present?
-        lines << reader.send(method)
-      end
-    end
-    lines.join(', ')
+    reader.physical_address
   end
 
   def reader_postal_address
     lines = []
-    [:billing_address_1, :billing_address_2, :billing_address_3, :billing_address_4].each do |method|
+    [:post_line1, :post_line2, :post_province, :post_city, :post_country, :postcode].each do |method|
       if reader.send(method).present?
         lines << reader.send(method)
       end
