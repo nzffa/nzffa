@@ -42,6 +42,15 @@ namespace :radiant do
           TranslationSupport.write_file(filename, basename, comments, other)
         end
       end
+
+      desc 'Emails expiry warning emails as required'
+      task :email_warnings => :environment do
+        Advert.find(:all, :conditions =>
+                    {:expires_on => 7.days.from_now.to_date}).each do |advert|
+          ExpiryMailer.deliver_warning_email(advert)
+          puts "Emailed: #{advert.reader.email}"
+        end
+      end
     end
   end
 end

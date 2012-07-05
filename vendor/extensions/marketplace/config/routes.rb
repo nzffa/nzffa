@@ -7,7 +7,8 @@ ActionController::Routing::Routes.draw do |map|
       :signup => [:get, :post]
     },
     :member => {
-      :renew => :put
+      :renew => :put,
+      :email => [:get]
     }
 
   map.namespace :admin do |admin|

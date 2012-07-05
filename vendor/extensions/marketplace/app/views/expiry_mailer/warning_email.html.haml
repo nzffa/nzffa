@@ -1,7 +1,8 @@
-%p Dear #{reader.forename} #{reader.surname},
+%p Dear #{@advert.reader.forename} #{@advert.reader.surname},
 
-%p Your listing titled '#{advert.title}' is due to expire on #{advert.expires_on}.
+%p Your listing titled '#{@advert.title}' is due to expire on #{@advert.expires_on}.
 
-%p To extend the expiry date by one month, visit #{link_to(AdvertsController::MY_ADVERTS_URL, AdvertsController::MY_ADVERTS_URL)} and click Extend Expiry.
+-hostname = ActionMailer::Base.default_url_options[:host]
+%p To extend the expiry date by one month, visit #{link_to(AdvertsController::MY_ADVERTS_URL, "http://#{hostname}/"+AdvertsController::MY_ADVERTS_URL)} and click Extend Expiry.
 
 %p Thank you.

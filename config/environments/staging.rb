@@ -21,3 +21,4 @@ ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = false
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "iso-8859-1"
+ActionMailer::Base.default_url_options[:host] = "nzffa.enspiral.info"
