@@ -4,8 +4,22 @@ class AdvertsController < SiteController
   radiant_layout "ffm_specialty_timbers"
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
   before_filter :load_advert, :only => [:edit, :update, :destroy, :renew]
-  before_filter :require_current_reader, :except => [:index, :show, :index_table]
+  before_filter :require_current_reader, :except => [:index, :show, :index_table, :signup]
   #before_filter :require_fft_group, :except => [:index, :show, :index_table]
+
+  def signup
+    if params[:advert]
+      @company_listing = Advert.new(params[:advert])
+      if @company_listing.save
+        flash[:notice] = 'Signed up successfully'
+        redirect_to '/specialty-timber-market/participate/membership/'
+      end
+    else
+      @company_listing = Advert.new(:is_company_listing => true)
+      @company_listing.reader = Reader.new
+    end
+    render :layout => false if request.xhr?
+  end
 
   def edit_company_listing
     render :layout => false if request.xhr?
@@ -17,6 +31,7 @@ class AdvertsController < SiteController
   end
 
   def index
+    puts current_reader.inspect
     @adverts = Advert.paginate(:all, index_params)
     render :layout => false if request.xhr?
   end

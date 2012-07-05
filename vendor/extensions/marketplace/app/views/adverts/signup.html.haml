@@ -1,7 +1,15 @@
--form_for @company_listing, :html => {:multipart => true} do |f|
+-form_for @company_listing, :url => '/adverts/signup', :html => {:multipart => true} do |f|
   =f.error_messages
   =f.hidden_field :is_company_listing
   -f.fields_for :reader do |rf|
+    %p
+      =rf.label :forename
+      %br
+      =rf.text_field :forename
+    %p
+      =rf.label :surname
+      %br
+      =rf.text_field :surname
     %p
       =rf.label :company_name
       %br
@@ -29,6 +37,14 @@
       =rf.label :email
       %br
       =rf.text_field :email
+    %p
+      =rf.label :password
+      %br
+      =rf.text_field :password
+    %p
+      =rf.label :password_confirmation
+      %br
+      =rf.text_field :password_confirmation
     %p
       =label_tag 'Postal Address'
       %br
@@ -83,7 +99,7 @@
     =f.hidden_field :services, :style => 'width: 300px'
 
   %p
-    =f.submit
+    =f.submit 'Join now'
 
 :javascript
   $('#advert_timber_species').select2({tags: #{Advert.timber_species_options.to_json}})
@@ -91,3 +107,4 @@
   $('#advert_buyer_of').select2({tags: #{Advert.buyer_of_options.to_json}})
   $('#advert_supplier_of').select2({tags: #{Advert.supplier_of_options.to_json}})
   $('#advert_services').select2({tags: #{Advert.services_options.to_json}})
+
