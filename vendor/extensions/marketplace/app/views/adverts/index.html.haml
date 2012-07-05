@@ -1,6 +1,3 @@
-%script{:type => 'text/javascript', :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
--#= link_to 'My Adverts', my_adverts_adverts_path
-
 %p
   %form#query-form{:action => index_table_adverts_path, :method => :get}
     =hidden_field_tag 'sort', 'date'
@@ -12,16 +9,33 @@
   =render :partial => 'table'
 
 :javascript
-  $('form#query-form').submit(function(e){
-    e.preventDefault();
-  });
-
-  $('form#query-form').keypress(function(e){
+  function load_results(){
     $('input#page').attr('value', '1');
     $('#table').text('Loading...');
     $.get('/adverts/index_table.js',
       $('form#query-form').serialize(),
       function(data){ $('#table').html(data) });
+
+  }
+
+  $('a.pop span table a').on('click', function(e){
+    e.preventDefault();
+    v = $(this).text();
+    i = $('input#query');
+    if (i.attr('value').length == 0) {
+      i.attr('value', v);
+    }else{
+      i.attr('value', i.attr('value')+' '+v);
+    }
+    load_results();
+  });
+
+  $('form#query-form').submit(function(e){
+    e.preventDefault();
+  });
+
+  $('form#query-form').keypress(function(e){
+    load_results();
   });
 
   $('div#table').on('click', 'th a.sortby', function(e){
