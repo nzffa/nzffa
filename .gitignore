@@ -17,3 +17,6 @@ public/assets
 public/attachments
 public/executive_newsletters
 public/images/design
+.powrc
+
+db/production_data.sql

@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
-  revision: af56fd03e1326fda785e33d4044d4a1d473a4e47
+  revision: 2a6099857c5c3f9d03724cb3750e0f4a2c8a80e6
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -52,7 +52,7 @@ GEM
     acts_as_tree (0.1.1)
     ancestry (1.2.5)
       activerecord (>= 2.2.2)
-    authlogic (2.1.8)
+    authlogic (2.1.9)
       activerecord (~> 2.3.0)
       activesupport (~> 2.3.0)
     autotest (4.4.6)
