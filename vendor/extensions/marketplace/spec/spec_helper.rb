@@ -9,7 +9,11 @@ unless defined? RADIANT_ROOT
     require "#{File.expand_path(File.dirname(__FILE__) + "/../../../../")}/config/environment"
   end
 end
+
+# This is a nasty hack to trick radiant into loading some file other than it's own config again
+ENV["RADIANT_ENV_FILE"] = 'uri'
 require "#{RADIANT_ROOT}/spec/spec_helper"
+ENV["RADIANT_ENV_FILE"] = nil
 
 Dataset::Resolver.default << (File.dirname(__FILE__) + "/datasets")
 
