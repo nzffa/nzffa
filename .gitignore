@@ -20,3 +20,5 @@ public/images/design
 .powrc
 
 db/production_data.sql
+
+db/remote_staging_data.sql
