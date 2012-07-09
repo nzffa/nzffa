@@ -4,13 +4,14 @@ class AdvertsController < SiteController
   radiant_layout "ffm_specialty_timbers"
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
   before_filter :load_advert, :only => [:edit, :update, :destroy, :renew, :email]
-  before_filter :require_current_reader, :except => [:index, :show, :index_table, :signup]
-  #before_filter :require_no_current_reader, :only => [:newsletter_signup, :signup]
-  #before_filter :require_fft_group, :except => [:index, :show, :index_table]
+  before_filter :require_current_reader, :only => [:my_adverts, :new, :create, :edit, :update, :edit_company_listing, :renew]
+  before_filter :require_fft_group, :except => [:index, :show, :index_table, :newsletter_signup, :signup]
+  before_filter :require_no_current_reader, :only => [:newsletter_signup, :signup]
 
   def newsletter_signup
     if params[:reader]
       @reader = Reader.new(params[:reader])
+      @reader.password = ('a'..'z').to_a.sample(8)
       if @reader.save
         @reader.groups << Group.find(230)
         flash[:notice] = 'Signed up to the Newsletter successfully'
@@ -50,7 +51,6 @@ class AdvertsController < SiteController
   end
 
   def index
-    puts current_reader.inspect
     @adverts = Advert.paginate(:all, index_params)
     render :layout => false if request.xhr?
   end
@@ -137,7 +137,6 @@ class AdvertsController < SiteController
     else
       find_options[:page] = 1
     end
-    puts find_options[:page]
     find_options[:per_page] = 8
 
     unless params[:query].blank?
