@@ -34,7 +34,7 @@
     =advert.reader.mobile
   %p
     Email:
-    =mail_to(advert.reader.email, nil, :encode => :javascript)
+    =mail_to(advert.reader.email)
   %p
     Website:
     =link_to ensure_http(advert.reader.website), ensure_http(advert.reader.website)
