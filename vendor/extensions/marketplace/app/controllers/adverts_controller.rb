@@ -5,7 +5,7 @@ class AdvertsController < SiteController
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
   before_filter :load_advert, :only => [:edit, :update, :destroy, :renew, :email]
   before_filter :require_current_reader, :only => [:my_adverts, :new, :create, :edit, :update, :edit_company_listing, :renew]
-  before_filter :require_fft_group, :except => [:index, :show, :index_table]
+  before_filter :require_fft_group, :only => [:my_adverts, :new, :create, :edit, :update, :edit_company_listing, :renew]
   before_filter :require_no_current_reader, :only => [:newsletter_signup, :signup]
 
   def newsletter_signup
