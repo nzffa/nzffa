@@ -35,7 +35,7 @@
             %br
           -if advert.reader.email.present?
             %b Email address:
-            =mail_to(advert.reader.email, nil, :encode => :javascript)
+            =mail_to(advert.reader.email)
             %br
           -if advert.reader.website.present?
             %b Website:
