@@ -1,0 +1,16 @@
+=h current_reader.inspect
+-form_for(@reader, :url => '/adverts/newsletter_signup') do |f|
+  %p
+    =f.label :forename
+    %br
+    =f.text_field :forename
+  %p
+    =f.label :surname
+    %br
+    =f.text_field :surname
+  %p
+    =f.label :email
+    %br
+    =f.text_field :email
+  %p
+    =f.submit 'Signup'

@@ -27,4 +27,9 @@ module Marketplace
       <script type="text/javascript">$('#adverts').load('#{signup_adverts_path}')</script>}
   end
 
+  tag 'newsletter_signup' do |tag|
+    %{<div id="adverts"></div>
+      <script type="text/javascript">$('#adverts').load('#{newsletter_signup_adverts_path}')</script>}
+  end
+
 end

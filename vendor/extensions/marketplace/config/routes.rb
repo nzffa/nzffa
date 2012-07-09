@@ -4,7 +4,8 @@ ActionController::Routing::Routes.draw do |map|
       :edit_company_listing => :get,
       :index_table => :get,
       :my_adverts => :get,
-      :signup => [:get, :post]
+      :signup => [:get, :post],
+      :newsletter_signup => [:get, :post]
     },
     :member => {
       :renew => :put,
