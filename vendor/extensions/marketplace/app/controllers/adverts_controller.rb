@@ -30,7 +30,7 @@ class AdvertsController < SiteController
       if @company_listing.save
         @reader = @company_listing.reader
         @reader.groups << Group.find(100)
-        @reader.groups << Group.find(228)
+        @reader.groups << Group.find(229)
         flash[:notice] = 'Signed up successfully'
         redirect_to '/specialty-timber-market/participate/membership/'
       end
