@@ -192,7 +192,7 @@ class AdvertsController < SiteController
   def require_no_current_reader
     if current_reader
       flash[:error] = 'Sorry, these actions are for creating new accounts'
-      redirect_to root_path
+      redirect_to '/account/'
     end
   end
 
