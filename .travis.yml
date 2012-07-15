@@ -2,7 +2,7 @@ script: "bundle exec rake travis"
 before_script:
   - cp config/database.travis.yml config/database.yml
   - mysql -e 'create database nzffa_test;'
-  - bundle exec rake db:schema:load
+  - bundle exec rake db:schema:load --trace
 before_install:
   - gem update --system
   - gem --version
