@@ -5,8 +5,6 @@ source :rubygems
 
 gem "radiant", "~> 1.0.1"
 gem 'hpricot'
-gem 'backup'
-gem 'dropbox-sdk', '~> 1.2.0'
 # alternatively, in development
 # gem "radiant", :path => "/path/to/radiant/root"
 
@@ -41,6 +39,11 @@ gem 'rr', :group => :test
 # This depends on radiant-layouts-extension
 gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
 # gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
+
+group :production do
+  gem 'backup'
+  gem 'dropbox-sdk', '~> 1.2.0'
+end
 
 # If you're running tests or specs
 group :test, :cucumber, :development do
