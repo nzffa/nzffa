@@ -23,3 +23,7 @@ db/production_data.sql
 
 db/remote_staging_data.sql
 *.sql
+
+config/backup.rb
+
+db/app_backup/Dropbox.yml

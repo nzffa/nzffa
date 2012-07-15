@@ -4,9 +4,9 @@
 # Backup Generated: nzffa_backup
 # Once configured, you can run the backup with the following command:
 #
-# $ backup perform -t nzffa_backup [-c <path_to_configuration_file>]
+# $ backup perform -t app_backup [-c <path_to_configuration_file>]
 #
-Backup::Model.new(:nzffa_backup, 'Backup database and filestystem images for NZFFA website') do
+Backup::Model.new(:app_backup, 'Backup database and filestystem images for NZFFA website') do
   ##
   # Split [Splitter]
   #
@@ -55,10 +55,10 @@ Backup::Model.new(:nzffa_backup, 'Backup database and filestystem images for NZF
   #  this machine with your Dropbox account.
   #
   store_with Dropbox do |db|
-    db.api_key     = "my_api_key"
-    db.api_secret  = "my_api_secret"
+    db.api_key     = "l4akcvnlx2rqa9n"
+    db.api_secret  = "2isb2uwye5lpiex"
     db.access_type = :app_folder
-    db.path        = "/path/to/my/backups"
+    db.path        = "/development"
     db.keep        = 25
   end
 
