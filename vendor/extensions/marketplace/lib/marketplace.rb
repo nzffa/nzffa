@@ -22,14 +22,13 @@ module Marketplace
       <script type="text/javascript">$('#adverts').load('#{new_advert_path}')</script>}
   end
 
-  tag 'company_signup' do |tag|
+  tag 'register' do |tag|
     %{<div id="adverts"></div>
-      <script type="text/javascript">$('#adverts').load('#{signup_adverts_path}')</script>}
+      <script type="text/javascript">$('#adverts').load('/membership/register')</script>}
   end
 
-  tag 'newsletter_signup' do |tag|
-    %{<div id="adverts"></div>
-      <script type="text/javascript">$('#adverts').load('#{newsletter_signup_adverts_path}')</script>}
+  tag 'join-fft-button' do |tag|
+    %{<div id="join-fft-button"></div>
+      <script type="text/javascript">$('#join-fft-button').load('#{join_fft_button_path}')</script>}
   end
-
 end

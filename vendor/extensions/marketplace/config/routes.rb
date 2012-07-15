@@ -4,13 +4,15 @@ ActionController::Routing::Routes.draw do |map|
       :edit_company_listing => :get,
       :index_table => :get,
       :my_adverts => :get,
-      :signup => [:get, :post],
-      :newsletter_signup => [:get, :post]
     },
     :member => {
       :renew => :put,
       :email => [:get]
     }
+  
+  map.register '/membership/register', :controller => :membership, :action => :register
+  map.join_fft_button '/membership/join-fft-button', :controller => :membership, :action => :join_fft_button
+  map.join_fft '/membership/join-fft', :controller => :membership, :action => :join_fft
 
   map.namespace :admin do |admin|
     admin.resources :adverts, :except => [:new, :create]

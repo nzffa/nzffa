@@ -1,0 +1,7 @@
+-if @reader
+  -if @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
+    =link_to('Go to the Marketplace', MembershipController::MARKETPLACE_PATH)
+  -else
+    =link_to('Join the FFT Marketplace', join_fft_path)
+-else
+  You need to #{link_to('register', register_path)} or #{link_to('login', reader_login_path)} before you can join the marketplace
