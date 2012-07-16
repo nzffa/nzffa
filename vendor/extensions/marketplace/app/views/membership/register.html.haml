@@ -1,33 +1,44 @@
+-if @reader.new_record?
+  If you are already registered you can #{link_to 'login here', reader_login_path}
+
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
   %p
     =f.label :forename
     %br
     =f.text_field :forename
+
   %p
     =f.label :surname
     %br
     =f.text_field :surname
+
   %p
     =f.label :email
     %br
     =f.text_field :email
+
   %p
     =f.label :password
     %br
     =f.password_field :password
+
   %p
     =f.label :password_confirmation
     %br
     =f.password_field :password_confirmation
+
   %p
     =label_tag :receive_newsletter
     =check_box_tag :receive_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(MembershipController::NEWSLETTER_GROUP_ID)
 
-  -if @reader.new_record?
-    %p
-      =label_tag 'Join Farm Foresty Timbers Group'
-      =check_box_tag :join_fft, "1", @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
+  -#%p
+    -#=label_tag 'Join Farm Foresty Timbers Group'
+    -#-if !@reader.new_record? && @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
+      -#=check_box_tag :join_fft, "1", true, :disabled => true
+    -#-else
+      -#=check_box_tag :join_fft, "1"
+
 
   %p
     =f.submit 'Signup'
