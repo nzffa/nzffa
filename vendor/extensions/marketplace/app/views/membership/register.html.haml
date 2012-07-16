@@ -22,9 +22,9 @@
     =f.password_field :password_confirmation
   %p
     =label_tag :receive_newsletter
-    =check_box_tag :receive_newsletter, "1", @reader.group_ids.include?(MembershipController::NEWSLETTER_GROUP_ID)
+    =check_box_tag :receive_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(MembershipController::NEWSLETTER_GROUP_ID)
 
-  -unless @reader.id
+  -if @reader.new_record?
     %p
       =label_tag 'Join Farm Foresty Timbers Group'
       =check_box_tag :join_fft, "1", @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)

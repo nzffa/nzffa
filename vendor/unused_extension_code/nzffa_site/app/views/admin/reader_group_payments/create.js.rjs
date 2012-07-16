@@ -1,8 +1,0 @@
-if @reader_group_payment.valid?
-  page.insert_html :before, "reader_group_payment_inputs", :partial => @reader_group_payment
-  page << "Element.removeClassName('reader_group_payment_amount', 'error')"
-else
-  @reader_group_payment.errors.each do |error_field, error_message|
-    page << "Element.addClassName('reader_group_payment_#{error_field}', 'error')"
-  end
-end

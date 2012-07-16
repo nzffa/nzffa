@@ -1,6 +1,0 @@
-- payment = reader_group_payment || @reader_group_payment
-%tr
-  %td= number_to_currency payment.amount
-  %td= pretty_group_links payment.group if payment.group
-  %td.right= payment.payment_date.strftime("%Y %B %d")
-  %td &nbsp;
