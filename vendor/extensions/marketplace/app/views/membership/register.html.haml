@@ -1,6 +1,6 @@
 -if @reader.new_record?
   If you are already registered you can #{link_to 'login here', reader_login_path}
--elsif @reader.groups_ids.include?(MembershipController::FFT_GROUP_ID)
+-elsif @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
   =link_to('Go to Farm Forestry Timbers Members Area', MembershipController::FFT_MEMBERS_AREA_PATH)
 -else
   =link_to('Become a member of Farm Foresty Timbers', MembershipController::JOIN_FFT_PATH)
