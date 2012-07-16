@@ -34,11 +34,7 @@ class MembershipController < MarketplaceController
           update_newsletter_preference
           update_fft_preference
           flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert} #{@fft_alert}"
-          if @reader.group_ids.include? FFT_GROUP_ID
-            redirect_to EDIT_COMPANY_LISTING_PATH
-          else
-            redirect_to REGISTER_PATH
-          end
+          redirect_to JOIN_FFT_PATH
         end
       end
     else
