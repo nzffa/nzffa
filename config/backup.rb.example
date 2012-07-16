@@ -1,0 +1,70 @@
+# encoding: utf-8
+
+##
+# Backup Generated: nzffa_backup
+# Once configured, you can run the backup with the following command:
+#
+# $ backup perform -t app_backup [-c <path_to_configuration_file>]
+#
+Backup::Model.new(:app_backup, 'Backup database and filestystem images for NZFFA website') do
+  ##
+  # Split [Splitter]
+  #
+  # Split the backup file in to chunks of 250 megabytes
+  # if the backup file size exceeds 250 megabytes
+  #
+  split_into_chunks_of 250
+
+  ##
+  # MySQL [Database]
+  #
+  database MySQL do |db|
+    # To dump all databases, set `db.name = :all` (or leave blank)
+    db.name               = "nzffa"
+    db.username           = "nzffa"
+    db.password           = "PUT_REAL_PASSWORD_HERE"
+    db.host               = "localhost"
+    db.port               = 3306
+    db.socket             = "/tmp/mysql.sock"
+    # Note: when using `skip_tables` with the `db.name = :all` option,
+    # table names should be prefixed with a database name.
+    # e.g. ["db_name.table_to_skip", ...]
+    #db.skip_tables        = ["skip", "these", "tables"]
+    #db.only_tables        = ["only", "these" "tables"]
+    db.additional_options = ["--quick", "--single-transaction"]
+    # Optional: Use to set the location of this utility
+    #   if it cannot be found by name in your $PATH
+    # db.mysqldump_utility = "/opt/local/bin/mysqldump"
+  end
+  
+  archive :uploaded_assets do |archive|
+    archive.add 'public/system/assets'
+  end  
+
+  ##
+  # Dropbox File Hosting Service [Storage]
+  #
+  # Access Type:
+  #
+  #  - :app_folder (Default)
+  #  - :dropbox
+  #
+  # Note:
+  #
+  #  Initial backup must be performed manually to authorize
+  #  this machine with your Dropbox account.
+  #
+  store_with Dropbox do |db|
+    db.api_key     = "l4akcvnlx2rqa9n"
+    db.api_secret  = "2isb2uwye5lpiex"
+    db.access_type = :app_folder
+    db.path        = "/development"
+    db.keep        = 25
+  end
+
+  ##
+  # Gzip [Compressor]
+  #
+  compress_with Gzip
+
+end

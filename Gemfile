@@ -40,6 +40,11 @@ gem 'rr', :group => :test
 gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
 # gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
 
+group :production do
+  gem 'backup'
+  gem 'dropbox-sdk', '~> 1.2.0'
+end
+
 # If you're running tests or specs
 group :test, :cucumber, :development do
   gem "cucumber-rails",   "~> 0.3.2"
