@@ -24,5 +24,10 @@
     =label_tag :receive_newsletter
     =check_box_tag :receive_newsletter, "1", @reader.group_ids.include?(MembershipController::NEWSLETTER_GROUP_ID)
 
+  -unless @reader.id
+    %p
+      =label_tag 'Join Farm Foresty Timbers Group'
+      =check_box_tag :join_fft, "1", @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
+
   %p
     =f.submit 'Signup'

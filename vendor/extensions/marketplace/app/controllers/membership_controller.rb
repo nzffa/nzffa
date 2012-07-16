@@ -2,11 +2,20 @@ class MembershipController < MarketplaceController
   MEMBER_PATH = '/account'
   REGISTER_PATH = '/membership/register'
   JOIN_FFT_PATH = '/specialty-timber-market/join-fft'
-  EDIT_COMPANY_LISTING_PATH = ' what is the edit company listing path'
+  EDIT_COMPANY_LISTING_PATH = '/specialty-timber-market/marketplace/edit-company-listing'
   FFT_MEMBERS_AREA_PATH = '/specialty-timber-market/participate/membership'
   NEWSLETTER_GROUP_ID = 230
   FFT_GROUP_ID = 229
   ADMIN_GROUP_ID = 100
+
+  def dashboard
+    # if they are an FFT member take them to 
+    if @reader.group_ids.include? FFT_GROUP_ID
+      redirect_to FFT_MEMBERS_AREA_PATH
+    else
+      redirect_to REGISTER_PATH
+    end
+  end
 
   def register
     if params[:reader]
@@ -15,7 +24,7 @@ class MembershipController < MarketplaceController
         # just updating their details
         if @reader.update_attributes(params[:reader])
           update_newsletter_preference
-          flash[:notice] = "Updated your details. #{@newsletter_alert}"
+          flash[:notice] = "Updated your details. #{@newsletter_alert} #{@fft_alert}"
           redirect_to REGISTER_PATH
         end
       else
@@ -23,8 +32,13 @@ class MembershipController < MarketplaceController
         @reader = Reader.new(params[:reader])
         if @reader.save
           update_newsletter_preference
-          flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert}"
-          redirect_to JOIN_FFT_PATH
+          update_fft_preference
+          flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert} #{@fft_alert}"
+          if @reader.group_ids.include? FFT_GROUP_ID
+            redirect_to EDIT_COMPANY_LISTING_PATH
+          else
+            redirect_to REGISTER_PATH
+          end
         end
       end
     else
@@ -50,21 +64,20 @@ class MembershipController < MarketplaceController
     end
   end
 
-  #timber market signup
-  def signup
-    if params[:advert]
-      @company_listing = Advert.new(params[:advert])
-      if @company_listing.save
-        @reader = @company_listing.reader
+  protected
+  def update_fft_preference
+    fft_group = Group.find(FFT_GROUP_ID)
+    if @reader
+      unless @reader.groups.include? fft_group
+        if params[:join_fft]
+          @reader.groups << Group.find(ADMIN_GROUP_ID) unless @reader.groups.include? Group.find(ADMIN_GROUP_ID)
+          @reader.groups << Group.find(FFT_GROUP_ID) unless @reader.groups.include? Group.find(FFT_GROUP_ID)
+          @fft_alert = "Thanks for joining Farm Forestry Timbers."
+        end
       end
-    else
-      @company_listing = Advert.new(:is_company_listing => true)
-      @company_listing.reader = Reader.new
     end
-    render :layout => false if request.xhr?
   end
 
-  protected
   def update_newsletter_preference
     newsletter_group = Group.find(NEWSLETTER_GROUP_ID)
     if params[:receive_newsletter]
