@@ -1,45 +1,10 @@
-class AdvertsController < SiteController
-  MY_ADVERTS_URL = '/specialty-timber-market/marketplace/my-adverts/'
+class AdvertsController < MarketplaceController
 
-  radiant_layout "ffm_specialty_timbers"
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
   before_filter :load_advert, :only => [:edit, :update, :destroy, :renew, :email]
   before_filter :require_current_reader, :only => [:my_adverts, :new, :create, :edit, :update, :edit_company_listing, :renew]
   before_filter :require_fft_group, :only => [:my_adverts, :new, :create, :edit, :update, :edit_company_listing, :renew]
-  before_filter :require_no_current_reader, :only => [:newsletter_signup, :signup]
 
-  def newsletter_signup
-    if params[:reader]
-      @reader = Reader.new(params[:reader])
-      @reader.password = ('a'..'z').to_a.sample(8)
-      if @reader.save
-        @reader.groups << Group.find(230)
-        flash[:notice] = 'Signed up to the Newsletter successfully'
-        redirect_to '/specialty-timber-market/marketplace/'
-      end
-    else
-      @reader = Reader.new
-    end
-    render :layout => false if request.xhr?
-  end
-
-  #timber market signup
-  def signup
-    if params[:advert]
-      @company_listing = Advert.new(params[:advert])
-      if @company_listing.save
-        @reader = @company_listing.reader
-        @reader.groups << Group.find(100)
-        @reader.groups << Group.find(229)
-        flash[:notice] = 'Signed up successfully'
-        redirect_to '/specialty-timber-market/participate/membership/'
-      end
-    else
-      @company_listing = Advert.new(:is_company_listing => true)
-      @company_listing.reader = Reader.new
-    end
-    render :layout => false if request.xhr?
-  end
 
   def edit_company_listing
     render :layout => false if request.xhr?
@@ -109,12 +74,6 @@ class AdvertsController < SiteController
     redirect_to MY_ADVERTS_URL
   end
 
-  def email
-    ExpiryMailer.deliver_warning_email(@advert)
-    render :text => 'sent email'
-  end
-
-
   protected
 
 
@@ -182,25 +141,5 @@ class AdvertsController < SiteController
     find_options
   end
 
-  def require_current_reader
-    unless current_reader
-      flash[:error] = 'Sorry, but you must be logged in to do this'
-      redirect_to root_path
-    end
-  end
-
-  def require_no_current_reader
-    if current_reader
-      flash[:error] = 'Sorry, these actions are for creating new accounts'
-      redirect_to '/account/'
-    end
-  end
-
-  def require_fft_group
-    unless current_reader.group_ids.include? 229
-      flash[:error] = 'Sorry, but you must belong to Farm Forestry Timbers Group'
-      redirect_to root_path
-    end
-  end
 
 end

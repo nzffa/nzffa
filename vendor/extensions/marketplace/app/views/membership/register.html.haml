@@ -1,0 +1,28 @@
+-form_for(@reader, :url => '/membership/register') do |f|
+  %p=f.error_messages
+  %p
+    =f.label :forename
+    %br
+    =f.text_field :forename
+  %p
+    =f.label :surname
+    %br
+    =f.text_field :surname
+  %p
+    =f.label :email
+    %br
+    =f.text_field :email
+  %p
+    =f.label :password
+    %br
+    =f.password_field :password
+  %p
+    =f.label :password_confirmation
+    %br
+    =f.password_field :password_confirmation
+  %p
+    =label_tag :receive_newsletter
+    =check_box_tag :receive_newsletter, "1", @reader.group_ids.include?(MembershipController::NEWSLETTER_GROUP_ID)
+
+  %p
+    =f.submit 'Signup'
