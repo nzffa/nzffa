@@ -1,6 +1,7 @@
 # Uncomment this if you reference any of your controllers in activate
 # require_dependency "application_controller"
 require "radiant-marketplace-extension"
+#require 'reader_validator'
 
 class MarketplaceExtension < Radiant::Extension
   version     RadiantMarketplaceExtension::VERSION

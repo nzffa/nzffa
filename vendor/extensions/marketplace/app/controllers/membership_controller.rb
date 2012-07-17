@@ -22,7 +22,9 @@ class MembershipController < MarketplaceController
       # form has been submitted
       if @reader = current_reader
         # just updating their details
-        if @reader.update_attributes(params[:reader])
+        @reader.attributes = params[:reader]
+        @validated_reader = ReaderValidator.new(@reader)
+        if @validated_reader.valid? and @reader.save
           update_newsletter_preference
           flash[:notice] = "Updated your details. #{@newsletter_alert} #{@fft_alert}"
           redirect_to REGISTER_PATH
@@ -30,7 +32,8 @@ class MembershipController < MarketplaceController
       else
         # new member
         @reader = Reader.new(params[:reader])
-        if @reader.save
+        @validated_reader = ReaderValidator.new(@reader)
+        if @validated_reader.valid? and @reader.save
           update_newsletter_preference
           update_fft_preference
           flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert} #{@fft_alert}"
