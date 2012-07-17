@@ -17,7 +17,7 @@ gem 'hpricot'
 # gem "johnson" # Mozilla SpiderMonkey for Ruby
 
 gem "mysql", "~> 2.8.1"
-gem 'whenever', :require => :false
+gem 'whenever', :require => false
 
 # Language packs
 # gem "radiant-dutch_language_pack-extension",    "~> 1.0.0"
