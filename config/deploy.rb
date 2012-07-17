@@ -14,6 +14,9 @@ set :branch, $1 if `git branch` =~ /\* (\S+)\s/m
 set :deploy_via, :remote_cache
 set :bundle_without, [:development, :test, :cucumber]
 
+set :whenever_command, "bundle exec whenever"
+require 'whenever/capistrano'
+
 namespace :deploy do
   task :restart do
     run "touch #{current_path}/tmp/restart.txt"
