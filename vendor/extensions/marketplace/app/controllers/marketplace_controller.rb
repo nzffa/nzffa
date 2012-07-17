@@ -1,5 +1,5 @@
 class MarketplaceController < SiteController
-  MY_ADVERTS_URL = '/specialty-timber-market/marketplace/my-adverts/'
+  MY_ADVERTS_PATH = '/specialty-timber-market/marketplace/my-adverts/'
   MARKETPLACE_PATH = '/specialty-timber-market/marketplace'
   radiant_layout "ffm_specialty_timbers"
 

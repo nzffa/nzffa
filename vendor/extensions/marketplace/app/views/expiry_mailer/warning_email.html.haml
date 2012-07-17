@@ -3,6 +3,8 @@
 %p Your listing titled '#{@advert.title}' is due to expire on #{@advert.expires_on}.
 
 -hostname = ActionMailer::Base.default_url_options[:host]
-%p To extend the expiry date by one month, visit #{link_to(AdvertsController::MY_ADVERTS_URL, "http://#{hostname}/"+AdvertsController::MY_ADVERTS_URL)} and click Extend Expiry.
+-my_adverts_url = "http://#{hostname}"+MarketplaceController::MY_ADVERTS_PATH
+
+%p To extend the expiry date by one month, visit #{link_to(my_adverts_url, my_adverts_url)} and click Extend Expiry.
 
 %p Thank you.

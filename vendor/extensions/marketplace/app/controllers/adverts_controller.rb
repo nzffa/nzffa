@@ -41,13 +41,13 @@ class AdvertsController < MarketplaceController
   def renew
     @advert.update_attribute(:expires_on, 1.month.from_now)
     flash[:notice] = "Advert will expire on #{@advert.expires_on}"
-    redirect_to MY_ADVERTS_URL
+    redirect_to MY_ADVERTS_PATH
   end
 
   def update
     if @advert.update_attributes(params[:advert])
       flash[:notice] = 'Advert was successfully updated.'
-      redirect_to MY_ADVERTS_URL
+      redirect_to MY_ADVERTS_PATH
     else
       render :action => "edit"
     end
@@ -59,7 +59,7 @@ class AdvertsController < MarketplaceController
     @advert.expires_on = 1.month.from_now unless @advert.is_company_listing?
     if @advert.save
       flash[:notice] = 'Advert was successfully created.'
-      redirect_to MY_ADVERTS_URL
+      redirect_to MY_ADVERTS_PATH
     else
       if @advert.is_company_listing?
         render :action => 'edit_company_listing'
@@ -71,7 +71,7 @@ class AdvertsController < MarketplaceController
 
   def destroy
     @advert.destroy
-    redirect_to MY_ADVERTS_URL
+    redirect_to MY_ADVERTS_PATH
   end
 
   protected
