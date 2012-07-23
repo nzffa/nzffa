@@ -42,8 +42,9 @@ gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reade
 # gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
 
 group :production do
-  gem 'backup'
+  gem 'backup', :git => 'git://github.com/jdutil/backup.git', :branch => 'bump_fog'
   gem 'fog'
+  gem 'parallel', '~> 0.5.12'
 end
 
 # If you're running tests or specs
