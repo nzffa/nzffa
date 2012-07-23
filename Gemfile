@@ -43,7 +43,7 @@ gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reade
 
 group :production do
   gem 'backup'
-  gem 'dropbox-sdk', '~> 1.2.0'
+  gem 'fog'
 end
 
 # If you're running tests or specs
