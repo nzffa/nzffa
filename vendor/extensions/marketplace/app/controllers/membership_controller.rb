@@ -36,7 +36,8 @@ class MembershipController < MarketplaceController
         if @validated_reader.valid? and @reader.save
           update_newsletter_preference
           update_fft_preference
-          flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert} #{@fft_alert}"
+          @reader.send_activation_message
+          flash[:notice] = "Thanks for registering with the NZFFA. Please check your email for an activation link. #{@newsletter_alert} #{@fft_alert}"
           redirect_to JOIN_FFT_PATH
         end
       end

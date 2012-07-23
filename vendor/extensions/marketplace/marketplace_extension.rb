@@ -15,6 +15,9 @@ class MarketplaceExtension < Radiant::Extension
   end
 
   def activate
+    # this seem to work as a method to overwrite the readers views
+    ActionController::Base.prepend_view_path "#{RAILS_ROOT}/vendor/extentions/marketplace/app/views/"
+
     Page.class_eval { include Marketplace }
     tab 'Content' do
       add_item "Marketplace", "/admin/adverts", :after => "Pages"
