@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
-  revision: c5610478250930433a68ac164d785a1cf3c7da7e
+  revision: 4ffd91d132104ca60c9b543ef46ba89355d1775e
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
