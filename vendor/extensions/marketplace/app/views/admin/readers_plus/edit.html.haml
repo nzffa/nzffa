@@ -1,0 +1,16 @@
+Edit Reader
+
+-form_for @reader, :url => "/admin/readers_plus/#{@reader.id}" do |f|
+  %p
+    =f.label :nzffa_membership_id
+    =f.text_field :nzffa_membership_id
+  %p
+    =f.label :forename
+    =f.text_field :forename
+  %p
+    =f.label :surname
+    =f.text_field :surname
+  %p
+    =f.label :email
+    =f.text_field :email
+  =f.submit

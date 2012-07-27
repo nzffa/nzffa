@@ -1,6 +1,7 @@
 # Uncomment this if you reference any of your controllers in activate
 # require_dependency "application_controller"
 require "radiant-marketplace-extension"
+require 'reader_mixin'
 #require 'reader_validator'
 
 class MarketplaceExtension < Radiant::Extension
@@ -16,7 +17,7 @@ class MarketplaceExtension < Radiant::Extension
 
   def activate
     # this seem to work as a method to overwrite the readers views
-    ActionController::Base.prepend_view_path "#{RAILS_ROOT}/vendor/extentions/marketplace/app/views/"
+    Reader.send :include, ReaderMixin
 
     Page.class_eval { include Marketplace }
     tab 'Content' do
