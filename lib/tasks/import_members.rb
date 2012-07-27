@@ -17,7 +17,26 @@ COLS =  {
   "PHONE"              => 13,
   "EMAIL"              => 14,
   "Custom List 2"      => 15,
-  "Paid"               => 16 } def made_up_password str = '' 6.times do str << (('a'..'z').to_a + ('1'..'9').to_a).sample end str end def attrs_from_row(row) { :forename => row[COLS['Name']].split(',')[1], :surname => row[COLS['Name']].split(',')[0], :nzffa_membership_id => row[COLS['CardIdentification']].to_i, :post_line1 => row[COLS['Add 1']], :post_line2 => row[COLS['Add 2']],
+  "Paid"               => 16
+}
+
+
+
+def made_up_password
+  str = ''
+  6.times do
+    str << (('a'..'z').to_a + ('1'..'9').to_a).sample
+  end
+  str
+end
+
+def attrs_from_row(row)
+  {
+    :forename => row[COLS['Name']].split(',')[1],
+    :surname => row[COLS['Name']].split(',')[0],
+    :nzffa_membership_id => row[COLS['CardIdentification']].to_i,
+    :post_line1 => row[COLS['Add 1']],
+    :post_line2 => row[COLS['Add 2']],
     :post_city => row[COLS['Add 3']],
     :post_province => row[COLS['Add 4']],
     :postcode => row[COLS['POSTCODE']],
@@ -94,7 +113,7 @@ def assign_groups(reader, row)
   reader.groups = reader.groups.uniq
 end
 
-FasterCSV.foreach('memberdata-rev2.csv') do |row|
+FasterCSV.foreach('membersdata-rev2.csv') do |row|
   attrs = attrs_from_row(row)
   unless reader = Reader.find_by_nzffa_membership_id(attrs[:nzffa_membership_id])
     reader = Reader.new(attrs)
