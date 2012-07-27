@@ -9,7 +9,12 @@ class AddNzffaMembershipIdsToExistingReaders < ActiveRecord::Migration
      48 => 47034,
      29 => 4174,
      14 => 1158,
-     188 => 47371
+     188 => 47371,
+     31 => 40871,
+     11 => 12506,
+     178 => 43237,
+     189 => 12108,
+     182 => 48006
     }.each_pair do |reader_id, membership_id|
       reader = Reader.find(reader_id)
       reader.update_attribute(:nzffa_membership_id, membership_id)
