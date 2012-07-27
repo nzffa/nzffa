@@ -113,7 +113,7 @@ def assign_groups(reader, row)
   reader.groups = reader.groups.uniq
 end
 
-FasterCSV.foreach('membersdata-rev2.csv') do |row|
+FasterCSV.foreach('membersdata-rev3.csv') do |row|
   attrs = attrs_from_row(row)
   unless reader = Reader.find_by_nzffa_membership_id(attrs[:nzffa_membership_id])
     reader = Reader.new(attrs)
