@@ -110,7 +110,7 @@ FasterCSV.foreach('memberdatacsv.csv') do |row|
 
     unless valid_email?(attrs[:email])
       reader.email = "#{attrs[:nzffa_membership_id]}@nzffa.org.nz"
-      reader.password = attrs[:nzffa_membership_id]
+      reader.password = 'member'+attrs[:nzffa_membership_id]
     else
       reader.password = made_up_password
     end
