@@ -100,6 +100,16 @@ def assign_groups(reader, row)
     end
   end
 
+  if reader.belongs_to_branch?
+    reader.groups << Group.find(100)
+    reader.groups << Group.find(231)
+    reader.groups << Group.find(80)
+  end
+
+  if reader.groups.include?(229)
+    reader.groups << Group.find(230)
+  end
+
   reader.groups = reader.groups.uniq
 end
 
@@ -110,7 +120,7 @@ FasterCSV.foreach('memberdatacsv.csv') do |row|
 
     unless valid_email?(attrs[:email])
       reader.email = "#{attrs[:nzffa_membership_id]}@nzffa.org.nz"
-      reader.password = 'member'+attrs[:nzffa_membership_id]
+      reader.password = "member#{attrs[:nzffa_membership_id]}"
     else
       reader.password = made_up_password
     end
@@ -124,9 +134,6 @@ FasterCSV.foreach('memberdatacsv.csv') do |row|
 
   if reader.valid?
     assign_groups(reader, row)
-    if reader.group_ids.include?(229)
-      reader.group_ids << 230
-    end
   end
 end
 
