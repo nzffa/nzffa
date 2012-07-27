@@ -1,0 +1,71 @@
+Column H is nzffa membership id
+
+TODO
+  then we allocate new membership ids to readers where no id
+  all new readers get membership id
+
+Make ReaderPlus module to mix into Readers?
+  Class method
+    next_nzffa_membership_id
+
+  before_validation
+    nzffa_membership_id ||= next_nzffa_membership_id
+
+
+for each record r in csv
+  if nzffa_membership_id exists?
+    just update groups on that record
+  else
+    insert new record
+    and update groups
+  
+  if they belong to a branch they get added to
+    NZFFA Admin Levy group (100)
+    FFR Access group (231)
+    NZ Tree Grower (NZ) group (80)
+
+  is a member of Farm Forestry Timbers group (229) then they get added to FFT Newsletter group (230).
+
+update groups
+  add branch (column I) group
+  add letter code groups from column G
+  add group from column Q (if it exists)
+  ensure they only belong to each group once
+
+
+
+Multiple means branch missing
+
+Full Member is defined as: A member of a branch.
+
+New members need to get a unique membership number. beginning from 48664
+
+
+Please note that in the All members dats spreadsheet those subscribing to NZ Treegrower are not members of NZFFA.
+So in Readers they will only be members of their NZ Treegrower group (either 80, 81 or 82).
+Full members of NZFFA in Readers will also be allocated to NZ Treegrower group (NZ) (80)
+because that is one of the groups which makes up their levy (i.e. the bigger picture).
+
+Records are either Full Member/Magazine subscriber
+  Column I is either magainze id or branch id
+    Magazine ids
+      COMP (Custom list 2) (102)
+      NZ Tree Grower (NZ) (80)
+      NZ Tree Grower (Australia) (81)
+      NZ Treegrower (Rest of World) (82)
+    Branch Ids - already given
+
+-----------------
+Role types spreadsheet
+
+Column A is the Readers ID number for the Group
+Where column C is 0, we don't need that group and we don't import this data from the All Members dats spreadsheet.
+Where Column C is 1, we do allocate the group to the Reader.
+Column D is not relevant to the import. The levy amounts are relevant to Group levies, for Group Payments project.
+Column E provides the All Members dats spreadsheet sources of the groups allocated to each Reader:
+Custom List 1. This is column ? in the All Members spreadsheet. These are all Groups
+Custom List 2. This is column Q in the All Members spreadsheet. These are all Groups
+Identifiers A-Z in column G of the All Members spreadsheet are identifiers for Groups
+(You must note where column C is 0 though! These "groups" do not exist in Readers)
+
+Each Reader is allocated a unique membership number, these are in Column H All Members dats spreadsheet. A complicating factor is that we already have a whole lot of Readers in the Readers database. I would suggest you allocate these their numbers before importing from All Members dats. The last number used in All Members Dats will be 48663 so the next number available will be 48664. 

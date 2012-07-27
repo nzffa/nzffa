@@ -1,4 +1,5 @@
-require 'CSV'
+require 'fastercsv'
+
 COLS =  {
   "CustomerID"         => 0,
   "CardRecordID"       => 1,
@@ -102,7 +103,7 @@ def assign_groups(reader, row)
   reader.groups = reader.groups.uniq
 end
 
-CSV.open('memberdatacsv.csv','r') do |row|
+FasterCSV.foreach('memberdatacsv.csv') do |row|
   attrs = attrs_from_row(row)
   unless reader = Reader.find_by_nzffa_membership_id(attrs[:nzffa_membership_id])
     reader = Reader.new(attrs)
