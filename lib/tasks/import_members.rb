@@ -32,8 +32,8 @@ end
 
 def attrs_from_row(row)
   {
-    :forename => row[COLS['Name']].split(',')[0],
-    :surname => row[COLS['Name']].split(',')[1],
+    :forename => row[COLS['Name']].split(',')[1],
+    :surname => row[COLS['Name']].split(',')[0],
     :nzffa_membership_id => row[COLS['CardIdentification']].to_i,
     :post_line1 => row[COLS['Add 1']],
     :post_line2 => row[COLS['Add 2']],
