@@ -27,16 +27,5 @@ NZFFA_BRANCH_GROUP_IDS =
   38  => 'Men of Trees',
   39  => 'Southern High Country',
   40  => 'Farm Forestry Timbers',
-  80  => 'NZ Tree Grower (NZ)',
-  81  => 'NZ Tree Grower (Australia)',
-  82  => 'NZ Tree Grower (Rest of World)',
-  101 => 'BR LIFE',
-  102 => 'COMP',
-  103 => 'DA Info',
-  104 => 'EBSCO',
-  105 => 'Earnslaw',
-  106 => 'Globe',
-  107 => 'LIFE',
-  108 => 'MAF'
 }
 
