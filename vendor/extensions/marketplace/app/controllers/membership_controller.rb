@@ -1,12 +1,4 @@
 class MembershipController < MarketplaceController
-  MEMBER_PATH = '/account'
-  REGISTER_PATH = '/membership/register'
-  JOIN_FFT_PATH = '/specialty-timber-market/join-fft'
-  EDIT_COMPANY_LISTING_PATH = '/specialty-timber-market/marketplace/edit-company-listing'
-  FFT_MEMBERS_AREA_PATH = '/specialty-timber-market/participate/membership'
-  NEWSLETTER_GROUP_ID = 230
-  FFT_GROUP_ID = 229
-  ADMIN_GROUP_ID = 100
 
   def dashboard
     # if they are an FFT member take them to 

@@ -1,6 +1,7 @@
 module ReaderMixin
   def self.included(base)
     base.extend(ClassMethods)
+    base.send(:has_many, :adverts)
     #base.before_validation do
       #self.nzffa_membership_id ||= next_membership_id
     #end
