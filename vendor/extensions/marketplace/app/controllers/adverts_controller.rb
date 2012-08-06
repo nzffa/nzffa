@@ -59,8 +59,7 @@ class AdvertsController < MarketplaceController
   end
 
   def create
-    params[:advert][:reader_id]=current_reader.id
-    @advert = Advert.new(params[:advert])
+    @advert = current_reader.adverts.new params[:adverts]
     @advert.expires_on = 1.month.from_now unless @advert.is_company_listing?
     if @advert.save
       flash[:notice] = 'Advert was successfully created.'
