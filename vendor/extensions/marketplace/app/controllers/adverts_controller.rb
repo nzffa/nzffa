@@ -59,7 +59,7 @@ class AdvertsController < MarketplaceController
   end
 
   def create
-    reader_attrs = params[:advert].delete[:reader_attributes]
+    reader_attrs = params[:advert].delete(:reader_attributes)
     if reader_attrs
       reader_result = current_reader.update_attributes(:reader_attributes)
     end
