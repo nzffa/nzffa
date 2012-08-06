@@ -47,8 +47,13 @@ class AdvertsController < MarketplaceController
   def update
     if @advert.update_attributes(params[:advert])
       flash[:notice] = 'Advert was successfully updated.'
-      redirect_to MY_ADVERTS_PATH
+      if @advert.is_company_listing?
+        redirect_to FFT_MEMBERS_AREA_PATH
+      else
+        redirect_to MY_ADVERTS_PATH
+      end
     else
+      @company_listing = @advert
       render :action => "edit"
     end
   end

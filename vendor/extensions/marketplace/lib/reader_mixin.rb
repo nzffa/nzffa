@@ -19,5 +19,4 @@ module ReaderMixin
     end
     false
   end
-
 end
