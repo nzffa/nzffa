@@ -1,0 +1,11 @@
+%h1 NZFFA Membership
+
+-form_for(@subscription) do |f|
+  =f.hidden_field :membership_type
+
+  %p How many Ha of planted trees to do you have?
+  #ha_of_planted_trees
+    =f.radio_button :ha_of_planted_trees, '0 - 10'
+
+  %p
+    =f.submit 'Next'
