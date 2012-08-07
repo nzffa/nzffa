@@ -10,13 +10,13 @@ Feature: Subscriptions
 
   When you sign up right away.. do you pay for a subscription upto the end of the year?
 
-  Before:
-    
   Scenario: user creates a subscription for the current year
     
   @reader_logged_in
   Scenario: user creates a subscription for next year
     When I visit new subscription
+    And select an NZFFA Membership
+    And click Next
     And configure the subscription as a branch member
     And click create subscription
     Then I should see 'Subscription created successfully'

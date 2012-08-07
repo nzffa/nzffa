@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :subscriptions, :only => [:new, :index]
   map.resources :adverts,
     :collection => {
       :edit_company_listing => :get,

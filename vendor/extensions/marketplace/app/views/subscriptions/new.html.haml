@@ -1,0 +1,9 @@
+%h1 New Subscription
+
+-form_for(@subscription) do |f|
+  =f.radio_button :membership_type, 'full'
+  =f.label :membership_type_full, 'NZFFA Membership'
+  #ha_of_planted_trees
+    =f.radio_button :ha_of_planted_trees, '0 - 10'
+  %p
+    =f.submit 'Next'

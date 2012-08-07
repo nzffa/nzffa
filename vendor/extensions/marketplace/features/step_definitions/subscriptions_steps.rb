@@ -17,8 +17,21 @@ When /^I visit new subscription$/ do
   visit new_subscription_path
 end
 
+When /^select an NZFFA Membership$/ do
+  choose 'NZFFA Membership'
+end
+
+When /^click Next$/ do
+  click_on 'Next'
+end
+
 When /^configure the subscription as a branch member$/ do
-  pending # express the regexp above with the code you wish you had
+  within '#ha_of_planted_trees' do
+    choose '0 - 10a'
+  end
+  select 'Otago', :from => 'main_branch'
+  check 'belong_to_fft'
+  click_on 'Proceed to payment'
 end
 
 When /^click create subscription$/ do
