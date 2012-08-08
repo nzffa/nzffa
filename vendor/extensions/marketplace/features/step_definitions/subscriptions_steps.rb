@@ -27,17 +27,13 @@ end
 
 When /^configure the subscription as a branch member$/ do
   within '#ha_of_planted_trees' do
-    choose '0 - 10a'
+    choose '0 - 10ha'
   end
-  select 'Otago', :from => 'main_branch'
-  check 'belong_to_fft'
+  select 'Otago', :from => 'subscription_main_branch'
+  check 'subscription_belong_to_fft'
   click_on 'Proceed to payment'
 end
 
 When /^click create subscription$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I should see 'Subscription created successfully'$/ do
   pending # express the regexp above with the code you wish you had
 end

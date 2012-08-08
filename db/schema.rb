@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807093553) do
+ActiveRecord::Schema.define(:version => 20120808030450) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
@@ -312,6 +312,9 @@ ActiveRecord::Schema.define(:version => 20120807093553) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ha_of_planted_trees"
+    t.string   "main_branch"
+    t.boolean  "belong_to_fft",       :null => false
+    t.string   "term"
   end
 
   add_index "subscriptions", ["reader_id"], :name => "index_subscriptions_on_reader_id"

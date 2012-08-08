@@ -1,6 +1,7 @@
 %h1 New Subscription
 
--form_for(@subscription) do |f|
+-form_for(@subscription, :url => new_subscription_path, :html => {:method => :get}) do |f|
   =f.radio_button :membership_type, 'full'
+  =f.label :membership_type_full, 'NZFFA Membership'
   %p
     =f.submit 'Next'

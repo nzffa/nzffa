@@ -1,0 +1,29 @@
+%h1 NZFFA Membership
+
+-form_for(@subscription) do |f|
+  =f.hidden_field :membership_type
+
+  %p How many Ha of planted trees to do you have?
+  #ha_of_planted_trees
+    =f.radio_button :ha_of_planted_trees, '0-10'
+    =f.label :ha_of_planted_trees_010, '0 - 10ha'
+
+  %p Select the branch you want to belong to
+  #main_branch
+    =f.select :main_branch, options_for_select(['Otago'])
+
+  %p The FFT Marketplace is an online directory of timber services and products
+  #join_marketplace
+    =f.check_box :belong_to_fft
+    =f.label :belong_to_fft, 'List my business in the FFT Marketplace'
+
+  %p Subscription Term
+  #subscription_term
+    =f.radio_button :term, 'full_year'
+    =f.label :term_full_year, 'Subscribe until the end of 2012 and receive back issues of Treegrower Magazine.'
+    =f.radio_button :term, 'remainder_of_year_plus_next_year'
+    =f.label :term_remainder_of_year_plus_next_year, 'Subscribe until the end of 2013 with no back issues.'
+
+  %p Subscription Fee: $100 + GST
+
+  =f.submit 'Proceed to payment'
