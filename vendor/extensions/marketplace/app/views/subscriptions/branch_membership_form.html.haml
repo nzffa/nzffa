@@ -7,10 +7,17 @@
   #ha_of_planted_trees
     =f.radio_button :ha_of_planted_trees, '0-10'
     =f.label :ha_of_planted_trees_010, '0 - 10ha'
+    %br
+    =f.radio_button :ha_of_planted_trees, '11-40'
+    =f.label :ha_of_planted_trees_1140, '11 - 40ha'
 
   %p Select the branch you want to belong to
   #main_branch
-    =f.select :main_branch, options_for_select(['Otago'])
+    =f.collection_select :main_branch, Branch.all, :id, :name
+
+  %p Select any additional branches you want to become an associated member of
+  #associated_branches
+    =f.collection_select :branches, Branch.all, :id, :name,{}, :multiple => true
 
   %p The FFT Marketplace is an online directory of timber services and products
   #join_marketplace
@@ -24,6 +31,6 @@
     =f.radio_button :term, 'remainder_of_year_plus_next_year'
     =f.label :term_remainder_of_year_plus_next_year, 'Subscribe until the end of 2013 with no back issues.'
 
-  %p Subscription Fee: $100 + GST
+  %p Subscription Fee: $109 + GST
 
   =f.submit 'Proceed to payment'

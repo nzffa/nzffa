@@ -13,6 +13,22 @@ Given /^I am a registered, logged in reader$/ do
 
 end
 
+Given /^admin levy is \$(\d+)$/ do |amount|
+  NzffaSettings.set :admin_levy, amount
+end
+
+Given /^ha of trees is 0-10 for \$0, 11-40 for \$51, and 41\+ for \$120/ do 
+  NzffaSettings.set :forest_size_levys, [['0 - 10', 0], ['11 - 40', 51], ['41+', 120]]
+end
+
+Given /^there is a branch "([^"]*)" for \$(\d+)$/ do |arg1, arg2|
+  Branch.create(:name => arg1, :levy => arg2)
+end
+
+Given /^tree grower subscription costs \$(\d+) per year for members$/ do |arg1|
+  NzffaSettings.set :tree_grower_for_members, arg1
+end
+
 When /^I visit new subscription$/ do
   visit new_subscription_path
 end

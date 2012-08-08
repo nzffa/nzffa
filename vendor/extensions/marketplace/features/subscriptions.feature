@@ -12,21 +12,35 @@ Feature: Subscriptions
   Background:
     Given admin levy is $34
     And ha of trees is 0-10 for $0, 11-40 for $51, and 41+ for $120
-    And there is a North Otago branch for $7
-    And FFT Marketplace branch costs $15
+    And there is a branch "North Otago" for $10
+    And there is a branch "South Canterbury" for $8
+    And there is a branch "Farm Forestry Timbers" for $15
     And tree grower subscription costs $50 per year for members
 
   @reader_logged_in
-  Scenario: user creates a subscription for the year
+  Scenario: user creates a subscription for the year config 1
     When I visit new subscription
     And select an NZFFA Membership
     And click Next
     Then I should see "NZFFA Membership"
     And choose "0 - 10ha"
-    And select "Otago" from "subscription_main_branch"
+    And select "North Otago" from "subscription_main_branch"
+    And select "South Canterbury" from "subscription_branches"
     And check "List my business in the FFT Marketplace" 
     And choose "Subscribe until the end of 2012 and receive back issues of Treegrower Magazine."
-    Then I should see "Subscription Fee: $100 + GST"
+    Then I should see "Subscription Fee: $109 + GST"
+    And press "Proceed to payment"
+
+  Scenario: user creates a subscription for the year config 2
+    When I visit new subscription
+    And select an NZFFA Membership
+    And click Next
+    Then I should see "NZFFA Membership"
+    And choose "11 - 40ha"
+    And select "South Canterbury" from "subscription_main_branch"
+    And select "North Otago" from "subscription_branches"
+    And choose "Subscribe until the end of 2012 and receive back issues of Treegrower Magazine."
+    Then I should see "Subscription Fee: $153 + GST"
     And press "Proceed to payment"
 
   Scenario: user creates a subscription for the current year, with back issues
