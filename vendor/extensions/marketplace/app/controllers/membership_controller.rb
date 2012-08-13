@@ -1,12 +1,4 @@
 class MembershipController < MarketplaceController
-  MEMBER_PATH = '/account'
-  REGISTER_PATH = '/membership/register'
-  JOIN_FFT_PATH = '/specialty-timber-market/join-fft'
-  EDIT_COMPANY_LISTING_PATH = '/specialty-timber-market/marketplace/edit-company-listing'
-  FFT_MEMBERS_AREA_PATH = '/specialty-timber-market/participate/membership'
-  NEWSLETTER_GROUP_ID = 230
-  FFT_GROUP_ID = 229
-  ADMIN_GROUP_ID = 100
 
   def dashboard
     # if they are an FFT member take them to 
@@ -36,7 +28,8 @@ class MembershipController < MarketplaceController
         if @validated_reader.valid? and @reader.save
           update_newsletter_preference
           update_fft_preference
-          flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert} #{@fft_alert}"
+          @reader.send_activation_message
+          flash[:notice] = "Thanks for registering with the NZFFA. Please check your email for an activation link. #{@newsletter_alert} #{@fft_alert}"
           redirect_to JOIN_FFT_PATH
         end
       end

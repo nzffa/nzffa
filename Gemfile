@@ -5,6 +5,7 @@ source :rubygems
 
 gem "radiant", "~> 1.0.1"
 gem 'hpricot'
+gem 'fastercsv'
 # alternatively, in development
 # gem "radiant", :path => "/path/to/radiant/root"
 

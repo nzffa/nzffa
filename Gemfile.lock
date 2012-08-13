@@ -244,6 +244,7 @@ DEPENDENCIES
   capistrano
   cucumber-rails (~> 0.3.2)
   database_cleaner (~> 0.6.5)
+  fastercsv
   fog
   hpricot
   mysql (~> 2.8.1)

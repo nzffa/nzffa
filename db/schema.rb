@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120704024148) do
+ActiveRecord::Schema.define(:version => 20120727052403) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
@@ -268,6 +268,7 @@ ActiveRecord::Schema.define(:version => 20120704024148) do
     t.boolean  "dob_secret"
     t.boolean  "disabled",                :default => false
     t.string   "website"
+    t.integer  "nzffa_membership_id"
   end
 
   create_table "sessions", :force => true do |t|

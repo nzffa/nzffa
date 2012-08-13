@@ -3,7 +3,7 @@
 -elsif @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
   =link_to('Go to Farm Forestry Timbers Members Area', MembershipController::FFT_MEMBERS_AREA_PATH)
 -else
-  =link_to('Become a member of Farm Foresty Timbers', MembershipController::JOIN_FFT_PATH)
+  =link_to('Become a member of Farm Forestry Timbers', MembershipController::JOIN_FFT_PATH)
 
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
@@ -36,12 +36,6 @@
     =label_tag :receive_newsletter
     =check_box_tag :receive_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(MembershipController::NEWSLETTER_GROUP_ID)
 
-  -#%p
-    -#=label_tag 'Join Farm Foresty Timbers Group'
-    -#-if !@reader.new_record? && @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
-      -#=check_box_tag :join_fft, "1", true, :disabled => true
-    -#-else
-      -#=check_box_tag :join_fft, "1"
 
 
   %p

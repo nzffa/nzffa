@@ -47,17 +47,26 @@ class AdvertsController < MarketplaceController
   def update
     if @advert.update_attributes(params[:advert])
       flash[:notice] = 'Advert was successfully updated.'
-      redirect_to MY_ADVERTS_PATH
+      if @advert.is_company_listing?
+        redirect_to FFT_MEMBERS_AREA_PATH
+      else
+        redirect_to MY_ADVERTS_PATH
+      end
     else
+      @company_listing = @advert
       render :action => "edit"
     end
   end
 
   def create
-    params[:advert][:reader_id]=current_reader.id
-    @advert = Advert.new(params[:advert])
+    reader_attrs = params[:advert].delete(:reader_attributes)
+    if reader_attrs
+      reader_result = current_reader.update_attributes(reader_attrs)
+    end
+    @advert = current_reader.adverts.new params[:advert]
     @advert.expires_on = 1.month.from_now unless @advert.is_company_listing?
-    if @advert.save
+
+    if reader_result && @advert.save
       flash[:notice] = 'Advert was successfully created.'
       redirect_to MY_ADVERTS_PATH
     else

@@ -1,0 +1,19 @@
+%h1 Readers Plus
+
+%table
+  %thead
+    %th reader id
+    %td nzffa id
+    %td forename
+    %td surname
+    %td email
+    %td edit
+  %tbody
+    -@readers.each do |r|
+      %tr
+        %td=r.id
+        %td=r.nzffa_membership_id
+        %td=r.forename
+        %td=r.surname
+        %td=r.email
+        %td=link_to('edit', "/admin/readers_plus/#{r.id}/edit")
