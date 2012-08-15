@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808030450) do
+ActiveRecord::Schema.define(:version => 20120815014438) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
@@ -49,6 +49,11 @@ ActiveRecord::Schema.define(:version => 20120808030450) do
     t.integer  "original_width"
     t.integer  "original_height"
     t.string   "original_extension"
+  end
+
+  create_table "branches", :force => true do |t|
+    t.string  "name"
+    t.decimal "annual_levy", :precision => 8, :scale => 2
   end
 
   create_table "config", :force => true do |t|
@@ -312,12 +317,23 @@ ActiveRecord::Schema.define(:version => 20120808030450) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ha_of_planted_trees"
-    t.string   "main_branch"
-    t.boolean  "belong_to_fft",       :null => false
     t.string   "term"
+    t.string   "duration"
+    t.integer  "main_branch_id"
+    t.boolean  "belong_to_fft",       :default => false, :null => false
   end
 
   add_index "subscriptions", ["reader_id"], :name => "index_subscriptions_on_reader_id"
+
+  create_table "subscriptions_branches", :force => true do |t|
+    t.integer  "subscription_id"
+    t.integer  "branch_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscriptions_branches", ["branch_id"], :name => "index_subscriptions_branches_on_branch_id"
+  add_index "subscriptions_branches", ["subscription_id"], :name => "index_subscriptions_branches_on_subscription_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",          :limit => 100

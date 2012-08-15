@@ -14,43 +14,61 @@ Feature: Subscriptions
     And ha of trees is 0-10 for $0, 11-40 for $51, and 41+ for $120
     And there is a branch "North Otago" for $10
     And there is a branch "South Canterbury" for $8
-    And there is a branch "Farm Forestry Timbers" for $15
-    And tree grower subscription costs $50 per year for members
+    And Farm Foresty Timbers Marketplace membership is $15
+    And tree grower magazine subscription costs $50 per year for members
 
   @reader_logged_in
+  @javascript
   Scenario: user creates a subscription for the year config 1
+    Given the date is "1st january 2012"
     When I visit new subscription
     And select an NZFFA Membership
     And click Next
     Then I should see "NZFFA Membership"
     And choose "0 - 10ha"
-    And select "North Otago" from "subscription_main_branch"
-    And select "South Canterbury" from "subscription_branches"
+    And select "North Otago" from "subscription_main_branch_name"
+    And select "South Canterbury" from "subscription_associated_branch_names"
     And check "List my business in the FFT Marketplace" 
-    And choose "Subscribe until the end of 2012 and receive back issues of Treegrower Magazine."
+    And choose "Full year"
     Then I should see "Subscription Fee: $109 + GST"
     And press "Proceed to payment"
 
+  @javascript
   Scenario: user creates a subscription for the year config 2
+    Given the date is "1st january 2012"
     When I visit new subscription
     And select an NZFFA Membership
     And click Next
     Then I should see "NZFFA Membership"
     And choose "11 - 40ha"
-    And select "South Canterbury" from "subscription_main_branch"
-    And select "North Otago" from "subscription_branches"
-    And choose "Subscribe until the end of 2012 and receive back issues of Treegrower Magazine."
+    And select "South Canterbury" from "subscription_main_branch_name"
+    And select "North Otago" from "subscription_associated_branch_names"
+    And choose "Full year"
     Then I should see "Subscription Fee: $153 + GST"
+    And I should see "Expires on: 31 December 2012"
     And press "Proceed to payment"
 
-  Scenario: user creates a subscription for the current year, with back issues
-    they will be charged full rate.
+  Scenario: user signs up for remaining quarter of the year, and next year
+    Given the date is "1st november 2012"
+    And I signup with 0-10ha, main branch North Otago, and join FFT
+    When I choose "Remainder of year plus next year"
+    Then I should see "Subscription Fee:  years amount"
+    And I should see "Expires on: 31 December 2013"
+    #Then I should be charged 1 and a quarter amount (turn literal)
+    #And I should be added to north otago, fft, and admin levy groups
 
+  Scenario: user signs up for remaining half of the year, and next year
+    Given the date is "1st may 2012"
+    And I signup for a pretty normal looking membership and stop without setting a duration
+    When I select "Remainder of year plus next year"
+    Then I should see "Subscription Fee: $next years amount"
+    And I should see "Expires on: 31 December 2013"
+
+  Scenario: user signs up for remaining tree quarters of the year, and next year
+    Given the date is "1st april 2012"
+    And I signup for a pretty normal looking membership and stop without setting a duration
+    When I select "Remainder of year plus next year"
+    Then I should see "Subscription Fee: $next years amount"
+    And I should see "Expires on: 31 December 2013"
 
   Scenario: user creates a subscription for remainder of year, and next year
-    Join after first of june.
-    option to get back issues and pay full amount for the year.
-
-    Join after first of june and subscribe upto the end of next year. no back issues.
-    Feb, May, August, November... 
-

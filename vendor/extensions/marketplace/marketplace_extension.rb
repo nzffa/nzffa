@@ -2,7 +2,6 @@
 # require_dependency "application_controller"
 require "radiant-marketplace-extension"
 require 'reader_mixin'
-require 'branches.rb'
 #require 'reader_validator'
 
 class MarketplaceExtension < Radiant::Extension

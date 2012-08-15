@@ -133,6 +133,8 @@ GEM
     highline (1.6.13)
     hpricot (0.8.6)
     json (1.7.3)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
     mime-types (1.19)
@@ -259,6 +261,7 @@ DEPENDENCIES
   fastercsv
   fog
   hpricot
+  launchy
   mysql (~> 2.8.1)
   parallel (~> 0.5.12)
   radiant (~> 1.0.1)

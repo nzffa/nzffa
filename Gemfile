@@ -53,6 +53,7 @@ group :test, :cucumber, :development do
   gem 'rspec-rails', '1.3.4'
   gem 'rspec', '1.3.2'
   gem "capybara", "1.1.1"
+  gem 'launchy'
   gem "cucumber", "1.1.0"
   gem "cucumber-rails", :git => 'https://github.com/robguthrie/cucumber-rails.git', :branch => 'v0.3.2fixed'
   gem "database_cleaner",  " >= 0.5.0"

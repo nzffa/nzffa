@@ -1,23 +1,27 @@
 %h1 NZFFA Membership
 
+
 -form_for(@subscription) do |f|
   =f.hidden_field :membership_type
 
   %p How many Ha of planted trees to do you have?
   #ha_of_planted_trees
-    =f.radio_button :ha_of_planted_trees, '0-10'
-    =f.label :ha_of_planted_trees_010, '0 - 10ha'
+    =f.radio_button :ha_of_planted_trees, '0 - 10'
+    =f.label :ha_of_planted_trees_0__10, '0 - 10ha'
     %br
-    =f.radio_button :ha_of_planted_trees, '11-40'
-    =f.label :ha_of_planted_trees_1140, '11 - 40ha'
+    =f.radio_button :ha_of_planted_trees, '11 - 40'
+    =f.label :ha_of_planted_trees_11__40, '11 - 40ha'
+    %br
+    =f.radio_button :ha_of_planted_trees, '41+'
+    =f.label :ha_of_planted_trees_41, '40+ ha'
 
   %p Select the branch you want to belong to
   #main_branch
-    =f.collection_select :main_branch, Branch.all, :id, :name
+    =f.collection_select :main_branch_name, Branch.all, :name, :name
 
   %p Select any additional branches you want to become an associated member of
   #associated_branches
-    =f.collection_select :branches, Branch.all, :id, :name,{}, :multiple => true
+    =f.collection_select :associated_branch_names, Branch.all, :name, :name,{}, :multiple => true
 
   %p The FFT Marketplace is an online directory of timber services and products
   #join_marketplace
@@ -27,10 +31,26 @@
   %p Subscription Term
   #subscription_term
     =f.radio_button :term, 'full_year'
-    =f.label :term_full_year, 'Subscribe until the end of 2012 and receive back issues of Treegrower Magazine.'
+    =f.label :term_full_year, 'Full year'
+    %br
+    (Subscription will last until the end of 2012. You will receive any back issues of Treegrower Magazine.)
+    %br
     =f.radio_button :term, 'remainder_of_year_plus_next_year'
-    =f.label :term_remainder_of_year_plus_next_year, 'Subscribe until the end of 2013 with no back issues.'
+    =f.label :term_remainder_of_year_plus_next_year, 'Remainder of year plus next year'
+    %br
+    (Subscription lasts until the end of 2013. You will not get back issues of Treegrower Magazine.)
 
-  %p Subscription Fee: $109 + GST
+  %p 
+    Subscription Fee: 
+    %span#yearly_fee Not Calculated
+    + GST
 
   =f.submit 'Proceed to payment'
+
+=javascript_include_tag 'jquery-1.6.2.min.js'
+=javascript_include_tag 'jquery.to_json'
+:javascript
+  $form = $('form#new_subscription')
+  $form.change(function(){
+    $('span#yearly_fee').load('/subscriptions/quote', $form.toJSON()) 
+  })
