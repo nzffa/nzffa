@@ -20,12 +20,11 @@ Backup::Model.new(:app_backup, 'Backup database and filestystem images for NZFFA
   #
   database MySQL do |db|
     # To dump all databases, set `db.name = :all` (or leave blank)
-    db.name               = "nzffa"
-    db.username           = "nzffa"
-    db.password           = "PUT_REAL_PASSWORD_HERE"
+    db.name               = "nzffa_development"
+    db.username           = "root"
     db.host               = "localhost"
-    db.port               = 3306
-    db.socket             = "/tmp/mysql.sock"
+    # db.port               = 3306
+    # db.socket             = "/tmp/mysql.sock"
     # Note: when using `skip_tables` with the `db.name = :all` option,
     # table names should be prefixed with a database name.
     # e.g. ["db_name.table_to_skip", ...]
@@ -37,31 +36,36 @@ Backup::Model.new(:app_backup, 'Backup database and filestystem images for NZFFA
     # db.mysqldump_utility = "/opt/local/bin/mysqldump"
   end
   
-  archive :uploaded_assets do |archive|
-    archive.add 'public/system/assets'
-  end  
+  #archive :uploaded_assets do |archive|
+  #  archive.add '/home/nzffa/production/shared/public'
+  #  archive.add '/home/nzffa/production/shared/config'
+  #end  
 
-  ##
-  # Dropbox File Hosting Service [Storage]
-  #
-  # Access Type:
-  #
-  #  - :app_folder (Default)
-  #  - :dropbox
-  #
-  # Note:
-  #
-  #  Initial backup must be performed manually to authorize
-  #  this machine with your Dropbox account.
-  #
-  store_with Dropbox do |db|
-    db.api_key     = "l4akcvnlx2rqa9n"
-    db.api_secret  = "2isb2uwye5lpiex"
-    db.access_type = :app_folder
-    db.path        = "/development"
-    db.keep        = 25
+  store_with S3 do |s3|
+    s3.access_key_id      = 'TODO'
+    s3.secret_access_key  = 'TODO'
+    s3.region             = 'us-west-1'
+    s3.bucket             = 'nzffa'
+    s3.path               = '/development'
+    s3.keep               = 10
   end
 
+  sync_with Cloud::S3 do |s3|
+    s3.access_key_id      = 'TODO'
+    s3.secret_access_key  = 'TODO'
+    s3.region             = 'us-west-1'
+    s3.bucket             = 'nzffa'
+    s3.path               = '/development/assets'
+    s3.mirror            = true
+    s3.concurrency_type  = :threads
+    s3.concurrency_level = 50
+
+    s3.directories do |directory|
+      directory.add '/Users/craig/development/nzffa/public/system/assets'
+      # directory.add '/home/nzffa/production/shared/public'
+      # directory.add '/home/nzffa/production/shared/config'
+    end
+  end
   ##
   # Gzip [Compressor]
   #
