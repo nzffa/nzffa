@@ -60,18 +60,27 @@ class AdvertsController < MarketplaceController
 
   def create
     reader_attrs = params[:advert].delete(:reader_attributes)
-    if reader_attrs
-      reader_result = current_reader.update_attributes(reader_attrs)
-    end
     @advert = current_reader.adverts.new params[:advert]
-    @advert.expires_on = 1.month.from_now unless @advert.is_company_listing?
+    if @advert.is_company_listing?
+      #update reader attributes
+      reader_result = current_reader.update_attributes(reader_attrs)
 
-    if reader_result && @advert.save
-      flash[:notice] = 'Advert was successfully created.'
-      redirect_to MY_ADVERTS_PATH
-    else
-      if @advert.is_company_listing?
+      #update create advert
+      @advert = current_reader.adverts.new params[:advert]
+
+      #save and respond
+      if reader_result && @advert.save
+        flash[:notice] = 'Advert was successfully created.'
+        redirect_to MY_ADVERTS_PATH
+      else
         render :action => 'edit_company_listing'
+      end
+    else
+      @advert = current_reader.adverts.new params[:advert]
+      @advert.expires_on = 1.month.from_now
+      if @advert.save
+        flash[:notice] = 'Advert was successfully created.'
+        redirect_to MY_ADVERTS_PATH
       else
         render :action => "new"
       end
