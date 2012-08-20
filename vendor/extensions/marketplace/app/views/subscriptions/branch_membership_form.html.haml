@@ -30,20 +30,24 @@
 
   %p Subscription Term
   #subscription_term
-    =f.radio_button :term, 'full_year'
-    =f.label :term_full_year, 'Full year'
+    =f.radio_button :duration, 'full_year'
+    =f.label :duration_full_year, 'Full year'
     %br
     (Subscription will last until the end of 2012. You will receive any back issues of Treegrower Magazine.)
     %br
-    =f.radio_button :term, 'remainder_of_year_plus_next_year'
-    =f.label :term_remainder_of_year_plus_next_year, 'Remainder of year plus next year'
+    =f.radio_button :duration, 'remainder_of_year_plus_next_year'
+    =f.label :duration_remainder_of_year_plus_next_year, 'Remainder of year plus next year'
     %br
     (Subscription lasts until the end of 2013. You will not get back issues of Treegrower Magazine.)
 
   %p 
     Subscription Fee: 
-    %span#yearly_fee Not Calculated
+    %span#total_fee Undefined
     + GST
+
+  %p 
+    Expires on: 
+    %span#expires_on Undefined
 
   =f.submit 'Proceed to payment'
 
@@ -52,5 +56,8 @@
 :javascript
   $form = $('form#new_subscription')
   $form.change(function(){
-    $('span#yearly_fee').load('/subscriptions/quote', $form.toJSON()) 
+    $.post('/subscriptions/quote', $form.toJSON(), function(response){
+      $('span#total_fee').text(response.total_fee)
+      $('span#expires_on').text(response.expires_on)
+    })
   })

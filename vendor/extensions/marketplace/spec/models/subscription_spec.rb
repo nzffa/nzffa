@@ -46,6 +46,8 @@ describe Subscription do
         subject.should have(0).errors_on(:duration)
       end
     end
+
+    it 'gives expires_on correctly '
   end
 
   context 'calculates the fees associated with' do
@@ -82,5 +84,20 @@ describe Subscription do
       subject.yearly_fee.should == 170
     end
 
+
+  end
+
+  context 'calculates the expiry date' do
+    it 'when duration is full' do
+      end_of_year = Date.new(Date.today.year, 12, 31)
+      sub = Subscription.new(:duration => 'full_year')
+      sub.expires_on.should == end_of_year
+    end
+
+    it 'when term is remainder of year plus next' do
+      end_of_next_year = Date.new(Date.today.year + 1, 12, 31)
+      sub = Subscription.new(:duration => 'remainder_of_year_plus_next_year')
+      sub.expires_on.should == end_of_next_year
+    end
   end
 end

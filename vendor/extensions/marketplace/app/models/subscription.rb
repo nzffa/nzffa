@@ -4,9 +4,24 @@ class Subscription < ActiveRecord::Base
   has_many :subscriptions_branches
   has_many :branches, :through => :subscriptions_branches
   belongs_to :main_branch, :class_name => 'Branch'
+  validates_presence_of :expires_on
 
   validates_inclusion_of :ha_of_planted_trees, 
     :in => NzffaSettings.forest_size_levys.keys
+
+  def after_initialize
+    if new_record?
+      self.expires_on = case duration
+                        when 'full_year'
+                          Date.new(Date.today.year, 12, 31)
+                        when 'remainder_of_year_plus_next_year'
+                          Date.new(Date.today.year + 1, 12, 31)
+                        else
+                          # default to end of year
+                          Date.new(Date.today.year, 12, 31)
+                        end
+    end
+  end
 
   def associated_branch_names
     names = branches.map(&:name)
@@ -42,6 +57,18 @@ class Subscription < ActiveRecord::Base
      cost_of(:tree_grower_magazine)).to_i
   end
 
+  def total_fee
+    case duration
+    when 'full_year' 
+      yearly_fee
+    when 'remainder_of_year_plus_next_year'
+      yearly_fee + (yearly_fee * remainder_of_current_year_in_quarters)
+      'remainder'
+    else
+      'no duration'
+    end
+  end
+
   def cost_of(attr)
     begin
       case attr
@@ -60,5 +87,4 @@ class Subscription < ActiveRecord::Base
       raise "yep exception thrown in cost of #{attr}"
     end
   end
-
 end

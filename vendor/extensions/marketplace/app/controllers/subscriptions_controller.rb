@@ -12,6 +12,7 @@ class SubscriptionsController < SiteController
 
   def quote
     subscription = Subscription.new(params[:subscription])
-    render :text => "$#{subscription.yearly_fee}"
+    render :json => {:total_fee => "$#{subscription.total_fee}", 
+                     :expires_on => subscription.expires_on.strftime('%e %B %Y')}
   end
 end

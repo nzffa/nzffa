@@ -48,35 +48,40 @@ When /^click Next$/ do
 end
 
 
-When /^configure the subscription as a branch member$/ do
-  within '#ha_of_planted_trees' do
-    choose '0 - 10ha'
-  end
-  select 'Otago', :from => 'subscription_main_branch_name'
-  check 'subscription_belong_to_fft'
-  click_on 'Proceed to payment'
-end
+#When /^configure the subscription as a branch member$/ do
+  #within '#ha_of_planted_trees' do
+    #choose '0 - 10ha'
+  #end
+  #select 'Otago', :from => 'subscription_main_branch_name'
+  #check 'subscription_belong_to_fft'
+  #click_on 'Proceed to payment'
+#end
 
 When /^click create subscription$/ do
   pending # express the regexp above with the code you wish you had
 end
 
 Then /^wait for ages$/ do
-  sleep 300
+  sleep 5
 end
 
 Given /^the date is "([^"]*)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  Timecop.travel(Date.parse(arg1))
 end
 
-Given /^I signup with (\d+)\-(\d+)ha, main branch North Otago, and join FFT$/ do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+    
+Given /^I signup with 0-10ha, main branch North Otago, and join FFT$/ do 
+  visit new_subscription_path
+  choose 'NZFFA Membership'
+  click_on 'Next'
+  within '#ha_of_planted_trees' do
+    choose '0 - 10ha'
+  end
+  select 'North Otago', :from => 'subscription_main_branch_name'
+  check 'subscription_belong_to_fft'
+  save_and_open_page
 end
 
-Given /^I signup for a pretty normal looking membership and stop without setting a duration$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-When /^I select "([^"]*)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
+#When /^I select "([^"]*)"$/ do |arg1|
+  #pending # express the regexp above with the code you wish you had
+#end
