@@ -1,5 +1,9 @@
 require "bundler/capistrano"
 
+default_run_options[:pty] = true
+ssh_options[:forward_agent] = true
+set :use_sudo, false
+
 set :stages, %w(production staging)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
@@ -9,8 +13,8 @@ set :user, "nzffa"
 set :group, "www-data"
 
 set :scm, :git
-set :repository, "git://github.com/enspiral/nzffa.git"
-set :branch, $1 if `git branch` =~ /\* (\S+)\s/m
+set :repository, "git@github.com:enspiral/nzffa.git"
+set :branch, :master
 set :deploy_via, :remote_cache
 set :bundle_without, [:development, :test, :cucumber]
 
@@ -43,3 +47,13 @@ def link_from_shared_to_current(path, dest_path = path)
   dst_path = "#{release_path}/#{dest_path}"
   run "for f in `ls #{src_path}/` ; do ln -nsf #{src_path}/$f #{dst_path}/$f ; done"
 end
+
+task :setup_env do
+  run "RACK_ENV=#{rails_env}"
+  run "RAILS_ENV=#{rails_env}"
+
+  run "echo 'RackEnv #{rails_env}' >> #{File.join(current_path, '.htaccess')}"
+  run "echo 'RailsEnv #{rails_env}' >> #{File.join(current_path, '.htaccess')}"
+end
+
+before "restart", "setup_env"
