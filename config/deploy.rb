@@ -1,4 +1,6 @@
 require "bundler/capistrano"
+require 'whenever/capistrano'
+require 'capistrano/ext/multistage'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = false
@@ -6,7 +8,6 @@ set :use_sudo, false
 
 set :stages, %w(production staging)
 set :default_stage, "staging"
-require 'capistrano/ext/multistage'
 
 set :application, "nzffa"
 set :user, "nzffa"
@@ -14,12 +15,11 @@ set :group, "www-data"
 
 set :scm, :git
 set :repository, "git@github.com:enspiral/nzffa.git"
-set :branch, :master
-set :deploy_via, :remote_cache
+set :branch, 'master'
+#set :deploy_via, :remote_cache
 set :bundle_without, [:development, :test, :cucumber]
 
 set :whenever_command, "bundle exec whenever"
-require 'whenever/capistrano'
 
 namespace :deploy do
   task :restart do
