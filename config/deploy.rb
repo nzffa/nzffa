@@ -1,7 +1,7 @@
 require "bundler/capistrano"
 
 default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
+ssh_options[:forward_agent] = false
 set :use_sudo, false
 
 set :stages, %w(production staging)
