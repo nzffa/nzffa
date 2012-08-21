@@ -3,7 +3,7 @@ require 'whenever/capistrano'
 require 'capistrano/ext/multistage'
 
 default_run_options[:pty] = true
-ssh_options[:forward_agent] = false
+ssh_options[:forward_agent] = true
 set :use_sudo, false
 
 set :stages, %w(production staging)

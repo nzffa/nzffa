@@ -58,15 +58,17 @@ class AdvertsController < MarketplaceController
     end
   end
 
+  # this method is ugly because life is ugly
+  # in short: the nice way to write this works fine in dev but fails 
+  # mysteriously in production... 
   def create
     reader_attrs = params[:advert].delete(:reader_attributes)
-    @advert = current_reader.adverts.new params[:advert]
+    @advert = Advert.new params[:advert]
+    @advert.reader = current_reader
+
     if @advert.is_company_listing?
       #update reader attributes
       reader_result = current_reader.update_attributes(reader_attrs)
-
-      #update create advert
-      @advert = current_reader.adverts.new params[:advert]
 
       #save and respond
       if reader_result && @advert.save
@@ -76,7 +78,7 @@ class AdvertsController < MarketplaceController
         render :action => 'edit_company_listing'
       end
     else
-      @advert = current_reader.adverts.new params[:advert]
+
       @advert.expires_on = 1.month.from_now
       if @advert.save
         flash[:notice] = 'Advert was successfully created.'
@@ -161,3 +163,4 @@ class AdvertsController < MarketplaceController
 
 
 end
+
