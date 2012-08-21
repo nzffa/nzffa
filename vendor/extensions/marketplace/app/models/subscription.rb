@@ -9,17 +9,15 @@ class Subscription < ActiveRecord::Base
   validates_inclusion_of :ha_of_planted_trees, 
     :in => NzffaSettings.forest_size_levys.keys
 
-  def after_initialize
-    if new_record?
-      self.expires_on = case duration
-                        when 'full_year'
-                          Date.new(Date.today.year, 12, 31)
-                        when 'remainder_of_year_plus_next_year'
-                          Date.new(Date.today.year + 1, 12, 31)
-                        else
-                          # default to end of year
-                          Date.new(Date.today.year, 12, 31)
-                        end
+  def quote_expires_on
+    case duration
+    when 'full_year'
+      Date.new(Date.today.year, 12, 31)
+    when 'remainder_of_year_plus_next_year'
+      Date.new(Date.today.year + 1, 12, 31)
+    else
+      # default to end of year
+      Date.new(Date.today.year, 12, 31)
     end
   end
 
@@ -49,7 +47,7 @@ class Subscription < ActiveRecord::Base
     self.branches << self.main_branch
   end
 
-  def yearly_fee
+  def quote_yearly_fee
     (cost_of(:admin_levy) + 
      cost_of(:ha_of_planted_trees) +
      cost_of(:branches) +
@@ -57,15 +55,32 @@ class Subscription < ActiveRecord::Base
      cost_of(:tree_grower_magazine)).to_i
   end
 
-  def total_fee
+  def quote_total_fee
     case duration
     when 'full_year' 
-      yearly_fee
+      quote_yearly_fee
     when 'remainder_of_year_plus_next_year'
-      yearly_fee + (yearly_fee * remainder_of_current_year_in_quarters)
-      'remainder'
+      quote_yearly_fee + (quote_yearly_fee * self.class.quarters_remaining)
     else
       'no duration'
+    end
+  end
+
+  def self.quarters_remaining
+    day = Date.today.strftime('%m%d').to_i
+    
+    if (day >= 101) and (day < 215)
+      1
+    elsif (day >= 215) and (day < 515)
+      0.75
+    elsif (day >= 515) and (day < 815)
+      0.5
+    elsif (day >= 815) and (day < 1115)
+      0.25
+    elsif (day >= 1115) and (day < 1232)
+      0
+    else
+      raise 'today\'s date is not possible'
     end
   end
 

@@ -79,7 +79,6 @@ Given /^I signup with 0-10ha, main branch North Otago, and join FFT$/ do
   end
   select 'North Otago', :from => 'subscription_main_branch_name'
   check 'subscription_belong_to_fft'
-  save_and_open_page
 end
 
 #When /^I select "([^"]*)"$/ do |arg1|

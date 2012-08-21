@@ -1,5 +1,7 @@
 class SubscriptionsController < SiteController
   #radiant_layout "ffm_specialty_timbers"
+  include ActionView::Helpers::NumberHelper
+
   def new
     @subscription = Subscription.new(params[:subscription])
     case @subscription[:membership_type]
@@ -12,7 +14,7 @@ class SubscriptionsController < SiteController
 
   def quote
     subscription = Subscription.new(params[:subscription])
-    render :json => {:total_fee => "$#{subscription.total_fee}", 
-                     :expires_on => subscription.expires_on.strftime('%e %B %Y')}
+    render :json => {:total_fee => "#{number_to_currency(subscription.quote_total_fee)}", 
+                     :expires_on => subscription.quote_expires_on.strftime('%e %B %Y')}
   end
 end

@@ -30,7 +30,7 @@ Feature: Subscriptions
     And select "South Canterbury" from "subscription_associated_branch_names"
     And check "List my business in the FFT Marketplace" 
     And choose "Full year"
-    Then I should see "Subscription Fee: $117 + GST"
+    Then I should see "Subscription Fee: $117.00 + GST"
     And press "Proceed to payment"
 
   @javascript
@@ -44,11 +44,10 @@ Feature: Subscriptions
     And select "South Canterbury" from "subscription_main_branch_name"
     And select "North Otago" from "subscription_associated_branch_names"
     And choose "Full year"
-    Then I should see "Subscription Fee: $153 + GST"
+    Then I should see "Subscription Fee: $153.00 + GST"
     And I should see "Expires on: 31 December 2012"
     And press "Proceed to payment"
 
-  @wip
   @javascript
   Scenario: user signs up for remaining quarter of the year, and next year
     Given the date is "1st november 2011"
@@ -59,16 +58,22 @@ Feature: Subscriptions
     #Then I should be charged 1 and a quarter amount (turn literal)
     #And I should be added to north otago, fft, and admin levy groups
 
-  #Scenario: user signs up for remaining half of the year, and next year
-    #Given the date is "1st may 2012"
-    #And I signup for a pretty normal looking membership and stop without setting a duration
-    #When I select "Remainder of year plus next year"
-    #Then I should see "Subscription Fee: $next years amount"
-    #And I should see "Expires on: 31 December 2013"
+  @javascript
+  Scenario: user signs up for remaining half of the year, and next year
+    Given the date is "1st june 2012"
+    And I signup with 0-10ha, main branch North Otago, and join FFT
+    When I choose "Remainder of year plus next year"
+    Then I should see "Subscription Fee: $163.50"
+    And I should see "Expires on: 31 December 2013"
 
-  #Scenario: user signs up for remaining tree quarters of the year, and next year
-    #Given the date is "1st april 2012"
-    #And I signup for a pretty normal looking membership and stop without setting a duration
-    #When I select "Remainder of year plus next year"
-    #Then I should see "Subscription Fee: $next years amount"
-    #And I should see "Expires on: 31 December 2013"
+  @javascript
+  Scenario: user signs up for remaining three quarters of the year and next year
+    Given the date is "1st march 2013"
+    And I signup with 0-10ha, main branch North Otago, and join FFT
+    When I choose "Remainder of year plus next year"
+    Then I should see "Subscription Fee: $190.75"
+    And I should see "Expires on: 31 December 2014"
+
+  # dont show full year option if 0 remaining quarters
+  # make sure year numbers are correct in hint text on duration
+  #

@@ -36,18 +36,28 @@ describe Subscription do
       subject.valid?
       subject.should have(0).errors_on(:duration)
     end
-
-    it 'can be the remaining quarters of the year plus next year' do
-      pending 'this is complicated'
-      options = ['year', 'year_and_quarter', 'year_and_half', 'year_and_three_quarters']
-      options.each do |option|
-        subject.duration = 'year'
-        subject.valid?
-        subject.should have(0).errors_on(:duration)
+   
+    describe 'calculating remaining amount of year to the nearest quarter' do
+      #February, May, August and November
+      #
+      it 'gives expected values' do
+        expectations = {'2012-01-01' => 1,
+                        '2012-02-14' => 1,
+                        '2012-02-15' => 0.75,
+                        '2012-05-14' => 0.75,
+                        '2012-05-15' => 0.5,
+                        '2012-08-14' => 0.5,
+                        '2012-08-15' => 0.25,
+                        '2012-11-14' => 0.25,
+                        '2012-11-15' => 0,
+                        '2012-12-21' => 0}
+        expectations.each_pair do |date, value|
+          Timecop.travel(date)
+          Subscription.quarters_remaining.should == value
+        end
+        Timecop.return
       end
-    end
-
-    it 'gives expires_on correctly '
+    end 
   end
 
   context 'calculates the fees associated with' do
@@ -57,11 +67,11 @@ describe Subscription do
     end
 
     subject do
-      Subscription.create(:membership_type => 'full',
-                          :ha_of_planted_trees => '11 - 40',
-                          :main_branch_name => 'North Otago',
-                          :associated_branch_names => ['Waikato'],
-                          :duration => 'full')
+      Subscription.new(:membership_type => 'full',
+                       :ha_of_planted_trees => '11 - 40',
+                       :main_branch_name => 'North Otago',
+                       :associated_branch_names => ['Waikato'],
+                       :duration => 'full_year')
     end
 
     it 'admin levy' do
@@ -81,9 +91,12 @@ describe Subscription do
     end
 
     it 'gives yearly fee' do
-      subject.yearly_fee.should == 170
+      subject.quote_yearly_fee.should == 170
     end
 
+    it 'gives total fee' do
+      subject.quote_total_fee.should == 170
+    end
 
   end
 
