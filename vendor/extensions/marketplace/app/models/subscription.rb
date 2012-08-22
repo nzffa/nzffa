@@ -48,11 +48,27 @@ class Subscription < ActiveRecord::Base
   end
 
   def quote_yearly_fee
-    (cost_of(:admin_levy) + 
-     cost_of(:ha_of_planted_trees) +
-     cost_of(:branches) +
-     cost_of(:fft) +
-     cost_of(:tree_grower_magazine)).to_i
+    case membership_type
+    when 'nzffa'
+      (cost_of(:admin_levy) + 
+       cost_of(:ha_of_planted_trees) +
+       cost_of(:branches) +
+       cost_of(:fft) +
+       cost_of(:tree_grower_magazine)).to_i
+    when 'fft_only'
+      NzffaSettings.fft_marketplace_membership_only
+    when 'tree_grower_only'
+      case tree_grower_delivery_location
+      when 'new_zealand'
+        NzffaSettings.tree_grower_magazine_within_new_zealand
+      when 'australia'
+        NzffaSettings.tree_grower_magazine_within_australia
+      when 'everywhere_else'
+        NzffaSettings.tree_grower_magazine_everywhere_else
+      end
+    else
+      raise 'invalid membership type'
+    end
   end
 
   def quote_total_fee

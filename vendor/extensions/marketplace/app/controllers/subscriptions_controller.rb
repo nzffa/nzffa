@@ -5,8 +5,12 @@ class SubscriptionsController < SiteController
   def new
     @subscription = Subscription.new(params[:subscription])
     case @subscription[:membership_type]
-    when 'full'
-      render :branch_membership_form
+    when 'nzffa'
+      render :nzffa_form
+    when 'fft_only'
+      render :fft_only_form
+    when 'tree_grower_only'
+      render :tree_grower_only_form
     else
       render :new
     end

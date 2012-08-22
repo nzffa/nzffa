@@ -64,6 +64,7 @@ describe Subscription do
     before do
       Branch.create!(:name => 'North Otago', :annual_levy => 20)
       Branch.create!(:name => 'Waikato', :annual_levy => 15)
+      subject.membership_type = 'nzffa'
     end
 
     subject do
@@ -100,17 +101,31 @@ describe Subscription do
 
   end
 
+  describe 'gives yearly fee' do
+    describe 'for nzffa membership' do
+    end
+    describe 'for fft only membership' do
+      it 'yearly fee is correct' do
+        subject.membership_type = 'fft_only'
+        subject.quote_yearly_fee.should == 50
+      end
+
+    end
+
+  end
+
+
   context 'calculates the expiry date' do
     it 'when duration is full' do
       end_of_year = Date.new(Date.today.year, 12, 31)
       sub = Subscription.new(:duration => 'full_year')
-      sub.expires_on.should == end_of_year
+      sub.quote_expires_on.should == end_of_year
     end
 
     it 'when term is remainder of year plus next' do
       end_of_next_year = Date.new(Date.today.year + 1, 12, 31)
       sub = Subscription.new(:duration => 'remainder_of_year_plus_next_year')
-      sub.expires_on.should == end_of_next_year
+      sub.quote_expires_on.should == end_of_next_year
     end
   end
 end

@@ -81,6 +81,33 @@ Given /^I signup with 0-10ha, main branch North Otago, and join FFT$/ do
   check 'subscription_belong_to_fft'
 end
 
+Then /^the Subscription Fee should be "([^"]*)"$/ do |arg1|
+  find('#total_fee').should have_content arg1
+end
+
+Then /^the expiry date should be "([^"]*)"$/ do |arg1|
+  find('#expires_on').should have_content Date.parse(arg1).strftime('%e %B %Y')
+end
+
 #When /^I select "([^"]*)"$/ do |arg1|
   #pending # express the regexp above with the code you wish you had
 #end
+#
+Given /^FFT Marketplace membership only is \$(\d+)\/year$/ do |arg1|
+  NzffaSettings.fft_marketplace_membership_only = 50
+end
+
+Given /^Tree Grower Magazine "([^"]*)" is \$(\d+) \/ year$/ do |arg1, arg2|
+  case arg1
+  when 'Within New Zealand'
+    NzffaSettings.tree_grower_magazine_within_new_zealand = arg2
+  when 'Within Australia'
+    NzffaSettings.tree_grower_magazine_within_australia = arg2
+  when 'Everywhere else'
+    NzffaSettings.tree_grower_magazine_everywhere_else = arg2
+  end
+end
+
+Given /^have a look$/ do
+  save_and_open_page
+end

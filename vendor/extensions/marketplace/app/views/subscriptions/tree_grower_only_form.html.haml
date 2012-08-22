@@ -1,0 +1,40 @@
+%h1 NZ Tree Grower Magazine
+
+-form_for(@subscription) do |f|
+  =f.hidden_field :membership_type
+
+  %p Your location
+  #tree_grower_delivery_location
+    =f.radio_button :tree_grower_delivery_location, 'new_zealand'
+    =f.label :tree_grower_delivery_location_new_zealand, 'New Zealand'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'australia'
+    =f.label :tree_grower_delivery_location_australia, 'Australia'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'everywhere_else'
+    =f.label :tree_grower_delivery_location_everywhere_else, 'Everywhere else'
+
+  %p Subscription Term
+  #subscription_term
+    =f.radio_button :duration, 'full_year'
+    =f.label :duration_full_year, 'Full year'
+    %br
+    (Subscription will expire at the end of this year. You will receive any back issues of Treegrower Magazine.)
+    %br
+    =f.radio_button :duration, 'remainder_of_year_plus_next_year'
+    =f.label :duration_remainder_of_year_plus_next_year, 'Remainder of year plus next year'
+    %br
+    (Subscription will expire at the end of next year. You will not get back issues of Treegrower Magazine.)
+
+  %p 
+    Subscription Fee: 
+    %span#total_fee Undefined
+    + GST
+
+  %p 
+    Expires on: 
+    %span#expires_on Undefined
+
+  =f.submit 'Proceed to payment'
+
+= render :partial => 'quote_js'
