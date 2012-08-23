@@ -21,4 +21,10 @@ class SubscriptionsController < SiteController
     render :json => {:total_fee => "#{number_to_currency(subscription.quote_total_fee)}", 
                      :expires_on => subscription.quote_expires_on.strftime('%e %B %Y')}
   end
+
+  def create
+    @subscription = Subscription.create(params[:subscription])
+    @order = Order.create
+    redirect_to make_payment_order_path(@order)
+  end
 end

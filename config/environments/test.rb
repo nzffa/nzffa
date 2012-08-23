@@ -30,3 +30,7 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
+PxPayParty.setup({:success_url => 'http://good.com',
+                  :fail_url => 'http://bad.com',
+                  :px_pay_user_id => 'NZFFA_dev',
+                  :px_pay_key => '0edb744f3d87e729ae22dc66dcdd7db8bc52ac5dbcb6ca613ef99d457481ad35'})

@@ -4,10 +4,15 @@ class Subscription < ActiveRecord::Base
   has_many :subscriptions_branches
   has_many :branches, :through => :subscriptions_branches
   belongs_to :main_branch, :class_name => 'Branch'
+  validates_inclusion_of :membership_type, :in => ['nzffa', 'fft_only', 'tree_grower_only']
   validates_presence_of :expires_on
 
   validates_inclusion_of :ha_of_planted_trees, 
-    :in => NzffaSettings.forest_size_levys.keys
+    :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "nzffa"'
+
+  def before_validation
+    self.expires_on = quote_expires_on
+  end
 
   def quote_expires_on
     case duration
