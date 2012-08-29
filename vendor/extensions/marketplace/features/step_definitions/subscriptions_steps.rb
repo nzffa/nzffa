@@ -5,7 +5,7 @@ Given /^I am a registered, logged in reader$/ do
                           :surname => 'david',
                           :password => 'password',
                           :password_confirmation => 'password',
-                          :activated_at => DateTime.now)
+                          :activated_at => nil)
   visit '/account/login'
   fill_in 'Nickname or email address', :with => 'test@example.org'
   fill_in 'Password', :with => 'password'

@@ -49,7 +49,9 @@ ActionController::Base.allow_rescue = false
 Cucumber::Rails::World.use_transactional_fixtures = true
 # How to clean your database when transactions are turned off. See
 # http://github.com/bmabey/database_cleaner for more info.
-Capybara.javascript_driver = :webkit
+#
+Capybara.default_driver = :webkit
+Capybara.javascript_driver = :selenium
 
 #Capybara.register_driver :chrome do |app|
   #Capybara::Selenium::Driver.new(app, :browser => :chrome)

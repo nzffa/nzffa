@@ -9,3 +9,7 @@ Before('reader_logged_in') do
   fill_in 'reader_session_password', :with => 'jim@example.org'
   click_on 'Log in'
 end
+
+Before('javascript_selenium') do
+  Capybara.javascript_driver = :selenium
+end

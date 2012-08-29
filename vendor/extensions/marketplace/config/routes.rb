@@ -13,7 +13,9 @@ ActionController::Routing::Routes.draw do |map|
       :email => [:get]
     }
 
-  map.resources :orders, :only => [], :member => { :make_payment => :get }
+  map.resources :orders, :only => [], 
+    :member => { :make_payment => :get}, 
+    :collection => { :payment_finished => :get }
 
   map.reader_dashboard '/membership/dashboard', :controller => :membership, :action => :dashboard
   map.register '/membership/register', :controller => :membership, :action => :register

@@ -20,8 +20,3 @@ ActionMailer::Base.perform_deliveries = false
 config.action_mailer.raise_delivery_errors = false
 ActionMailer::Base.default_charset = "iso-8859-1"
 ActionMailer::Base.default_url_options[:host] = "localhost:3000"
-
-PxPayParty.setup({:success_url => 'http://good.com',
-                  :fail_url => 'http://bad.com',
-                  :px_pay_user_id => 'NZFFA_dev',
-                  :px_pay_key => '0edb744f3d87e729ae22dc66dcdd7db8bc52ac5dbcb6ca613ef99d457481ad35'})

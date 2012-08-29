@@ -1,4 +1,5 @@
 class AdvertsController < MarketplaceController
+  radiant_layout "ffm_specialty_timbers"
 
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
   before_filter :load_advert, :only => [:edit, :update, :destroy, :renew, :email]

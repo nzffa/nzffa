@@ -1,5 +1,6 @@
-class SubscriptionsController < SiteController
+class SubscriptionsController < MarketplaceController
   #radiant_layout "ffm_specialty_timbers"
+  before_filter :require_current_reader
   include ActionView::Helpers::NumberHelper
 
   def new
@@ -23,8 +24,16 @@ class SubscriptionsController < SiteController
   end
 
   def create
-    @subscription = Subscription.create(params[:subscription])
-    @order = Order.create
-    redirect_to make_payment_order_path(@order)
+    @subscription = Subscription.new(params[:subscription])
+    @subscription.reader = current_reader
+    if @subscription.valid?
+      @subscription.save!
+      @order = Order.create!(:amount => @subscription.quote_total_fee,
+                            :subscription => @subscription,
+                            :reader => current_reader)
+      redirect_to make_payment_order_path(@order)
+    else
+      new
+    end
   end
 end

@@ -12,12 +12,11 @@ Feature: User creates NZFFA Membership
     And there is a branch "South Canterbury" for $8
     And Farm Foresty Timbers Marketplace membership is $15
     And tree grower magazine subscription costs $50 per year for members
+    And I am a registered, logged in reader
     When I visit new subscription
     And select an NZFFA Membership
     And click Next
 
-  @reader_logged_in
-  @javascript
   Scenario: user creates a yearly subscription config 1
     Then choose "0 - 10ha"
     And select "North Otago" from "subscription_main_branch_name"
@@ -27,7 +26,6 @@ Feature: User creates NZFFA Membership
     Then I should see "Subscription Fee: $117.00 + GST"
     And press "Proceed to payment"
 
-  @javascript
   Scenario: user configures a yearly subscription config 2
     Then choose "11 - 40ha"
     And select "South Canterbury" from "subscription_main_branch_name"
@@ -53,7 +51,6 @@ Feature: User creates NZFFA Membership
       #| 11 - 40ha | North Otago | South Canterbury  | yes      | 168   |
 
 
-  @javascript
   Scenario Outline: user signs up on different dates and gets different
     fees and expiry dates when using 'Remainder of year plus next year'
 

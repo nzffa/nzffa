@@ -9,7 +9,6 @@ class MarketplaceController < SiteController
   NEWSLETTER_GROUP_ID = 230
   FFT_GROUP_ID = 229
   ADMIN_GROUP_ID = 100
-  radiant_layout "ffm_specialty_timbers"
 
   protected
   def require_current_reader

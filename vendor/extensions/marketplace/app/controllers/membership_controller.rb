@@ -1,4 +1,5 @@
 class MembershipController < MarketplaceController
+  radiant_layout "ffm_specialty_timbers"
 
   def dashboard
     # if they are an FFT member take them to 

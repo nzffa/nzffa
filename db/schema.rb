@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823033124) do
+ActiveRecord::Schema.define(:version => 20120829025158) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20120823033124) do
   create_table "branches", :force => true do |t|
     t.string  "name"
     t.decimal "annual_levy", :precision => 8, :scale => 2
+    t.integer "group_id"
   end
 
   create_table "config", :force => true do |t|
@@ -131,8 +132,12 @@ ActiveRecord::Schema.define(:version => 20120823033124) do
   end
 
   create_table "orders", :force => true do |t|
-    t.decimal "amount", :precision => 10, :scale => 2
+    t.decimal "amount",          :precision => 10, :scale => 2
+    t.date    "paid_on"
+    t.integer "subscription_id"
   end
+
+  add_index "orders", ["subscription_id"], :name => "index_orders_on_subscription_id"
 
   create_table "page_attachments", :force => true do |t|
     t.integer "asset_id"

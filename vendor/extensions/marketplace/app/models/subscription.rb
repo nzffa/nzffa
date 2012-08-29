@@ -1,11 +1,14 @@
 class Subscription < ActiveRecord::Base
   FFT_BRANCH_NAME = 'Farm Forestry Timbers'
 
+  has_one :order
+  belongs_to :reader
   has_many :subscriptions_branches
   has_many :branches, :through => :subscriptions_branches
   belongs_to :main_branch, :class_name => 'Branch'
   validates_inclusion_of :membership_type, :in => ['nzffa', 'fft_only', 'tree_grower_only']
   validates_presence_of :expires_on
+  validates_presence_of :reader
 
   validates_inclusion_of :ha_of_planted_trees, 
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "nzffa"'

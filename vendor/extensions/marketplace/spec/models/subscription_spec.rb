@@ -128,4 +128,5 @@ describe Subscription do
       sub.quote_expires_on.should == end_of_next_year
     end
   end
+
 end

@@ -28,4 +28,5 @@ branches_and_levys = [['Far North',            10],
 branches_and_levys.each do |bnl|
   branch = Branch.find_or_create_by_name(bnl[0])
   branch.update_attribute(:annual_levy, bnl[1])
+  branch.update_attribute(:group_id, Group.find_or_create_by_name(bnl[0]).id)
 end

@@ -51,6 +51,8 @@ end
 
 # If you're running tests or specs
 group :test, :cucumber, :development do
+  #gem 'vcr'
+  #gem 'webmock'
   gem 'rspec-rails', '1.3.4'
   gem 'rspec', '1.3.2'
   gem "capybara", "1.1.1"

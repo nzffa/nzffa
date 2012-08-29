@@ -8,6 +8,8 @@ class NzffaSettings
     attr_accessor :tree_grower_magazine_within_new_zealand
     attr_accessor :tree_grower_magazine_within_australia
     attr_accessor :tree_grower_magazine_everywhere_else
+    attr_accessor :fft_group_id
+    attr_accessor :tree_grower_nz_group_id
   end
   @admin_levy = 34
   @forest_size_levys = {'0 - 10'  => 0, 
@@ -19,4 +21,6 @@ class NzffaSettings
   @tree_grower_magazine_within_new_zealand = 40
   @tree_grower_magazine_within_australia = 50
   @tree_grower_magazine_everywhere_else = 60
+  @fft_group_id = 229
+  @tree_grower_nz_group_id = 80
 end
