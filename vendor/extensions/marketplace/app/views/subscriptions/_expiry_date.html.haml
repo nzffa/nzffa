@@ -1,0 +1,7 @@
+%p 
+  Expires on: 
+  %span#expires_on
+    -if f.object.expires_on.present?
+      =l f.object.expires_on
+    -else
+      Please select a subscription term

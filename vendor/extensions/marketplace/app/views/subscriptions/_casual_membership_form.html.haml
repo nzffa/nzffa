@@ -1,0 +1,32 @@
+%h1 Casual Membership
+
+-form_for(@subscription) do |f|
+  =f.hidden_field :membership_type
+  =render :partial => 'fft_marketplace_choice', :locals => {:f => f}
+
+  %h2 NZ Tree Grower Magazine
+  %p This Quarterly publication will keep you informed on the latest goings on in the industry. Get it delivered. 
+  =f.check_box :receive_tree_grower_magazine
+  =f.label :receive_tree_grower_magazine, 'Subscribe to NZ Tree Grower Magazine'
+
+  %p Where will you have the magazine delivered to? 
+  #tree_grower_delivery_location
+    =f.radio_button :tree_grower_delivery_location, 'new_zealand'
+    =f.label :tree_grower_delivery_location_new_zealand, 'New Zealand'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'australia'
+    =f.label :tree_grower_delivery_location_australia, 'Australia'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'everywhere_else'
+    =f.label :tree_grower_delivery_location_everywhere_else, 'Everywhere else'
+
+  -if @subscription.new_record?
+    = render :partial => 'subscription_term_choices', :locals => {:f => f}
+
+  %p 
+    Subscription Fee: 
+    %span#total_fee Undefined
+    + GST
+
+  = render :partial => 'expiry_date', :locals => {:f => f}
+= render :partial => 'quote_js'

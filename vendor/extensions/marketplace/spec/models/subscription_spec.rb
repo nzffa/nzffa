@@ -64,7 +64,6 @@ describe Subscription do
     before do
       Branch.create!(:name => 'North Otago', :annual_levy => 20)
       Branch.create!(:name => 'Waikato', :annual_levy => 15)
-      subject.membership_type = 'nzffa'
     end
 
     subject do
@@ -100,20 +99,6 @@ describe Subscription do
     end
 
   end
-
-  describe 'gives yearly fee' do
-    describe 'for nzffa membership' do
-    end
-    describe 'for fft only membership' do
-      it 'yearly fee is correct' do
-        subject.membership_type = 'fft_only'
-        subject.quote_yearly_fee.should == 50
-      end
-
-    end
-
-  end
-
 
   context 'calculates the expiry date' do
     it 'when duration is full' do

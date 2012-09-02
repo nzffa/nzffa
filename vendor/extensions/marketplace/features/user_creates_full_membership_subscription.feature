@@ -14,9 +14,10 @@ Feature: User creates NZFFA Membership
     And tree grower magazine subscription costs $50 per year for members
     And I am a registered, logged in reader
     When I visit new subscription
-    And select an NZFFA Membership
+    And select a Full Membership
     And click Next
 
+  @javascript
   Scenario: user creates a yearly subscription config 1
     Then choose "0 - 10ha"
     And select "North Otago" from "subscription_main_branch_name"
@@ -26,6 +27,7 @@ Feature: User creates NZFFA Membership
     Then I should see "Subscription Fee: $117.00 + GST"
     And press "Proceed to payment"
 
+  @javascript
   Scenario: user configures a yearly subscription config 2
     Then choose "11 - 40ha"
     And select "South Canterbury" from "subscription_main_branch_name"
@@ -51,6 +53,7 @@ Feature: User creates NZFFA Membership
       #| 11 - 40ha | North Otago | South Canterbury  | yes      | 168   |
 
 
+  @javascript
   Scenario Outline: user signs up on different dates and gets different
     fees and expiry dates when using 'Remainder of year plus next year'
 
@@ -60,6 +63,7 @@ Feature: User creates NZFFA Membership
     Then the expiry date should be "<expires_on>"
     Then the Subscription Fee should be "<fee>"
 
+  @javascript
   Scenarios:
       | signup_on  | fee    | expires_on |
       | 2012-01-01 | 218.00 | 2013-12-31 |

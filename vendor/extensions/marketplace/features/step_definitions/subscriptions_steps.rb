@@ -1,11 +1,13 @@
 Given /^I am a registered, logged in reader$/ do
 
-  @reader = Reader.create(:email => 'test@example.org',
+  @reader = Reader.create!(:email => 'test@example.org',
                           :forename => 'jim',
                           :surname => 'david',
                           :password => 'password',
-                          :password_confirmation => 'password',
-                          :activated_at => nil)
+                          :password_confirmation => 'password')
+
+  @reader.update_attribute(:activated_at, '2010-01-01')
+
   visit '/account/login'
   fill_in 'Nickname or email address', :with => 'test@example.org'
   fill_in 'Password', :with => 'password'
@@ -39,8 +41,8 @@ When /^I visit new subscription$/ do
   visit new_subscription_path
 end
 
-When /^select an NZFFA Membership$/ do
-  choose 'NZFFA Membership'
+When /^select a Full Membership$/ do
+  choose 'subscription_membership_type_full'
 end
 
 When /^click Next$/ do
@@ -69,10 +71,13 @@ Given /^the date is "([^"]*)"$/ do |arg1|
   Timecop.travel(Date.parse(arg1))
 end
 
+When /^wait a bit$/ do
+  sleep 30
+end
     
 Given /^I signup with 0-10ha, main branch North Otago, and join FFT$/ do 
   visit new_subscription_path
-  choose 'NZFFA Membership'
+  choose 'subscription_membership_type_full'
   click_on 'Next'
   within '#ha_of_planted_trees' do
     choose '0 - 10ha'
@@ -99,12 +104,14 @@ end
 
 Given /^Tree Grower Magazine "([^"]*)" is \$(\d+) \/ year$/ do |arg1, arg2|
   case arg1
-  when 'Within New Zealand'
+  when 'New Zealand'
     NzffaSettings.tree_grower_magazine_within_new_zealand = arg2
-  when 'Within Australia'
+  when 'Australia'
     NzffaSettings.tree_grower_magazine_within_australia = arg2
   when 'Everywhere else'
     NzffaSettings.tree_grower_magazine_everywhere_else = arg2
+  else
+    raise 'incorrect area for tree grower subscription destination'
   end
 end
 

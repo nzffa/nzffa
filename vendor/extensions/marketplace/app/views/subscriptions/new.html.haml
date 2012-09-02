@@ -1,13 +1,12 @@
 %h1 New Subscription
 
--form_for(@subscription, :url => new_subscription_path, :html => {:method => :get}) do |f|
-  =f.radio_button :membership_type, 'nzffa'
-  =f.label :membership_type_nzffa, 'NZFFA Membership'
-  %br
-  =f.radio_button :membership_type, 'fft_only'
-  =f.label :membership_type_fft_only, 'FFT Marketplace Membership'
-  %br
-  =f.radio_button :membership_type, 'tree_grower_only'
-  =f.label :membership_type_tree_grower_only, 'Tree Grower Magazine'
-  %p
-    =f.submit 'Next'
+- case @subscription.membership_type
+- when 'casual'
+  =render 'casual_membership_form'
+- when 'full'
+  =render 'full_membership_form'
+- else
+  =render 'select_membership_type_form'
+
+
+

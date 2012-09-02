@@ -6,12 +6,14 @@ class Subscription < ActiveRecord::Base
   has_many :subscriptions_branches
   has_many :branches, :through => :subscriptions_branches
   belongs_to :main_branch, :class_name => 'Branch'
-  validates_inclusion_of :membership_type, :in => ['nzffa', 'fft_only', 'tree_grower_only']
+  validates_inclusion_of :membership_type, :in => ['full', 'casual']
+  validates_inclusion_of :duration, :in => ['full_year', 'remainder_of_year_plus_next_year']
+  validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else']
   validates_presence_of :expires_on
   validates_presence_of :reader
 
   validates_inclusion_of :ha_of_planted_trees, 
-    :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "nzffa"'
+    :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
 
   def before_validation
     self.expires_on = quote_expires_on
@@ -57,23 +59,30 @@ class Subscription < ActiveRecord::Base
 
   def quote_yearly_fee
     case membership_type
-    when 'nzffa'
+    when 'full'
       (cost_of(:admin_levy) + 
        cost_of(:ha_of_planted_trees) +
        cost_of(:branches) +
        cost_of(:fft) +
        cost_of(:tree_grower_magazine)).to_i
-    when 'fft_only'
-      NzffaSettings.fft_marketplace_membership_only
-    when 'tree_grower_only'
-      case tree_grower_delivery_location
-      when 'new_zealand'
-        NzffaSettings.tree_grower_magazine_within_new_zealand
-      when 'australia'
-        NzffaSettings.tree_grower_magazine_within_australia
-      when 'everywhere_else'
-        NzffaSettings.tree_grower_magazine_everywhere_else
+    when 'casual'
+      fee = 0 
+      if belong_to_fft?
+        fee += NzffaSettings.fft_marketplace_membership_only
       end
+      if receive_tree_grower_magazine?
+        fee += case tree_grower_delivery_location
+               when 'new_zealand'
+                 NzffaSettings.tree_grower_magazine_within_new_zealand
+               when 'australia'
+                 NzffaSettings.tree_grower_magazine_within_australia
+               when 'everywhere_else'
+                 NzffaSettings.tree_grower_magazine_everywhere_else
+               else
+                 NzffaSettings.tree_grower_magazine_within_new_zealand
+               end
+      end
+      fee
     else
       raise 'invalid membership type'
     end
@@ -86,7 +95,7 @@ class Subscription < ActiveRecord::Base
     when 'remainder_of_year_plus_next_year'
       quote_yearly_fee + (quote_yearly_fee * self.class.quarters_remaining)
     else
-      'no duration'
+      "no duration #{duration}"
     end
   end
 
