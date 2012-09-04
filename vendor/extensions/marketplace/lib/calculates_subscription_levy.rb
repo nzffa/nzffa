@@ -41,7 +41,7 @@ class CalculatesSubscriptionLevy
   def self.casual_membership_levy(subscription)
     levy = 0
     if subscription.belong_to_fft?
-      levy += NzffaSettings.casual_membership_fft_marketplace_levy
+      levy += NzffaSettings.casual_member_fft_marketplace_levy
     end
     if subscription.receive_tree_grower_magazine?
       levy += case subscription.tree_grower_delivery_location

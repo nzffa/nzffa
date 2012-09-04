@@ -7,8 +7,7 @@ class Subscription < ActiveRecord::Base
   has_many :branches, :through => :subscriptions_branches
   belongs_to :main_branch, :class_name => 'Branch'
   validates_inclusion_of :membership_type, :in => ['full', 'casual']
-  validates_inclusion_of :duration, :in => ['full_year', 'remainder_of_year_plus_next_year']
-  validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else']
+  validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
   validates_presence_of :expires_on, :begins_on
   validates_presence_of :reader
 
@@ -16,35 +15,8 @@ class Subscription < ActiveRecord::Base
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
 
   def after_initialize
-    self.duration ||= 'full_year'
-    #self.begins_on ||= Date.new(Date.today.year, 1,1)
-    #self.expires_on ||= quote_expires_on
-  end
-
-  def before_validation
-    self.begins_on = quote_begins_on
-    self.expires_on = quote_expires_on
-  end
-
-  def quote_expires_on
-    case duration
-    when 'full_year'
-      Date.new(Date.today.year, 12, 31)
-    when 'remainder_of_year_plus_next_year'
-      Date.new(Date.today.year + 1, 12, 31)
-    else
-      # default to end of year
-      Date.new(Date.today.year, 12, 31)
-    end
-  end
-
-  def quote_begins_on
-    case duration
-    when 'remainder_of_year_plus_next_year'
-      Date.today
-    else
-      Date.new(Date.today.year, 1, 1)
-    end
+    self.begins_on ||= Date.today
+    self.expires_on ||= Date.new(Date.today.year, 12, 31)
   end
 
   def associated_branch_names
@@ -72,6 +44,4 @@ class Subscription < ActiveRecord::Base
     self.main_branch = Branch.find_by_name(name)
     self.branches << self.main_branch
   end
-
-
 end

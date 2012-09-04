@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903010755) do
+ActiveRecord::Schema.define(:version => 20120904011212) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
@@ -327,7 +327,6 @@ ActiveRecord::Schema.define(:version => 20120903010755) do
     t.datetime "updated_at"
     t.string   "ha_of_planted_trees"
     t.string   "term"
-    t.string   "duration"
     t.integer  "main_branch_id"
     t.boolean  "belong_to_fft",                 :default => false, :null => false
     t.date     "expires_on"

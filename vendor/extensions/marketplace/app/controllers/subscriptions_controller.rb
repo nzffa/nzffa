@@ -11,8 +11,8 @@ class SubscriptionsController < MarketplaceController
     subscription = Subscription.new(params[:subscription])
     levy = CalculatesSubscriptionLevy.levy_for(subscription)
     render :json => {:total_fee => "#{number_to_currency(levy)}", 
-                     :expires_on => subscription.quote_expires_on.strftime('%e %B %Y').strip,
-                     :begins_on => subscription.quote_begins_on.strftime('%e %B %Y').strip}
+                     :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
+                     :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end
 
   def create

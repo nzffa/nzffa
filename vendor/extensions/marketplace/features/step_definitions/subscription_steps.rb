@@ -53,6 +53,33 @@ Given /^there is a branch "([^"]*)" for \$(\d+)$/ do |name, annual_levy|
   Branch.create(:name => name, :annual_levy => annual_levy)
 end
 
+Given /^there is a Tree Grower Magazine group$/ do
+  @tree_grower_magazine_group = Group.create!(:name => 'Tree Grower Magazine')
+  NzffaSettings.tree_grower_magazine_group_id = @tree_grower_magazine_group.id
+end
+
+Given /^there is a FFT Marketplace group$/ do
+  @fft_marketplace_group = Group.create!(:name => 'Farm Forestry Timbers')
+  NzffaSettings.fft_marketplace_group_id = @fft_marketplace_group.id
+end
+
+Given /^there is a Full Membership group$/ do
+  @full_membership_group = Group.create!(:name => 'Full Membership')
+  NzffaSettings.full_membership_group_id = @full_membership_group.id
+end
+
+Then /^I should belong to the Tree Grower Magazine group$/ do
+  @reader.groups.should include @tree_grower_magazine_group
+end
+
+Then /^I should belong to the FFT Marketplace group$/ do
+  @reader.groups.should include @fft_marketplace_group
+end
+
+Then /^I should belong to the Full Membership group$/ do
+  @reader.groups.should include @full_membership_group
+end
+
 When /^I visit new subscription$/ do
   visit new_subscription_path
 end
@@ -108,11 +135,12 @@ Given /^there is a FFT group to identify FFT advertisers$/ do
 end
 
 Given /^I have configured an FFT subscription$/ do
-  NzffaSettings.fft_marketplace_membership_only = 50
+  NzffaSettings.casual_member_fft_marketplace_levy = 50
   visit new_subscription_path
-  choose 'FFT Marketplace Membership'
+  choose 'Casual Membership'
   click_on 'Next'
-  choose 'Full year'
+  check 'subscription_belong_to_fft'
+  choose 'End of this year'
 end
 
 When /^I click 'Proceed to payment'$/ do

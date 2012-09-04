@@ -10,7 +10,7 @@ describe CalculatesSubscriptionLevy do
 
   describe 'levy for non year duration' do
     it 'gives 1.5 times levy for 1.5 times duration' do
-      NzffaSettings.casual_membership_fft_marketplace_levy = 50
+      NzffaSettings.casual_member_fft_marketplace_levy = 50
       subscription = stub(:membership_type => 'casual',
                           :belong_to_fft? => true,
                           :receive_tree_grower_magazine? => false,
@@ -73,8 +73,8 @@ describe CalculatesSubscriptionLevy do
 
   describe 'for a full year' do
     let(:branches) {
-      b1 = stub(:branch_1,  { :admin_levy => 5 })
-      b2 = stub(:branch_2,  { :admin_levy => 10 })
+      b1 = stub(:branch_1,  { :annual_levy => 5 })
+      b2 = stub(:branch_2,  { :annual_levy => 10 })
       [b1, b2]
     }
     let(:subscription) {
@@ -93,7 +93,7 @@ describe CalculatesSubscriptionLevy do
       end
 
       it 'gives levy for fft marketplace membership' do
-        NzffaSettings.casual_membership_fft_marketplace_levy = 50
+        NzffaSettings.casual_member_fft_marketplace_levy = 50
         subscription.should_receive(:belong_to_fft?).and_return(true)
         CalculatesSubscriptionLevy.yearly_levy_for(subscription).should == 50
       end

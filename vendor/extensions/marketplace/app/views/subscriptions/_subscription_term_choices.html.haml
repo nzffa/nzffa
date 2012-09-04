@@ -1,11 +1,9 @@
-%p Subscription Term
+%p Subscription Length
 #subscription_term
-  =f.radio_button :duration, 'full_year'
-  =f.label :duration_full_year, 'Full year'
+  -end_of_this_year = Date.new(Date.today.year, 12, 31).to_s
+  -end_of_next_year = Date.new(Date.today.year+1, 12, 31).to_s
+  =f.radio_button :expires_on, end_of_this_year
+  =f.label "expires_on_#{end_of_this_year.gsub('-','')}", 'End of this year'
   %br
-  (Subscription will expire at the end of this year. You will receive any back issues of Treegrower Magazine.)
-  %br
-  =f.radio_button :duration, 'remainder_of_year_plus_next_year'
-  =f.label :duration_remainder_of_year_plus_next_year, 'Remainder of year plus next year'
-  %br
-  (Subscription will expire at the end of next year. You will not get back issues of Treegrower Magazine.)
+  =f.radio_button :expires_on, end_of_next_year
+  =f.label "expires_on_#{end_of_next_year.gsub('-','')}", 'End of next year'

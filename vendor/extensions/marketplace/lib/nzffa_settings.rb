@@ -8,8 +8,9 @@ class NzffaSettings
     attr_accessor :tree_grower_magazine_within_new_zealand
     attr_accessor :tree_grower_magazine_within_australia
     attr_accessor :tree_grower_magazine_everywhere_else
-    attr_accessor :fft_group_id
-    attr_accessor :tree_grower_nz_group_id
+    attr_accessor :fft_marketplace_group_id
+    attr_accessor :tree_grower_magazine_group_id
+    attr_accessor :full_membership_group_id
   end
   @admin_levy = 34
   @forest_size_levys = {'0 - 10'  => 0, 
@@ -22,6 +23,8 @@ class NzffaSettings
 
   @full_member_fft_marketplace_levy = 15
   @casual_member_fft_marketplace_levy = 50
-  @fft_group_id = 229
-  @tree_grower_nz_group_id = 80
+
+  @fft_marketplace_group_id = 229
+  @tree_grower_magazine_group_id = 80
+  @full_membership_group_id = nil
 end

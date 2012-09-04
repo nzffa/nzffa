@@ -1,20 +1,23 @@
 class AppliesSubscriptionGroups
   def self.apply(subscription, reader)
+    if subscription.belong_to_fft?
+      reader.groups << Group.find(NzffaSettings.fft_marketplace_group_id)
+    end
+
     case subscription.membership_type
-    when 'nzffa'
-      if subscription.belong_to_fft
-        reader.groups << Group.find(NzffaSettings.fft_group_id)
-      end
-      reader.groups << Group.find(NzffaSettings.tree_grower_nz_group_id)
+    when 'full'
+      reader.groups << Group.find(NzffaSettings.full_membership_group_id)
+      reader.groups << Group.find(NzffaSettings.tree_grower_magazine_group_id)
 
       subscription.branches.each do |branch|
-        #branches are not groups...
         reader.groups << branch.group
       end
-    when 'fft_only'
-      reader.groups << Group.find(NzffaSettings.fft_group_id)
-    when 'tree_grower_only'
-      reader.groups << Group.find(NzffaSettings.tree_grower_nz_group_id)
+    when 'casual'
+      if subscription.receive_tree_grower_magazine?
+        reader.groups << Group.find(NzffaSettings.tree_grower_magazine_group_id)
+      end
+    else
+      raise "unrecognised membership type #{subscription.membership_type}"
     end
   end
 end

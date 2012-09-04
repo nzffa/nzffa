@@ -1,4 +1,4 @@
-Feature: User creates NZFFA Membership
+Feature: User creates full NZFFA Membership
   NZFFA Membership means you belong to a NZFFA Branch.
 
   The price of a subscription depends on what membership choices the reader has made
@@ -12,6 +12,9 @@ Feature: User creates NZFFA Membership
     And there is a branch "South Canterbury" for $8
     And FFT Marketplace membership is $15 for full members
     And Tree Grower Magazine is $50 for full members
+    And there is a Tree Grower Magazine group
+    And there is a FFT Marketplace group
+    And there is a Full Membership group
     And I am a registered, logged in reader
     When I visit new subscription
     And select a Full Membership
@@ -19,23 +22,36 @@ Feature: User creates NZFFA Membership
 
   @javascript
   Scenario: user creates a yearly subscription config 1
+    Given the date is "2012-01-01"
     Then choose "0 - 10ha"
     And select "North Otago" from "subscription_main_branch_name"
     And select "South Canterbury" from "subscription_associated_branch_names"
     And check "List my business in the FFT Marketplace" 
-    And choose "Full year"
+    And choose "End of this year"
     Then I should see "Subscription Fee: $117.00 + GST"
     And press "Proceed to payment"
+    Then I should be forwarded to payment express
+    When I enter my credit card details
+    Then I should see that payment was successful
+    And I should belong to the Tree Grower Magazine group
+    And I should belong to the FFT Marketplace group
+    And I should belong to the Full Membership group
 
   @javascript
   Scenario: user configures a yearly subscription config 2
+    Given the date is "2012-01-01"
     Then choose "11 - 40ha"
     And select "South Canterbury" from "subscription_main_branch_name"
     And select "North Otago" from "subscription_associated_branch_names"
-    And choose "Full year"
+    And choose "End of this year"
     Then I should see "Subscription Fee: $153.00 + GST"
     And I should see "Expires on: 31 December 2012"
     And press "Proceed to payment"
+    Then I should be forwarded to payment express
+    When I enter my credit card details
+    Then I should see that payment was successful
+    And I should belong to the Tree Grower Magazine group
+    And I should belong to the Full Membership group
 
   #Scenario Outline:
     #user configures their subscription and gets the right price
@@ -55,11 +71,11 @@ Feature: User creates NZFFA Membership
 
   @javascript
   Scenario Outline: user signs up on different dates and gets different
-    fees and expiry dates when using 'Remainder of year plus next year'
+    fees and expiry dates when using 'End of next year'
 
     Given the date is "<signup_on>"
     When I signup with 0-10ha, main branch North Otago, and join FFT
-    And I choose "Remainder of year plus next year"
+    And I choose "End of next year"
     Then the expiry date should be "<expires_on>"
     Then the Subscription Fee should be "<fee>"
 
