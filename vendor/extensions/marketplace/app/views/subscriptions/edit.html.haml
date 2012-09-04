@@ -1,0 +1,13 @@
+%h1 Edit Subscription
+
+-if params[:subscription]
+  - case params[:subscription][:membership_type]
+  - when 'casual'
+    =render 'casual_membership_form'
+  - when 'full'
+    =render 'full_membership_form'
+- else
+  =render 'select_membership_type_form'
+
+
+

@@ -1,11 +1,24 @@
 =javascript_include_tag 'jquery-1.6.2.min.js'
 =javascript_include_tag 'jquery.to_json'
 :javascript
-  $form = $('form#new_subscription')
-  $form.change(function(){
-    $.post('/subscriptions/quote', $form.toJSON(), function(response){
-      $('span#total_fee').text(response.total_fee)
-      $('span#begins_on').text(response.begins_on)
-      $('span#expires_on').text(response.expires_on)
+  if ($new_form = $('form#new_subscription')) {
+    $new_form.change(function(){
+      $.post('/subscriptions/quote_new', $new_form.toJSON(), function(response){
+        $('span#price').text(response.price)
+        $('span#begins_on').text(response.begins_on)
+        $('span#expires_on').text(response.expires_on)
+      })
     })
-  })
+  }
+
+  if ($upgrade_form = $('form.edit_subscription')) {
+    $upgrade_form.change(function(){
+      $.post('/subscriptions/quote_upgrade', $upgrade_form.toJSON(), function(response){
+        $('span#price').text(response.price)
+        $('span#credit').text(response.credit)
+        $('span#upgrade_price').text(response.upgrade_price)
+        $('span#begins_on').text(response.begins_on)
+        $('span#expires_on').text(response.expires_on)
+      })
+    })
+  }

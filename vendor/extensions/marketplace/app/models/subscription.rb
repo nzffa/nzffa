@@ -14,6 +14,21 @@ class Subscription < ActiveRecord::Base
   validates_inclusion_of :ha_of_planted_trees, 
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
 
+  def self.active_subscription_for(reader)
+    find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
+      return sub if sub.active?
+    end
+    nil
+  end
+
+  def active?
+    if cancelled_on
+      false
+    else
+      (begins_on..expires_on).include?(Date.today)
+    end
+  end
+
   def after_initialize
     self.begins_on ||= Date.today
     self.expires_on ||= Date.new(Date.today.year, 12, 31)
@@ -43,5 +58,11 @@ class Subscription < ActiveRecord::Base
   def main_branch_name=(name)
     self.main_branch = Branch.find_by_name(name)
     self.branches << self.main_branch
+  end
+
+  def price_when_sold
+    if order and order.paid?
+      order.amount
+    end
   end
 end

@@ -1,5 +1,32 @@
 require 'activesupport'
 class CalculatesSubscriptionLevy
+
+  def self.fraction_used(begins_on, expires_on)
+    begins_on = begins_on.to_date
+    expires_on = expires_on.to_date
+    today = Date.today
+
+    if today < begins_on
+      0
+    elsif today > expires_on
+      1
+    else
+      full_length = subscription_length(begins_on, expires_on)
+      used_length = subscription_length(today, expires_on)
+      1 - (used_length / full_length)
+    end
+  end
+
+  def self.credit_if_upgraded(subscription)
+    subscription.price_when_sold - 
+      (subscription.price_when_sold * fraction_used(subscription.begins_on,
+                                                    subscription.expires_on))
+  end
+
+  def self.upgrade_price(old_sub, new_sub)
+    levy_for(new_sub) - credit_if_upgraded(old_sub)
+  end
+
   def self.levy_for(subscription)
     subscription_length(subscription.begins_on, subscription.expires_on) * 
       yearly_levy_for(subscription)

@@ -173,14 +173,23 @@ Then /^I should have access to place an ad in the FFT Marketplace$/ do
  Group.find(NzffaSettings.fft_group_id).readers.should include @reader
 end
 
-When /^I buy a year long subscription for only_fft on (\d+)\-(\d+)\-(\d+)$/ do |arg1, arg2, arg3|
-  pending # express the regexp above with the code you wish you had
+Given /^I created a casual fft subscription at the start of the year$/ do
+  subscription = Subscription.new(:membership_type => 'casual',
+                                  :belong_to_fft => true,
+                                  :receive_tree_grower_magazine => false,
+                                  :begins_on => Date.parse('2012-01-01'),
+                                  :expires_on => Date.parse('2012-12-31'))
+  levy = CalculatesSubscriptionLevy.levy_for(subscription)
+  subscription.reader = @reader
+  if subscription.valid?
+    subscription.save!
+    order = Order.create!(:amount => levy,
+                          :subscription => subscription,
+                          :reader => @reader)
+  end
+
 end
 
-When /^I upgrade the subscription to fft_and_tree_grower on (\d+)\-(\d+)\-(\d+)$/ do |arg1, arg2, arg3|
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I should be charged the (\d+)$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+When /^I visit "([^"]*)"$/ do |path|
+  visit path
 end

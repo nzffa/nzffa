@@ -8,21 +8,29 @@ Feature: User upgrades their subscription
     And ha of trees is 0-10 for $0, 11-40 for $51, and 41+ for $120
     And there is a branch "North Otago" for $10
     And there is a branch "South Canterbury" for $8
-    And Farm Foresty Timbers Marketplace membership is $50
-    And tree grower magazine subscription costs $80 per year for members
+    And FFT Marketplace membership is $15 for full members
+    And Tree Grower Magazine is $50 for full members
+    And there is a Tree Grower Magazine group
+    And there is a FFT Marketplace group
+    And there is a Full Membership group
     And I am a registered, logged in reader
 
+  @javascript
   Scenario: upgrading from casual fft membership to full membership
-    Given I have a casual fft membership
-    When I visit subscriptions index
-    And I click modify
-    And I press "Full Membership"
-    And I change my subscription to a full membership
-    Then I should see "Confirm Subscription Upgrade"
-    And I should see "You are upgrading from Casual Membership with Farm Forestry Timbers beginning 1st Feburary 2012 and expiring on 31st Decemeber 2012"
-    And I should see "to Full Membership (1 branch) beginning 1st May 2012 and expiring on 31st Decemeber 2012"
-    And I should see "Credit on current subscription: $50"
-    And I should see "New subscription levy: $109"
+    Given I created a casual fft subscription at the start of the year
+    And the date is "2012-06-01"
+    When I visit "/subscriptions"
+    And I follow "Modify"
+    And I choose "Casual Membership"
+    And I press "Next"
+    And check "Subscribe to NZ Tree Grower Magazine"
+    And choose "Australia"
+    Then I should see "Subscription Fee: $50.00 + GST"
+    And I should see "Credit on current subscription: $25"
+    And I should see "Begins on: 1 June 2012"
+    And I should see "Expires on: 31 December 2012"
     And I should see "Amount to pay: $59"
+    # and I pay the right amount via dps
+    # and I should belong to both groups
 
 

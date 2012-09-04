@@ -27,10 +27,7 @@
   -if @subscription.new_record?
     = render :partial => 'subscription_term_choices', :locals => {:f => f}
 
-  %p 
-    Subscription Fee: 
-    %span#total_fee Undefined
-    + GST
+  = render :partial => 'amount_to_pay', :locals => {:f => f}
 
   = render :partial => 'expiry_date', :locals => {:f => f}
 

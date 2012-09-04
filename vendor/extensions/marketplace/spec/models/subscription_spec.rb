@@ -10,6 +10,80 @@ describe Subscription do
     @subscription
   end
 
+  describe 'active_subscription_for' do
+    let(:reader) { reader = Reader.new; reader.save(false); reader}
+    before :each do 
+      Timecop.travel('2012-06-01') 
+    end
+
+    after :each do
+      Timecop.return 
+    end
+
+    context 'when there is an active subscription' do
+      it 'returns the active subscription for the given reader' do
+        subscription = Subscription.create(:membership_type => 'casual',
+                            :belong_to_fft => true,
+                            :receive_tree_grower_magazine => false,
+                            :begins_on => Date.parse('2012-01-01'),
+                            :expires_on => Date.parse('2012-12-31'),
+                            :reader => reader)
+        Subscription.active_subscription_for(reader).should == subscription
+      end
+    end
+    context 'when there is no active subscription for the reader' do
+      it 'returns nil' do
+        Subscription.active_subscription_for(reader).should be_nil
+      end
+    end
+  end
+
+  describe 'price_when_sold' do
+    context 'if it has been paid for' do
+      it 'gives the price when the subscription was sold' do
+        order = stub(:order, :paid? => true, :amount => 10)
+        subscription = Subscription.new
+        subscription.stub(:order).and_return(order)
+        subscription.price_when_sold.should == 10
+      end
+    end
+
+    context 'if it has not been paid for' do
+      it 'returns nil' do
+        subscription = Subscription.new
+        subscription.price_when_sold.should == nil
+      end
+    end
+  end
+
+  describe 'active?' do
+    subject do
+      Subscription.new(:begins_on => '2012-01-01',
+                       :expires_on => '2012-01-01')
+    end
+    context 'todays date is betweem begins_on..ends_on' do
+      before :each do
+        Timecop.travel '2012-01-01'
+      end
+      context 'and it is not cancelled' do
+        it {should be_active}
+      end
+      context 'but it is cancelled' do
+        before :each do
+          subject.cancelled_on = Date.parse('2012-01-01')
+        end
+        it {should_not be_active}
+      end
+    end
+
+    context 'todays date is outside begins_on..ends_on' do
+      before :each do
+        Timecop.travel '2012-01-03'
+      end
+      it {should_not be_active}
+    end
+  end
+
   it 'sets associated branches by name' do
     subject.associated_branch_names = ['Otago']
     subject.branches.should == [@otago_branch]
@@ -28,34 +102,4 @@ describe Subscription do
     subject.main_branch_name = 'Otago'
     subject.main_branch.should == @otago_branch
   end
-
-  context 'calculates the expiry and begin dates' do
-    context 'when duration is full' do
-      before :each do
-        @sub = Subscription.new(:duration => 'full_year')
-      end
-      it 'expires on is the end of the year' do
-        @sub.quote_expires_on.should == Date.new(Date.today.year, 12, 31)
-      end
-
-      it 'begins on is the start of the year' do
-        @sub.quote_begins_on.should == Date.new(Date.today.year, 01, 01)
-
-      end
-    end
-
-    context 'when term is remainder of year plus next' do
-      before :each do
-       @sub = Subscription.new(:duration => 'remainder_of_year_plus_next_year')
-      end
-      it 'expires on is the end of next year' do
-        end_of_next_year = Date.new(Date.today.year + 1, 12, 31)
-        @sub.quote_expires_on.should == end_of_next_year
-      end
-      it 'begins on is today' do
-        @sub.quote_begins_on.should == Date.today
-      end
-    end
-  end
-
 end

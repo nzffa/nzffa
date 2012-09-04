@@ -8,6 +8,23 @@ describe CalculatesSubscriptionLevy do
     NzffaSettings.tree_grower_magazine_everywhere_else = 60
   end
 
+  context 'credit on current subscription' do
+    it 'gives a full refund if subscription was bought today' do
+      subscription = stub(:subscription, :price_when_sold => 10)
+      subscription.
+      UpgradesSubscription.credit_on_current_subscription(sub).should == 10
+
+    end
+  end
+
+  it 'gives the credit on the current subscription' do
+    sub = stub(:current_subscription,
+               :begins_on => '2012-01-01',
+               :expires_on => '2012-12-31')
+    CalculatesSubscriptionLevy.credit_if_upgraded(sub)
+    upgrader.credit_on_current_subscription.should == 10
+  end
+
   describe 'levy for non year duration' do
     it 'gives 1.5 times levy for 1.5 times duration' do
       NzffaSettings.casual_member_fft_marketplace_levy = 50
