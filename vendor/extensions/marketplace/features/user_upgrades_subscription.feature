@@ -12,20 +12,17 @@ Feature: User upgrades their subscription
     And tree grower magazine subscription costs $80 per year for members
     And I am a registered, logged in reader
 
-  Scenario Outline:
-    When I buy a year long subscription for <first_config> on <first_date>
-    #this part is edit subscription.. which pushes you to update
-    #and in update we calculate the upgrade cost
-    #and create an order for that, make them pay
-    #and when they return and their subscription is fully paid we apply the security stuff.
-    And I upgrade the subscription to <second_config> on <second_date>
-    Then I should be charged the <upgrade_cost>
+  Scenario: upgrading from casual fft membership to full membership
+    Given I have a casual fft membership
+    When I visit subscriptions index
+    And I click modify
+    And I press "Full Membership"
+    And I change my subscription to a full membership
+    Then I should see "Confirm Subscription Upgrade"
+    And I should see "You are upgrading from Casual Membership with Farm Forestry Timbers beginning 1st Feburary 2012 and expiring on 31st Decemeber 2012"
+    And I should see "to Full Membership (1 branch) beginning 1st May 2012 and expiring on 31st Decemeber 2012"
+    And I should see "Credit on current subscription: $50"
+    And I should see "New subscription levy: $109"
+    And I should see "Amount to pay: $59"
 
-  Scenarios:
-    | first_date | first_config | second_date | second_config       | upgrade_cost |
-    | 2012-01-01 | only_fft     | 2012-01-01  | fft_and_tree_grower | 80           |
-    | 2012-01-01 | only_fft     | 2012-02-25  | fft_and_tree_grower | 60           |
-    | 2012-01-01 | only_fft     | 2012-05-15  | fft_and_tree_grower | 40           |
-    | 2012-01-01 | only_fft     | 2012-08-15  | fft_and_tree_grower | 20           |
-    | 2012-01-01 | only_fft     | 2012-11-15  | fft_and_tree_grower | 0            |
 

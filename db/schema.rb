@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120902053006) do
+ActiveRecord::Schema.define(:version => 20120903010755) do
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
@@ -333,6 +333,7 @@ ActiveRecord::Schema.define(:version => 20120902053006) do
     t.date     "expires_on"
     t.string   "tree_grower_delivery_location"
     t.boolean  "receive_tree_grower_magazine"
+    t.date     "begins_on"
   end
 
   add_index "subscriptions", ["reader_id"], :name => "index_subscriptions_on_reader_id"

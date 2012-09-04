@@ -10,8 +10,8 @@ Feature: User creates NZFFA Membership
     And ha of trees is 0-10 for $0, 11-40 for $51, and 41+ for $120
     And there is a branch "North Otago" for $10
     And there is a branch "South Canterbury" for $8
-    And Farm Foresty Timbers Marketplace membership is $15
-    And tree grower magazine subscription costs $50 per year for members
+    And FFT Marketplace membership is $15 for full members
+    And Tree Grower Magazine is $50 for full members
     And I am a registered, logged in reader
     When I visit new subscription
     And select a Full Membership

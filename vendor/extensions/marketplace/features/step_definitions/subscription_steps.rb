@@ -1,0 +1,158 @@
+Given /^I am a registered, logged in reader$/ do
+
+  @reader = Reader.create!(:email => 'test@example.org',
+                          :forename => 'jim',
+                          :surname => 'david',
+                          :password => 'password',
+                          :password_confirmation => 'password')
+
+  @reader.update_attribute(:activated_at, '2010-01-01')
+
+  visit '/account/login'
+  fill_in 'Nickname or email address', :with => 'test@example.org'
+  fill_in 'Password', :with => 'password'
+  click_on 'Log in'
+end
+
+Given /^FFT Marketplace membership is \$(\d+) for casual members$/ do |arg1|
+  NzffaSettings.casual_member_fft_marketplace_levy = arg1.to_i
+end
+
+Given /^FFT Marketplace membership is \$(\d+) for full members$/ do |arg1|
+  NzffaSettings.full_member_fft_marketplace_levy = arg1.to_i
+end
+
+Given /^Tree Grower Magazine "([^"]*)" is \$(\d+) \/ year$/ do |arg1, arg2|
+  case arg1
+  when 'New Zealand'
+    NzffaSettings.tree_grower_magazine_within_new_zealand = arg2.to_i
+  when 'Australia'
+    NzffaSettings.tree_grower_magazine_within_australia = arg2.to_i
+  when 'Everywhere else'
+    NzffaSettings.tree_grower_magazine_everywhere_else = arg2.to_i
+  else
+    raise 'incorrect area for tree grower subscription destination'
+  end
+end
+
+Given /^Tree Grower Magazine is \$(\d+) for full members$/ do |arg1|
+  NzffaSettings.full_member_tree_grower_magazine_levy = arg1.to_i
+end
+
+Given /^admin levy is \$(\d+)$/ do |amount|
+  NzffaSettings.admin_levy = amount.to_i
+end
+
+Given /^ha of trees is 0-10 for \$0, 11-40 for \$51, and 41\+ for \$120/ do 
+  NzffaSettings.forest_size_levys = {'0 - 10'  => 0, 
+                                     '11 - 40' => 51, 
+                                     '41+'     => 120}
+end
+
+Given /^there is a branch "([^"]*)" for \$(\d+)$/ do |name, annual_levy|
+  Branch.create(:name => name, :annual_levy => annual_levy)
+end
+
+When /^I visit new subscription$/ do
+  visit new_subscription_path
+end
+
+When /^select a Full Membership$/ do
+  choose 'subscription_membership_type_full'
+end
+
+When /^click Next$/ do
+  click_on 'Next'
+end
+
+When /^wait a bit$/ do
+  sleep 10
+end
+
+Then /^wait for ages$/ do
+  sleep 60
+end
+
+Given /^the date is "([^"]*)"$/ do |arg1|
+  Timecop.travel(Date.parse(arg1))
+end
+
+    
+Given /^I signup with 0-10ha, main branch North Otago, and join FFT$/ do 
+  visit new_subscription_path
+  choose 'subscription_membership_type_full'
+  click_on 'Next'
+  within '#ha_of_planted_trees' do
+    choose '0 - 10ha'
+  end
+  select 'North Otago', :from => 'subscription_main_branch_name'
+  check 'subscription_belong_to_fft'
+end
+
+Then /^the Subscription Fee should be "([^"]*)"$/ do |arg1|
+  find('#total_fee').should have_content arg1
+end
+
+Then /^the expiry date should be "([^"]*)"$/ do |arg1|
+  find('#expires_on').should have_content Date.parse(arg1).strftime('%e %B %Y')
+end
+
+
+Given /^have a look$/ do
+  save_and_open_page
+end
+
+Given /^there is a FFT group to identify FFT advertisers$/ do 
+  fft_group = Group.create(:name => 'Farm Forestry Timbers')
+  NzffaSettings.fft_group_id = fft_group.id
+end
+
+Given /^I have configured an FFT subscription$/ do
+  NzffaSettings.fft_marketplace_membership_only = 50
+  visit new_subscription_path
+  choose 'FFT Marketplace Membership'
+  click_on 'Next'
+  choose 'Full year'
+end
+
+When /^I click 'Proceed to payment'$/ do
+  click_on 'Proceed to payment'
+end
+
+Then /^I should be forwarded to payment express$/ do
+  puts current_url
+end
+
+Then /^should see I am being charged the full amount$/ do
+  page.should have_content '$50.00'
+end
+
+When /^I enter my credit card details$/ do
+  fill_in 'CardNum', :with => '4111111111111111'
+  fill_in 'ExMnth', :with => '12'
+  fill_in 'ExYr', :with => '20'
+  fill_in 'NmeCard', :with => 'Testbert Testrie'
+  fill_in 'Cvc2', :with => '911'
+  click_on 'submitImageButton' # or SUBMIT
+end
+
+Then /^I should see that payment was successful$/ do
+  page.should have_content 'APPROVED'
+  click_on 'Click Here to Proceed to the Next step'
+end
+
+Then /^I should have access to place an ad in the FFT Marketplace$/ do
+ Group.find(NzffaSettings.fft_group_id).readers.should include @reader
+end
+
+When /^I buy a year long subscription for only_fft on (\d+)\-(\d+)\-(\d+)$/ do |arg1, arg2, arg3|
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I upgrade the subscription to fft_and_tree_grower on (\d+)\-(\d+)\-(\d+)$/ do |arg1, arg2, arg3|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should be charged the (\d+)$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end

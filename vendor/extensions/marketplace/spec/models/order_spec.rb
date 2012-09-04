@@ -17,4 +17,16 @@ describe Order do
     end
   end
 
+  describe 'checking if paid' do
+    it 'returns true on paid? if paid' do
+      subject.paid_on = Date.today
+      subject.paid?.should be_true
+    end
+
+    it 'returns false when not paid' do
+      subject.paid_on = nil
+      subject.paid?.should be_false
+    end
+  end
+
 end

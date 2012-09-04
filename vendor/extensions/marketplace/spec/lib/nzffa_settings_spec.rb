@@ -1,4 +1,4 @@
-require 'app/models/nzffa_settings'
+require 'lib/nzffa_settings'
 
 describe NzffaSettings do
   it 'sets a key and value and returns the value' do

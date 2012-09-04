@@ -1,7 +1,17 @@
 require 'spec_helper'
 
 describe SubscriptionsController do
-  let (:reader) { stub(:reader) }
+  let (:reader) { 
+    reader = Reader.create!(:email => 'test@example.org',
+                   :forename => 'jim',
+                   :surname => 'david',
+                   :password => 'password',
+                   :password_confirmation => 'password')
+
+    reader.update_attribute(:activated_at, '2010-01-01')
+    reader
+  }
+    
   before :each do
     controller.stub(:current_reader).and_return(reader)
   end
@@ -17,11 +27,14 @@ describe SubscriptionsController do
 
   describe 'quote' do
     it 'returns a price given a subscription in params' do
+      CalculatesSubscriptionLevy.stub(:levy_for).and_return(10)
       Subscription.stub(:new).and_return(stub(:subscription, 
-                                              :quote_total_fee => 10,
-                                              :quote_expires_on => Date.parse('2012-08-20')))
+                                              :quote_expires_on => Date.parse('2012-08-20'),
+                                              :quote_begins_on => Date.parse('2012-01-01')))
       get :quote, :subscription => {}
-      JSON.parse(response.body).should == {"total_fee"=>"$10.00", "expires_on"=>"20 August 2012"}
+      JSON.parse(response.body).should == {"total_fee"=>"$10.00", 
+                                           "expires_on"=>"20 August 2012",
+                                           "begins_on" =>"1 January 2012"}
     end
   end
 
@@ -32,36 +45,37 @@ describe SubscriptionsController do
     # else call new
 
     describe 'if the subscription is valid' do
-      let(:subscription){ stub(:subscription, 
-                               :valid? => true,
-                               :quote_total_fee => 10.0).as_null_object }
+      let(:subscription){ Subscription.new }
       let(:order){ stub(:order, :id => 1)}
       before :each do
+        subscription.stub(:valid?).and_return(true)
+        CalculatesSubscriptionLevy.stub(:levy_for).and_return(10)
         Subscription.stub(:new).and_return(subscription)
       end
 
       it 'creates an order against the reader and subscription' do
         subscription.should_receive(:reader=)
-        subscription.should_receive(:save).and_return(true)
-        Order.should_receive(:create, 
-                             :amount => subscription.quote_total_fee,
+        subscription.should_receive(:save!).and_return(true)
+        Order.should_receive(:create!, 
+                             :amount => 10,
                              :subscription => subscription,
                              :reader => reader).and_return(order)
         post :create
       end
 
       it 'redirects to the order#make_payment' do
-        Order.stub(:create).and_return(order)
+        order = Order.new
+        order.save(false)
+        Order.stub(:create!).and_return(order)
         post :create
         response.should redirect_to make_payment_order_path(order)
       end
     end
 
     describe 'if the subscription is invalid' do
+      let(:subscription){ Subscription.new }
       before :each do
-        subscription = stub(:subscription, 
-                            :valid? => false,
-                            :[] => nil).as_null_object
+        subscription.stub(:valid?).and_return(false)
         Subscription.stub(:new).and_return(subscription)
       end
       it 'does not create an order' do
@@ -69,9 +83,8 @@ describe SubscriptionsController do
         post :create
       end
       it 'renders new' do
-        controller.should_receive(:new)
         post :create
-        response.should be_success
+        response.should render_template :new
       end
     end
 

@@ -5,6 +5,7 @@
   $form.change(function(){
     $.post('/subscriptions/quote', $form.toJSON(), function(response){
       $('span#total_fee').text(response.total_fee)
+      $('span#begins_on').text(response.begins_on)
       $('span#expires_on').text(response.expires_on)
     })
   })

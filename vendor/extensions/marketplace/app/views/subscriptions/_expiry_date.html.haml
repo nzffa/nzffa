@@ -1,4 +1,11 @@
 %p 
+  Begins on: 
+  %span#begins_on
+    -if f.object.begins_on.present?
+      =l f.object.begins_on
+    -else
+      Please select a subscription term
+%p 
   Expires on: 
   %span#expires_on
     -if f.object.expires_on.present?

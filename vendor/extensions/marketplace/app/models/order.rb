@@ -6,4 +6,8 @@ class Order < ActiveRecord::Base
   def paid!
     update_attribute(:paid_on, Date.today)
   end
+
+  def paid?
+    paid_on.present?
+  end
 end

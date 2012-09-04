@@ -1,5 +1,5 @@
 require 'lib/applies_subscription_groups'
-require 'app/models/nzffa_settings'
+require 'lib/nzffa_settings'
 require 'spec/mocks'
 
 class Group

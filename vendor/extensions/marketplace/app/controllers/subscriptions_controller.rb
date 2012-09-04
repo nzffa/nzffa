@@ -9,21 +9,24 @@ class SubscriptionsController < MarketplaceController
 
   def quote
     subscription = Subscription.new(params[:subscription])
-    render :json => {:total_fee => "#{number_to_currency(subscription.quote_total_fee)}", 
-                     :expires_on => subscription.quote_expires_on.strftime('%e %B %Y')}
+    levy = CalculatesSubscriptionLevy.levy_for(subscription)
+    render :json => {:total_fee => "#{number_to_currency(levy)}", 
+                     :expires_on => subscription.quote_expires_on.strftime('%e %B %Y').strip,
+                     :begins_on => subscription.quote_begins_on.strftime('%e %B %Y').strip}
   end
 
   def create
     @subscription = Subscription.new(params[:subscription])
+    levy = CalculatesSubscriptionLevy.levy_for(@subscription)
     @subscription.reader = current_reader
     if @subscription.valid?
       @subscription.save!
-      @order = Order.create!(:amount => @subscription.quote_total_fee,
+      @order = Order.create!(:amount => levy,
                             :subscription => @subscription,
                             :reader => current_reader)
       redirect_to make_payment_order_path(@order)
     else
-      new
+      render :new
     end
   end
 end
