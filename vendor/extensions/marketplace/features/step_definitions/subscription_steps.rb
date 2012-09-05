@@ -148,7 +148,7 @@ When /^I click 'Proceed to payment'$/ do
 end
 
 Then /^I should be forwarded to payment express$/ do
-  puts current_url
+  #puts current_url
 end
 
 Then /^should see I am being charged the full amount$/ do

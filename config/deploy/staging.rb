@@ -1,5 +1,6 @@
 set :rails_env, 'staging'
 set :rack_env, rails_env
+set :branch, 'staging'
 set :deploy_to, "/home/#{user}/#{rails_env}"
 
 set :solo_host, 'delta.enspiral.info'

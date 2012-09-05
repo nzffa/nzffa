@@ -15,7 +15,6 @@ set :group, "www-data"
 
 set :scm, :git
 set :repository, "git@github.com:enspiral/nzffa.git"
-set :branch, 'master'
 #set :deploy_via, :remote_cache
 set :bundle_without, [:development, :test, :cucumber]
 

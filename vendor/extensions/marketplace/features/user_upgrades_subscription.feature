@@ -42,6 +42,7 @@ Feature: User upgrades their subscription
     And I should belong to the FFT Marketplace group
     And my original subscription should be cancelled
     And my new subscription should be active
+    And the page should say thank you
 
   @javascript
   Scenario: upgrading from just fft to full membership
@@ -72,4 +73,5 @@ Feature: User upgrades their subscription
     And I should belong to the Full Membership group
     And my original subscription should be cancelled
     And my new subscription should be active
+    And the page should say thank you
     And wait for ages
