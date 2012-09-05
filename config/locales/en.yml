@@ -1,3 +1,10 @@
 en:
   reader_extension:
     is_free_and_quick: ''
+
+  date:
+    formats:
+      default: "%e %B %Y"
+      unpopular: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"

@@ -26,5 +26,5 @@ class NzffaSettings
 
   @fft_marketplace_group_id = 229
   @tree_grower_magazine_group_id = 80
-  @full_membership_group_id = nil
+  @full_membership_group_id = 232
 end

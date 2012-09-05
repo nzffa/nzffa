@@ -28,7 +28,7 @@ Feature: User creates full NZFFA Membership
     And select "South Canterbury" from "subscription_associated_branch_names"
     And check "List my business in the FFT Marketplace" 
     And choose "End of this year"
-    Then I should see "Subscription Fee: $117.00 + GST"
+    Then I should see "Subscription Price: $117.00 + GST"
     And press "Proceed to payment"
     Then I should be forwarded to payment express
     When I enter my credit card details
@@ -44,7 +44,7 @@ Feature: User creates full NZFFA Membership
     And select "South Canterbury" from "subscription_main_branch_name"
     And select "North Otago" from "subscription_associated_branch_names"
     And choose "End of this year"
-    Then I should see "Subscription Fee: $153.00 + GST"
+    Then I should see "Subscription Price: $153.00 + GST"
     And I should see "Expires on: 31 December 2012"
     And press "Proceed to payment"
     Then I should be forwarded to payment express
@@ -77,7 +77,7 @@ Feature: User creates full NZFFA Membership
     When I signup with 0-10ha, main branch North Otago, and join FFT
     And I choose "End of next year"
     Then the expiry date should be "<expires_on>"
-    Then the Subscription Fee should be "<fee>"
+    Then the Subscription Price should be "<fee>"
 
   @javascript
   Scenarios:

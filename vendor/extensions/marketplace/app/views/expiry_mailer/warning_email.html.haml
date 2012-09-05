@@ -1,6 +1,6 @@
 %p Dear #{@advert.reader.forename} #{@advert.reader.surname},
 
-%p Your listing titled '#{@advert.title}' is due to expire on #{@advert.expires_on}.
+%p Your listing titled '#{@advert.title}' is due to expire on #{l @advert.expires_on}.
 
 -hostname = ActionMailer::Base.default_url_options[:host]
 -my_adverts_url = "http://#{hostname}"+MarketplaceController::MY_ADVERTS_PATH

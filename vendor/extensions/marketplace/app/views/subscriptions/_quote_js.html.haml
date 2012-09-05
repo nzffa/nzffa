@@ -22,3 +22,13 @@
       })
     })
   }
+
+  toggle_tgm_delivery_radios = function(){
+    if ($(this).prop('checked')){
+      $('#tree_grower_delivery_location input').removeAttr('disabled');
+    }else{
+      $('#tree_grower_delivery_location input').attr('disabled','disabled');
+    }
+  }
+  $('#subscription_receive_tree_grower_magazine').change(toggle_tgm_delivery_radios);
+  toggle_tgm_delivery_radios();

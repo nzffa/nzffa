@@ -21,7 +21,7 @@ Feature: User creates casual membership subscription
     And choose "<duration>"
     And check "Subscribe to NZ Tree Grower Magazine"
     And choose "<tree_grower_delivery_location>"
-    Then I should see "Subscription Fee: $<fee> + GST"
+    Then I should see "Subscription Price: $<fee> + GST"
     And I should see "Begins on: <begin_date>"
     And I should see "Expires on: <expiry_date>"
     When I click 'Proceed to payment'
@@ -45,7 +45,7 @@ Feature: User creates casual membership subscription
     And click Next
     And check "subscription[belong_to_fft]"
     And choose "End of this year"
-    Then I should see "Subscription Fee: $50.00 + GST"
+    Then I should see "Subscription Price: $50.00 + GST"
     And I should see "Begins on: 1 January 2012"
     And I should see "Expires on: 31 December 2012"
     When I click 'Proceed to payment'

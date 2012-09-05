@@ -1,6 +1,6 @@
 %h1 Casual Membership
-
--form_for(@subscription) do |f|
+-url = @subscription.new_record? ? subscriptions_path : upgrade_subscriptions_path
+-form_for(@subscription, :url => url) do |f|
   =f.hidden_field :membership_type
   =render :partial => 'fft_marketplace_choice', :locals => {:f => f}
 
@@ -20,8 +20,7 @@
     =f.radio_button :tree_grower_delivery_location, 'everywhere_else'
     =f.label :tree_grower_delivery_location_everywhere_else, 'Everywhere else'
 
-  -if @subscription.new_record?
-    = render :partial => 'subscription_term_choices', :locals => {:f => f}
+  = render :partial => 'subscription_term_choices', :locals => {:f => f}
 
   = render :partial => 'amount_to_pay', :locals => {:f => f}
 

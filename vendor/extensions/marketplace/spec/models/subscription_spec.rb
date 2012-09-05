@@ -56,6 +56,14 @@ describe Subscription do
     end
   end
 
+  describe 'cancel!' do
+    it 'updates cancelled_on to today' do
+      sub = Subscription.new
+      sub.cancel!
+      sub.cancelled_on.should == Date.today
+    end
+  end
+
   describe 'active?' do
     subject do
       Subscription.new(:begins_on => '2012-01-01',

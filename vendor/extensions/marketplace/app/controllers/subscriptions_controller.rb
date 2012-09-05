@@ -7,8 +7,8 @@ class SubscriptionsController < MarketplaceController
     @active_subscription = Subscription.active_subscription_for(current_reader)
   end
 
-  def edit
-    @subscription = Subscription.find(:first, :conditions => {:id => params[:id], :reader_id => current_reader.id})
+  def modify
+    @subscription = Subscription.active_subscription_for(current_reader)
   end
 
   def new
@@ -54,6 +54,18 @@ class SubscriptionsController < MarketplaceController
       redirect_to make_payment_order_path(@order)
     else
       render :new
+    end
+  end
+
+  def upgrade
+    current_sub = Subscription.active_subscription_for(current_reader)
+    new_sub = Subscription.new(params[:subscription])
+    new_sub.reader = current_reader
+    if new_sub.valid?
+      @order = Order.upgrade_subscription(current_sub, new_sub)
+      redirect_to make_payment_order_path(@order)
+    else
+      render :modify
     end
   end
 end

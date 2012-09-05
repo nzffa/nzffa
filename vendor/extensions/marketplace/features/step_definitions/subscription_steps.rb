@@ -116,8 +116,8 @@ Given /^I signup with 0-10ha, main branch North Otago, and join FFT$/ do
   check 'subscription_belong_to_fft'
 end
 
-Then /^the Subscription Fee should be "([^"]*)"$/ do |arg1|
-  find('#total_fee').should have_content arg1
+Then /^the Subscription Price should be "([^"]*)"$/ do |arg1|
+  find('#price').should have_content arg1
 end
 
 Then /^the expiry date should be "([^"]*)"$/ do |arg1|
@@ -179,6 +179,7 @@ Given /^I created a casual fft subscription at the start of the year$/ do
                                   :receive_tree_grower_magazine => false,
                                   :begins_on => Date.parse('2012-01-01'),
                                   :expires_on => Date.parse('2012-12-31'))
+  @old_subscription = subscription
   levy = CalculatesSubscriptionLevy.levy_for(subscription)
   subscription.reader = @reader
   if subscription.valid?
@@ -186,10 +187,20 @@ Given /^I created a casual fft subscription at the start of the year$/ do
     order = Order.create!(:amount => levy,
                           :subscription => subscription,
                           :reader => @reader)
+    order.paid!
   end
 
 end
 
 When /^I visit "([^"]*)"$/ do |path|
   visit path
+end
+
+Then /^my original subscription should be cancelled$/ do
+  @old_subscription.reload
+  @old_subscription.active?.should be_false
+end
+
+Then /^my new subscription should be active$/ do
+  Subscription.active_subscription_for(@reader).should be_active
 end

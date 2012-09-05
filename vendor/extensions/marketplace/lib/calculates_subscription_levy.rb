@@ -1,4 +1,4 @@
-require 'activesupport'
+require 'active_support'
 class CalculatesSubscriptionLevy
 
   def self.fraction_used(begins_on, expires_on)
@@ -18,9 +18,13 @@ class CalculatesSubscriptionLevy
   end
 
   def self.credit_if_upgraded(subscription)
-    subscription.price_when_sold - 
-      (subscription.price_when_sold * fraction_used(subscription.begins_on,
-                                                    subscription.expires_on))
+    if subscription.price_when_sold == nil
+      0
+    else
+      subscription.price_when_sold - 
+        (subscription.price_when_sold * 
+         fraction_used(subscription.begins_on, subscription.expires_on))
+    end
   end
 
   def self.upgrade_price(old_sub, new_sub)
@@ -95,7 +99,6 @@ class CalculatesSubscriptionLevy
     end
 
     levy += NzffaSettings.full_member_tree_grower_magazine_levy
-
     levy += subscription.branches.map(&:annual_levy).sum
     levy
     

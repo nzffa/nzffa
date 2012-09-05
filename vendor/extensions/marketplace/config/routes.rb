@@ -1,6 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :subscriptions, :except => [:destroy], 
-    :collection => { :quote_new => :post, :quote_upgrade => :post}
+  map.resources :subscriptions, :except => [:destroy, :edit, :update], 
+    :collection => { :quote_new => :post, 
+                     :quote_upgrade => :post,
+                     :modify => :get,
+                     :upgrade => :put}
 
   map.resources :adverts,
     :collection => {

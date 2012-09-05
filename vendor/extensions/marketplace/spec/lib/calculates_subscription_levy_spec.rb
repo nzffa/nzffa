@@ -9,21 +9,26 @@ describe CalculatesSubscriptionLevy do
   end
 
   context 'credit on current subscription' do
-    it 'gives a full refund if subscription was bought today' do
-      subscription = stub(:subscription, :price_when_sold => 10)
-      subscription.
-      UpgradesSubscription.credit_on_current_subscription(sub).should == 10
-
+    it 'gives the credit on the current subscription' do
+      Timecop.travel('2012-09-05')
+      sub = stub(:current_subscription,
+                 :begins_on => '2012-01-01',
+                 :expires_on => '2012-12-31',
+                 :price_when_sold => 10)
+      CalculatesSubscriptionLevy.credit_if_upgraded(sub).should == 2.5
+      Timecop.return
     end
+
+    it 'gives no credit if the subscription was never paid for' do
+      sub = stub(:current_subscription,
+                 :begins_on => '2012-01-01',
+                 :expires_on => '2012-12-31',
+                 :price_when_sold => nil)
+      CalculatesSubscriptionLevy.credit_if_upgraded(sub).should == 0
+    end
+
   end
 
-  it 'gives the credit on the current subscription' do
-    sub = stub(:current_subscription,
-               :begins_on => '2012-01-01',
-               :expires_on => '2012-12-31')
-    CalculatesSubscriptionLevy.credit_if_upgraded(sub)
-    upgrader.credit_on_current_subscription.should == 10
-  end
 
   describe 'levy for non year duration' do
     it 'gives 1.5 times levy for 1.5 times duration' do

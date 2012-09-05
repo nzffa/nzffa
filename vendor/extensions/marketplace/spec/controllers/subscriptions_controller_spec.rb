@@ -34,7 +34,6 @@ describe SubscriptionsController do
         response.should be_success
       end
     end
-
   end
 
 
@@ -54,7 +53,7 @@ describe SubscriptionsController do
                                               :expires_on => Date.parse('2012-08-20'),
                                               :begins_on => Date.parse('2012-01-01')))
       post :quote_new, :subscription => {}
-      JSON.parse(response.body).should == {"total_fee"=>"$10.00", 
+      JSON.parse(response.body).should == {"price"=>"$10.00", 
                                            "expires_on"=>"20 August 2012",
                                            "begins_on" =>"1 January 2012"}
     end
@@ -62,9 +61,12 @@ describe SubscriptionsController do
 
   describe 'quote_upgrade' do
     it 'returns the upgrade pricing information' do
+      pending 'bad test.. when we rework order this should be clearer'
       Subscription.should_receive(:active_subscription_for).with(reader)
-      Subscription.should_receive(:new).and_return(stub(:new_sub, :expires_on => Date.parse('2012-12-31'),
+      Subscription.should_receive(:new).and_return(stub(:new_sub, 
+                                                        :expires_on => Date.parse('2012-12-31'),
                                                         :begins_on => Date.parse('2012-05-01')))
+
       upgrader = stub(:upgrader, :credit_on_current_subscription => 25,
                                  :upgrade_price => 25)
       UpgradesSubscription.should_receive(:new).and_return(upgrader)
@@ -73,6 +75,38 @@ describe SubscriptionsController do
                                            "upgrade_price" => "$25.00",
                                            "expires_on" => "31 December 2012",
                                            "begins_on" => "1 May 2012"}
+    end
+  end
+
+  describe 'upgrade' do
+    context 'valid new subscription' do
+      let(:order_stub){stub(:valid? => true, :id => 1)}
+      it 'creates an upgrade subscription order' do
+        old_sub = stub(:old_sub, :valid? => true)
+        new_sub = stub(:new_sub, :valid? => true)
+
+        Subscription.should_receive(:active_subscription_for).
+          with(reader).and_return(old_sub)
+
+        Subscription.should_receive(:new).and_return(new_sub)
+
+        new_sub.should_receive(:save!)
+
+        Order.should_receive(:upgrade_subscription).
+          with({:from => old_sub, :to => new_sub}).and_return(order_stub)
+        put :upgrade
+      end
+
+      it 'redirects to make payment on the order' do
+        Subscription.stub(:active_subscription_for)
+        Subscription.stub(:new).and_return(stub(:valid? => true))
+        Order.stub(:upgrade_subscription).and_return(order_stub)
+        put :upgrade
+        response.should redirect_to make_payment_order_path(order_stub)
+      end
+    end
+    context 'invalid new subscription' do
+      it 'redirects to edit'
     end
   end
 

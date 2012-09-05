@@ -8,6 +8,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :main_branch, :class_name => 'Branch'
   validates_inclusion_of :membership_type, :in => ['full', 'casual']
   validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
+  validates_presence_of :ha_of_planted_trees, :if => 'membership_type == "full"'
   validates_presence_of :expires_on, :begins_on
   validates_presence_of :reader
 
@@ -29,9 +30,14 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def cancel!
+    update_attribute(:cancelled_on, Date.today)
+  end
+
   def after_initialize
     self.begins_on ||= Date.today
     self.expires_on ||= Date.new(Date.today.year, 12, 31)
+    self.tree_grower_delivery_location ||= 'new_zealand'
   end
 
   def associated_branch_names
