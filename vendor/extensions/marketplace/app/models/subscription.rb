@@ -58,7 +58,7 @@ class Subscription < ActiveRecord::Base
 
   def associated_branch_names
     names = branches.map(&:name)
-    names -= main_branch.name if main_branch.present?
+    names -= [main_branch.name] if main_branch.present?
     names
   end
 

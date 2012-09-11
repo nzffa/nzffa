@@ -8,6 +8,7 @@
     %th begins_on
     %th expires_on
     %th paid_on
+    %th cancelled_on
     %th edit
   %tbody
     -@subscriptions.each do |sub|
@@ -18,4 +19,5 @@
         %td=sub.begins_on
         %td=sub.expires_on
         %td=sub.order.paid_on if sub.order
+        %td=sub.cancelled_on
         %td=link_to 'edit', edit_admin_subscription_path(sub)
