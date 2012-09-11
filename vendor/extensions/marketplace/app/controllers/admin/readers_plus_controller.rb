@@ -7,6 +7,11 @@ class Admin::ReadersPlusController < AdminController
     @reader = Reader.find params[:id]
   end
 
+  def show
+    @reader = Reader.find params[:id]
+    @subscription = Subscription.active_subscription_for(@reader)
+  end
+
   def update
     @reader = Reader.find params[:id]
     if @reader.update_attributes(params[:reader])

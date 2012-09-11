@@ -1,1 +1,12 @@
-=link_to 'Modify', modify_subscriptions_path
+%h2 Your Subscription
+
+-if @subscription.blank?
+  %p 
+    You have no active subscription.
+    =link_to 'Buy a subscription', new_subscription_path
+-else
+  =render 'subscriptions/subscription'
+
+  %p
+    To extend the subscription length, or add features
+    =link_to 'Modify your subscription', modify_subscriptions_path

@@ -100,6 +100,7 @@ class CalculatesSubscriptionLevy
 
     levy += NzffaSettings.full_member_tree_grower_magazine_levy
     levy += subscription.branches.map(&:annual_levy).sum
+    levy += subscription.action_groups.map(&:annual_levy).sum
     levy
     
   end

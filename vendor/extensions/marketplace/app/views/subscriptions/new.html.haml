@@ -2,11 +2,11 @@
 
 - case @subscription.membership_type
 - when 'casual'
-  =render 'casual_membership_form'
+  =render 'subscriptions/casual_membership_form'
 - when 'full'
-  =render 'full_membership_form'
+  =render 'subscriptions/full_membership_form'
 - else
-  =render 'select_membership_type_form'
+  =render 'subscriptions/select_membership_type_form'
 
 
 

@@ -18,6 +18,10 @@ describe AppliesSubscriptionGroups do
   let(:tree_grower_magazine_group) { stub(:tree_grower_magazine_group) }
   let(:full_membership_group) { stub(:full_membership_group) }
 
+  let(:action_group_group) {stub(:action_group_group)}
+  let(:action_group) {stub(:action_group, :group => action_group_group)}
+
+
   let(:subscription) { stub(:subscription).as_null_object }
   let(:reader) { stub(:reader, :groups => []) }
 
@@ -33,6 +37,7 @@ describe AppliesSubscriptionGroups do
       subscription.stub(:membership_type).and_return('full')
       subscription.stub(:main_branch).and_return(branch_1)
       subscription.stub(:branches).and_return([branch_1, branch_2, branch_3])
+      subscription.stub(:action_groups).and_return([action_group])
     end
 
     it 'adds the full membership group' do
@@ -76,6 +81,12 @@ describe AppliesSubscriptionGroups do
 
       it 'adds reader to associated branch groups' do
         reader.groups.should include group_2, group_3
+      end
+
+      context 'action groups' do
+        it 'adds reader to action group groups' do
+          reader.groups.should include action_group_group
+        end
       end
     end
   end

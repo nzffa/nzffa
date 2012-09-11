@@ -1,0 +1,21 @@
+%h1 Subscriptions
+
+%table
+  %thead
+    %th id
+    %th reader
+    %th type
+    %th begins_on
+    %th expires_on
+    %th paid_on
+    %th edit
+  %tbody
+    -@subscriptions.each do |sub|
+      %tr
+        %td=sub.id
+        %td=sub.reader.name if sub.reader
+        %td=sub.membership_type
+        %td=sub.begins_on
+        %td=sub.expires_on
+        %td=sub.order.paid_on if sub.order
+        %td=link_to 'edit', edit_admin_subscription_path(sub)

@@ -6,6 +6,9 @@ class Subscription < ActiveRecord::Base
   has_many :subscriptions_branches
   has_many :branches, :through => :subscriptions_branches
   belongs_to :main_branch, :class_name => 'Branch'
+  has_many :action_groups_subscriptions
+  has_many :action_groups, :through => :action_groups_subscriptions
+
   validates_inclusion_of :membership_type, :in => ['full', 'casual']
   validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
   validates_presence_of :ha_of_planted_trees, :if => 'membership_type == "full"'
@@ -20,6 +23,19 @@ class Subscription < ActiveRecord::Base
       return sub if sub.active?
     end
     nil
+  end
+
+  def description
+    list = []
+    list << membership_type
+
+    if membership_type == 'full'
+      list << "Branches: [#{(branches.map{|b| b.name }).join(', ')}]"
+    end
+
+    list << "Begins: #{begins_on}"
+    list << "Expires: #{expires_on}"
+    list.join(', ')
   end
 
   def active?

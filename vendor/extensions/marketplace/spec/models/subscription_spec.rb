@@ -10,6 +10,23 @@ describe Subscription do
     @subscription
   end
 
+  describe 'special_interest_groups' do
+    before :each do
+      NzffaSettings.special_interest_group_levys = {'green' => 1, 'blue' => 2}
+    end
+
+    it 'special_interest_group_names returns a list of names' do
+      Subscription.special_interest_group_names.should include 'green', 'blue'
+    end
+
+    it 'remembers which groups you choose' do
+      subject.special_interest_groups = ['green']
+      subject.save(false)
+      subject.reload
+      subject.special_interest_groups.should == ['green']
+    end
+  end
+
   describe 'active_subscription_for' do
     let(:reader) { reader = Reader.new; reader.save(false); reader}
     before :each do 

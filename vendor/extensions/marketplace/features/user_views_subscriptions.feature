@@ -6,10 +6,17 @@ Feature: User views their subscriptions
   Background:
     Given I am a registered, logged in reader
 
-  Scenario:
-    Given I have a subscription for this year
-    And I have a subcription for next year
-    When I visit my subscriptions page
-    Then I should see both subscriptions
+  Scenario: I see my active subscription and can modify it
+    Given I created a casual fft subscription at the start of the year
+    And the date is "2012-05-03"
+    When I visit "/subscriptions"
+    Then I should see the subscription details
+    And I should see "Modify"
+
+  Scenario: I have no subscriptions and can buy one
+    When I visit "/subscriptions"
+    Then I should see "You have no active subscription"
+    And I should see "Buy a subscription"
+
 
 

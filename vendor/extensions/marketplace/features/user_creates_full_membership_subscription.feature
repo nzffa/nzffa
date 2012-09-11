@@ -12,6 +12,7 @@ Feature: User creates full NZFFA Membership
     And there is a branch "South Canterbury" for $8
     And FFT Marketplace membership is $15 for full members
     And Tree Grower Magazine is $50 for full members
+    And Eucalyptus Action Group is $30
     And there is a Tree Grower Magazine group
     And there is a FFT Marketplace group
     And there is a Full Membership group
@@ -52,6 +53,23 @@ Feature: User creates full NZFFA Membership
     Then I should see that payment was successful
     And I should belong to the Tree Grower Magazine group
     And I should belong to the Full Membership group
+
+  @javascript
+  Scenario: user configures a yearly subscription config 3
+    Given the date is "2012-01-01"
+    Then choose "11 - 40ha"
+    And select "South Canterbury" from "subscription_main_branch_name"
+    And choose "End of this year"
+    And select "Eucalyptus Action Group" from "subscription_action_group_ids"
+    Then I should see "Subscription Price: $173.00 + GST"
+    And I should see "Expires on: 31 December 2012"
+    And press "Proceed to payment"
+    Then I should be forwarded to payment express
+    When I enter my credit card details
+    Then I should see that payment was successful
+    And I should belong to the Tree Grower Magazine group
+    And I should belong to the Full Membership group
+    And I should belong to the Eucalyptus Action group
 
   #Scenario Outline:
     #user configures their subscription and gets the right price

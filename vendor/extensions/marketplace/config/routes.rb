@@ -26,8 +26,13 @@ ActionController::Routing::Routes.draw do |map|
   map.join_fft '/membership/join-fft', :controller => :membership, :action => :join_fft
 
   map.namespace :admin do |admin|
+    admin.resources :subscriptions
     admin.resources :adverts, :except => [:new, :create]
-    admin.resources :readers_plus, :except => [:new, :create, :show]
+    admin.resources :readers_plus, :except => [:new, :create]
+    admin.resources :orders
+    admin.resources :readers, :only => [] do |readers|
+      readers.resources :subscriptions
+    end
   end
 
   map.show_login_area "show_login_area", :controller => "person_sessions", :action => "show_login_area"

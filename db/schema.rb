@@ -9,7 +9,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905033526) do
+ActiveRecord::Schema.define(:version => 20120910062707) do
+
+  create_table "action_groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "group_id"
+    t.decimal  "annual_levy", :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "action_groups_subscriptions", :force => true do |t|
+    t.integer "action_group_id"
+    t.integer "subscription_id"
+  end
+
+  add_index "action_groups_subscriptions", ["action_group_id"], :name => "index_action_groups_subscriptions_on_action_group_id"
+  add_index "action_groups_subscriptions", ["subscription_id"], :name => "index_action_groups_subscriptions_on_subscription_id"
 
   create_table "adverts", :force => true do |t|
     t.string   "title"
@@ -137,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20120905033526) do
     t.integer "subscription_id"
     t.string  "kind"
     t.integer "old_subscription_id"
+    t.string  "payment_method"
   end
 
   add_index "orders", ["subscription_id"], :name => "index_orders_on_subscription_id"
@@ -336,6 +353,7 @@ ActiveRecord::Schema.define(:version => 20120905033526) do
     t.boolean  "receive_tree_grower_magazine"
     t.date     "begins_on"
     t.date     "cancelled_on"
+    t.text     "special_interest_groups"
   end
 
   add_index "subscriptions", ["reader_id"], :name => "index_subscriptions_on_reader_id"

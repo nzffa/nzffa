@@ -68,6 +68,15 @@ Given /^there is a Full Membership group$/ do
   NzffaSettings.full_membership_group_id = @full_membership_group.id
 end
 
+Given /^Eucalyptus Action Group is \$30$/ do
+  @eucalyptus_action_group_group = Group.create!(:name => 'Eucalyptus Action Group Group')
+
+  @eucalyptus_action_group = ActionGroup.create!(:name => 'Eucalyptus Action Group', 
+                                                 :group => @eucalyptus_action_group_group,
+                                                 :annual_levy => 30)
+
+end
+
 Then /^I should belong to the Tree Grower Magazine group$/ do
   @reader.groups.should include @tree_grower_magazine_group
 end
@@ -78,6 +87,11 @@ end
 
 Then /^I should belong to the Full Membership group$/ do
   @reader.groups.should include @full_membership_group
+end
+
+Then /^I should belong to the Eucalyptus Action group$/ do
+  @reader.reload
+  @reader.groups.should include @eucalyptus_action_group_group
 end
 
 When /^I visit new subscription$/ do
@@ -186,6 +200,7 @@ Given /^I created a casual fft subscription at the start of the year$/ do
     subscription.save!
     order = Order.create!(:amount => levy,
                           :subscription => subscription,
+                          :payment_method => 'Online',
                           :reader => @reader)
     order.paid!
   end
@@ -203,4 +218,11 @@ end
 
 Then /^my new subscription should be active$/ do
   Subscription.active_subscription_for(@reader).should be_active
+end
+
+Then /^I should see the subscription details$/ do
+  page.should have_content 'Begins on'
+  page.should have_content 'Expires on'
+  page.should have_content 'Farm Forestry Timbers Marketplace'
+  page.should have_content 'Tree Grower Magazine'
 end

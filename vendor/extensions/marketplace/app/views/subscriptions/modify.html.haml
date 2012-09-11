@@ -4,12 +4,12 @@
   - case params[:subscription][:membership_type]
   - when 'casual'
     - @subscription.membership_type = 'casual'
-    =render 'casual_membership_form'
+    =render 'subscriptions/casual_membership_form'
   - when 'full'
     - @subscription.membership_type = 'full'
-    =render 'full_membership_form'
+    =render 'subscriptions/full_membership_form'
 - else
-  =render 'select_membership_type_form'
+  =render 'subscriptions/select_membership_type_form'
 
 
 

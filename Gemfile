@@ -53,6 +53,7 @@ end
 group :test, :cucumber, :development do
   #gem 'vcr'
   #gem 'webmock'
+  gem 'rspec-nc'
   gem 'webrat'
   gem 'rspec-rails', '1.3.4'
   gem 'rspec', '1.3.2'

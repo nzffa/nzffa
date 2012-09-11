@@ -1,0 +1,14 @@
+%h2 Reader
+=@reader.name
+
+%h2 Subscription
+
+-if @subscription.blank?
+  %p 
+    no active subscription.
+    =link_to 'Create Subscription', new_subscription_path
+-else
+  =render 'subscriptions/subscription'
+
+  %p
+    =link_to 'Edit the subscription', modify_admin_reader_subscriptions_path(@reader)

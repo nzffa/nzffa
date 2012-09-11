@@ -1,7 +1,6 @@
 %h1 Full Membership
 
--url = @subscription.new_record? ? subscriptions_path : upgrade_subscriptions_path
--form_for(@subscription, :url => url) do |f|
+-form_for(@subscription, :url => @action_path) do |f|
   =f.hidden_field :membership_type
 
   %p How many Ha of planted trees to do you have?
@@ -19,18 +18,22 @@
   #main_branch
     =f.collection_select :main_branch_name, Branch.all, :name, :name
 
-  %p Select any additional branches you want to become an associated member of
+  %p Select any additional branches you want to be a member of
   #associated_branches
-    =f.collection_select :associated_branch_names, Branch.all, :name, :name,{}, :multiple => true
+    =f.collection_select :associated_branch_names, Branch.all, :name, :name, {}, :multiple => true
 
-  = render :partial => 'fft_marketplace_choice', :locals => {:f => f}
+  %p Select any special interest groups you want to belong to
+  #special_interest_groups
+    =f.collection_select :action_group_ids, ActionGroup.all, :id, :name, {}, :multiple => true
 
-  = render :partial => 'subscription_term_choices', :locals => {:f => f}
+  = render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
 
-  = render :partial => 'amount_to_pay', :locals => {:f => f}
+  = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
 
-  = render :partial => 'expiry_date', :locals => {:f => f}
+  = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
+
+  = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
 
   =f.submit 'Proceed to payment'
 
-= render :partial => 'quote_js'
+= render :partial => 'subscriptions/quote_js'

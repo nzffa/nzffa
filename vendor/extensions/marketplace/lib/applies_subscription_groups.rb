@@ -10,8 +10,14 @@ class AppliesSubscriptionGroups
       reader.groups << Group.find(NzffaSettings.tree_grower_magazine_group_id)
 
       subscription.branches.each do |branch|
-        reader.groups << branch.group
+        reader.groups << branch.group unless branch.group.nil?
       end
+
+      
+      subscription.action_groups.each do |action_group|
+        reader.groups << action_group.group unless action_group.group.nil?
+      end
+
     when 'casual'
       if subscription.receive_tree_grower_magazine?
         reader.groups << Group.find(NzffaSettings.tree_grower_magazine_group_id)

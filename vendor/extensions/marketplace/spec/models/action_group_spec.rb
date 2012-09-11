@@ -1,0 +1,4 @@
+describe ActionGroup do
+
+end
+

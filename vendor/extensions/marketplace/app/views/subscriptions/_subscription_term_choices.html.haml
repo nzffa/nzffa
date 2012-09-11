@@ -1,9 +1,16 @@
 %p Expiry Date
 #subscription_term
-  -end_of_this_year = Date.new(Date.today.year, 12, 31).to_s
-  -end_of_next_year = Date.new(Date.today.year+1, 12, 31).to_s
-  =f.radio_button :expires_on, end_of_this_year
-  =f.label "expires_on_#{end_of_this_year.gsub('-','')}", 'End of this year'
-  %br
-  =f.radio_button :expires_on, end_of_next_year
-  =f.label "expires_on_#{end_of_next_year.gsub('-','')}", 'End of next year'
+  -if @current_user && @current_user.admin?
+    =f.label :expires_on
+    =f.text_field :expires_on
+    %p Enter expiry date in Year-Month-Day format. (usually 31 december of a year)
+  -else
+    -end_of_this_year = Date.new(Date.today.year, 12, 31).to_s
+    -end_of_next_year = Date.new(Date.today.year+1, 12, 31).to_s
+    =f.radio_button :expires_on, end_of_this_year
+    =f.label "expires_on_#{end_of_this_year.gsub('-','')}", 'End of this year'
+    %br
+    =f.radio_button :expires_on, end_of_next_year
+    =f.label "expires_on_#{end_of_next_year.gsub('-','')}", 'End of next year'
+
+

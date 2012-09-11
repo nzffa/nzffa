@@ -38,3 +38,12 @@ Spec::Runner.configure do |config|
   # If you declare global fixtures, be aware that they will be declared
   # for all of your examples, even those that don't use them.
 end
+
+def create_admin_user
+  User.create!(:name => 'charles admin',
+              :email => 'cmoney@admin.com',
+              :login => 'cmoneyhoney',
+              :password => 'password',
+              :password_confirmation => 'password',
+              :admin => true)
+end

@@ -1,8 +1,10 @@
 class Order < ActiveRecord::Base
+  PAYMENT_METHODS = ['Direct Debit', 'Cheque', 'Cash', 'Online']
   belongs_to :subscription
   belongs_to :old_subscription, :class_name => 'Subscription'
   belongs_to :reader
-  validates_presence_of :amount, :reader, :subscription
+  validates_presence_of :amount, :subscription, :reader
+  validates_inclusion_of :payment_method, :in => PAYMENT_METHODS, :allow_blank => true
 
   def paid!
     if old_subscription.present?

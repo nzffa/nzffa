@@ -32,8 +32,8 @@ Feature: User creates casual membership subscription
 
     Scenarios:
       | tree_grower_delivery_location | duration         | fee   | begin_date     |  expiry_date    |
-      #| New Zealand                   | End of this year | 40.00 | 1 January 2012 | 31 December 2012 |
-      #| Australia                     | End of this year | 50.00 | 1 January 2012 | 31 December 2012 |
+      | New Zealand                   | End of this year | 40.00 | 1 January 2012 | 31 December 2012 |
+      | Australia                     | End of this year | 50.00 | 1 January 2012 | 31 December 2012 |
       | Everywhere else               | End of this year | 60.00 | 1 January 2012 | 31 December 2012 |
       | New Zealand                   | End of next year | 80.00 | 1 January 2012 | 31 December 2013 |
 

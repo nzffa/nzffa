@@ -4,14 +4,16 @@ class SubscriptionsController < MarketplaceController
   include ActionView::Helpers::NumberHelper
 
   def index
-    @active_subscription = Subscription.active_subscription_for(current_reader)
+    @subscription = Subscription.active_subscription_for(current_reader)
   end
 
   def modify
+    @action_path = upgrade_subscriptions_path
     @subscription = Subscription.active_subscription_for(current_reader)
   end
 
   def new
+    @action_path = subscriptions_path
     @subscription = Subscription.new(params[:subscription])
   end
 
@@ -50,6 +52,7 @@ class SubscriptionsController < MarketplaceController
       @subscription.save!
       @order = Order.create!(:amount => levy,
                             :subscription => @subscription,
+                            :payment_method => 'Online',
                             :reader => current_reader)
       redirect_to make_payment_order_path(@order)
     else

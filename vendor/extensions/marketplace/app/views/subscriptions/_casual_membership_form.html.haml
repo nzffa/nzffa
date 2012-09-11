@@ -1,8 +1,7 @@
 %h1 Casual Membership
--url = @subscription.new_record? ? subscriptions_path : upgrade_subscriptions_path
--form_for(@subscription, :url => url) do |f|
+-form_for(@subscription, :url => @action_path) do |f|
   =f.hidden_field :membership_type
-  =render :partial => 'fft_marketplace_choice', :locals => {:f => f}
+  =render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
 
   %h2 NZ Tree Grower Magazine
   %p This Quarterly publication will keep you informed on the latest goings on in the industry. Get it delivered. 
@@ -20,10 +19,10 @@
     =f.radio_button :tree_grower_delivery_location, 'everywhere_else'
     =f.label :tree_grower_delivery_location_everywhere_else, 'Everywhere else'
 
-  = render :partial => 'subscription_term_choices', :locals => {:f => f}
+  = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
 
-  = render :partial => 'amount_to_pay', :locals => {:f => f}
+  = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
 
-  = render :partial => 'expiry_date', :locals => {:f => f}
+  = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
   =f.submit 'Proceed to payment'
-= render :partial => 'quote_js'
+= render :partial => 'subscriptions/quote_js'

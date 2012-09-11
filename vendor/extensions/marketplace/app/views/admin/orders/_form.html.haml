@@ -1,0 +1,11 @@
+-form_for([:admin, @order]) do |f|
+  =f.hidden_field :subscription_id
+  =f.label :amount
+  =f.text_field :amount
+  %br
+  =f.label :payment_method
+  =f.select :payment_method, Order::PAYMENT_METHODS, :include_blank => true
+  %br
+  =f.label :paid_on
+  =f.text_field :paid_on
+  =f.submit 'Save'

@@ -7,6 +7,7 @@
     %td forename
     %td surname
     %td email
+    %td show
     %td edit
   %tbody
     -@readers.each do |r|
@@ -16,4 +17,5 @@
         %td=r.forename
         %td=r.surname
         %td=r.email
+        %td=link_to('view', "/admin/readers_plus/#{r.id}")
         %td=link_to('edit', "/admin/readers_plus/#{r.id}/edit")

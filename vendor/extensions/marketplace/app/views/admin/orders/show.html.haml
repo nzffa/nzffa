@@ -1,0 +1,23 @@
+%h1 Order
+%p
+  %b Reader:
+  =@order.subscription.reader.name
+
+%p
+  %b Amount:
+  =number_to_currency @order.amount
+
+%p
+  %b Payment method:
+  =@order.payment_method
+
+%p
+  %b Subscription:
+  =@order.subscription.description
+
+%p
+  %b Paid on:
+  -if @order.paid?
+    =l @order.paid_on
+  -else
+    Not Paid
