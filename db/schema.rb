@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120910062707) do
+ActiveRecord::Schema.define(:version => 20120911055350) do
 
   create_table "action_groups", :force => true do |t|
     t.string   "name"
@@ -354,6 +354,7 @@ ActiveRecord::Schema.define(:version => 20120910062707) do
     t.date     "begins_on"
     t.date     "cancelled_on"
     t.text     "special_interest_groups"
+    t.integer  "nz_tree_grower_copies",         :default => 1
   end
 
   add_index "subscriptions", ["reader_id"], :name => "index_subscriptions_on_reader_id"

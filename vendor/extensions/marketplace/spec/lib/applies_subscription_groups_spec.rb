@@ -31,6 +31,42 @@ describe AppliesSubscriptionGroups do
     Group.stub(:find).with(NzffaSettings.tree_grower_magazine_group_id).and_return(tree_grower_magazine_group)
   end
 
+  describe 'remove' do
+    before :each do
+      reader.groups << fft_group
+      reader.groups << full_membership_group
+      reader.groups << tree_grower_magazine_group
+      reader.groups << group_1
+      reader.groups << group_2
+      reader.groups << group_3
+      reader.groups << action_group_group
+      subscription.stub(:membership_type).and_return('full')
+      subscription.stub(:main_branch).and_return(branch_1)
+      subscription.stub(:branches).and_return([branch_1, branch_2, branch_3])
+      subscription.stub(:action_groups).and_return([action_group])
+      AppliesSubscriptionGroups.remove(subscription, reader)
+    end
+    it 'removes fft_marketplace_group' do
+      reader.groups.should_not include fft_group
+    end
+    it 'removes full_membership_group' do
+      reader.groups.should_not include full_membership_group
+    end
+    it 'removes tree_grower_magazine_group' do
+      reader.groups.should_not include tree_grower_magazine_group
+    end
+
+    it 'removes any branch groups' do
+      reader.groups.should_not include group_1
+      reader.groups.should_not include group_2
+      reader.groups.should_not include group_3
+    end
+
+    it 'removes any action groups' do
+      reader.groups.should_not include action_group_group
+    end
+  end
+
   context 'an full membership subscription' do
 
     before :each do

@@ -75,18 +75,23 @@ class CalculatesSubscriptionLevy
       levy += NzffaSettings.casual_member_fft_marketplace_levy
     end
     if subscription.receive_tree_grower_magazine?
-      levy += case subscription.tree_grower_delivery_location
-              when 'new_zealand'
-                NzffaSettings.tree_grower_magazine_within_new_zealand
-              when 'australia'
-                NzffaSettings.tree_grower_magazine_within_australia
-              when 'everywhere_else'
-                NzffaSettings.tree_grower_magazine_everywhere_else
-              else
-                raise 'unknown tree grower magazine deliver location'
-              end
+      levy += casual_nz_tree_grower_levy(subscription)
     end
     levy
+  end
+
+  def self.casual_nz_tree_grower_levy(subscription)
+    per_copy = case subscription.tree_grower_delivery_location
+               when 'new_zealand'
+                 NzffaSettings.tree_grower_magazine_within_new_zealand
+               when 'australia'
+                 NzffaSettings.tree_grower_magazine_within_australia
+               when 'everywhere_else'
+                 NzffaSettings.tree_grower_magazine_everywhere_else
+               else
+                 raise 'unknown tree grower magazine deliver location'
+               end
+    (per_copy.to_i * subscription.nz_tree_grower_copies.to_i)
   end
 
   def self.full_membership_levy(subscription)

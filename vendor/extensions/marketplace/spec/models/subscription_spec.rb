@@ -10,20 +10,38 @@ describe Subscription do
     @subscription
   end
 
-  describe 'special_interest_groups' do
+
+  describe 'expiring' do
     before :each do
-      NzffaSettings.special_interest_group_levys = {'green' => 1, 'blue' => 2}
+      @expiring_subscription = Subscription.new
+      @expiring_subscription.save(false)
+      @expiring_subscription.update_attribute(:expires_on, Date.today)
     end
 
-    it 'special_interest_group_names returns a list of names' do
-      Subscription.special_interest_group_names.should include 'green', 'blue'
+    describe 'days to expiry' do
+      it 'has 0 days to expire on expiry day' do
+        @expiring_subscription.days_to_expire.should == 0
+      end
+
+      it 'gives 1 day to expire the day before expiry' do
+        @expiring_subscription.update_attribute(:expires_on, Date.tomorrow)
+        @expiring_subscription.days_to_expire.should == 1
+      end
+
+      it 'gives 30, 30 days before expires_on' do
+        @expiring_subscription.update_attribute(:expires_on, 30.days.from_now)
+        @expiring_subscription.days_to_expire.should == 30
+      end
+
     end
 
-    it 'remembers which groups you choose' do
-      subject.special_interest_groups = ['green']
-      subject.save(false)
-      subject.reload
-      subject.special_interest_groups.should == ['green']
+    it 'returns subscriptions with expires_on on the given date' do
+      Subscription.expiring_on(Date.today).should include @expiring_subscription
+    end
+
+    it 'does not return cancelled subscriptions' do
+      @expiring_subscription.cancel!
+      Subscription.expiring_on(Date.today).should_not include @expiring_subscription
     end
   end
 

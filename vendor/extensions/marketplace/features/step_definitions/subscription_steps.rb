@@ -226,3 +226,11 @@ Then /^I should see the subscription details$/ do
   page.should have_content 'Farm Forestry Timbers Marketplace'
   page.should have_content 'Tree Grower Magazine'
 end
+
+When /^change number of copies to (\d+)$/ do |arg1|
+  fill_in "Number of copies", :with => '2'
+end
+
+Then /^I should be subscribed to get (\d+) copies of NZ Tree Grower Magazine$/ do |arg1|
+  Subscription.active_subscription_for(@reader).nz_tree_grower_copies.should == arg1.to_i
+end

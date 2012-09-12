@@ -12,17 +12,27 @@ class Subscription < ActiveRecord::Base
   validates_inclusion_of :membership_type, :in => ['full', 'casual']
   validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
   validates_presence_of :ha_of_planted_trees, :if => 'membership_type == "full"'
+  validates_presence_of :nz_tree_grower_copies
   validates_presence_of :expires_on, :begins_on
   validates_presence_of :reader
 
   validates_inclusion_of :ha_of_planted_trees, 
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
 
+  named_scope :expiring_on, lambda {|expiry_date| 
+    {:conditions => {:expires_on => expiry_date, :cancelled_on => nil}}}
+
+  
+
   def self.active_subscription_for(reader)
     find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
       return sub if sub.active?
     end
     nil
+  end
+
+  def days_to_expire
+    expires_on.yday - Date.today.yday
   end
 
   def description
@@ -54,6 +64,7 @@ class Subscription < ActiveRecord::Base
     self.begins_on ||= Date.today
     self.expires_on ||= Date.new(Date.today.year, 12, 31)
     self.tree_grower_delivery_location ||= 'new_zealand'
+    self.nz_tree_grower_copies ||= 1
   end
 
   def associated_branch_names
