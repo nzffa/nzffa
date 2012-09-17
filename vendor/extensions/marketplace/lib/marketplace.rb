@@ -5,7 +5,7 @@ module Marketplace
   tag 'hello_or_login' do |tag|
     current_reader = Reader.current
     if current_reader
-      "Hello #{current_reader.forename}. <a href='/account/'>Your Account</a>. <a href='/subscriptions/'>Your Subscription</a>. <a href='/account/logout'>Logout</a>"
+      "Hello #{current_reader.forename}. <a href='/account/'>Your Account</a>. <a href='/account/logout'>Logout</a>"
     else
       "<a href='/account/login'>Login</a> or <a href='/directory/readers/new'>Signup</a>"
     end
