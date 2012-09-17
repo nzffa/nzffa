@@ -1,6 +1,9 @@
 en:
   reader_extension:
+    dashboard:
+      introduction: ""
     is_free_and_quick: ''
+    forgotten_password: "Forgotten your password or don't have one yet?"
 
   date:
     formats:

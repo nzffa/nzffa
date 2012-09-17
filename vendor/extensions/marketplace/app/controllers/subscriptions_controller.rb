@@ -1,5 +1,5 @@
 class SubscriptionsController < MarketplaceController
-  #radiant_layout "ffm_specialty_timbers"
+  radiant_layout "no_layout"
   before_filter :require_current_reader
   include ActionView::Helpers::NumberHelper
 

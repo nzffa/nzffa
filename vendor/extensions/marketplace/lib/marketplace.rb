@@ -2,6 +2,14 @@ module Marketplace
   include Radiant::Taggable
   desc 'Tags to load marketplace into the current page'
 
+  tag 'hello_or_login' do |tag|
+    if current_reader
+      "Hello #{current_reader.forename}. <a href='/account/'>Your Account</a>. <a href='/subscriptions/'>Your Subscription</a>. <a href='/account/logout'>Logout</a>"
+    else
+      "<a href='/account/login'>Login</a> or <a href='/directory/readers/new'>Signup</a>"
+    end
+  end
+
   tag 'adverts' do |tag|
     %{<div id="adverts"></div>
       <script type="text/javascript">$('#adverts').load('#{adverts_path}')</script>}
