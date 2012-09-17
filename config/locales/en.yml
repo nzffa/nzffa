@@ -1,3 +1,33 @@
 en:
   reader_extension:
+    dashboard:
+      introduction: ""
     is_free_and_quick: ''
+    forgotten_password: "Forgotten your password or don't have one yet?"
+    nickname_or_email: 'Email address'
+    form_notes:
+      account:
+        description: "This appears at the top of your profile page."
+        dob: "This is used for some calculations and might appear in your profile."
+        email: "we will send activation instructions to this address"
+        existing_password: "leave blank to keep present password. If changing, at least four characters."
+        forename: ""
+        honorific: "this is prepended to your name but only in a formal setting"
+        login: "you can always use your email address instead"
+        mobile: "without country code"
+        name: ""
+        nickname: "... but if you would rather we display a nickname, please enter it here. You can also log in with this name."
+        new_password: "at least six characters, please, and with at least one non-letter character"
+        phone: "with area code but no country code"
+        post_country: "Please choose from the list"
+        post_organisation: "You can omit this unless it's part of your postal address"
+        surname: ""
+        unshareable: "To keep your contact information private and receive only administrative messages, check this box."
+
+  date:
+    formats:
+      default: "%e %B %Y"
+      unpopular: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+
