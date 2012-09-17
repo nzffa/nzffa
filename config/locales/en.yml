@@ -4,6 +4,7 @@ en:
       introduction: ""
     is_free_and_quick: ''
     forgotten_password: "Forgotten your password or don't have one yet?"
+    nickname_or_email: 'Email address'
     form_notes:
       account:
         description: "This appears at the top of your profile page."
