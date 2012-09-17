@@ -25,6 +25,7 @@ class MembershipController < MarketplaceController
       else
         # new member
         @reader = Reader.new(params[:reader])
+        @reader.clear_password = params[:reader][:password]
         @validated_reader = ReaderValidator.new(@reader)
         if @validated_reader.valid? and @reader.save
           update_newsletter_preference
