@@ -17,8 +17,8 @@ module Marketplace
   end
 
   tag 'my_adverts' do |tag|
-    %{<div id="adverts"></div>
-      <script type="text/javascript">$('#adverts').load('#{my_adverts_adverts_path}')</script>}
+        %{<div id="adverts"></div>
+          <script type="text/javascript">$('#adverts').load('#{my_adverts_adverts_path}')</script>}
   end
 
   tag 'edit_company_listing' do |tag|
@@ -27,13 +27,13 @@ module Marketplace
   end
 
   tag 'new_advert' do |tag|
-    %{<div id="adverts"></div>
-      <script type="text/javascript">$('#adverts').load('#{new_advert_path}')</script>}
+  %{<div id="adverts"></div>
+    <script type="text/javascript">$('#adverts').load('#{new_advert_path}')</script>}
   end
 
   tag 'register' do |tag|
-    %{<div id="adverts"></div>
-      <script type="text/javascript">$('#adverts').load('/membership/register')</script>}
+        %{<div id="adverts"></div>
+          <script type="text/javascript">$('#adverts').load('/membership/register')</script>}
   end
 
   tag 'join-fft-button' do |tag|

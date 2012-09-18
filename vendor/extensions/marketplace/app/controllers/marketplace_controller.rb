@@ -11,6 +11,15 @@ class MarketplaceController < SiteController
   ADMIN_GROUP_ID = 100
 
   protected
+  def current_reader
+    unless @current_reader
+      if reader_session = ReaderSession.find
+        @current_reader = reader_session.reader
+      end
+    end
+    @current_reader
+  end
+
   def require_current_reader
     unless current_reader
       flash[:error] = 'Sorry, but you must be logged in to do this'
