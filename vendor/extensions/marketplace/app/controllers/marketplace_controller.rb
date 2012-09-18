@@ -12,6 +12,15 @@ class MarketplaceController < SiteController
   radiant_layout "ffm_specialty_timbers"
 
   protected
+  def current_reader
+    unless @current_reader
+      if reader_session = ReaderSession.find
+        @current_reader = reader_session.reader
+      end
+    end
+    @current_reader
+  end
+
   def require_current_reader
     unless current_reader
       flash[:error] = 'Sorry, but you must be logged in to do this'
