@@ -4,5 +4,5 @@
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
   :key         => '_nzffa_session',
-  :secret      => 'blablabla098765456789'
+  :secret      => 'blablabla09876545678asdfghjklkjhgfdghjklkjhgfdjkdhgbnuhbenmiji2249'
 }
