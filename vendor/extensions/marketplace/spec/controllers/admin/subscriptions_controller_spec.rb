@@ -104,10 +104,11 @@ describe Admin::SubscriptionsController do
           post :create, :reader_id => @reader.id
         end
 
-        it 'redirects to new order' do
+        it 'redirects to order' do
           post :create, :reader_id => @reader.id
           sub = assigns(:subscription)
-          response.should redirect_to new_admin_order_path(:subscription_id => sub.id)
+          order = assigns(:order)
+          response.should redirect_to admin_order_path(order)
         end
 
       end

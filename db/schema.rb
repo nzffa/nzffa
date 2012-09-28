@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911055350) do
+ActiveRecord::Schema.define(:version => 20120928005956) do
 
   create_table "action_groups", :force => true do |t|
     t.string   "name"
@@ -147,13 +147,26 @@ ActiveRecord::Schema.define(:version => 20120911055350) do
     t.datetime "sent_at"
   end
 
+  create_table "order_lines", :force => true do |t|
+    t.integer  "order_id"
+    t.string   "kind"
+    t.string   "particular"
+    t.decimal  "amount",     :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "order_lines", ["order_id"], :name => "index_order_lines_on_order_id"
+
   create_table "orders", :force => true do |t|
-    t.decimal "amount",              :precision => 10, :scale => 2
-    t.date    "paid_on"
-    t.integer "subscription_id"
-    t.string  "kind"
-    t.integer "old_subscription_id"
-    t.string  "payment_method"
+    t.date     "paid_on"
+    t.integer  "subscription_id"
+    t.string   "kind"
+    t.integer  "old_subscription_id"
+    t.string   "payment_method"
+    t.decimal  "amount",              :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "orders", ["subscription_id"], :name => "index_orders_on_subscription_id"

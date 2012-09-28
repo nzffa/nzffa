@@ -98,4 +98,18 @@ class Subscription < ActiveRecord::Base
       order.amount
     end
   end
+
+  def length_in_years
+    CalculatesSubscriptionLevy.subscription_length(begins_on, expires_on)
+  end
+
+  def refund_available
+    if price_when_sold == nil
+      0
+    else
+      price_when_sold - 
+        (price_when_sold * 
+         CalculatesSubscriptionLevy.fraction_used(begins_on, expires_on))
+    end
+  end
 end

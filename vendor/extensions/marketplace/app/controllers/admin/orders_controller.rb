@@ -1,4 +1,14 @@
 class Admin::OrdersController < AdminController
+  def index
+    if params[:reader_id]
+      @subscriptions = Subscription.find(:all, :conditions => {:reader_id => params[:reader_id]})
+
+      @orders = Order.find(:all, :conditions => {:subscription_id => @subscriptions.map(&:id)})
+    else
+      @orders = Order.all
+    end
+  end
+
   def new
     @subscription = Subscription.find params[:subscription_id]
     @order = Order.new(:subscription_id => params[:subscription_id])
@@ -7,6 +17,7 @@ class Admin::OrdersController < AdminController
 
   def edit
     @order = Order.find(params[:id])
+    @order.order_lines.build
   end
 
   def show
@@ -22,7 +33,6 @@ class Admin::OrdersController < AdminController
 
   def create
     @order = Order.new(params[:order])
-    @order.reader = @order.subscription.reader
 
     if @order.save
       if @order.paid?

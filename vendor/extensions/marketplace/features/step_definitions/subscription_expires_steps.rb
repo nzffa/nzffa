@@ -4,7 +4,6 @@ Given /^the reader's subscription is due to expire in (\d+) days$/ do |arg1|
                                        :reader => @reader)
 
   Order.create!(:subscription => @subscription,
-                :reader => @reader,
                 :amount => CalculatesSubscriptionLevy.levy_for(@subscription),
                 :paid_on => Date.today)
 
@@ -17,7 +16,6 @@ Given /^the reader's subscription is due to expire today$/ do
                                        :reader => @reader)
 
   Order.create!(:subscription => @subscription,
-                :reader => @reader,
                 :amount => CalculatesSubscriptionLevy.levy_for(@subscription),
                 :paid_on => Date.today)
 
@@ -38,7 +36,7 @@ Then /^the reader should be emailed a warning notification$/ do
   last_email.to.should include @reader.email
     
   last_email.subject.should == "Your NZFFA subscription will expire in 30 days"
-  last_email.body.should =~ /Your subscription will expire in 30 days/
+  last_email.body.should =~ /subscription will expire in 30 days/
   last_email.body.should =~ /To renew your subscription please visit/
 end
 
@@ -61,7 +59,7 @@ Then /^the reader should be emailed an expiry notification$/ do
   last_email.to.should include @reader.email
     
   last_email.subject.should == "Your NZFFA subscription has expired"
-  last_email.body.should =~ /Your subscription has expired/
+  last_email.body.should =~ /subscription has expired/
   last_email.body.should =~ /To renew your subscription please visit/
 end
 

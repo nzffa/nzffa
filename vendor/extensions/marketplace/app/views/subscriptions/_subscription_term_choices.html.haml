@@ -3,7 +3,7 @@
   -if @current_user && @current_user.admin?
     =f.label :expires_on
     =f.text_field :expires_on
-    %p Enter expiry date in Year-Month-Day format. (usually 31 december of a year)
+    %p Enter expiry date as 2012-12-31 (Year-Month-Day)
   -else
     -end_of_this_year = Date.new(Date.today.year, 12, 31).to_s
     -end_of_next_year = Date.new(Date.today.year+1, 12, 31).to_s

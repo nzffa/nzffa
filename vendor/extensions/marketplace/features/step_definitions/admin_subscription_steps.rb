@@ -56,7 +56,6 @@ end
 
 Then /^fill in a manual expiry date$/ do
   fill_in 'subscription[expires_on]', :with => '2012-12-12'
-
 end
 
 Then /^I should see the readers subscription$/ do
@@ -79,12 +78,8 @@ Given /^the registered reader has a casual subscription$/ do
   @subscription = Subscription.create!(:membership_type => 'casual',
                                        :belong_to_fft => true,
                                        :reader => @reader)
-
-  Order.create!(:subscription => @subscription,
-                :reader => @reader,
-                :amount => CalculatesSubscriptionLevy.levy_for(@subscription),
-                :paid_on => Date.today)
-
+  @order = CreateOrder.from_subscription(@subscription)
+  @order.save!
 end
 
 When /^I visit edit_admin_subscription for that sub$/ do
@@ -99,6 +94,7 @@ When /^I add tree grower to the subscription$/ do
 end
 
 Then /^I should see an order form with the upgrade amount$/ do
+  sleep 10
   page.has_field?('Amount', :with => '10.00').should be_true
 end
 

@@ -5,6 +5,10 @@ class Admin::SubscriptionsController < AdminController
     @subscriptions = Subscription.find(:all, :order => 'id desc')
   end
 
+  def show
+    @subscription = Subscription.find(params[:id])
+  end
+
   def new
     if @existing_sub = Subscription.active_subscription_for(@reader)
       redirect_to edit_admin_subscription_path(@existing_sub)
@@ -30,8 +34,11 @@ class Admin::SubscriptionsController < AdminController
   def create
     @subscription = Subscription.new(params[:subscription])
     @subscription.reader = @reader
-    if @subscription.save
-      redirect_to new_admin_order_path(:subscription_id => @subscription.id)
+    
+    if @subscription.save!
+      @order = CreateOrder.from_subscription(@subscription)
+      @order.save
+      redirect_to edit_admin_order_path(@order)
     else
       render :new
     end
@@ -41,8 +48,9 @@ class Admin::SubscriptionsController < AdminController
     current_sub = Subscription.find(params[:id])
     new_sub = Subscription.new(params[:subscription])
     new_sub.reader = current_reader
-    if new_sub.valid?
-      @order = Order.upgrade_subscription(current_sub, new_sub)
+    @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
+    @order.save
+    if new_sub.valid? and @order.valid?
       redirect_to edit_admin_order_path(@order)
     else
       render :edit

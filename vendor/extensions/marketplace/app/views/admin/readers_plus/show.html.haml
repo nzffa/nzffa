@@ -1,7 +1,6 @@
-%h2 Reader
-=@reader.name
+%h1 Reader: #{link_to(@reader.name, "/admin/readers_plus/#{@reader.id}")}
 
-%h2 Subscription
+%h1 Subscription
 
 -if @subscription.blank?
   %p 
@@ -12,3 +11,5 @@
 
   %p
     =link_to 'Edit the subscription', edit_admin_subscription_path(@subscription)
+%p
+  =link_to('View Orders', "/admin/readers/#{@reader.id}/orders")

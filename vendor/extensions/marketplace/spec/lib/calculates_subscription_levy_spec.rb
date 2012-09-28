@@ -1,11 +1,13 @@
 require 'lib/nzffa_settings'
 require 'lib/calculates_subscription_levy'
 require 'timecop'
+
 describe CalculatesSubscriptionLevy do
   before :each do
     NzffaSettings.tree_grower_magazine_within_new_zealand = 40
     NzffaSettings.tree_grower_magazine_within_australia = 50
     NzffaSettings.tree_grower_magazine_everywhere_else = 60
+    NzffaSettings.admin_levy = 34
   end
 
   context 'credit on current subscription' do
@@ -14,7 +16,8 @@ describe CalculatesSubscriptionLevy do
       sub = stub(:current_subscription,
                  :begins_on => '2012-01-01',
                  :expires_on => '2012-12-31',
-                 :price_when_sold => 10)
+                 :price_when_sold => 10,
+                 :nz_tree_grower_copies => 1)
       CalculatesSubscriptionLevy.credit_if_upgraded(sub).should == 2.5
       Timecop.return
     end
@@ -23,7 +26,8 @@ describe CalculatesSubscriptionLevy do
       sub = stub(:current_subscription,
                  :begins_on => '2012-01-01',
                  :expires_on => '2012-12-31',
-                 :price_when_sold => nil)
+                 :price_when_sold => nil,
+                 :nz_tree_grower_copies => 1)
       CalculatesSubscriptionLevy.credit_if_upgraded(sub).should == 0
     end
 
@@ -37,7 +41,8 @@ describe CalculatesSubscriptionLevy do
                           :belong_to_fft? => true,
                           :receive_tree_grower_magazine? => false,
                           :begins_on => '2012-01-01',
-                          :expires_on => '2013-06-01')
+                          :expires_on => '2013-06-01',
+                          :nz_tree_grower_copies => 1)
       CalculatesSubscriptionLevy.levy_for(subscription).should == 75
     end
   end
@@ -99,12 +104,19 @@ describe CalculatesSubscriptionLevy do
       b2 = stub(:branch_2,  { :annual_levy => 10 })
       [b1, b2]
     }
+    let(:action_groups) {
+      b1 = stub(:action_group_1,  { :annual_levy => 5 })
+      b2 = stub(:action_group_2,  { :annual_levy => 10 })
+      [b1, b2]
+    }
     let(:subscription) {
       subscription_attributes = { 
         :begins_on => Date.parse('2012-01-01'),
         :expires_on => Date.parse('2012-12-31'),
         :belong_to_fft? => false,
         :branches => branches,
+        :action_groups => action_groups,
+        :nz_tree_grower_copies => 1,
         :receive_tree_grower_magazine? => false }
 
         stub(:subscription, subscription_attributes).as_null_object

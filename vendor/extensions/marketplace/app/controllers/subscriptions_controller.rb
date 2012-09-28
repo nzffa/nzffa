@@ -19,8 +19,9 @@ class SubscriptionsController < MarketplaceController
 
   def quote_new
     subscription = Subscription.new(params[:subscription])
-    levy = CalculatesSubscriptionLevy.levy_for(subscription)
-    render :json => {:price => "#{number_to_currency(levy)}", 
+    order = CreateOrder.from_subscription(subscription)
+
+    render :json => {:price => "#{number_to_currency(order.amount)}", 
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
                      :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end
@@ -29,31 +30,25 @@ class SubscriptionsController < MarketplaceController
     current_sub = Subscription.active_subscription_for(current_reader)
     new_sub = Subscription.new(params[:subscription])
 
-    normal_price = CalculatesSubscriptionLevy.levy_for(new_sub)
-    upgrade_price = CalculatesSubscriptionLevy.
-                      upgrade_price(current_sub, new_sub)
+    normal_price = CreateOrder.from_subscription(new_sub).amount
 
-    credit = CalculatesSubscriptionLevy.
-              credit_if_upgraded(current_sub)
+    credit = CalculatesSubscriptionLevy.credit_if_upgraded(current_sub)
+
+    upgrade_price = CalculatesSubscriptionLevy.upgrade_price(current_sub, new_sub)
 
     render :json => {:price => "#{number_to_currency(normal_price)}",
                      :credit => "#{number_to_currency(credit)}",
                      :upgrade_price => "#{number_to_currency(upgrade_price)}",
                      :expires_on => new_sub.expires_on.strftime('%e %B %Y').strip,
                      :begins_on => new_sub.begins_on.strftime('%e %B %Y').strip}
-
   end
 
   def create
     @subscription = Subscription.new(params[:subscription])
     @subscription.reader = current_reader
     if @subscription.valid?
-      levy = CalculatesSubscriptionLevy.levy_for(@subscription)
-      @subscription.save!
-      @order = Order.create!(:amount => levy,
-                            :subscription => @subscription,
-                            :payment_method => 'Online',
-                            :reader => current_reader)
+      @order = CreateOrder.from_subscription(@subscription)
+      @order.save
       redirect_to make_payment_order_path(@order)
     else
       render :new

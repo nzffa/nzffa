@@ -9,7 +9,7 @@ Given /^I am a registered, logged in reader$/ do
   @reader.update_attribute(:activated_at, '2010-01-01')
 
   visit '/account/login'
-  fill_in 'Nickname or email address', :with => 'test@example.org'
+  fill_in 'Email address', :with => 'test@example.org'
   fill_in 'Password', :with => 'password'
   click_on 'Log in'
 end
@@ -194,17 +194,10 @@ Given /^I created a casual fft subscription at the start of the year$/ do
                                   :begins_on => Date.parse('2012-01-01'),
                                   :expires_on => Date.parse('2012-12-31'))
   @old_subscription = subscription
-  levy = CalculatesSubscriptionLevy.levy_for(subscription)
   subscription.reader = @reader
-  if subscription.valid?
-    subscription.save!
-    order = Order.create!(:amount => levy,
-                          :subscription => subscription,
-                          :payment_method => 'Online',
-                          :reader => @reader)
-    order.paid!
-  end
-
+  order = CreateOrder.from_subscription(subscription)
+  order.save!
+  order.paid!('Online')
 end
 
 When /^I visit "([^"]*)"$/ do |path|

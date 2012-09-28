@@ -1,6 +1,6 @@
 %h1 Subscriptions
 
-%table
+%table#subscriptions.index
   %thead
     %th id
     %th reader
@@ -9,6 +9,7 @@
     %th expires_on
     %th paid_on
     %th cancelled_on
+    %th show
     %th edit
   %tbody
     -@subscriptions.each do |sub|
@@ -20,4 +21,5 @@
         %td=sub.expires_on
         %td=sub.order.paid_on if sub.order
         %td=sub.cancelled_on
+        %td=link_to 'show', admin_subscription_path(sub)
         %td=link_to 'edit', edit_admin_subscription_path(sub)

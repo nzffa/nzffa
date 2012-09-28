@@ -13,6 +13,22 @@ class NzffaSettings
     attr_accessor :full_membership_group_id
     attr_accessor :special_interest_group_levys
   end
+
+  def self.remove_defaults
+    admin_levy = nil
+    forest_size_levys = nil
+    full_member_tree_grower_magazine_levy = nil
+    full_member_fft_marketplace_levy = nil
+    casual_member_fft_marketplace_levy = nil
+    tree_grower_magazine_within_new_zealand = nil
+    tree_grower_magazine_within_australia = nil
+    tree_grower_magazine_everywhere_else = nil
+    fft_marketplace_group_id = nil
+    tree_grower_magazine_group_id = nil
+    full_membership_group_id = nil
+    special_interest_group_levys = nil
+  end
+
   @admin_levy = 34
 
   @forest_size_levys = {'0 - 10'  => 0, 

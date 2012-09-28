@@ -21,8 +21,7 @@ class OrdersController < MarketplaceController
     @order = Module.const_get(model_class).find(id)
 
     if result['Success'] == '1'
-      @order.update_attribute(:payment_method, 'Online')
-      @order.paid!
+      @order.paid!('Online')
       AppliesSubscriptionGroups.apply(@order.subscription, current_reader)
       render :success
     else

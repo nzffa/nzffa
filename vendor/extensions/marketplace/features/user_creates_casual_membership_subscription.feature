@@ -11,6 +11,7 @@ Feature: User creates casual membership subscription
     And Tree Grower Magazine "Everywhere else" is $60 / year
     And there is a Tree Grower Magazine group
     And there is a FFT Marketplace group
+
   @javascript
   Scenario: User subscribes to two get 2 copies of tree grower magazine
     Given the date is "2012-01-01"
@@ -20,6 +21,7 @@ Feature: User creates casual membership subscription
     And check "Subscribe to NZ Tree Grower Magazine"
     And change number of copies to 2
     And choose "End of this year"
+    And wait a bit
     Then I should see "Subscription Price: $80.00 + GST"
     When I click 'Proceed to payment'
     Then I should be forwarded to payment express

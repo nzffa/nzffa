@@ -27,6 +27,14 @@ class CalculatesSubscriptionLevy
     end
   end
 
+  def self.refund_amount(full_amount, fraction_used)
+    if full_amount == nil
+      0
+    else
+      full_amount - (full_amount * fraction_used)
+    end
+  end
+
   def self.upgrade_price(old_sub, new_sub)
     levy_for(new_sub) - credit_if_upgraded(old_sub)
   end
@@ -89,7 +97,7 @@ class CalculatesSubscriptionLevy
                when 'everywhere_else'
                  NzffaSettings.tree_grower_magazine_everywhere_else
                else
-                 raise 'unknown tree grower magazine deliver location'
+                 raise "unknown tree grower magazine deliver location: #{subscription.tree_grower_delivery_location}"
                end
     (per_copy.to_i * subscription.nz_tree_grower_copies.to_i)
   end
@@ -102,7 +110,6 @@ class CalculatesSubscriptionLevy
     if subscription.belong_to_fft?
       levy += NzffaSettings.full_member_fft_marketplace_levy
     end
-
     levy += NzffaSettings.full_member_tree_grower_magazine_levy
     levy += subscription.branches.map(&:annual_levy).sum
     levy += subscription.action_groups.map(&:annual_levy).sum

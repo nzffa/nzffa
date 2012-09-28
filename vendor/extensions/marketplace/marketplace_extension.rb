@@ -20,8 +20,18 @@ class MarketplaceExtension < Radiant::Extension
     Reader.send :include, ReaderMixin
 
     Page.class_eval { include Marketplace }
-    tab 'Content' do
-      add_item "Marketplace", "/admin/adverts", :after => "Pages"
+    tab 'Readers' do
+      add_item "Readers Extended", "/admin/readers_plus"
+    end
+
+    tab 'Marketplace' do
+      add_item "Marketplace", "/admin/adverts"
+    end
+
+    tab 'Subscriptions' do
+      add_item "Subscriptions", "/admin/subscriptions"
+      add_item "Orders", "/admin/orders"
+      add_item "Reports", "/admin/reports"
     end
   end
 end

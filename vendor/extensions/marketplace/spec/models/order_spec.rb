@@ -5,27 +5,56 @@ describe Order do
   it 'requires an amount' do
     order = Order.new
     order.valid?
-    order.should have(1).errors_on(:amount)
+    order.should have.errors_on(:amount)
     order.should have(1).errors_on(:reader)
     order.should have(1).errors_on(:subscription)
   end
 
-  describe 'marking as paid' do
-    it 'sets paid_on when paid!' do
-      subject.paid!
-      subject.paid_on.should == Date.today
+  describe 'adding a charge' do
+    it 'creates an order_line when you add a charge' do
+      order = Order.new
+      lambda{
+        order.add_charge(:kind => 'bananas', :particular => 'ripe', :amount => 4.5)
+      }.should change{ order.order_lines.size }.by(1)
     end
-    context 'an upgrade order' do
-      let(:old_sub){Subscription.new}
+  end
 
+  describe 'adding a refund' do
+    it 'creates an order line with negative charge' do
+      order = Order.new
+      lambda{
+        order.add_refund(:kind => 'bananas', 
+                         :particular => 'mouldy',
+                         :amount => 4.5)
+      }.should change{ order.order_lines }.by(1)
+      order.order_lines.last.amount.should == -4.5
+    end
+  end
+  describe 'marking as paid' do
+    it 'throws exception unless payment_method is set' do
+      lambda{ subject.paid! }.should raise_exception('Payment method required')
+    end
+    describe 'with payment method' do
       before :each do
-        subject.kind = 'upgrade'
-        subject.old_subscription = old_sub
+        subject.payment_method = 'Online'
       end
 
-      it 'cancels the old subscription' do
-        old_sub.should_receive(:cancel!)
+      it 'sets paid_on when paid!' do
         subject.paid!
+        subject.paid_on.should == Date.today
+      end
+      context 'an upgrade order' do
+        let(:old_sub){Subscription.new}
+
+        before :each do
+          subject.kind = 'upgrade'
+          subject.old_subscription = old_sub
+        end
+
+        it 'cancels the old subscription' do
+          old_sub.should_receive(:cancel!)
+          subject.paid!
+        end
       end
     end
   end
