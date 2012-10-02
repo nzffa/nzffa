@@ -11,6 +11,15 @@ module Marketplace
     end
   end
 
+  tag 'hello_or_blank' do |tag|
+    current_reader = Reader.current
+    if current_reader
+      "Hello #{current_reader.forename}. <a href='/account/'>Your Account</a>. <a href='/account/logout'>Logout</a>"
+    else
+      ''
+    end
+  end
+
   tag 'adverts' do |tag|
     %{<div id="adverts"></div>
       <script type="text/javascript">$('#adverts').load('#{adverts_path}')</script>}
