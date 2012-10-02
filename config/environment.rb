@@ -28,7 +28,7 @@ Radiant::Initializer.run do |config|
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
     :key => '_nzffa_session',
-    :secret      => '9252a50cf7a383524d891d8937775f7dc4ddf413'
+    :secret      => 'awsedrftgyhujikolp0987654321zaxscdvfbgnhmhj'
   }
 
   # Comment out this line if you want to turn off all caching, or
