@@ -21,16 +21,7 @@ Radiant::Initializer.run do |config|
   
   # Unload the extensions named here.
   # config.ignore_extensions []
-
-  # Your secret key for verifying cookie session data integrity.
-  # If you change this key, all old sessions will become invalid!
-  # Make sure the secret is at least 30 characters and all random,
-  # no regular words or you'll be exposed to dictionary attacks.
-  config.action_controller.session = {
-    :key => '_nzffa_sessi0n',
-    :secret      => 'awsedrftgyhujikolp0987654321zaxscdvfbgnhmhj'
-  }
-
+  #
   # Comment out this line if you want to turn off all caching, or
   # add options to modify the behavior. In the majority of deployment
   # scenarios it is desirable to leave Radiant's cache enabled and in
