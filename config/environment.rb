@@ -21,16 +21,7 @@ Radiant::Initializer.run do |config|
   
   # Unload the extensions named here.
   # config.ignore_extensions []
-
-  # Your secret key for verifying cookie session data integrity.
-  # If you change this key, all old sessions will become invalid!
-  # Make sure the secret is at least 30 characters and all random,
-  # no regular words or you'll be exposed to dictionary attacks.
-  config.action_controller.session = {
-    :key => '_nzffa_session',
-    :secret      => '9252a50cf7a383524d891d8937775f7dc4ddf413'
-  }
-
+  #
   # Comment out this line if you want to turn off all caching, or
   # add options to modify the behavior. In the majority of deployment
   # scenarios it is desirable to leave Radiant's cache enabled and in
@@ -55,10 +46,10 @@ Radiant::Initializer.run do |config|
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with 'rake db:sessions:create')
-  config.action_controller.session_store = :cookie_store
 
   # Activate observers that should always be running
   config.active_record.observers = :user_action_observer
+  config.action_controller.session_store = :active_record_store
 
   # Make Active Record use UTC-base instead of local time
   config.time_zone = 'UTC'

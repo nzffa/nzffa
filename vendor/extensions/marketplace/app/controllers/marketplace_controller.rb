@@ -12,8 +12,11 @@ class MarketplaceController < SiteController
 
   protected
   def current_reader
+    
     unless @current_reader
       if reader_session = ReaderSession.find
+        logger.info reader_session.inspect
+        logger.info reader_session.reader.inspect
         @current_reader = reader_session.reader
       end
     end
