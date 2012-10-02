@@ -27,7 +27,7 @@ Radiant::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random,
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :key => '_nzffa_session',
+    :key => '_nzffa_sessi0n',
     :secret      => 'awsedrftgyhujikolp0987654321zaxscdvfbgnhmhj'
   }
 
