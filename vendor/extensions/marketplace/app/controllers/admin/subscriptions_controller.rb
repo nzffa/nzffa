@@ -47,7 +47,7 @@ class Admin::SubscriptionsController < AdminController
   def update
     current_sub = Subscription.find(params[:id])
     new_sub = Subscription.new(params[:subscription])
-    new_sub.reader = current_reader
+    new_sub.reader = current_sub.reader
     @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
     @order.save
     if new_sub.valid? and @order.valid?

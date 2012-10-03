@@ -227,3 +227,22 @@ end
 Then /^I should be subscribed to get (\d+) copies of NZ Tree Grower Magazine$/ do |arg1|
   Subscription.active_subscription_for(@reader).nz_tree_grower_copies.should == arg1.to_i
 end
+
+Given /^I have an unpaid subscription$/ do
+  subscription = Subscription.new(:membership_type => 'casual',
+                                  :belong_to_fft => true,
+                                  :receive_tree_grower_magazine => false,
+                                  :begins_on => Date.parse('2012-01-01'),
+                                  :expires_on => Date.parse('2012-12-31'))
+  subscription.reader = @reader
+  order = CreateOrder.from_subscription(subscription)
+  order.save!
+end
+
+Then /^I should see a Make Payment link$/ do
+  page.should have_link 'Make Payment'
+end
+
+Then /^I should see a Cancel Subscription link$/ do
+  page.should have_link 'Cancel Subscription'
+end

@@ -7,6 +7,8 @@ class CreateOrder
     old_sub = params[:from]
     new_sub = params[:to]
     old_order = old_sub.order
+
+    return nil unless old_sub.paid?
     
     order = new(new_sub).create_order
     @subscription = new_sub

@@ -4,7 +4,17 @@ class SubscriptionsController < MarketplaceController
   include ActionView::Helpers::NumberHelper
 
   def index
-    @subscription = Subscription.active_subscription_for(current_reader)
+    @subscription = Subscription.current_subscription_for(current_reader)
+  end
+
+  def cancel
+    if @subscription = Subscription.current_subscription_for(current_reader)
+      unless @subscription.paid?
+        @subscription.cancel!
+      end
+    end
+
+    redirect_to subscriptions_path
   end
 
   def modify
@@ -15,6 +25,14 @@ class SubscriptionsController < MarketplaceController
   def new
     @action_path = subscriptions_path
     @subscription = Subscription.new(params[:subscription])
+
+    #yea.. crazy right.
+    if Rails.env == 'production'
+      if Date.today < Date.parse('2013-01-01')
+        @subscription.begins_on = Date.parse('2013-01-01')
+        @subscription.expires_on = Date.parse('2013-12-31')
+      end
+    end
   end
 
   def quote_new

@@ -55,24 +55,38 @@ describe CreateOrder do
         Order.stub(:new).and_return(order)
       end
 
-      it 'cancels the old subscription' do
-        old_sub.should_receive(:cancel!)
-      end
-
-      context 'creates an order' do
-
-        it 'refunds for the old subscription' do
-          order.should_receive(:add_refund, 
-                               :kind => 'fft_marketplace_levy',
-                               :amount => NzffaSettings.casual_member_fft_marketplace_levy)
+      context 'old subscription is unpaid' do
+        before :each do
+          old_sub.stub(:paid?).and_return(false)
         end
 
-        it 'charges for the new subscription' do
-          order.should_receive(:add_charge, 
-                               :kind => 'casual_member_nz_tree_grower_magazine_levy',
-                               :particular => 'new_zealand',
-                               :amount => NzffaSettings.tree_grower_magazine_within_new_zealand)
+        it 'does not cancel the old subscription' do
+          old_sub.should_not_receive(:cancel!)
+        end
+      end
 
+      context 'old subscription is paid' do
+        before :each do
+          old_sub.stub(:paid?).and_return(true)
+        end
+
+        it 'cancels the old subscription' do
+          old_sub.should_receive(:cancel!)
+        end
+
+        describe 'creates an order' do
+          it 'refunds for the old subscription' do
+            order.should_receive(:add_refund, 
+                                 :kind => 'fft_marketplace_levy',
+                                 :amount => NzffaSettings.casual_member_fft_marketplace_levy)
+          end
+          it 'charges for the new subscription' do
+            order.should_receive(:add_charge, 
+                                 :kind => 'casual_member_nz_tree_grower_magazine_levy',
+                                 :particular => 'new_zealand',
+                                 :amount => NzffaSettings.tree_grower_magazine_within_new_zealand)
+
+          end
         end
       end
     end

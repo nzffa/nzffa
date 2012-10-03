@@ -3,7 +3,8 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :quote_new => :post, 
                      :quote_upgrade => :post,
                      :modify => :get,
-                     :upgrade => :put}
+                     :upgrade => :put,
+                     :cancel => :post}
 
   map.resources :adverts,
     :collection => {

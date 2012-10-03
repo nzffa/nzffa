@@ -23,12 +23,23 @@ class Subscription < ActiveRecord::Base
     {:conditions => {:expires_on => expiry_date, :cancelled_on => nil}}}
 
   
+  def self.current_subscription_for(reader)
+    find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
+      next if sub.cancelled?
+      return sub
+    end
+    nil
+  end
 
   def self.active_subscription_for(reader)
     find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
       return sub if sub.active?
     end
     nil
+  end
+
+  def paid?
+    order.present? and order.paid?
   end
 
   def days_to_expire
@@ -49,7 +60,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def active?
-    if cancelled_on
+    if cancelled_on or !paid?
       false
     else
       (begins_on..expires_on).include?(Date.today)
@@ -60,11 +71,23 @@ class Subscription < ActiveRecord::Base
     update_attribute(:cancelled_on, Date.today)
   end
 
+  def cancelled?
+    cancelled_on.present?
+  end
+
   def after_initialize
     self.begins_on ||= Date.today
-    self.expires_on ||= Date.new(Date.today.year, 12, 31)
+    self.expires_on ||= Date.new(begins_on.year, 12, 31)
     self.tree_grower_delivery_location ||= 'new_zealand'
     self.nz_tree_grower_copies ||= 1
+    self.receive_tree_grower_magazine ||= true
+    self.ha_of_planted_trees ||= '0 - 10'
+  end
+  
+  def before_save
+    if membership_type == 'full'
+      self.receive_tree_grower_magazine = true
+    end
   end
 
   def associated_branch_names

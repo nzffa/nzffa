@@ -1,4 +1,9 @@
-%h1 Reader: #{link_to(@reader.name, "/admin/readers_plus/#{@reader.id}")}
+%h1 Reader: #{link_to(@reader.name, "/admin/readers/#{@reader.id}")}
+%p
+  =link_to 'edit', edit_admin_reader_path(@reader)
+  =link_to 'edit_plus', edit_admin_readers_plu_path(@reader)
+%p
+  nzffa_membership_id: #{@reader.nzffa_membership_id}
 
 %h1 Subscription
 

@@ -16,6 +16,7 @@ describe Subscription do
       @expiring_subscription = Subscription.new
       @expiring_subscription.save(false)
       @expiring_subscription.update_attribute(:expires_on, Date.today)
+      Timecop.travel(Date.today) 
     end
 
     describe 'days to expiry' do
@@ -63,6 +64,10 @@ describe Subscription do
                             :begins_on => Date.parse('2012-01-01'),
                             :expires_on => Date.parse('2012-12-31'),
                             :reader => reader)
+        order = CreateOrder.from_subscription(subscription)
+        order.save!
+        order.paid!('Online')
+
         Subscription.active_subscription_for(reader).should == subscription
       end
     end
@@ -99,29 +104,70 @@ describe Subscription do
     end
   end
 
+  describe 'paid?' do
+    let(:paid_order){stub(:paid_order, :paid? => true)}
+    let(:unpaid_order) {stub(:unpaid_order, :paid? => false)}
+
+    subject do
+      Subscription.new
+    end
+
+    it 'is true when the order is paid' do
+      subject.stub(:order).and_return(paid_order)
+      subject.paid?.should be_true
+    end
+
+    it 'is false if the order is nil' do
+      subject.paid?.should be_false
+    end
+
+    it 'is false if the order is not paid' do
+      subject.stub(:order).and_return(unpaid_order)
+      subject.paid?.should be_false
+    end
+  end
+
   describe 'active?' do
     subject do
       Subscription.new(:begins_on => '2012-01-01',
                        :expires_on => '2012-01-01')
     end
-    context 'todays date is betweem begins_on..ends_on' do
+
+    context 'when paid for' do
+      let(:order){stub(:order, :paid? => true)}
+
       before :each do
-        Timecop.travel '2012-01-01'
+        subject.stub(:order).and_return(order)
       end
-      context 'and it is not cancelled' do
-        it {should be_active}
-      end
-      context 'but it is cancelled' do
+
+      context 'todays date is betweem begins_on..ends_on' do
         before :each do
-          subject.cancelled_on = Date.parse('2012-01-01')
+          Timecop.travel '2012-01-01'
+        end
+        context 'and it is not cancelled' do
+          it {should be_active}
+        end
+        context 'but it is cancelled' do
+          before :each do
+            subject.cancelled_on = Date.parse('2012-01-01')
+          end
+          it {should_not be_active}
+        end
+
+      end
+
+      context 'todays date is outside begins_on..ends_on' do
+        before :each do
+          Timecop.travel '2012-01-03'
         end
         it {should_not be_active}
       end
     end
 
-    context 'todays date is outside begins_on..ends_on' do
+
+    context 'it has not been paid for' do
       before :each do
-        Timecop.travel '2012-01-03'
+        Timecop.travel '2012-01-01'
       end
       it {should_not be_active}
     end

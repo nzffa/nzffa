@@ -18,5 +18,11 @@ Feature: User views their subscriptions
     Then I should see "You have no active subscription"
     And I should see "Buy a subscription"
 
+  Scenario: I have not paid for my subscription
+    Given I have an unpaid subscription
+    When I visit "/subscriptions"
+    Then I should see a Make Payment link
+
+
 
 

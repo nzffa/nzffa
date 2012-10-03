@@ -26,7 +26,7 @@ class MarketplaceController < SiteController
   def require_current_reader
     unless current_reader
       flash[:error] = 'Sorry, but you must be logged in to do this'
-      redirect_to root_path
+      redirect_to '/account/login'
     end
   end
 
