@@ -22,6 +22,7 @@ Feature: User views their subscriptions
     Given I have an unpaid subscription
     When I visit "/subscriptions"
     Then I should see a Make Payment link
+    And I should see a Cancel Subscription link
 
 
 
