@@ -70,3 +70,9 @@ Radiant::Initializer.run do |config|
     end
   end
 end
+
+Page.class_eval do
+  def cache?
+    false
+  end
+end
