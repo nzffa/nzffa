@@ -22,14 +22,14 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :payment_finished => :get }
 
   map.reader_dashboard '/membership/dashboard', :controller => :membership, :action => :dashboard
-  map.register '/membership/register', :controller => :membership, :action => :register
+  map.register_membership '/membership/register', :controller => :membership, :action => :register
   map.join_fft_button '/membership/join-fft-button', :controller => :membership, :action => :join_fft_button
   map.join_fft '/membership/join-fft', :controller => :membership, :action => :join_fft
 
   map.namespace :admin do |admin|
     admin.resources :reports, :only => :index, :collection => {:payments => :get, :allocations => :get}
     admin.resources :subscriptions
-    admin.resources :adverts, :except => [:new, :create]
+    admin.resources :adverts
     admin.resources :readers_plus, :except => [:new, :create]
     admin.resources :orders
     admin.resources :readers, :only => [] do |readers|

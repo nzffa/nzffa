@@ -12,6 +12,8 @@ class NzffaSettings
     attr_accessor :tree_grower_magazine_group_id
     attr_accessor :full_membership_group_id
     attr_accessor :special_interest_group_levys
+    attr_accessor :fft_newsletter_group_id
+    attr_accessor :nzffa_members_newsletter_group_id
   end
 
   def self.remove_defaults
@@ -27,6 +29,8 @@ class NzffaSettings
     tree_grower_magazine_group_id = nil
     full_membership_group_id = nil
     special_interest_group_levys = nil
+    fft_newsletter_group_id = nil
+    nzffa_members_newsletter_group_id = nil
   end
 
   @admin_levy = 34
@@ -54,4 +58,7 @@ class NzffaSettings
   @fft_marketplace_group_id = 229
   @tree_grower_magazine_group_id = 80
   @full_membership_group_id = 232
+
+  @fft_newsletter_group_id = 230
+  @nzffa_members_newsletter_group_id = 211
 end

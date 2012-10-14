@@ -94,6 +94,11 @@ Then /^I should belong to the Eucalyptus Action group$/ do
   @reader.groups.should include @eucalyptus_action_group_group
 end
 
+Then /^I should belong to the NZFFA Members Newsletter group$/ do
+  @reader.reload
+  @reader.group_ids.should include NzffaSettings.nzffa_members_newsletter_group_id
+end
+
 When /^I visit new subscription$/ do
   visit new_subscription_path
 end

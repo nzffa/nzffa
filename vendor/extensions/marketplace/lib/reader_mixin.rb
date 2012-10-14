@@ -2,6 +2,9 @@ module ReaderMixin
   def self.included(base)
     base.extend(ClassMethods)
     base.send(:has_many, :adverts)
+    base.send(:validates_presence_of, :forename)
+    base.send(:validates_presence_of, :surname)
+    base.send(:validates_presence_of, :email)
     #base.before_validation do
       #self.nzffa_membership_id ||= next_membership_id
     #end
@@ -19,5 +22,9 @@ module ReaderMixin
       return true if NZFFA_BRANCH_GROUP_IDS.include? group_id
     end
     false
+  end
+
+  def full_nzffa_member?
+    group_ids.include? NzffaSettings.full_membership_group_id
   end
 end

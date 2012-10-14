@@ -6,6 +6,10 @@ class Admin::AdvertsController < ApplicationController
     @adverts = Advert.all
   end
 
+  def new
+    @advert = Advert.new
+  end
+
   def show
   end
 
@@ -18,6 +22,15 @@ class Admin::AdvertsController < ApplicationController
       redirect_to [:admin, :adverts], :notice => 'Updated advert'
     else
       render :edit
+    end
+  end
+
+  def create
+    @advert = Advert.create(params[:advert])
+    if @advert.valid?
+      redirect_to [:admin, :adverts], :notice => 'Advert created'
+    else
+      render :new
     end
   end
 

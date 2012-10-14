@@ -159,12 +159,12 @@ ActiveRecord::Schema.define(:version => 20120928005956) do
   add_index "order_lines", ["order_id"], :name => "index_order_lines_on_order_id"
 
   create_table "orders", :force => true do |t|
+    t.decimal  "amount",              :precision => 10, :scale => 2
     t.date     "paid_on"
     t.integer  "subscription_id"
     t.string   "kind"
     t.integer  "old_subscription_id"
     t.string   "payment_method"
-    t.decimal  "amount",              :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end

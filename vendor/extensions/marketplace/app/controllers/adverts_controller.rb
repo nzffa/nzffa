@@ -33,6 +33,7 @@ class AdvertsController < MarketplaceController
 
   def show
     @advert = Advert.find_by_id(params[:id])
+    @other_listings = Advert.find(:all, :conditions => {:reader_id => @advert.reader_id})
     render :layout => false if request.xhr?
   end
 

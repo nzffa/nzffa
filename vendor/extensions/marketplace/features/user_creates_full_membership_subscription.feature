@@ -70,6 +70,7 @@ Feature: User creates full NZFFA Membership
     And I should belong to the Tree Grower Magazine group
     And I should belong to the Full Membership group
     And I should belong to the Eucalyptus Action group
+    And I should belong to the NZFFA Members Newsletter group
 
   #Scenario Outline:
     #user configures their subscription and gets the right price

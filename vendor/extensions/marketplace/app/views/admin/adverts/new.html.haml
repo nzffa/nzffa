@@ -1,10 +1,9 @@
-%h1 Edit Advert
+%h1 New Advert
 =stylesheet_link_tag 'select2'
 -form_for [:admin, @advert], :html => {:multipart => true} do |f|
   =f.error_messages
-  %br
-  =f.label 'Company Listing'
-  =f.check_box :is_company_listing
+  =f.label 'Reader'
+  =f.collection_select :reader_id, Reader.all, :id, :name
   %br
   =f.label :categories
   =select_tag 'advert[categories]', options_for_select(Advert::CATEGORIES, f.object.categories), :multiple => true
@@ -20,56 +19,6 @@
   %br
   =f.label :image
   =f.file_field :image
-  -f.fields_for :reader do |rf|
-    %p
-      =rf.label :company_name
-      %br
-      =rf.text_field :organisation
-    =f.label :Region
-    %br
-    =select_tag 'advert[reader_attributes][region]', options_for_select(['Please Select', Advert::REGIONS].flatten, rf.object.region)
-    %p
-      =rf.label :contact_person
-      %br
-      =rf.text_field :contact_person
-    %p
-      =label_tag 'Phone'
-      %br
-      =rf.text_field :phone
-    %p
-      =rf.label :fax
-      %br
-      =rf.text_field :fax
-    %p
-      =rf.label :mobile
-      %br
-      =rf.text_field :mobile
-    %p
-      =rf.label :email
-      %br
-      =rf.text_field :email
-    %p
-      =label_tag 'Postal Address'
-      %br
-      =rf.text_field :post_line1
-      %br
-      =rf.text_field :post_line2
-      %br
-      =rf.text_field :post_city
-      %br
-      =rf.text_field :post_country
-      %br
-      Postcode:
-      =rf.text_field :postcode
-    %p
-      =label_tag 'Physical Address'
-      %br
-      =rf.text_area :physical_address
-
-    %p
-      =rf.label :website
-      %br
-      =rf.text_field :website
 
   %p
     =f.label :business_description

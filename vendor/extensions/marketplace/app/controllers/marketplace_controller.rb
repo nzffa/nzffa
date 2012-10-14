@@ -6,8 +6,8 @@ class MarketplaceController < SiteController
   JOIN_FFT_PATH = '/specialty-timber-market/join-fft'
   EDIT_COMPANY_LISTING_PATH = '/specialty-timber-market/marketplace/edit-company-listing'
   FFT_MEMBERS_AREA_PATH = '/specialty-timber-market/participate/membership'
-  NEWSLETTER_GROUP_ID = 230
-  FFT_GROUP_ID = 229
+  #NEWSLETTER_GROUP_ID = NzffaSettings.fft_newsletter_group_id
+  #FFT_GROUP_ID = NzffaSettings.fft_marketplace_group_id
   ADMIN_GROUP_ID = 100
 
   protected
@@ -38,7 +38,7 @@ class MarketplaceController < SiteController
   end
 
   def require_fft_group
-    unless current_reader.group_ids.include? 229
+    unless current_reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
       flash[:error] = 'Sorry, but you must belong to Farm Forestry Timbers Group'
       redirect_to root_path
     end

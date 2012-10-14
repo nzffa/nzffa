@@ -1,6 +1,15 @@
+- include_stylesheet('admin/reader')
 %h1 Readers Plus
 
-%table#readers.index
+%p
+  %form#query-form{:action => admin_readers_plus_path, :method => :get}
+    =hidden_field_tag 'sort', 'date'
+    =hidden_field_tag 'page', ''
+    =label_tag 'Search:'
+    =text_field_tag 'query', params[:query], :size => 10
+
+
+%table#readers.index.outset
   %thead
     %th reader id
     %td nzffa id
@@ -19,3 +28,6 @@
         %td=r.email
         %td=link_to('view', "/admin/readers_plus/#{r.id}")
         %td=link_to('edit', "/admin/readers_plus/#{r.id}/edit")
+
+  #actions
+    = will_paginate @readers
