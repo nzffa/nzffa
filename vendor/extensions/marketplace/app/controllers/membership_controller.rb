@@ -1,6 +1,12 @@
 class MembershipController < MarketplaceController
-  radiant_layout "ffm_specialty_timbers"
+  radiant_layout "no_layout"
   AFTER_SIGNUP_PATH = '/become-a-member/youre-registered'
+  before_filter :authenticate_reader!, :only => :details
+
+  def details
+
+
+  end
 
   def dashboard
     # if they are an FFT member take them to 
