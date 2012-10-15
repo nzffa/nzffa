@@ -1,6 +1,6 @@
 %table{:style => 'width: 100%'}
   %tr
-    %td{:style => 'width: 50%'}
+    %td{:style => 'width: 50%; vertical-align: top'}
       %h2 Contact Details
 
       %p
@@ -9,7 +9,7 @@
           %b="#{col.titleize}:"
           =@reader[col]
           %br
-      %p=link_to 'Edit contact details', register_membership_path
+      %p=link_to 'Update your contact details', register_membership_path
     %td{:style => 'vertical-align: top; width: 50%'}
       %h2 Subscription
 
