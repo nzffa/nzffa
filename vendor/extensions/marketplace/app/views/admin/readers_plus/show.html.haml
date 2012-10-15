@@ -11,15 +11,6 @@
     =@reader[col]
     %br
 %h1 Subscription
-
--if @subscription.blank?
-  %p 
-    no active subscription.
-    =link_to 'Create Subscription', new_admin_reader_subscription_path(@reader)
--else
-  =render 'subscriptions/subscription'
-
-  %p
-    =link_to 'Edit the subscription', edit_admin_subscription_path(@subscription)
+=render :partial => 'admin/subscriptions/status'
 %p
   =link_to('View Orders', "/admin/readers/#{@reader.id}/orders")

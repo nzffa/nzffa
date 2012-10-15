@@ -22,6 +22,10 @@ class Admin::SubscriptionsController < AdminController
 
   def edit
     if @subscription = Subscription.find_by_id(params[:id])
+      unless @subscription.paid?
+        flash[:error] = 'You cannot upgrade a subscription if it has not beed paid'
+        redirect_to admin_subscription_path(@subscription) and return
+      end
       @action_path = admin_subscription_path(@subscription)
       render 'subscriptions/modify'
     else
@@ -32,6 +36,10 @@ class Admin::SubscriptionsController < AdminController
 
 
   def create
+    if Subscription.current_subscription_for(@reader)
+      flash[:error] = 'This reader already has an active subscription'
+      redirect_to admin_subscriptions_path and return
+    end
     @subscription = Subscription.new(params[:subscription])
     @subscription.reader = @reader
     
@@ -46,6 +54,10 @@ class Admin::SubscriptionsController < AdminController
 
   def update
     current_sub = Subscription.find(params[:id])
+    unless current_sub.paid?
+      flash[:error] = 'You cannot upgrade a subscription if it has not beed paid'
+      redirect_to admin_subscription_path(@subscription) and return
+    end
     new_sub = Subscription.new(params[:subscription])
     new_sub.reader = current_sub.reader
     if new_sub.valid?
@@ -55,6 +67,18 @@ class Admin::SubscriptionsController < AdminController
     else
       render :edit
     end
+  end
+
+  def cancel
+    if @subscription = Subscription.find(params[:id])
+      unless @subscription.paid?
+        @subscription.cancel!
+      else
+        flash[:error] = 'You cannot cancel a paid subscription.. only modify it'
+      end
+    end
+
+    redirect_to admin_subscriptions_path
   end
 
   #def destroy

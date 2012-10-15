@@ -1,0 +1,14 @@
+-if @subscription.blank?
+  %p 
+    no active subscription.
+    =link_to 'Create Subscription', new_admin_reader_subscription_path(@reader)
+-else
+  =render 'subscriptions/subscription'
+
+  -if @subscription.paid?
+    %p
+      =link_to 'Edit the subscription', edit_admin_subscription_path(@subscription)
+  -elsif @subscription.cancelled?
+    %p cancelled on #{@subscription.cancelled_on}
+  -else
+    %p the subscription has not been paid. Either #{link_to('cancel', cancel_admin_reader_subscription_path(@reader, @subscription), :method => :post, :confirm => "Really cancel this?")} or #{link_to('mark as paid', edit_admin_order_path(@subscription.order))}.

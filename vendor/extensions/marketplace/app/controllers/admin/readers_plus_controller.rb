@@ -23,7 +23,7 @@ class Admin::ReadersPlusController < AdminController
 
   def show
     @reader = Reader.find params[:id]
-    @subscription = Subscription.active_subscription_for(@reader)
+    @subscription = Subscription.current_subscription_for(@reader)
   end
 
   def update

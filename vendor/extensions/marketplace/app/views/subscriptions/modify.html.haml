@@ -1,6 +1,4 @@
--if RAILS_ENV == 'test'
-  -# because we dont have critical layouts in test env we need this to test
-  =render :partial => 'load_js_libs_badtime'
+=render :partial => 'subscriptions/load_js_libs'
 
 %h1 Edit Subscription
 =stylesheet_link_tag 'select2'

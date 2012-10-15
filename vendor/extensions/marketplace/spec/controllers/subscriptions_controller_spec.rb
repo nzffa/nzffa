@@ -153,6 +153,16 @@ describe SubscriptionsController do
     # if valid then create an order around it
     # else call new
 
+    describe 'current subscription exists for reader' do
+      before :each do
+        Subscription.stub(:current_subscription_for).and_return(true)
+      end
+      it 'redirects to subscriptions index' do
+        post :create
+        response.should redirect_to subscriptions_path
+      end
+    end
+
     describe 'if the subscription is valid' do
       let(:subscription){ Subscription.new }
       let(:order){ stub(:order, :id => 1)}

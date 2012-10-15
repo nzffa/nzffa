@@ -9,6 +9,8 @@
 %p
   %b Receive NZ Tree Grower Magazine?
   =@subscription.receive_tree_grower_magazine? ? 'Yes' : 'No'
+  -if @subscription.receive_tree_grower_magazine?
+    #{@subscription.nz_tree_grower_copies} copies
 
 %p
   %b Begins on:
@@ -20,8 +22,17 @@
 
 -if @subscription.membership_type == 'full'
   %p
+    %b Forest Area:
+    =@subscription.ha_of_planted_trees
+  %p
     %b Branches:
     %ul
       -@subscription.branches.each do |branch|
         %li=branch.name
+
+  %p
+    %b Action Groups:
+    %ul
+      -@subscription.action_groups.each do |action_group|
+        %li=action_group.name
 

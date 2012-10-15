@@ -13,7 +13,7 @@ describe Admin::SubscriptionsController do
                          :password => 'password',
                          :password_confirmation => 'password',
                          :admin => true)
-    @existing_sub = Subscription.new
+    @existing_sub = Subscription.new(:membership_type => 'casual')
     @existing_sub.save(false)
 
     controller.stub(:current_user).and_return(@user)
@@ -82,36 +82,52 @@ describe Admin::SubscriptionsController do
     end
   end
 
-  context 'for a reader' do
-    context 'creating a subscription' do
-      let(:new_sub) { stub(:new_sub).as_null_object }
+  describe 'cancel' do
+    let(:subscription){stub(:subscription, :id => 5)}
+
+    context 'with an active (paid) subscription' do
       before :each do
-        Subscription.stub(:new).and_return(new_sub)
+        Subscription.stub(:find).and_return(subscription)
+        subscription.stub(:paid?).and_return(true)
       end
 
-      it 'assigns the reader' do
-        new_sub.should_receive(:reader=)
-        Subscription.stub(:new).and_return(new_sub)
-        post :create, :reader_id => @reader.id
-      end
-
-      context 'when subscription is valid' do
-        before :each do
-          new_sub.should_receive(:save).and_return(true)
-        end
-
-        it 'creates a subscription' do
-          post :create, :reader_id => @reader.id
-        end
-
-        it 'redirects to order' do
-          post :create, :reader_id => @reader.id
-          sub = assigns(:subscription)
-          order = assigns(:order)
-          response.should redirect_to admin_order_path(order)
-        end
-
+      it 'does not cancel the subscription' do
+        subscription.should_not_receive :cancel!
+        post :cancel, :id => subscription.id, :reader_id => @reader.id
       end
     end
+
+    context 'with an unpaid subscription' do
+      before :each do
+        Subscription.stub(:find).and_return(subscription)
+        subscription.stub(:paid?).and_return(false)
+      end
+
+      it 'cancels the subscription' do
+        subscription.should_receive :cancel!
+        post :cancel, :id => subscription.id, :reader_id => @reader.id
+        response.should redirect_to admin_subscriptions_path
+      end
+    end
+  end
+
+  describe 'create' do
+    let(:new_sub) { Subscription.new(:membership_type => 'casual',
+                                     :tree_grower_delivery_location => 'new_zealand'
+                        ).as_null_object }
+    before :each do
+      Subscription.stub(:new).and_return(new_sub)
+    end
+
+    context 'when reader already has a current subscription' do
+      before :each do
+        Subscription.stub(:current_subscription_for).and_return(true)
+      end
+      it 'redirects to subscriptions index' do
+        post :create, :reader_id => @reader.id
+        response.should redirect_to admin_subscriptions_path
+      end
+    end
+
   end
 end

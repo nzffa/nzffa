@@ -68,6 +68,10 @@ class SubscriptionsController < MarketplaceController
   end
 
   def create
+    if Subscription.current_subscription_for(current_reader)
+      flash[:error] = 'You already have an active subscription'
+      redirect_to subscriptions_path and return
+    end
     @subscription = Subscription.new(params[:subscription])
     @subscription.reader = current_reader
     if @subscription.valid?
@@ -81,6 +85,10 @@ class SubscriptionsController < MarketplaceController
 
   def upgrade
     current_sub = Subscription.active_subscription_for(current_reader)
+    unless current_sub.paid?
+      flash[:error] = 'You cannot upgrade a subscription if it has not beed paid'
+      redirect_to subscriptions_path and return
+    end
     new_sub = Subscription.new(params[:subscription])
     new_sub.reader = current_reader
     if new_sub.valid?

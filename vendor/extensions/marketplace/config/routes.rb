@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :orders
     admin.resources :readers, :only => [] do |readers|
       readers.resources :orders, :only => :index
-      readers.resources :subscriptions
+      readers.resources :subscriptions, :member => { :cancel => :post }
     end
   end
 
