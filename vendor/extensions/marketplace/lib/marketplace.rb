@@ -8,7 +8,7 @@ module Marketplace
   tag 'hello_or_login' do |tag|
     current_reader = Reader.current
     if current_reader
-      "hello #{current_reader.forename}. #{nav_links}"
+      "Hello #{current_reader.forename}. #{nav_links}"
     else
       "<a href='/account/login'>Login</a> or <a href='/membership/register/'>Signup</a>"
     end
@@ -17,7 +17,7 @@ module Marketplace
   tag 'hello_or_blank' do |tag|
     current_reader = Reader.current
     if current_reader
-      "hello #{current_reader.forename}. #{nav_links}"
+      "Hello #{current_reader.forename}. #{nav_links}"
     else
       ''
     end
