@@ -39,10 +39,13 @@ Feature: NZFFA Membership registation
     And I click "Save changes"
     Then I should not belong to NZFFA Members Newsletter group
 
-  Scenario: registered user does not see password fields
+  Scenario: registered user changes password
     Given I am a registered, logged in reader
     When I visit membership register
-    Then I should not see the password fields
+    And I enter a new password with confirmation
+    And I click "Save changes"
+    And I logout
+    Then my password should be changed
 
 
 

@@ -25,6 +25,7 @@ class MembershipController < MarketplaceController
         # new member
         @reader = Reader.new(params[:reader])
         if @reader.save
+          @reader.update_attribute(:activated_at, DateTime.now)
           update_newsletter_preference
           MembershipMailer.deliver_registration_email(params[:reader])
           flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert} #{@fft_alert}"

@@ -29,16 +29,17 @@
     %br
     =f.text_field :email
 
-  -if @reader.new_record?
-    %p
-      =f.label :password
-      %br
-      =f.password_field :password
+  -unless @reader.new_record?
+    %p Leave password fields blank unless you want to change your password.
+  %p
+    =f.label :password
+    %br
+    =f.password_field :password
 
-    %p
-      =f.label :password_confirmation
-      %br
-      =f.password_field :password_confirmation
+  %p
+    =f.label :password_confirmation
+    %br
+    =f.password_field :password_confirmation
   
   %h3 Postal Address
   %table

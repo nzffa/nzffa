@@ -1,12 +1,12 @@
 class Subscription < ActiveRecord::Base
   FFT_BRANCH_NAME = 'Farm Forestry Timbers'
 
-  has_one :order
+  has_one :order, :dependent => :destroy
   belongs_to :reader
-  has_many :subscriptions_branches
+  has_many :subscriptions_branches, :dependent => :destroy
   has_many :branches, :through => :subscriptions_branches
   belongs_to :main_branch, :class_name => 'Branch'
-  has_many :action_groups_subscriptions
+  has_many :action_groups_subscriptions, :dependent => :destroy
   has_many :action_groups, :through => :action_groups_subscriptions
 
   validates_inclusion_of :membership_type, :in => ['full', 'casual']

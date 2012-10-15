@@ -2,14 +2,6 @@ require 'spec_helper'
 
 describe Order do
 
-  it 'requires an amount' do
-    order = Order.new
-    order.valid?
-    order.should have.errors_on(:amount)
-    order.should have(1).errors_on(:reader)
-    order.should have(1).errors_on(:subscription)
-  end
-
   describe 'adding a charge' do
     it 'creates an order_line when you add a charge' do
       order = Order.new
@@ -26,21 +18,56 @@ describe Order do
         order.add_refund(:kind => 'bananas', 
                          :particular => 'mouldy',
                          :amount => 4.5)
-      }.should change{ order.order_lines }.by(1)
+      }.should change{ order.order_lines.size }.by(1)
       order.order_lines.last.amount.should == -4.5
     end
   end
+
+  describe 'calculate_amount' do
+    context 'order_lines sum to positive amounts' do
+      before :each do
+        subject.add_charge(:kind => 'melons', :amount => 4.40)
+        subject.add_charge(:kind => 'melons', :amount => 2.40)
+      end
+      it 'returns sum of order_lines amounts' do
+        subject.calculate_amount.should == 6.8
+      end
+    end
+    context 'order_lines sum to negative amounts' do
+      before :each do
+        subject.add_charge(:kind => 'melons', :amount => 4.40)
+        subject.add_refund(:kind => 'rats', :amount => 8.40)
+      end
+      it 'returns 0' do
+        subject.calculate_amount.should == 0
+      end
+    end
+  end
+
+  describe 'so you dont have to pay 0' do
+    it 'sets order as paid if amount is 0 when saved' do
+      order = Order.new
+      sub = Subscription.new
+      sub.save(false)
+      order.subscription = sub
+      order.add_refund(:kind => 'golden handshake', :amount => 1000000)
+      order.save!
+      order.paid?.should be_true
+    end
+  end
+
   describe 'marking as paid' do
     it 'throws exception unless payment_method is set' do
-      lambda{ subject.paid! }.should raise_exception('Payment method required')
+      lambda{ subject.paid! }.should raise_exception
     end
+
     describe 'with payment method' do
       before :each do
         subject.payment_method = 'Online'
       end
 
       it 'sets paid_on when paid!' do
-        subject.paid!
+        subject.paid!('Online')
         subject.paid_on.should == Date.today
       end
       context 'an upgrade order' do
@@ -53,7 +80,7 @@ describe Order do
 
         it 'cancels the old subscription' do
           old_sub.should_receive(:cancel!)
-          subject.paid!
+          subject.paid!('Online')
         end
       end
     end
@@ -71,39 +98,4 @@ describe Order do
     end
   end
 
-  describe 'upgrade subscription' do
-    let(:old_sub){o = Subscription.new; o.save(false); o}
-    let(:new_sub){o = Subscription.new; o.save(false); o}
-    let(:reader){r = Reader.new; r.save(false); r}
-
-    before :each do
-      CalculatesSubscriptionLevy.stub(:upgrade_price).and_return(10)
-      new_sub.stub(:reader).and_return(reader)
-    end
-
-    it 'creates an unpaid order' do
-      order = Order.upgrade_subscription(old_sub, new_sub)
-      order.paid?.should be_false
-    end
-
-    it 'sets amount as upgrade price' do
-      CalculatesSubscriptionLevy.
-        should_receive(:upgrade_price).
-        with(old_sub, new_sub).
-        and_return(10)
-      order = Order.upgrade_subscription(old_sub, new_sub)
-
-      order.amount.should == 10
-    end
-
-    it 'sets the reader' do
-      Order.should_receive(:create).with hash_including(:reader => reader)
-      Order.upgrade_subscription(old_sub, new_sub)
-    end
-
-    it 'sets the kind to upgrade' do
-      Order.should_receive(:create).with hash_including(:kind => 'upgrade')
-      Order.upgrade_subscription(old_sub, new_sub)
-    end
-  end
 end

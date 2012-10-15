@@ -1,19 +1,25 @@
 module ReaderMixin
   def self.included(base)
-    base.extend(ClassMethods)
+    #base.extend(ClassMethods)
     base.send(:has_many, :adverts)
     base.send(:validates_presence_of, :forename)
     base.send(:validates_presence_of, :surname)
     base.send(:validates_presence_of, :email)
-    #base.before_validation do
-      #self.nzffa_membership_id ||= next_membership_id
-    #end
+    base.before_create :assign_nzffa_membership_id
   end
 
-  module ClassMethods
-    def next_membership_id
-      last_member = self.find(:first, :conditions => 'nzffa_membership_id is not null', :order => 'nzffa_membership_id desc')
-      (last_member.nzffa_membership_id || 0) + 1
+
+  def assign_nzffa_membership_id
+    unless nzffa_membership_id.present?
+      last_member = self.class.find(:first, :conditions => 'nzffa_membership_id is not null', :order => 'nzffa_membership_id desc')
+
+      if last_member
+        next_id = last_member.nzffa_membership_id + 1
+      else
+        next_id = 1
+      end
+
+      self.nzffa_membership_id = next_id
     end
   end
 

@@ -1,8 +1,8 @@
 class Order < ActiveRecord::Base
-  PAYMENT_METHODS = ['Direct Debit', 'Cheque', 'Cash', 'Online']
+  PAYMENT_METHODS = ['Direct Debit', 'Cheque', 'Cash', 'Online', 'NoCharge']
   belongs_to :subscription
   belongs_to :old_subscription, :class_name => 'Subscription'
-  has_many :order_lines
+  has_many :order_lines, :dependent => :destroy
   accepts_nested_attributes_for :order_lines, :reject_if => :all_blank
   validates_presence_of :amount, :subscription
   validates_numericality_of :amount
@@ -11,8 +11,14 @@ class Order < ActiveRecord::Base
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
 
-  def before_save
+  def before_validation
     self.amount = calculate_amount
+    unless paid?
+      if self.amount == 0
+        self.paid_on = DateTime.now
+        self.payment_method = 'NoCharge'
+      end
+    end
   end
 
   def calculate_amount
@@ -55,13 +61,4 @@ class Order < ActiveRecord::Base
   def paid?
     paid_on.present?
   end
-
-  def self.upgrade_subscription(old_sub, new_sub)
-    create(:kind => 'upgrade',
-           :old_subscription => old_sub,
-           :subscription => new_sub,
-           :amount => CalculatesSubscriptionLevy.upgrade_price(old_sub, new_sub),
-           :paid_on => nil)
-  end
-
 end

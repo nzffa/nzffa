@@ -48,14 +48,21 @@ class Admin::SubscriptionsController < AdminController
     current_sub = Subscription.find(params[:id])
     new_sub = Subscription.new(params[:subscription])
     new_sub.reader = current_sub.reader
-    @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
-    @order.save
-    if new_sub.valid? and @order.valid?
+    if new_sub.valid?
+      @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
+      @order.save!
       redirect_to edit_admin_order_path(@order)
     else
       render :edit
     end
   end
+
+  #def destroy
+    #current_sub = Subscription.find(params[:id])
+    #current_sub.destroy
+    #flash[:notice] = "deleted subscription #{params[id]}"
+    #redirect_to admin_subscriptions_path
+  #end
 
 
   private

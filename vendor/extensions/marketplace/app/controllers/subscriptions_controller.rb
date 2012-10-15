@@ -11,6 +11,8 @@ class SubscriptionsController < MarketplaceController
     if @subscription = Subscription.current_subscription_for(current_reader)
       unless @subscription.paid?
         @subscription.cancel!
+      else
+        flash[:error] = 'You cannot cancel a paid subscription.. only modify it'
       end
     end
 
@@ -23,6 +25,10 @@ class SubscriptionsController < MarketplaceController
   end
 
   def new
+    if Subscription.current_subscription_for(current_reader)
+      flash[:error] = 'You cannot create a new subscription if you currently have a subscription.'
+      redirect_to subscriptions_path and return
+    end
     @action_path = subscriptions_path
     @subscription = Subscription.new(params[:subscription])
 
@@ -78,7 +84,7 @@ class SubscriptionsController < MarketplaceController
     new_sub = Subscription.new(params[:subscription])
     new_sub.reader = current_reader
     if new_sub.valid?
-      @order = Order.upgrade_subscription(current_sub, new_sub)
+      @order = CreateOrder.upgrade_subscriptions(:from => current_sub, :to => new_sub)
       redirect_to make_payment_order_path(@order)
     else
       render :modify
