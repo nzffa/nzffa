@@ -1,0 +1,16 @@
+%table{:style => 'width: 100%'}
+  %tr
+    %td{:style => 'width: 50%'}
+      %h2 Contact Details
+
+      %p
+        -cols = %w[nzffa_membership_id email phone mobile fax organisation notes description post_line1 post_line2 region postcode post_organisation post_city post_province post_country]
+        -cols.each do |col|
+          %b="#{col.titleize}:"
+          =@reader[col]
+          %br
+      %p=link_to 'Edit contact details', register_membership_path
+    %td{:style => 'vertical-align: top; width: 50%'}
+      %h2 Subscription
+
+      =render 'subscriptions/status'

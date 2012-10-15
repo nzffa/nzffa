@@ -2,10 +2,13 @@ module Marketplace
   include Radiant::Taggable
   desc 'Tags to load marketplace into the current page'
 
+  nav_links = "<a href='/account/'>Your Groups</a> | 
+               <a href='/membership/details/'>Your Account</a> |
+               <a href='/account/logout'>Logout</a>"
   tag 'hello_or_login' do |tag|
     current_reader = Reader.current
     if current_reader
-      "Hello #{current_reader.forename}. <a href='/account/'>Your Account</a>. <a href='/subscriptions/'>Your Subscription</a>. <a href='/account/logout'>Logout</a>"
+      "hello #{current_reader.forename}. #{nav_links}"
     else
       "<a href='/account/login'>Login</a> or <a href='/membership/register/'>Signup</a>"
     end
@@ -14,7 +17,7 @@ module Marketplace
   tag 'hello_or_blank' do |tag|
     current_reader = Reader.current
     if current_reader
-      "Hello #{current_reader.forename}. <a href='/account/'>Your Account</a>. <a href='/account/logout'>Logout</a>"
+      "hello #{current_reader.forename}. #{nav_links}"
     else
       ''
     end

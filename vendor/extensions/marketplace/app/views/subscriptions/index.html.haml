@@ -1,21 +1,3 @@
 %h2 Your Subscription
 
--if @subscription.blank?
-  %p 
-    You have no active subscription.
-    =link_to 'Buy a subscription', new_subscription_path
--else
-  =render 'subscriptions/subscription'
-
-  -if @subscription.paid?
-    %p
-      To extend the subscription length, or add features
-      =link_to 'Modify your subscription', modify_subscriptions_path
-  -else
-    %p Your subscription is not active because you need to make payment.
-    =link_to 'Make Payment', make_payment_order_path(@subscription.order)
-
-    %p If you want you can cancel this subscription and create a new one.
-    =link_to 'Cancel Subscription', cancel_subscriptions_path, :method => :post
-
-
+= render :partial => 'status'

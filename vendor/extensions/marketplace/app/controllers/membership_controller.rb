@@ -1,11 +1,11 @@
 class MembershipController < MarketplaceController
   radiant_layout "no_layout"
   AFTER_SIGNUP_PATH = '/become-a-member/youre-registered'
-  before_filter :authenticate_reader!, :only => :details
+  before_filter :require_current_reader, :only => :details
 
   def details
-
-
+    @reader = current_reader
+    @subscription = Subscription.current_subscription_for(@reader)
   end
 
   def dashboard
@@ -44,28 +44,32 @@ class MembershipController < MarketplaceController
     render :layout => false if request.xhr?
   end
 
-  def join_fft_button
-    @reader = current_reader
-    render :layout => false if request.xhr?
-  end
+  # dean wants this left in the code for a bit
+  #
+  #def join_fft_button
+    #@reader = current_reader
+    #render :layout => false if request.xhr?
+  #end
 
-  def join_fft
-    if @reader = current_reader
-      @reader.groups << Group.find(ADMIN_GROUP_ID) unless @reader.groups.include? Group.find(ADMIN_GROUP_ID)
-      @reader.groups << Group.find(FFT_GROUP_ID) unless @reader.groups.include? Group.find(FFT_GROUP_ID)
-      flash[:notice] = 'You have joined the FFT'
-      redirect_to FFT_MEMBERS_AREA_PATH
-    else
-      flash[:notice] = 'You need to register or sign in before continuing'
-      redirect_to MEMBER_PATH
-    end
-  end
+  #def join_fft
+    #if @reader = current_reader
+      #@reader.groups << Group.find(ADMIN_GROUP_ID) unless @reader.groups.include? Group.find(ADMIN_GROUP_ID)
+      #@reader.groups << Group.find(FFT_GROUP_ID) unless @reader.groups.include? Group.find(FFT_GROUP_ID)
+      #flash[:notice] = 'You have joined the FFT'
+      #redirect_to FFT_MEMBERS_AREA_PATH
+    #else
+      #flash[:notice] = 'You need to register or sign in before continuing'
+      #redirect_to MEMBER_PATH
+    #end
+  #end
 
   protected
 
   def update_newsletter_preference
     fft_newsletter_group = Group.find(NzffaSettings.fft_newsletter_group_id)
     nzffa_members_newsletter_group = Group.find(NzffaSettings.nzffa_members_newsletter_group_id)
+
+    #fft newsletter 
     if params[:receive_fft_newsletter]
       unless @reader.groups.include? fft_newsletter_group
         @reader.groups << fft_newsletter_group
@@ -78,6 +82,7 @@ class MembershipController < MarketplaceController
       end
     end
 
+    #nzffa members newsletter
     if @reader.full_nzffa_member?
       if params[:receive_nzffa_members_newsletter]
         unless @reader.groups.include? nzffa_members_newsletter_group
