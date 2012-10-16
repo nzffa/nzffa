@@ -41,15 +41,16 @@ class MembershipController < MarketplaceController
     else
       @reader = current_reader || Reader.new
     end
+
     render :layout => false if request.xhr?
   end
 
   # dean wants this left in the code for a bit
   #
-  #def join_fft_button
-    #@reader = current_reader
-    #render :layout => false if request.xhr?
-  #end
+  def join_fft_button
+    @reader = current_reader
+    render :layout => false if request.xhr?
+  end
 
   #def join_fft
     #if @reader = current_reader

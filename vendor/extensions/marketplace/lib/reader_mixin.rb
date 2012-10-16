@@ -33,4 +33,5 @@ module ReaderMixin
   def full_nzffa_member?
     group_ids.include? NzffaSettings.full_membership_group_id
   end
+
 end
