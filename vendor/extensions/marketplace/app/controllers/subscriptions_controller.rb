@@ -92,7 +92,7 @@ class SubscriptionsController < MarketplaceController
     new_sub = Subscription.new(params[:subscription])
     new_sub.reader = current_reader
     if new_sub.valid?
-      @order = CreateOrder.upgrade_subscriptions(:from => current_sub, :to => new_sub)
+      @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
       redirect_to make_payment_order_path(@order)
     else
       render :modify
