@@ -23,6 +23,7 @@ class CreateOrder
     end
 
     old_sub.cancel!
+    order.save!
     order
 
   end
