@@ -1,0 +1,609 @@
+/* line 21, sass/reader.sass */
+div.error, div.notice {
+  position: absolute;
+  width: 300px;
+  top: 50px;
+  right: 50px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: #4d4e53 2px 2px 4px;
+  -webkit-box-shadow: #4d4e53 2px 2px 4px;
+  -o-box-shadow: #4d4e53 2px 2px 4px;
+  box-shadow: #4d4e53 2px 2px 4px;
+  color: white;
+  padding: 1px 1em;
+}
+/* line 30, sass/reader.sass */
+div.error a.closer, div.notice a.closer {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+/* line 37, sass/reader.sass */
+div.notice {
+  background-color: #b2e5b2;
+  color: #006600;
+}
+
+/* line 40, sass/reader.sass */
+div.error {
+  background-color: #f3c2c2;
+  color: #770000;
+}
+
+/* line 45, sass/reader.sass */
+div#readers .reader {
+  margin-bottom: 1em;
+}
+/* line 47, sass/reader.sass */
+div#readers h2 {
+  line-height: 1;
+  margin: 0;
+}
+
+/* line 51, sass/reader.sass */
+div.activation_required {
+  color: #d1005d;
+}
+
+/* line 54, sass/reader.sass */
+p.administrative {
+  font-family: helvetica, arial, sans-serif;
+  color: #afafaf;
+}
+
+/* line 58, sass/reader.sass */
+img.gravatar {
+  -moz-box-shadow: #4d4e53 2px 2px 4px;
+  -webkit-box-shadow: #4d4e53 2px 2px 4px;
+  -o-box-shadow: #4d4e53 2px 2px 4px;
+  box-shadow: #4d4e53 2px 2px 4px;
+  border: 3px solid white;
+}
+/* line 61, sass/reader.sass */
+img.gravatar.thumbnail {
+  margin: 2px 10px 10px 0;
+}
+/* line 63, sass/reader.sass */
+img.gravatar.big {
+  margin: 8px 10px 4px 0;
+}
+/* line 65, sass/reader.sass */
+img.gravatar.tiny {
+  margin: 3px 6px 4px 0;
+  border: 1px solid white;
+}
+/* line 68, sass/reader.sass */
+img.gravatar.left {
+  float: left;
+}
+/* line 70, sass/reader.sass */
+img.gravatar.right {
+  float: right;
+  margin: 8px 0 4px 10px;
+}
+
+/* line 74, sass/reader.sass */
+form.friendly {
+  margin: 0 0 2em 0;
+}
+/* line 76, sass/reader.sass */
+form.friendly p {
+  margin: 1em 0 0 0;
+  overflow: hidden;
+}
+/* line 79, sass/reader.sass */
+form.friendly p span.semi {
+  display: block;
+  float: left;
+  width: 48%;
+  margin-right: 1%;
+}
+/* line 84, sass/reader.sass */
+form.friendly p.clear {
+  clear: both;
+}
+/* line 86, sass/reader.sass */
+form.friendly input.login {
+  width: 95%;
+  font-size: 140%;
+}
+/* line 89, sass/reader.sass */
+form.friendly input.titular {
+  width: 95%;
+  font-size: 200%;
+}
+/* line 92, sass/reader.sass */
+form.friendly textarea, form.friendly select {
+  width: 95%;
+}
+/* line 94, sass/reader.sass */
+form.friendly textarea {
+  height: 400px;
+}
+/* line 96, sass/reader.sass */
+form.friendly input.standard {
+  width: 95%;
+}
+/* line 98, sass/reader.sass */
+form.friendly span.formnote {
+  clear: left;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+  color: #8c8d8e;
+}
+/* line 103, sass/reader.sass */
+form.friendly label.required {
+  font-weight: bold;
+}
+/* line 105, sass/reader.sass */
+form.friendly div.hidden, form.friendly div.innocuous {
+  display: none;
+}
+/* line 107, sass/reader.sass */
+form.friendly span.password {
+  display: block;
+  width: 95%;
+  padding: 5px;
+  font-size: 1.2;
+  line-height: 1.2;
+  color: #afafaf;
+  border: 1px solid #afafaf;
+}
+/* line 115, sass/reader.sass */
+form.friendly span.dateparts {
+  display: block;
+  overflow: hidden;
+}
+/* line 118, sass/reader.sass */
+form.friendly span.dateparts select {
+  float: left;
+  width: auto;
+  margin-right: 0.5em;
+}
+/* line 123, sass/reader.sass */
+form.friendly span.error-with-field input, form.friendly span.error-with-field select {
+  border: 1px solid red;
+  color: red;
+}
+/* line 126, sass/reader.sass */
+form.friendly span.error-with-field span.error {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+  line-height: 1.4;
+  background-color: red;
+  color: white;
+  padding: 3px 6px;
+  margin: -5px 0 0 6px;
+  cursor: pointer;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: #4d4e53 2px 2px 4px;
+  -webkit-box-shadow: #4d4e53 2px 2px 4px;
+  -o-box-shadow: #4d4e53 2px 2px 4px;
+  box-shadow: #4d4e53 2px 2px 4px;
+}
+/* line 136, sass/reader.sass */
+form.friendly span.error-with-field span.error a.closer {
+  margin-left: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+/* line 141, sass/reader.sass */
+div.indented {
+  margin-left: 40px;
+}
+
+/* line 144, sass/reader.sass */
+.dashboard_module {
+  margin-top: 2em;
+}
+/* line 146, sass/reader.sass */
+.dashboard_module:first-child {
+  margin-top: 0;
+}
+/* line 148, sass/reader.sass */
+.dashboard_module ul {
+  margin: 1em 0;
+  padding-left: 16px;
+}
+/* line 151, sass/reader.sass */
+.dashboard_module h3:first-child {
+  margin-top: 0;
+}
+
+/* line 155, sass/reader.sass */
+#marginalia div.contact {
+  border: 1px solid #bdbdbd;
+  -moz-box-shadow: 1px 2px 3px;
+  -webkit-box-shadow: 1px 2px 3px;
+  -o-box-shadow: 1px 2px 3px;
+  box-shadow: 1px 2px 3px;
+  padding: 1em;
+  margin: 1em -1em;
+}
+/* line 160, sass/reader.sass */
+#marginalia div.contact h3 {
+  margin-bottom: 1em;
+  margin-left: -4px;
+}
+/* line 163, sass/reader.sass */
+#marginalia div.contact ul {
+  margin-bottom: 0;
+}
+/* line 165, sass/reader.sass */
+#marginalia div.contact ul li {
+  margin-bottom: 0;
+}
+/* line 167, sass/reader.sass */
+#marginalia div.contact ul li span.indent {
+  float: left;
+  margin-right: 0.5em;
+}
+/* line 170, sass/reader.sass */
+#marginalia div.contact ul li address {
+  overflow: hidden;
+}
+/* line 172, sass/reader.sass */
+#marginalia div.contact ul li.edit {
+  text-align: right;
+}
+
+/* line 175, sass/reader.sass */
+a.vcard {
+  color: #50860e;
+  padding-left: 20px;
+  background: transparent url(/images/furniture/vcard-16x16.png) no-repeat 0 0;
+}
+
+/* line 180, sass/reader.sass */
+a.vcards {
+  color: #50860e;
+  padding-left: 24px;
+  background: transparent url(/images/furniture/vcards.png) no-repeat 0 0;
+}
+
+/* line 186, sass/reader.sass */
+h2 span.headernote {
+  font-size: 70%;
+}
+/* line 188, sass/reader.sass */
+h2 a.vcard, h2 a.csv {
+  display: inline-block;
+  height: 14px;
+  width: 20px;
+  text-indent: -100px;
+  padding-left: 0;
+  margin-right: 4px;
+}
+
+/* line 197, sass/reader.sass */
+h3 span.note {
+  font-size: 60%;
+}
+
+/* line 200, sass/reader.sass */
+a.mailto {
+  color: #8c8d8e;
+}
+
+/* line 203, sass/reader.sass */
+.reader {
+  margin-bottom: 1em;
+}
+/* line 205, sass/reader.sass */
+.reader h2 {
+  margin-bottom: 0;
+}
+/* line 207, sass/reader.sass */
+.reader .context {
+  margin-top: 0;
+}
+
+/* line 210, sass/reader.sass */
+.column {
+  float: left;
+  width: 30%;
+  margin-right: 2%;
+}
+/* line 214, sass/reader.sass */
+.column .reader {
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+/* line 217, sass/reader.sass */
+.column .speaker {
+  margin-left: 0;
+}
+/* line 219, sass/reader.sass */
+.column h2 {
+  font-size: 125%;
+}
+/* line 221, sass/reader.sass */
+.column h2 a.title {
+  padding-top: 0.5em;
+}
+
+/* line 224, sass/reader.sass */
+ul.groups {
+  padding: 0;
+  margin: 0 0 1em 0;
+}
+/* line 227, sass/reader.sass */
+ul.groups li {
+  margin-right: 1em;
+  display: inline;
+}
+
+/* line 232, sass/reader.sass */
+.groups .group {
+  float: left;
+  margin-right: 32px;
+}
+
+/* line 236, sass/reader.sass */
+.readers {
+  clear: left;
+}
+
+/* line 239, sass/reader.sass */
+.cleared {
+  clear: left;
+}
+
+/* line 244, sass/reader.sass */
+div#preview {
+  float: left;
+  width: 80%;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  background-color: white;
+}
+/* line 249, sass/reader.sass */
+div#preview .message_header {
+  padding: 10px;
+  overflow: hidden;
+  background-color: #eeeeee;
+  color: #333333;
+  font-size: 80%;
+  line-height: 1.5;
+}
+/* line 256, sass/reader.sass */
+div#preview .message_header ul {
+  margin: 0;
+  padding: 6px 14px;
+  list-style-type: none;
+}
+/* line 260, sass/reader.sass */
+div#preview .message_header ul li.subject {
+  font-size: 1.6em;
+  margin-top: 6px;
+}
+/* line 263, sass/reader.sass */
+div#preview .message_header ul li.mime-version, div#preview .message_header ul li.content-type {
+  display: none;
+}
+/* line 266, sass/reader.sass */
+div#preview .message_body iframe {
+  width: 99%;
+  height: 520px;
+  margin: 0;
+  border: 0;
+  overflow: auto;
+}
+
+/* line 274, sass/reader.sass */
+table.readers td {
+  vertical-align: top;
+  padding-right: 1em;
+  padding: 0.25em 1em 0.25em 0;
+  border-bottom: 1px dotted #afafaf;
+}
+/* line 279, sass/reader.sass */
+table.readers td h4 {
+  white-space: nowrap;
+}
+/* line 281, sass/reader.sass */
+table.readers td h3, table.readers td p {
+  margin: 0;
+  line-height: 25px;
+}
+/* line 284, sass/reader.sass */
+table.readers td.phone, table.readers td.mobile {
+  white-space: nowrap;
+}
+/* line 286, sass/reader.sass */
+table.readers td.missing {
+  color: #afafaf;
+  font-size: 80%;
+}
+/* line 290, sass/reader.sass */
+table.readers tr:last-child td {
+  border-bottom: none;
+}
+
+/* line 293, sass/reader.sass */
+p.exception {
+  color: #cc0000;
+  font-size: 150%;
+  text-align: center;
+}
+
+/* line 298, sass/reader.sass */
+a.group_link {
+  text-decoration: none;
+}
+
+/* line 301, sass/reader.sass */
+.group_tag {
+  padding: 2px 12px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  margin-left: 2px;
+  font: 13px/27px Geneva, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  color: #2d2d2d;
+  white-space: nowrap;
+}
+
+/* line 4, sass/gallery.sass */
+p.caption {
+  color: #8c8d8e;
+  margin: 4px 20px 20px 20px;
+}
+/* line 7, sass/gallery.sass */
+p.caption a {
+  color: #4d4e53;
+}
+/* line 9, sass/gallery.sass */
+p.caption a:hover {
+  color: #d1005d;
+}
+
+/* line 12, sass/gallery.sass */
+img.grower {
+  position: absolute;
+  border: 20px solid white;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+
+/* line 17, sass/gallery.sass */
+img.preloader {
+  visibility: hidden;
+}
+
+/* line 20, sass/gallery.sass */
+div.gallery {
+  position: absolute;
+  overflow: hidden;
+  display: none;
+  background-color: white;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+/* line 26, sass/gallery.sass */
+div.gallery img {
+  overflow: hidden;
+  border: 20px solid white;
+}
+/* line 29, sass/gallery.sass */
+div.gallery p.caption {
+  width: 480px;
+  overflow: hidden;
+  margin: -10px 0 10px 20px;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+  color: #8c8d8e;
+}
+/* line 35, sass/gallery.sass */
+div.gallery p.caption a {
+  color: #4d4e53;
+}
+/* line 37, sass/gallery.sass */
+div.gallery p.caption a:hover {
+  color: #d1005d;
+}
+/* line 39, sass/gallery.sass */
+div.gallery div.closer {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+/* line 48, sass/gallery.sass */
+div.gallery div.closer a {
+  position: relative;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: transparent url("/images/furniture/gallerylinks.png") no-repeat -96px 0;
+}
+/* line 54, sass/gallery.sass */
+div.gallery div.closer a:hover {
+  background-image: url("/images/furniture/gallerylinks_over.png");
+}
+/* line 56, sass/gallery.sass */
+div.gallery div.controls {
+  position: absolute;
+  display: none;
+  width: 96px;
+  height: 32px;
+  bottom: 50px;
+  left: 50px;
+  background-color: white;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+/* line 66, sass/gallery.sass */
+div.gallery div.controls a {
+  position: relative;
+  display: block;
+  float: left;
+  width: 32px;
+  height: 32px;
+  background: transparent url("/images/furniture/gallerylinks.png") no-repeat 0 0;
+}
+/* line 73, sass/gallery.sass */
+div.gallery div.controls a:hover {
+  background-image: url("/images/furniture/gallerylinks_over.png");
+}
+/* line 75, sass/gallery.sass */
+div.gallery div.controls a.disabled {
+  background-image: url("/images/furniture/gallerylinks_disabled.png");
+}
+/* line 77, sass/gallery.sass */
+div.gallery div.controls a.download {
+  background-position: -32px 0;
+}
+/* line 79, sass/gallery.sass */
+div.gallery div.controls a.next {
+  background-position: -64px 0;
+}
+/* line 81, sass/gallery.sass */
+div.gallery div.controls a.close {
+  background-position: -96px 0;
+}

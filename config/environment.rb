@@ -41,7 +41,7 @@ Radiant::Initializer.run do |config|
   #  :metastore => "radiant:tmp/cache/meta"
   #    Sets the meta store type and storage location.  We recommend you use
   #    radiant: since this will enable manual expiration and acceleration headers.
-  config.middleware.use ::Radiant::Cache
+  #config.middleware.use ::Radiant::Cache
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
@@ -53,6 +53,7 @@ Radiant::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   config.time_zone = 'UTC'
+  config.extensions = [ :layouts, :mailer_layouts, :reader, :all ]
 
   # Set the default field error proc
   config.action_view.field_error_proc = Proc.new do |html, instance|
