@@ -32,7 +32,7 @@ class Admin::ReportsController < AdminController
 
   def members
     @readers = Reader.all
-    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2 post_city post_province post_country full_nzffa_member?]
+    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2 post_city post_province post_country postcode full_nzffa_member?]
     csv_string = FasterCSV.generate do |csv|
       csv << fields
       @readers.each do |reader|

@@ -5,7 +5,8 @@ module ReaderMixin
     base.send(:validates_presence_of, :forename)
     base.send(:validates_presence_of, :surname)
     base.send(:validates_presence_of, :email)
-    base.before_create :assign_nzffa_membership_id
+    base.send(:before_validation, :assign_nzffa_membership_id)
+    base.send(:validates_uniqueness_of, :nzffa_membership_id)
   end
 
 
