@@ -53,6 +53,7 @@ Radiant::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   config.time_zone = 'UTC'
+  config.extensions = [ :layouts, :mailer_layouts, :nested_layouts, :reader, :forum, :marketplace, :all ]
 
   # Set the default field error proc
   config.action_view.field_error_proc = Proc.new do |html, instance|

@@ -1,0 +1,435 @@
+/* line 21, sass/forum.sass */
+div.header {
+  margin: 2em 0 1em 0;
+}
+/* line 23, sass/forum.sass */
+div.header h1.title {
+  font-size: 275%;
+  line-height: 1;
+  margin: 0;
+}
+/* line 27, sass/forum.sass */
+div.header h1.title span.breadhead {
+  display: block;
+  font-size: 40%;
+  line-height: 0.6;
+}
+/* line 31, sass/forum.sass */
+div.header p.context {
+  margin: 0;
+}
+
+/* line 34, sass/forum.sass */
+div.forum {
+  clear: left;
+}
+/* line 36, sass/forum.sass */
+div.forum h2 {
+  line-height: 1;
+  margin: 0;
+  font-size: 200%;
+}
+/* line 41, sass/forum.sass */
+div.forum div.forum div.forum_wrapper {
+  margin: 2em 0;
+}
+/* line 44, sass/forum.sass */
+div.forum div.forum div.forum_wrapper div.forum_description p {
+  margin: 0;
+}
+/* line 46, sass/forum.sass */
+div.forum div.post {
+  clear: left;
+  margin: 1em 0 2em 0;
+}
+/* line 49, sass/forum.sass */
+div.forum div.post.waiting {
+  color: #8c8d8e;
+}
+/* line 51, sass/forum.sass */
+div.forum div.post.deleted {
+  text-decoration: line-through;
+  color: #8c8d8e;
+}
+/* line 56, sass/forum.sass */
+div.forum div.post div.post_header h2.reply a {
+  color: #8c8d8e;
+}
+/* line 58, sass/forum.sass */
+div.forum div.post div.post_header h2.reply a:hover {
+  color: #d1005d;
+}
+/* line 61, sass/forum.sass */
+div.forum div.post div.post_header a:hover {
+  color: #d1005d;
+}
+/* line 63, sass/forum.sass */
+div.forum div.post div.post_body {
+  position: relative;
+}
+/* line 65, sass/forum.sass */
+div.forum div.post div.post_body p {
+  margin-top: 0.25em;
+}
+/* line 67, sass/forum.sass */
+div.forum div.post div.post_body blockquote {
+  color: #8c8d8e;
+  border-left-width: 5px;
+  border-left-style: solid;
+  border-left-color: #cacac8;
+  margin: 0;
+  padding-left: 20px;
+}
+/* line 74, sass/forum.sass */
+div.forum div.post div.post_attachments {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+}
+/* line 76, sass/forum.sass */
+div.forum div.post p.voices {
+  margin: 0;
+}
+/* line 78, sass/forum.sass */
+div.forum div.post p.replies {
+  clear: left;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+  margin-top: 0;
+  color: #bdbdbd;
+}
+/* line 83, sass/forum.sass */
+div.forum div.post p.replies a {
+  color: #afafaf;
+}
+/* line 86, sass/forum.sass */
+div.forum div.post div.remote_form {
+  margin: 0;
+}
+/* line 89, sass/forum.sass */
+div.forum div.post div.post_removal p {
+  margin: 0;
+}
+/* line 91, sass/forum.sass */
+div.forum div.post div.post_removal p.warning {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-weight: bold;
+  color: red;
+  font-size: 1.4;
+}
+/* line 95, sass/forum.sass */
+div.forum div.post div.post_removal p.confirmation {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-weight: bold;
+  color: green;
+  font-size: 1.4;
+}
+/* line 100, sass/forum.sass */
+div.forum p.context {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+  line-height: 1.2;
+  margin: 5px 0 10px 0;
+}
+/* line 105, sass/forum.sass */
+div.forum div#search {
+  overflow: hidden;
+  margin: 0 0 2em 0;
+}
+/* line 108, sass/forum.sass */
+div.forum div#search p {
+  width: 24%;
+  margin-right: 1%;
+  float: left;
+}
+/* line 112, sass/forum.sass */
+div.forum div#search p.buttons {
+  padding-top: 1.5em;
+}
+
+/* line 115, sass/forum.sass */
+a.edit_post, a.delete_post {
+  color: white;
+  padding: 1px 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 75%;
+  opacity: 0.2;
+}
+/* line 121, sass/forum.sass */
+a.edit_post:hover, a.delete_post:hover {
+  opacity: 1;
+  color: white !important;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+
+/* line 125, sass/forum.sass */
+a.edit_post {
+  background-color: green;
+}
+
+/* line 127, sass/forum.sass */
+a.delete_post {
+  background-color: red;
+}
+
+/* line 130, sass/forum.sass */
+div.upload_stack, div.post_attachments {
+  margin: 0 0 30px 0;
+}
+/* line 132, sass/forum.sass */
+div.upload_stack h4, div.post_attachments h4 {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-weight: bold;
+  margin: 0;
+  color: #8c8d8e;
+}
+/* line 136, sass/forum.sass */
+div.upload_stack ul, div.post_attachments ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+/* line 140, sass/forum.sass */
+div.upload_stack li, div.post_attachments li {
+  clear: none;
+  margin: 0;
+}
+/* line 143, sass/forum.sass */
+div.upload_stack li.unsaved, div.post_attachments li.unsaved {
+  background-image: url(/images/furniture/attachment_over.png);
+  padding-left: 18px;
+}
+/* line 146, sass/forum.sass */
+div.upload_stack a.attachment, div.post_attachments a.attachment {
+  background: url(/images/furniture/attachment_link.png) no-repeat 0 2px;
+  padding-left: 18px;
+}
+/* line 149, sass/forum.sass */
+div.upload_stack a.attachment:hover, div.post_attachments a.attachment:hover {
+  background-image: url(/images/furniture/attachment_over.png);
+}
+/* line 151, sass/forum.sass */
+div.upload_stack a.remove, div.post_attachments a.remove {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 60%;
+  color: #d1005d;
+  padding: 3px;
+}
+/* line 156, sass/forum.sass */
+div.upload_stack a.remove:hover, div.post_attachments a.remove:hover {
+  color: white;
+  background-color: #d1005d;
+}
+/* line 159, sass/forum.sass */
+div.upload_stack a.thumbnail, div.post_attachments a.thumbnail {
+  margin: 8px 8px 4px 0;
+}
+/* line 161, sass/forum.sass */
+div.upload_stack a.thumbnail img, div.post_attachments a.thumbnail img {
+  border: 4px solid white;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  -o-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+}
+
+/* line 166, sass/forum.sass */
+div.upload_stack ul.attachments input, div.upload_stack ul.uploads input {
+  display: none;
+}
+/* line 168, sass/forum.sass */
+div.upload_stack ul li a {
+  color: #4d4e53;
+}
+/* line 170, sass/forum.sass */
+div.upload_stack div.selector {
+  position: relative;
+}
+/* line 172, sass/forum.sass */
+div.upload_stack div.selector input.filefield {
+  position: relative;
+  z-index: 100;
+  opacity: 0;
+  cursor: pointer;
+}
+/* line 177, sass/forum.sass */
+div.upload_stack div.selector div.addfile {
+  position: absolute;
+  z-index: 99;
+  top: 0;
+}
+/* line 181, sass/forum.sass */
+div.upload_stack div.selector div.addfile a {
+  background: url(/images/furniture/attachment_link.png) no-repeat 0 2px;
+  padding-left: 18px;
+}
+
+/* line 185, sass/forum.sass */
+div#forum_search {
+  margin: 40px 0 0 0;
+}
+/* line 187, sass/forum.sass */
+div#forum_search h2, div#forum_search p {
+  margin: 0;
+}
+/* line 190, sass/forum.sass */
+div#forum_search input.standard {
+  width: 80%;
+}
+/* line 192, sass/forum.sass */
+div#forum_search input.button {
+  font-size: 1.2em;
+  line-height: 1;
+  color: #4d4e53;
+  padding: 5px;
+  margin: 0 0 0 6px;
+}
+
+/* line 199, sass/forum.sass */
+a.post {
+  font-size: 140%;
+  padding-left: 20px;
+  background: url(/images/furniture/post.png) no-repeat scroll 0 0;
+}
+/* line 203, sass/forum.sass */
+a.post:hover {
+  color: #d1005d;
+  background-position: 0 -28px;
+}
+
+/* line 207, sass/forum.sass */
+img.feedicon {
+  margin: 8px 0;
+}
+
+/* line 210, sass/forum.sass */
+a.rssfeed {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  width: 14px;
+}
+
+/* line 216, sass/forum.sass */
+.context, .updatenote {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+  line-height: 1.2;
+  color: #afafaf;
+}
+
+/* line 221, sass/forum.sass */
+p.waiting, span.waiting, a.waiting {
+  color: #8c8d8e;
+  padding-left: 18px;
+  background: transparent url(/images/furniture/wait_16_grey.gif) no-repeat left top;
+}
+
+/* line 226, sass/forum.sass */
+img.smiley {
+  margin: 3px 3px 0 3px;
+}
+
+/* line 229, sass/forum.sass */
+div.speaker {
+  position: relative;
+  clear: left;
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
+  margin-top: 5px;
+}
+
+/* line 238, sass/forum.sass */
+p.add_comment, p.add_reply {
+  font-size: 200%;
+}
+
+/* line 241, sass/forum.sass */
+span.formnote {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+}
+
+/* line 246, sass/forum.sass */
+img.emoticon {
+  overflow: hidden;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent url("/images/furniture/emoticons.png") no-repeat 0 0;
+}
+/* line 254, sass/forum.sass */
+img.emoticon.happy {
+  background-position: 0 0;
+}
+/* line 256, sass/forum.sass */
+img.emoticon.neutral {
+  background-position: -16px 0;
+}
+/* line 258, sass/forum.sass */
+img.emoticon.sad {
+  background-position: -32px 0;
+}
+/* line 260, sass/forum.sass */
+img.emoticon.grin {
+  background-position: -48px 0;
+}
+/* line 262, sass/forum.sass */
+img.emoticon.surprised {
+  background-position: -64px 0;
+}
+/* line 264, sass/forum.sass */
+img.emoticon.wink {
+  background-position: -80px 0;
+}
+/* line 266, sass/forum.sass */
+img.emoticon.devil {
+  background-position: -96px 0;
+}
+/* line 268, sass/forum.sass */
+img.emoticon.tongue {
+  background-position: -112px 0;
+}
+/* line 270, sass/forum.sass */
+img.emoticon.lol {
+  background-position: -128px 0;
+}
+/* line 272, sass/forum.sass */
+img.emoticon.mad {
+  background-position: -144px 0;
+}
+/* line 274, sass/forum.sass */
+img.emoticon.shocked {
+  background-position: -160px 0;
+}
+/* line 276, sass/forum.sass */
+img.emoticon.cool {
+  background-position: -176px 0;
+}
+
+/* line 279, sass/forum.sass */
+span.excerpt {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  font-size: 80%;
+  line-height: 1.2;
+}
