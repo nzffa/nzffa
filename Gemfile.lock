@@ -43,14 +43,6 @@ GIT
       thor (~> 0.14.6)
 
 GIT
-  remote: git://github.com/spanner/radiant-forum-extension.git
-  revision: 865e2789ea36d2f1d1f9ff353eaf53c68defdf3c
-  specs:
-    radiant-forum-extension (3.0.6)
-      acts_as_list (~> 0.1.2)
-      radiant-reader-extension (~> 3.0.23)
-
-GIT
   remote: https://github.com/robguthrie/cucumber-rails.git
   revision: ca9160bd85673d873d0c7e62c5a44a3bb883a170
   branch: v0.3.2fixed
@@ -98,9 +90,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    capybara-webkit (0.12.1)
-      capybara (>= 1.0.0, < 1.2)
-      json
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.6.7)
@@ -285,7 +274,6 @@ DEPENDENCIES
   backup!
   capistrano
   capybara (= 1.1.1)
-  capybara-webkit
   cucumber (= 1.1.0)
   cucumber-rails!
   database_cleaner (>= 0.5.0)
@@ -298,7 +286,6 @@ DEPENDENCIES
   parallel (~> 0.5.12)
   radiant (~> 1.0.1)
   radiant-ck_editor_filter-extension (~> 0.2.5)
-  radiant-forum-extension!
   radiant-layouts-extension!
   radiant-mailer-extension
   radiant-navigation_tags-extension (~> 0.2.6)!

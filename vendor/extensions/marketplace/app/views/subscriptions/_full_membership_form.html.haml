@@ -3,7 +3,7 @@
 -form_for(@subscription, :url => @action_path) do |f|
   =f.hidden_field :membership_type
 
-  %p How many Ha of planted trees to do you have?
+  %p How many hectares of planted trees to do you have?
   #ha_of_planted_trees
     =f.radio_button :ha_of_planted_trees, '0 - 10'
     =f.label :ha_of_planted_trees_0__10, '0 - 10ha'
@@ -14,7 +14,7 @@
     =f.radio_button :ha_of_planted_trees, '41+'
     =f.label :ha_of_planted_trees_41, '40+ ha'
 
-  %p Select the branch you want to belong to
+  %p Select the main branch you want to belong to
   #main_branch
     =f.collection_select :main_branch_name, Branch.all, :name, :name
 

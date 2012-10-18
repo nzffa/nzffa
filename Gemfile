@@ -41,8 +41,7 @@ gem 'rr', :group => :test
 
 # This depends on radiant-layouts-extension
 gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
-gem "radiant-forum-extension", :git => 'git://github.com/spanner/radiant-forum-extension.git'
-#gem "radiant-group_forum-extension", :git => 'git://github.com/spanner/radiant-group_forum-extension.git'
+#gem "radiant-forum-extension", :git => 'git://github.com/spanner/radiant-forum-extension.git'
 #gem "country_select"
 # gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
 
@@ -66,7 +65,7 @@ group :test, :cucumber, :development do
   gem 'rspec', '1.3.2'
   gem "capybara", "1.1.1"
   gem 'timecop'
-  gem "capybara-webkit"
+  #gem "capybara-webkit"
   gem 'launchy'
   gem "cucumber", "1.1.0"
   gem "cucumber-rails", :git => 'https://github.com/robguthrie/cucumber-rails.git', :branch => 'v0.3.2fixed'
