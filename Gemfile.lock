@@ -5,6 +5,14 @@ GIT
     radiant-navigation_tags-extension (0.2.6)
 
 GIT
+  remote: git://github.com/enspiral/radiant-forum-extension.git
+  revision: 865e2789ea36d2f1d1f9ff353eaf53c68defdf3c
+  specs:
+    radiant-forum-extension (3.0.6)
+      acts_as_list (~> 0.1.2)
+      radiant-reader-extension (~> 3.0.23)
+
+GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
   revision: 4ffd91d132104ca60c9b543ef46ba89355d1775e
   specs:
@@ -251,6 +259,7 @@ DEPENDENCIES
   parallel (~> 0.5.12)
   radiant (~> 1.0.1)
   radiant-ck_editor_filter-extension (~> 0.2.5)
+  radiant-forum-extension!
   radiant-layouts-extension!
   radiant-mailer-extension
   radiant-navigation_tags-extension (~> 0.2.6)!
