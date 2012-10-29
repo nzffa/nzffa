@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928005956) do
+ActiveRecord::Schema.define(:version => 20121029093904) do
 
   create_table "action_groups", :force => true do |t|
     t.string   "name"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20120928005956) do
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.integer  "old_id"
+    t.integer  "topics_count",  :default => 0, :null => false
   end
 
   create_table "groups", :force => true do |t|
