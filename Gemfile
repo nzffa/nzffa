@@ -42,6 +42,8 @@ gem 'rr', :group => :test
 gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
 gem "radiant-forum-extension", :git => 'git://github.com/enspiral/radiant-forum-extension.git', :branch => :master
 
+gem 'airbrake', :require => 'airbrake/rails'
+
 group :production do
   gem 'backup', :git => 'git://github.com/jdutil/backup.git', :branch => 'bump_fog'
   gem 'fog'
