@@ -40,7 +40,7 @@ gem 'rr', :group => :test
 
 # This depends on radiant-layouts-extension
 gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
-gem "radiant-forum-extension", :git => 'git://github.com/enspiral/radiant-forum-extension.git', :branch => :master
+gem "radiant-forum-extension", :git => 'git://github.com/enspiral/radiant-forum-extension.git', :branch => :wackamole
 
 gem 'airbrake', :require => 'airbrake/rails'
 
