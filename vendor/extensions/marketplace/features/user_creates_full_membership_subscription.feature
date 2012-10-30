@@ -28,14 +28,14 @@ Feature: User creates full NZFFA Membership
     Then choose "0 - 10ha"
     And select "North Otago" from "subscription_main_branch_name"
     And select "South Canterbury" from "subscription_associated_branch_names"
-    And check "List my business in the FFT Marketplace" 
+    And check "Join Farm Forestry Timbers" 
     And choose "End of this year"
     Then I should see "Subscription Price: $117.00 + GST"
     And press "Proceed to payment"
     Then I should be forwarded to payment express
     When I enter my credit card details
     Then I should see that payment was successful
-    And wait a bit
+    And I should be asked to update my tree grower company listing
     And I should belong to the Tree Grower Magazine group
     And I should belong to the FFT Marketplace group
     And I should belong to the Full Membership group

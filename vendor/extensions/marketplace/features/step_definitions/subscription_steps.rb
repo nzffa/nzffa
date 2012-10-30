@@ -4,7 +4,10 @@ Given /^I am a registered, logged in reader$/ do
                           :forename => 'jim',
                           :surname => 'david',
                           :password => 'password',
-                          :password_confirmation => 'password')
+                          :password_confirmation => 'password',
+                          :post_line1 => 'an address',
+                          :post_province => 'province line',
+                          :postcode => '12345')
 
   @reader.update_attribute(:activated_at, '2010-01-01')
 

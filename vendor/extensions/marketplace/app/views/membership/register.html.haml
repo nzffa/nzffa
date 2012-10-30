@@ -5,12 +5,12 @@
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
   %p
-    =f.label :forname, 'First name'
+    =f.label :forname, 'First name', :class => :required
     %br
     =f.text_field :forename
 
   %p
-    =f.label :surname, 'Last name'
+    =f.label :surname, 'Last name', :class => :required
     %br
     =f.text_field :surname
 
@@ -25,7 +25,7 @@
     =f.text_field :mobile
 
   %p
-    =f.label :email
+    =f.label :email, "Email", :class => :required
     %br
     =f.text_field :email
 
@@ -44,7 +44,7 @@
   %h3 Postal Address
   %table
     %tr
-      %td=f.label :post_line1, 'Address'
+      %td=f.label :post_line1, 'Address', :class => :required
       %td=f.text_field :post_line1
     %tr
       %td=f.label :post_line2, 'Address line 2'
@@ -53,13 +53,13 @@
       %td=f.label :post_city, 'Town or City'
       %td=f.text_field :post_city
     %tr
-      %td=f.label :post_province, 'Region'
+      %td=f.label :post_province, 'Region', :class => :required
       %td=f.text_field :post_province
     %tr
       %td=f.label :country
       %td=f.text_field :post_country
     %tr
-      %td=f.label :postcode
+      %td=f.label :postcode, "Postcode", :class => :required
       %td=f.text_field :postcode
 
   %h3 Email Newsletters

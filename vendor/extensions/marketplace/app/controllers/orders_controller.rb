@@ -19,6 +19,7 @@ class OrdersController < MarketplaceController
     result = PxPayParty.payment_response(params[:result])
     model_class, id = result['MerchantReference'].split(':')
     @order = Module.const_get(model_class).find(id)
+    @subscription = @order.subscription
 
     if result['Success'] == '1'
       @order.paid!('Online')

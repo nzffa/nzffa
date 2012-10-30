@@ -74,3 +74,6 @@ Then /^I should not see the password fields$/ do
   page.should_not have_field 'password'
 end
 
+Then /^I should be asked to update my tree grower company listing$/ do
+  page.should have_content "Please update your Farm Forestry Timbers Marketplace Listing"
+end
