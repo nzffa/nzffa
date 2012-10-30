@@ -1,0 +1,20 @@
+%table
+  %thead
+    %th nzffa id
+    %th name
+    %th address
+    %th num copies
+    %th indegenous group
+  %tbody
+    -@subscriptions.each do |s|
+      - r = s.reader
+      %tr
+        %td=r.nzffa_membership_id
+        %td=r.name
+        %td=r.postal_address
+        %td=pluralize(s.nz_tree_grower_copies, "copy")
+        %td
+          -if r.group_ids.include?(209)
+            yes
+          -else
+            no

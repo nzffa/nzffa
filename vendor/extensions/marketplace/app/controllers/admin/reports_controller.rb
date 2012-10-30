@@ -43,4 +43,9 @@ class Admin::ReportsController < AdminController
     headers["Content-Disposition"] = "attachment; filename=\"nzffa_members_#{DateTime.now.to_s}\"" 
     render :text => csv_string
   end
+
+  def deliveries
+    @subscriptions = Subscription.active.find(:all, :conditions => {'receive_tree_grower_magazine' => true})
+
+  end
 end

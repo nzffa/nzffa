@@ -22,6 +22,10 @@ class Subscription < ActiveRecord::Base
   named_scope :expiring_on, lambda {|expiry_date| 
     {:conditions => {:expires_on => expiry_date, :cancelled_on => nil}}}
 
+  named_scope :active, lambda { 
+    {:joins => :order,
+     :conditions => ['begins_on <= ? AND expires_on >= ? AND cancelled_on IS NULL AND orders.paid_on > "2001-01-01"',  Date.today, Date.today, ]}}
+
   
   def self.current_subscription_for(reader)
     find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
