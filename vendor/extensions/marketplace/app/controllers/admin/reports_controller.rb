@@ -46,6 +46,10 @@ class Admin::ReportsController < AdminController
 
   def deliveries
     @subscriptions = Subscription.active.find(:all, :conditions => {'receive_tree_grower_magazine' => true})
+  end
 
+  def expiries
+    all_subscriptions = Subscription.find(:all, :conditions => ['expires_on < ? and expires_on > ?', Date.today, 3.months.ago])
+    @subscriptions = all_subscriptions.select{|s| Subscription.active_subscription_for(s.reader).blank? }
   end
 end
