@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # this breaks 
   # map.reader_dashboard '/membership/dashboard', :controller => :membership, :action => :dashboard
-  # map.register '/membership/register', :controller => :membership, :action => :register
+   map.register '/membership/register', :controller => :membership, :action => :register
 
   map.join_fft_button '/membership/join-fft-button', :controller => :membership, :action => :join_fft_button
   map.join_fft '/membership/join-fft', :controller => :membership, :action => :join_fft

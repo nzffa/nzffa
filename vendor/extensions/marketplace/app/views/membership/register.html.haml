@@ -5,6 +5,8 @@
 -else
   =link_to('Become a member of Farm Forestry Timbers', MembershipController::JOIN_FFT_PATH)
 
+%p Fields marked with * are required
+
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
   %p
