@@ -12,6 +12,23 @@ module ReaderMixin
     base.send(:validates_uniqueness_of, :nzffa_membership_id)
   end
 
+  def main_branch_name
+    if sub = Subscription.active_subscription_for(self)
+      sub.main_branch_name
+    end
+  end
+
+  def associated_branch_names
+    if sub = Subscription.active_subscription_for(self)
+      sub.associated_branch_names
+    end
+  end
+
+  def action_group_names
+    if sub = Subscription.active_subscription_for(self)
+      sub.action_groups.map(&:name)
+    end
+  end
 
   def assign_nzffa_membership_id
     unless nzffa_membership_id.present?

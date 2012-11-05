@@ -35,5 +35,5 @@ Then /^the reader name and postal address should be listed$/ do
 end
 
 Then /^the reader should get (\d+) copy of tree grower magazine$/ do |arg1|
-  page.should have_content "1 copy"
+  page.should have_content ",1,"
 end

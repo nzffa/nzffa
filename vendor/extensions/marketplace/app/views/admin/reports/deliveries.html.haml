@@ -8,8 +8,9 @@
   %tbody
     -@subscriptions.each do |s|
       - r = s.reader
+      - next unless r
       %tr
-        %td=r.nzffa_membership_id
+        %td=r.nzffa_membership_id 
         %td=r.name
         %td=r.postal_address
         %td=pluralize(s.nz_tree_grower_copies, "copy")

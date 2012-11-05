@@ -32,11 +32,22 @@ class Admin::ReportsController < AdminController
 
   def members
     @readers = Reader.all
-    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2 post_city post_province post_country postcode full_nzffa_member?]
+    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2 post_city post_province post_country postcode full_nzffa_member? main_branch_name associated_branch_names action_group_names]
     csv_string = FasterCSV.generate do |csv|
       csv << fields
       @readers.each do |reader|
-        csv << fields.map{|field| reader.send(field) }
+        csv << fields.map do |field| 
+          if field.match(/_names$/)
+            
+            if names = reader.send(field)
+              names.join('. ')
+            else
+              nil
+            end
+          else
+            reader.send(field)
+          end
+        end
       end
     end
     headers["Content-Type"] ||= 'text/csv'
@@ -46,6 +57,24 @@ class Admin::ReportsController < AdminController
 
   def deliveries
     @subscriptions = Subscription.active.find(:all, :conditions => {'receive_tree_grower_magazine' => true})
+    fields = %w[id nzffa_membership_id name postal_address num_copies indigenous_group_member]
+    csv_string = FasterCSV.generate do |csv|
+      csv << fields
+      @subscriptions.each do |sub|
+        r = sub.reader
+        next unless r
+        csv << fields.map do |field|
+          case field
+          when 'num_copies' then sub.nz_tree_grower_copies
+          when 'indigenous_group_member' then r.group_ids.include?(209).inspect
+          else r.send(field)
+          end
+        end
+      end
+    end
+    headers["Content-Type"] ||= 'text/csv'
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_tree_grower_magazine_deliveries_#{Date.today.to_s}\"" 
+    render :text => csv_string
   end
 
   def expiries
