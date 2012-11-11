@@ -1,4 +1,6 @@
--if @advert.is_company_listing?
+-if @advert.nil?
+  Advert not found
+-elsif @advert.is_company_listing?
   =render :partial => 'company_listing'
 -else
   =render :partial => 'advert'

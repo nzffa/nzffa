@@ -5,6 +5,15 @@ GIT
     radiant-navigation_tags-extension (0.2.6)
 
 GIT
+  remote: git://github.com/enspiral/radiant-forum-extension.git
+  revision: 0b0410d4c3fa12b9f145c954c649214a84114a44
+  branch: wackamole
+  specs:
+    radiant-forum-extension (3.0.6)
+      acts_as_list (~> 0.1.2)
+      radiant-reader-extension (~> 3.0.23)
+
+GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
   revision: 4ffd91d132104ca60c9b543ef46ba89355d1775e
   specs:
@@ -66,7 +75,10 @@ GEM
     activesupport (2.3.14)
     acts_as_list (0.1.4)
     acts_as_tree (0.1.1)
+<<<<<<< HEAD
     addressable (2.3.2)
+=======
+>>>>>>> master
     airbrake (3.1.4)
       builder
       girl_friday
@@ -105,7 +117,11 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     connection_pool (0.9.2)
+<<<<<<< HEAD
     cucumber (1.1.0)
+=======
+    cucumber (1.1.9)
+>>>>>>> master
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
       gherkin (~> 2.5.0)
@@ -271,6 +287,12 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
+<<<<<<< HEAD
+=======
+  autotest
+  autotest-fsevent
+  autotest-growl
+>>>>>>> master
   backup!
   capistrano
   capybara (= 1.1.1)
@@ -286,6 +308,7 @@ DEPENDENCIES
   parallel (~> 0.5.12)
   radiant (~> 1.0.1)
   radiant-ck_editor_filter-extension (~> 0.2.5)
+  radiant-forum-extension!
   radiant-layouts-extension!
   radiant-mailer-extension
   radiant-navigation_tags-extension (~> 0.2.6)!

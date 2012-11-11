@@ -27,3 +27,4 @@ db/remote_staging_data.sql
 config/backup.rb
 
 db/app_backup/Dropbox.yml
+post_attachments/*

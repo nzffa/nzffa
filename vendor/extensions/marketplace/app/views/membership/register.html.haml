@@ -2,6 +2,8 @@
   If you already registered you can 
   =link_to 'Sign in here', '/account/login'
 
+%p Fields marked with * are required
+
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
   %p

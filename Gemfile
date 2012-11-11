@@ -41,9 +41,8 @@ gem 'rr', :group => :test
 
 # This depends on radiant-layouts-extension
 gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
-#gem "radiant-forum-extension", :git => 'git://github.com/spanner/radiant-forum-extension.git'
-#gem "country_select"
-# gem "radiant-reader-extension", :path => '/Users/craig/development/radiant-reader-extension'
+gem "radiant-forum-extension", :git => 'git://github.com/enspiral/radiant-forum-extension.git', :branch => :wackamole
+#gem "radiant-forum-extension", :path => '/Users/rob/src/radiant-forum-extension'
 
 group :production, :staging do
   gem 'airbrake'
