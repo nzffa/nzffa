@@ -27,12 +27,8 @@ class Subscription < ActiveRecord::Base
      :conditions => ['begins_on <= ? AND expires_on >= ? AND cancelled_on IS NULL AND orders.paid_on > "2001-01-01"',  Date.today, Date.today, ]}}
 
   
-  def self.current_subscription_for(reader)
-    find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
-      next if sub.cancelled?
-      return sub
-    end
-    nil
+  def self.last_subscription_for(reader)
+    find(:first, :conditions => {:reader_id => reader.id}, :order => 'id desc')
   end
 
   def self.active_subscription_for(reader)
@@ -64,7 +60,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def active?
-    if cancelled_on or !paid?
+    if cancelled_on.present? or !paid?
       false
     else
       (begins_on..expires_on).include?(Date.today)

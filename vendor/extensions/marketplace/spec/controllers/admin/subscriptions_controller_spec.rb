@@ -121,7 +121,7 @@ describe Admin::SubscriptionsController do
 
     context 'when reader already has a current subscription' do
       before :each do
-        Subscription.stub(:current_subscription_for).and_return(true)
+        Subscription.stub(:active_subscription_for).and_return(true)
       end
       it 'redirects to subscriptions index' do
         post :create, :reader_id => @reader.id

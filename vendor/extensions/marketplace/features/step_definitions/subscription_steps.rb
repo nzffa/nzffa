@@ -248,6 +248,7 @@ Given /^I have an unpaid subscription$/ do
 end
 
 Then /^I should see a Make Payment link$/ do
+  save_and_open_page
   page.should have_link 'Make Payment'
 end
 

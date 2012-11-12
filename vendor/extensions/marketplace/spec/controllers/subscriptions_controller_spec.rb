@@ -22,7 +22,7 @@ describe SubscriptionsController do
 
     context 'with an active (paid) subscription' do
       before :each do
-        Subscription.stub(:current_subscription_for).and_return(subscription)
+        Subscription.stub(:active_subscription_for).and_return(subscription)
         subscription.stub(:paid?).and_return(true)
       end
 
@@ -34,7 +34,7 @@ describe SubscriptionsController do
 
     context 'with an unpaid subscription' do
       before :each do
-        Subscription.stub(:current_subscription_for).and_return(subscription)
+        Subscription.stub(:active_subscription_for).and_return(subscription)
         subscription.stub(:paid?).and_return(false)
       end
       it 'cancels the subscription' do
@@ -155,7 +155,7 @@ describe SubscriptionsController do
 
     describe 'current subscription exists for reader' do
       before :each do
-        Subscription.stub(:current_subscription_for).and_return(true)
+        Subscription.stub(:active_subscription_for).and_return(true)
       end
       it 'redirects to subscriptions index' do
         post :create

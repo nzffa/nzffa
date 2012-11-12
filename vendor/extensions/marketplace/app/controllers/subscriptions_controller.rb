@@ -4,11 +4,11 @@ class SubscriptionsController < MarketplaceController
   include ActionView::Helpers::NumberHelper
 
   def index
-    @subscription = Subscription.current_subscription_for(current_reader)
+    @subscription = Subscription.last_subscription_for(current_reader)
   end
 
   def cancel
-    if @subscription = Subscription.current_subscription_for(current_reader)
+    if @subscription = Subscription.active_subscription_for(current_reader)
       unless @subscription.paid?
         @subscription.cancel!
       else
@@ -25,7 +25,7 @@ class SubscriptionsController < MarketplaceController
   end
 
   def new
-    if Subscription.current_subscription_for(current_reader)
+    if Subscription.active_subscription_for(current_reader)
       flash[:error] = 'You cannot create a new subscription if you currently have a subscription.'
       redirect_to subscriptions_path and return
     end
@@ -68,7 +68,7 @@ class SubscriptionsController < MarketplaceController
   end
 
   def create
-    if Subscription.current_subscription_for(current_reader)
+    if Subscription.active_subscription_for(current_reader)
       flash[:error] = 'You already have an active subscription'
       redirect_to subscriptions_path and return
     end

@@ -5,7 +5,7 @@ class MembershipController < MarketplaceController
 
   def details
     @reader = current_reader
-    @subscription = Subscription.current_subscription_for(@reader)
+    @subscription = Subscription.active_subscription_for(@reader)
   end
 
   def dashboard

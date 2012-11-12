@@ -36,7 +36,7 @@ class Admin::SubscriptionsController < AdminController
 
 
   def create
-    if Subscription.current_subscription_for(@reader)
+    if Subscription.active_subscription_for(@reader)
       flash[:error] = 'This reader already has an active subscription'
       redirect_to admin_subscriptions_path and return
     end

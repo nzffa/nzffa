@@ -74,4 +74,3 @@ Feature: User upgrades their subscription
     And my original subscription should be cancelled
     And my new subscription should be active
     And the page should say thank you
-    And wait for ages
