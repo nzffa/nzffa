@@ -44,7 +44,11 @@ class Order < ActiveRecord::Base
   end
 
   def nzffa_member_id
-    reader.nzffa_membership_id
+    if reader
+      reader.nzffa_membership_id 
+    else
+      nil
+    end
   end
 
   def paid!(method)
