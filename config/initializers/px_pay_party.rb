@@ -1,5 +1,5 @@
-PX_PAY_USER_ID = 'NZFFA_dev'
-PX_PAY_KEY = '0edb744f3d87e729ae22dc66dcdd7db8bc52ac5dbcb6ca613ef99d457481ad35'
+PX_PAY_USER_ID = 'NZFFAOnline'
+PX_PAY_KEY = 'b8580cfd75ca98821043b830f6ec2b4b68858bf8cb0ba225bc3758b52dc5725c'
 
 PX_PAY_PARTY_SETTINGS = { :currency => 'NZD',
                           :px_pay_user_id => PX_PAY_USER_ID,
