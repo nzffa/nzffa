@@ -29,6 +29,10 @@ module ReaderMixin
     main_branch.id if main_branch
   end
 
+  def main_branch_group_id
+    main_branch.group_id if main_branch
+  end
+
   def associated_branch_ids
     active_subscription.associated_branch_ids if active_subscription.present?
   end
@@ -37,10 +41,22 @@ module ReaderMixin
     associated_branch_ids.join(' ') if associated_branch_ids
   end
 
+  def associated_branches
+    active_subscription.associated_branches if active_subscription
+  end
+
+  def associated_branch_group_ids_string
+    active_subscription.associated_branches.map(&:group_id).join(' ') if active_subscription
+  end
+
   def associated_branch_names
     if sub = Subscription.active_subscription_for(self)
       sub.associated_branch_names
     end
+  end
+
+  def action_group_group_ids_string
+    active_subscription.action_groups.map(&:group_id).join(' ') if active_subscription
   end
 
   def action_group_names
