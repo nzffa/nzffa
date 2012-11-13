@@ -28,7 +28,8 @@ class Admin::ReadersPlusController < AdminController
 
   def update
     @reader = Reader.find params[:id]
-    if @reader.update_attributes(params[:reader])
+    @reader.attributes = params[:reader]
+    if @reader.save(false)
       flash[:notice] = 'Updated reader'
       redirect_to [:admin, :readers_plus]
     else
