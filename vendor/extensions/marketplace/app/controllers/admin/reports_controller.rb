@@ -16,7 +16,9 @@ class Admin::ReportsController < AdminController
 
   def allocations
     @orders = Order.find(:all, :conditions => 'paid_on IS NOT NULL', :order => 'id asc')
-    fields = ['nzffa_member_id', 'subscription_id', 'order_id', 'order_line_id', 'kind', 'particular', 'amount', 'paid_on', 'payment_method']
+    fields = ['nzffa_member_id', 'subscription_id', 'order_id', 
+              'order_line_id', 'kind', 'particular', 'amount', 
+              'paid_on', 'payment_method', 'subscription_begins_on', 'subscription_begins_on', 'subscription_expires_on']
     csv_string = FasterCSV.generate do |csv|
       csv << fields
       @orders.each do |order| 
@@ -32,13 +34,12 @@ class Admin::ReportsController < AdminController
 
   def members
     @readers = Reader.all
-    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2 post_city post_province post_country postcode full_nzffa_member? main_branch_name associated_branch_names action_group_names]
+    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2 post_city post_province post_country postcode full_nzffa_member? main_branch_id associated_branch_ids_string action_group_names special_cases]
     csv_string = FasterCSV.generate do |csv|
       csv << fields
       @readers.each do |reader|
         csv << fields.map do |field| 
           if field.match(/_names$/)
-            
             if names = reader.send(field)
               names.join('. ')
             else

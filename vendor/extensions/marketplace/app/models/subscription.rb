@@ -89,6 +89,12 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def associated_branch_ids
+    ids = branches.map(&:id)
+    ids -= [main_branch.id] if main_branch.present?
+    ids
+  end
+
   def associated_branch_names
     names = branches.map(&:name)
     names -= [main_branch.name] if main_branch.present?

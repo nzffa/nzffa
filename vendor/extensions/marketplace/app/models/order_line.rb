@@ -10,4 +10,16 @@ class OrderLine < ActiveRecord::Base
   def order_line_id
     id
   end
+
+  def subscription_begins_on
+    if order and order.subscription
+      order.subscription.begins_on
+    end
+  end
+
+  def subscription_expires_on
+    if order and order.subscription
+      order.subscription.expires_on
+    end
+  end
 end
