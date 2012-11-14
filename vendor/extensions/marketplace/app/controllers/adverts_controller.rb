@@ -32,9 +32,13 @@ class AdvertsController < MarketplaceController
   end
 
   def show
-    @advert = Advert.find_by_id(params[:id])
-    @other_listings = Advert.find(:all, :conditions => {:reader_id => @advert.reader_id})
-    render :layout => false if request.xhr?
+    if @advert = Advert.find_by_id(params[:id])
+      @other_listings = Advert.find(:all, :conditions => {:reader_id => @advert.reader_id})
+      render :layout => false if request.xhr?
+    else
+      flash[:alert] = "Advert not found"
+      redirect_to adverts_path
+    end
   end
 
   def edit
