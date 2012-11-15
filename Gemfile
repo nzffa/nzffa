@@ -3,7 +3,7 @@ source :rubygems
 # If you make any changes in this file, please run `bundle install`.
 # If new versions of your installed gems are available, run `bundle update`
 
-gem "radiant", "~> 1.0.1"
+gem "radiant", :git => 'git://github.com/enspiral/radiant.git', :branch => '1.0.1-updated-paperclip'
 gem 'hpricot'
 gem 'fastercsv'
 gem 'httparty'
