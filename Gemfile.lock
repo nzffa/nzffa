@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant.git
-  revision: f9559b4353437893bf86ecd3d3b18f1832e25b32
+  revision: 0aa1f6362af653600ab25aa2a7422db1436826b0
   branch: 1.0.1-updated-paperclip
   specs:
     radiant (1.0.1)
