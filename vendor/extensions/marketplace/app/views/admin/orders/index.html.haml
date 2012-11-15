@@ -1,0 +1,30 @@
+%h1 Orders
+
+%table#orders.index
+  %thead
+    %tr
+      %th id
+      %th reader
+      %th amount
+      %th created on
+      %th paid on
+      %th show
+      %th edit
+  %tbody
+    -@orders.each do |order|
+      %tr
+        %td=order.id
+        %td=order.reader.name
+        %td=number_to_currency(order.amount)
+        -if order.created_at
+          %td=l order.created_at.to_date
+        -else
+          %td
+        -if order.paid_on
+          %td=l order.paid_on
+        -else
+          %td Not Paid
+
+        %td=link_to('show', admin_order_path(order))
+        %td=link_to('edit', edit_admin_order_path(order))
+

@@ -19,6 +19,11 @@ The NZFFA website source code is released under the MIT license and is copyright
 4. Create symlinks
      bundle exec rake symlink
 
+## Running Cucumber Specs
+
+cucumber features are in vendor/extentions/marketplace/features
+run with 'bundle exec cucumber' from vendor/extentions/marketplace
+
 ## Deployment
 
 Install capistrano and extensions on your local machine:

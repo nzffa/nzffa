@@ -6,6 +6,7 @@ source :rubygems
 gem "radiant", "~> 1.0.1"
 gem 'hpricot'
 gem 'fastercsv'
+gem 'httparty'
 # alternatively, in development
 # gem "radiant", :path => "/path/to/radiant/root"
 
@@ -41,8 +42,11 @@ gem 'rr', :group => :test
 # This depends on radiant-layouts-extension
 gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
 gem "radiant-forum-extension", :git => 'git://github.com/enspiral/radiant-forum-extension.git', :branch => :wackamole
+#gem "radiant-forum-extension", :path => '/Users/rob/src/radiant-forum-extension'
 
-gem 'airbrake', :require => 'airbrake/rails'
+group :production, :staging do
+  gem 'airbrake'
+end
 
 group :production do
   gem 'backup', :git => 'git://github.com/jdutil/backup.git', :branch => 'bump_fog'
@@ -52,14 +56,19 @@ end
 
 # If you're running tests or specs
 group :test, :cucumber, :development do
-  gem "cucumber-rails",   "~> 0.3.2"
-  gem "database_cleaner", "~> 0.6.5"
-  gem "webrat",           "~> 0.7.3"
-  gem "rspec-rails",      "~> 1.3.3"
-  gem "sqlite3",          "~> 1.3.4"
-  gem 'autotest'
-  gem 'autotest-fsevent'
-  gem 'autotest-growl'
+  #gem 'vcr'
+  #gem 'webmock'
+  gem 'rspec-nc'
+  gem 'webrat'
+  gem 'rspec-rails', '1.3.4'
+  gem 'rspec', '1.3.2'
+  gem "capybara", "1.1.1"
+  gem 'timecop'
+  #gem "capybara-webkit"
+  gem 'launchy'
+  gem "cucumber", "1.1.0"
+  gem "cucumber-rails", :git => 'https://github.com/robguthrie/cucumber-rails.git', :branch => 'v0.3.2fixed'
+  gem "database_cleaner",  " >= 0.5.0"
 end
 
 group :development do

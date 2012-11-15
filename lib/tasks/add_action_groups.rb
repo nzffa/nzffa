@@ -1,0 +1,5 @@
+ActionGroup.create(:name => 'Eucalyptus Action Group', :group_id => 221, :annual_levy => 15)
+ActionGroup.create(:name => 'Cypress Development Group', :group_id => 225, :annual_levy => 15)
+ActionGroup.create(:name => 'Indigenous Forest Section', :group_id => 209 , :annual_levy => 30)
+ActionGroup.create(:name => 'Acacia Melanoxylon Interest Group (AMIGO)', :group_id => 201 , :annual_levy => 15)
+ActionGroup.create(:name => 'Sequoia Action Group', :group_id => 217 , :annual_levy => 15)

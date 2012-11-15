@@ -1,6 +1,5 @@
-%script{:type => 'text/javascript', :src => '/select2.min.js'}
-
 %h1 Edit Advert
+=stylesheet_link_tag 'select2'
 -form_for [:admin, @advert], :html => {:multipart => true} do |f|
   =f.error_messages
   %br

@@ -1,27 +1,38 @@
 -if @reader.new_record?
-  If you are already registered you can #{link_to 'login here', '/specialty-timber-market/join-fft/'}
--elsif @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
-  =link_to('Go to Farm Forestry Timbers Members Area', MembershipController::FFT_MEMBERS_AREA_PATH)
--else
-  =link_to('Become a member of Farm Forestry Timbers', MembershipController::JOIN_FFT_PATH)
+  If you already registered you can 
+  =link_to 'Sign in here', '/account/login'
+
+%p Fields marked with * are required
 
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
   %p
-    =f.label :forename
+    =f.label :forname, 'First name', :class => :required
     %br
     =f.text_field :forename
 
   %p
-    =f.label :surname
+    =f.label :surname, 'Last name', :class => :required
     %br
     =f.text_field :surname
 
   %p
-    =f.label :email
+    =label_tag :phone, 'Home phone'
+    %br
+    =f.text_field :phone
+
+  %p
+    =f.label :mobile, 'Mobile phone'
+    %br
+    =f.text_field :mobile
+
+  %p
+    =f.label :email, "Email", :class => :required
     %br
     =f.text_field :email
 
+  -unless @reader.new_record?
+    %p Leave password fields blank unless you want to change your password.
   %p
     =f.label :password
     %br
@@ -31,12 +42,42 @@
     =f.label :password_confirmation
     %br
     =f.password_field :password_confirmation
+  
+  %h3 Postal Address
+  %table
+    %tr
+      %td=f.label :post_line1, 'Address', :class => :required
+      %td=f.text_field :post_line1
+    %tr
+      %td=f.label :post_line2, 'Address line 2'
+      %td=f.text_field :post_line2
+    %tr
+      %td=f.label :post_city, 'Town or City'
+      %td=f.text_field :post_city
+    %tr
+      %td=f.label :post_province, 'Region', :class => :required
+      %td=f.text_field :post_province
+    %tr
+      %td=f.label :country
+      %td=f.text_field :post_country
+    %tr
+      %td=f.label :postcode, "Postcode", :class => :required
+      %td=f.text_field :postcode
+
+  %h3 Email Newsletters
 
   %p
-    =label_tag :receive_newsletter
-    =check_box_tag :receive_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(MembershipController::NEWSLETTER_GROUP_ID)
+    =check_box_tag :receive_fft_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.fft_newsletter_group_id)
+    =label_tag :receive_fft_newsletter, 'Receive Farm Forestry Timbers Newsletter'
 
+  -if @reader.group_ids.include?(NzffaSettings.full_membership_group_id)
+    %p
+      =check_box_tag :receive_nzffa_members_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.nzffa_members_newsletter_group_id)
+      =label_tag :receive_nzffa_members_newsletter, 'Receive NZFFA Members Newsletter'
 
 
   %p
-    =f.submit 'Signup'
+    -if @reader.new_record?
+      =f.submit 'Signup'
+    -else
+      =f.submit 'Save changes'

@@ -6,18 +6,15 @@ class MarketplaceController < SiteController
   JOIN_FFT_PATH = '/specialty-timber-market/join-fft'
   EDIT_COMPANY_LISTING_PATH = '/specialty-timber-market/marketplace/edit-company-listing'
   FFT_MEMBERS_AREA_PATH = '/specialty-timber-market/participate/membership'
-  NEWSLETTER_GROUP_ID = 230
-  FFT_GROUP_ID = 229
+  #NEWSLETTER_GROUP_ID = NzffaSettings.fft_newsletter_group_id
+  #FFT_GROUP_ID = NzffaSettings.fft_marketplace_group_id
   ADMIN_GROUP_ID = 100
-  radiant_layout "ffm_specialty_timbers"
 
   protected
   def current_reader
     
     unless @current_reader
       if reader_session = ReaderSession.find
-        logger.info reader_session.inspect
-        logger.info reader_session.reader.inspect
         @current_reader = reader_session.reader
       end
     end
@@ -27,7 +24,7 @@ class MarketplaceController < SiteController
   def require_current_reader
     unless current_reader
       flash[:error] = 'Sorry, but you must be logged in to do this'
-      redirect_to root_path
+      redirect_to '/account/login'
     end
   end
 
@@ -39,7 +36,7 @@ class MarketplaceController < SiteController
   end
 
   def require_fft_group
-    unless current_reader.group_ids.include? 229
+    unless current_reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
       flash[:error] = 'Sorry, but you must belong to Farm Forestry Timbers Group'
       redirect_to root_path
     end

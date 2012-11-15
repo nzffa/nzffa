@@ -1,8 +1,8 @@
 -if @reader
   -if @reader.group_ids.include?(MembershipController::FFT_GROUP_ID)
-    =link_to('You are a member of the FFT Group. Go to the Membership area', MembershipController::FFT_MEMBERS_AREA_PATH)
+    =link_to('You are a member of Farm Forestry Timbers.', MembershipController::FFT_MEMBERS_AREA_PATH)
   -else
-    =link_to('Join Farm Foresty Timbers so you can place adverts.', join_fft_path)
+    You need to #{link_to('subscribe to Farm Forestry Timbers', subscriptions_path)} to place an ad in the marketplace.
 -else
-  You need to #{link_to('register', '/specialty-timber-market/participate/')} to become a member.
+  You need to #{link_to('register', '/become-a-member/')} to become a member.
   Members can #{link_to('login', '/specialty-timber-market/participate/membership')} to create adverts

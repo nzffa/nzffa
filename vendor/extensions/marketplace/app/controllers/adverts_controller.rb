@@ -1,4 +1,5 @@
 class AdvertsController < MarketplaceController
+  radiant_layout "ffm_specialty_timbers"
 
   before_filter :load_company_listing, :only => [:my_adverts, :edit_company_listing]
   before_filter :load_advert, :only => [:edit, :update, :destroy, :renew, :email]
@@ -32,6 +33,7 @@ class AdvertsController < MarketplaceController
 
   def show
     @advert = Advert.find_by_id(params[:id])
+    @other_listings = Advert.find(:all, :conditions => {:reader_id => @advert.reader_id})
     render :layout => false if request.xhr?
   end
 
@@ -149,10 +151,8 @@ class AdvertsController < MarketplaceController
     find_options[:joins] = :reader
 
     order_options = { 'title'          => 'title DESC',
-                      'price'          => 'price DESC',
                       'date'           => 'created_at DESC',
                       'title_reversed' => 'title ASC',
-                      'price_reversed' => 'price ASC',
                       'date_reversed'  => 'created_at ASC' }
 
     if order_options[params[:sort]]

@@ -1,0 +1,61 @@
+%h1 New Advert
+=stylesheet_link_tag 'select2'
+-form_for [:admin, @advert], :html => {:multipart => true} do |f|
+  =f.error_messages
+  =f.label 'Reader'
+  =f.collection_select :reader_id, Reader.all, :id, :name
+  %br
+  =f.label :categories
+  =select_tag 'advert[categories]', options_for_select(Advert::CATEGORIES, f.object.categories), :multiple => true
+  %br
+  =f.label 'Expires on'
+  =f.text_field :expires_on, :class => 'ui-datepicker'
+  %br
+  =f.label :title
+  =f.text_field :title
+  %br
+  =f.label :body
+  =f.text_area :body
+  %br
+  =f.label :image
+  =f.file_field :image
+
+  %p
+    =f.label :business_description
+    %br
+    =f.text_area :business_description
+
+  %p
+    =f.label :timber_species
+    %br
+    =f.hidden_field :timber_species, :style => 'width: 300px'
+
+  %p
+    =f.label :timber_for_sale
+    %br
+    =select_tag 'advert[timber_for_sale_terms]', options_for_select(Advert.timber_for_sale_options.map{|o| [o,o] }, f.object.timber_for_sale_terms), :multiple => true, :style => 'width: 300px'
+
+  %p
+    =f.label :buyer_of
+    %br
+    =f.hidden_field :buyer_of,  :style => 'width: 300px'
+
+  %p
+    =f.label :supplier_of
+    %br
+    =f.hidden_field :supplier_of,  :style => 'width: 300px'
+
+  %p
+    =f.label :services
+    %br
+    =f.hidden_field :services, :style => 'width: 300px'
+
+  %p
+    =f.submit
+
+:javascript
+  $('#advert_timber_species').select2({tags: #{Advert.timber_species_options.to_json}});
+  $('#advert_timber_for_sale_terms').select2();
+  $('#advert_buyer_of').select2({tags: #{Advert.buyer_of_options.to_json}});
+  $('#advert_supplier_of').select2({tags: #{Advert.supplier_of_options.to_json}});
+  $('#advert_services').select2({tags: #{Advert.services_options.to_json}});

@@ -1,0 +1,38 @@
+%h2 Select Membership Type
+
+%p Please select one of the two classes of subscription available. On the next page you will get the opportinuty to configure your subscription details.
+
+-form_for(@subscription, :url => '', :html => {:method => :get}) do |f|
+  =f.radio_button :membership_type, 'full'
+  =f.label :membership_type_full, 'Full Membership'
+  %ul
+    %li 
+      Receive the 
+      %b NZ Treegrower Magazine
+    %li 
+      Join your local 
+      %b NZFFA branch 
+      or branches
+    %li 
+      Join 
+      %b action groups
+      such as: Eucalyptus Action Group, Indigenous Forest Section etc
+    %li 
+      Join 
+      %b Farm Forestry Timbers 
+      and list your products and services in the marketplace
+  %br
+  =f.radio_button :membership_type, 'casual'
+  =f.label :membership_type_casual, 'Casual Membership'
+  %ul
+    %li 
+      Ability to join 
+      %b Farm Forestry Timbers
+    %li 
+      and/or subscribe to 
+      %b NZ Treegrower magazine
+  %p
+    =f.submit 'Next'
+
+
+

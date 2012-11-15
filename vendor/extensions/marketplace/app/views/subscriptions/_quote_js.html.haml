@@ -1,0 +1,34 @@
+:javascript
+  if ($new_form = $('form#new_subscription')) {
+    $new_form.change(function(){
+      $.post('/subscriptions/quote_new', $new_form.toJSON(), function(response){
+        $('span#price').text(response.price)
+        $('span#begins_on').text(response.begins_on)
+        $('span#expires_on').text(response.expires_on)
+      })
+    })
+  }
+
+  if ($upgrade_form = $('form.edit_subscription')) {
+    $upgrade_form.change(function(){
+      $.post('/subscriptions/quote_upgrade', $upgrade_form.toJSON(), function(response){
+        $('span#price').text(response.price)
+        $('span#credit').text(response.credit)
+        $('span#upgrade_price').text(response.upgrade_price)
+        $('span#begins_on').text(response.begins_on)
+        $('span#expires_on').text(response.expires_on)
+      })
+    })
+  }
+
+  toggle_tgm_delivery_radios = function(){
+    if ($(this).prop('checked')){
+      $('#tree_grower_delivery_location input').removeAttr('disabled');
+    }else{
+      $('#tree_grower_delivery_location input').attr('disabled','disabled');
+    }
+  }
+  $('#subscription_receive_tree_grower_magazine').change(toggle_tgm_delivery_radios);
+  $('#subscription_receive_tree_grower_magazine').trigger('change')
+  $('#subscription_associated_branch_names').select2()
+  $('#subscription_action_group_ids').select2()

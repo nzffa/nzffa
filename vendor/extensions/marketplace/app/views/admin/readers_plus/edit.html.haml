@@ -1,6 +1,6 @@
 Edit Reader
-
 -form_for @reader, :url => "/admin/readers_plus/#{@reader.id}" do |f|
+  =f.error_messages
   %p
     =f.label :nzffa_membership_id
     =f.text_field :nzffa_membership_id
@@ -13,4 +13,7 @@ Edit Reader
   %p
     =f.label :email
     =f.text_field :email
+  %p
+    =f.label :special_cases
+    =f.text_field :special_cases
   =f.submit

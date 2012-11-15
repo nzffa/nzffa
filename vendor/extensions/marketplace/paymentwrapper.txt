@@ -1,0 +1,27 @@
+Payment Wrapper
+
+Setup transaction and direct user to payment page
+request_payment(
+  params:
+    amount, 
+    currency
+    merchant reference
+  defaults:
+    UrlFail
+    UrlSuccess
+    PxPayUserId
+    PxPayKey
+
+PaymentController
+  create
+    calls request_payment and redirects to payment page
+    post amount, currency, merchant reference
+    redirect to 
+  
+  success, fail
+    read the params[:result] 
+    send response request (ProcessResponse) to pxpay
+      read, save response 
+
+  
+

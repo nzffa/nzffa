@@ -1,0 +1,18 @@
+%table
+  %thead
+    %th nzffa id
+    %th name
+    %th address
+    %th phone
+    %th mobile
+    %th expired_on
+  %tbody
+    -@subscriptions.each do |s|
+      -r = s.reader
+      %tr
+        %td=r.nzffa_membership_id
+        %td=r.name
+        %td
+        %td=r.phone
+        %td=r.mobile
+        %td=l s.expires_on

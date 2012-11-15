@@ -26,15 +26,25 @@
   %p
     Phone:
     =advert.reader.phone
-  %p
-    Fax:
-    =advert.reader.fax
+
+  -if @advert.reader.fax.present?
+    %p
+      Fax:
+      =advert.reader.fax
   %p
     Mobile:
     =advert.reader.mobile
   %p
     Email:
     =mail_to(advert.reader.email)
-  %p
-    Website:
-    =link_to ensure_http(advert.reader.website), ensure_http(advert.reader.website)
+
+  -if advert.reader.website.present?
+    %p
+      Website:
+      =link_to ensure_http(advert.reader.website), ensure_http(advert.reader.website)
+
+  %h3 Other Listings
+  %ul
+    -@other_listings.each do |a|
+      -next if a.is_company_listing? 
+      %li=link_to(a.title, advert_path(a))
