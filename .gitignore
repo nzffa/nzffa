@@ -14,6 +14,7 @@ log/*
 .livereload
 .rvmrc
 public/assets
+public/system
 public/attachments
 public/executive_newsletters
 public/images/design

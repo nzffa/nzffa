@@ -52,10 +52,10 @@
       %td=f.label :post_line2, 'Address line 2'
       %td=f.text_field :post_line2
     %tr
-      %td=f.label :post_city, 'Town or City'
+      %td=f.label :post_city, 'Town or City', :class => :required
       %td=f.text_field :post_city
     %tr
-      %td=f.label :post_province, 'Region', :class => :required
+      %td=f.label :post_province, 'Region'
       %td=f.text_field :post_province
     %tr
       %td=f.label :country
