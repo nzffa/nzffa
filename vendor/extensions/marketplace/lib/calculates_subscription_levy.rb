@@ -13,7 +13,11 @@ class CalculatesSubscriptionLevy
     else
       full_length = subscription_length(begins_on, expires_on)
       used_length = subscription_length(today, expires_on)
-      1 - (used_length / full_length)
+      if full_length == 0
+        1
+      else
+        1 - (used_length / full_length)
+      end
     end
   end
 
