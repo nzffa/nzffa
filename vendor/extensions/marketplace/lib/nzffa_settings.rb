@@ -48,8 +48,8 @@ class NzffaSettings
   }
 
   @full_member_tree_grower_magazine_levy = 50
-  @tree_grower_magazine_within_new_zealand = 40
-  @tree_grower_magazine_within_australia = 50
+  @tree_grower_magazine_within_new_zealand = 50
+  @tree_grower_magazine_within_australia = 55
   @tree_grower_magazine_everywhere_else = 60
 
   @full_member_fft_marketplace_levy = 15
