@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  PAYMENT_METHODS = ['Direct Debit', 'Direct Credit', 'Cheque', 'Cash', 'Online', 'NoCharge']
+  PAYMENT_METHODS = ['Direct Debit', 'Direct Credit', 'Credit Card', 'Cheque', 'Cash', 'Online', 'NoCharge']
   belongs_to :subscription
   belongs_to :old_subscription, :class_name => 'Subscription'
   has_many :order_lines, :dependent => :destroy

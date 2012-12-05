@@ -33,7 +33,7 @@ class NzffaSettings
     nzffa_members_newsletter_group_id = nil
   end
 
-  @admin_levy = 34
+  @admin_levy = 19
 
   @forest_size_levys = {'0 - 10'  => 0, 
                         '11 - 40' => 51, 
