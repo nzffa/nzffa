@@ -37,7 +37,8 @@ class CreateOrder
     order = Order.new
     case subscription.membership_type
     when 'full'
-      order.add_charge(:kind => 'admin_levy', 
+      order.add_charge(:kind => 'admin_levy',
+                       :particular => subscription.main_branch_name,
                        :amount => admin_levy_amount)
 
       order.add_charge(:kind => 'forest_size_levy', 
