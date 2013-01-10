@@ -98,4 +98,12 @@ describe Order do
     end
   end
 
+  describe 'destroying an order' do
+    it 'fails validation if the order is paid' do
+      subject.paid_on = Date.today
+      subject.destroy
+      subject.errors[:base].should == "You cannot delete a paid order"
+    end
+  end
+
 end

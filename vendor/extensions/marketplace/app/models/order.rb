@@ -11,6 +11,12 @@ class Order < ActiveRecord::Base
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
 
+  def before_destroy
+    if paid?
+      errors.add_to_base('You cannot delete a paid order')
+    end
+  end
+
   def before_validation
     self.amount = calculate_amount
     unless paid?

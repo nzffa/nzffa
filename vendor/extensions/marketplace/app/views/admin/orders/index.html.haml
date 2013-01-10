@@ -10,21 +10,24 @@
       %th paid on
       %th show
       %th edit
+      %th delete
   %tbody
     -@orders.each do |order|
       %tr
         %td=order.id
         %td=order.reader.name
         %td=number_to_currency(order.amount)
-        -if order.created_at
-          %td=l order.created_at.to_date
-        -else
-          %td
-        -if order.paid_on
-          %td=l order.paid_on
-        -else
-          %td Not Paid
-
+        %td
+          -if order.created_at
+            =l order.created_at.to_date
+        %td
+          -if order.paid_on
+            =l order.paid_on
+          -else
+            Not Paid
         %td=link_to('show', admin_order_path(order))
         %td=link_to('edit', edit_admin_order_path(order))
+        %td
+          -unless order.paid?
+            =link_to('delete', admin_order_path(order), :method => :delete, :confirm => 'This will delete the order and the subscription, proceed?')
 

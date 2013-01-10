@@ -54,6 +54,19 @@ describe Admin::OrdersController do
     end
 
   end
+
+  describe 'destroy' do
+    before :each do
+      Order.stub(:find).and_return(order)
+    end
+
+    it 'creates an order' do
+      order.should_receive(:destroy).and_return(true)
+      post :destroy
+      flash[:notice].should == 'Order deleted'
+    end
+
+  end
   
 
 end
