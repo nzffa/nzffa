@@ -15,7 +15,7 @@ ENV["RADIANT_ENV_FILE"] = 'uri'
 require "#{RADIANT_ROOT}/spec/spec_helper"
 ENV["RADIANT_ENV_FILE"] = nil
 
-Dataset::Resolver.default << (File.dirname(__FILE__) + "/datasets")
+#Dataset::Resolver.default << (File.dirname(__FILE__) + "/datasets")
 
 if File.directory?(File.dirname(__FILE__) + "/matchers")
   Dir[File.dirname(__FILE__) + "/matchers/*.rb"].each {|file| require file }
