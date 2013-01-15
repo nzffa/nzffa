@@ -69,7 +69,7 @@ class CreateOrder
 
       if subscription.contribute_to_research_fund?
 
-        particlar = if subscription.research_fund_contribution_is_donation?
+        particular = if subscription.research_fund_contribution_is_donation?
                       'donation'
                     else
                       'payment'
