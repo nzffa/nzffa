@@ -5,6 +5,7 @@ Given /^I am a registered, logged in reader$/ do
                           :surname => 'david',
                           :password => 'password',
                           :password_confirmation => 'password',
+                          :post_city => 'a city',
                           :post_line1 => 'an address',
                           :post_province => 'province line',
                           :postcode => '12345')
@@ -189,6 +190,7 @@ end
 Then /^I should see that payment was successful$/ do
   page.should have_content 'APPROVED'
   click_on 'Click Here to Proceed to the Next step'
+  sleep 10
 end
 
 Then /^I should have access to place an ad in the FFT Marketplace$/ do

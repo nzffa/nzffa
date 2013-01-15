@@ -59,7 +59,7 @@ Feature: User creates full NZFFA Membership
     And I should belong to the Tree Grower Magazine group
     And I should belong to the Full Membership group
 
-  @javascript
+  @javascript @wip
   Scenario: user configures a yearly subscription config 3
     Given the date is "2012-01-01"
     When I visit new subscription
@@ -75,10 +75,10 @@ Feature: User creates full NZFFA Membership
     Then I should be forwarded to payment express
     When I enter my credit card details
     Then I should see that payment was successful
-    And I should belong to the Tree Grower Magazine group
     And I should belong to the Full Membership group
     And I should belong to the Eucalyptus Action group
     And I should belong to the NZFFA Members Newsletter group
+    And I should belong to the Tree Grower Magazine group
 
   #Scenario Outline:
     #user configures their subscription and gets the right price
