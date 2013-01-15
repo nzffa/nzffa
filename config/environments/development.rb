@@ -20,3 +20,4 @@ ActionMailer::Base.perform_deliveries = false
 config.action_mailer.raise_delivery_errors = false
 ActionMailer::Base.default_charset = "iso-8859-1"
 ActionMailer::Base.default_url_options[:host] = "localhost:3000"
+
