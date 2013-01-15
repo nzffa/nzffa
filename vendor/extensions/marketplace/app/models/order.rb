@@ -1,6 +1,6 @@
 class Order < ActiveRecord::Base
   PAYMENT_METHODS = ['Direct Debit', 'Direct Credit', 'Credit Card', 'Cheque', 'Cash', 'Online', 'NoCharge']
-  belongs_to :subscription
+  belongs_to :subscription, :dependent => :destroy
   belongs_to :old_subscription, :class_name => 'Subscription'
   has_many :order_lines, :dependent => :destroy
   accepts_nested_attributes_for :order_lines, :reject_if => :all_blank
