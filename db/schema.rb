@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113062236) do
+ActiveRecord::Schema.define(:version => 20130115044047) do
 
   create_table "action_groups", :force => true do |t|
     t.string   "name"
@@ -407,14 +407,17 @@ ActiveRecord::Schema.define(:version => 20121113062236) do
     t.string   "ha_of_planted_trees"
     t.string   "term"
     t.integer  "main_branch_id"
-    t.boolean  "belong_to_fft",                 :default => false, :null => false
+    t.boolean  "belong_to_fft",                          :default => false, :null => false
     t.date     "expires_on"
     t.string   "tree_grower_delivery_location"
     t.boolean  "receive_tree_grower_magazine"
     t.date     "begins_on"
     t.date     "cancelled_on"
     t.text     "special_interest_groups"
-    t.integer  "nz_tree_grower_copies",         :default => 1
+    t.integer  "nz_tree_grower_copies",                  :default => 1
+    t.boolean  "contribute_to_research_fund",            :default => false, :null => false
+    t.float    "research_fund_contribution_amount"
+    t.boolean  "research_fund_contribution_is_donation", :default => false
   end
 
   add_index "subscriptions", ["reader_id"], :name => "index_subscriptions_on_reader_id"

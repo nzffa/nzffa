@@ -4,10 +4,10 @@ source :rubygems
 # If new versions of your installed gems are available, run `bundle update`
 
 # this breaks specs.. but is necessary for attachements i think
-#gem "radiant", :git => 'git://github.com/enspiral/radiant.git', :branch => '1.0.1-updated-paperclip'
+gem "radiant", :git => 'git://github.com/enspiral/radiant.git', :branch => '1.0.1-updated-paperclip'
 #gem "radiant", :path => '/Users/rob/src/radiant'
-#gem 'rails', '2.3.14'
-gem "radiant", "~> 1.0.1"
+#gem "radiant", "~> 1.0.1"
+#gem 'rails', '2.3.11'
 
 gem 'hpricot'
 gem 'fastercsv'

@@ -30,5 +30,16 @@
   }
   $('#subscription_receive_tree_grower_magazine').change(toggle_tgm_delivery_radios);
   $('#subscription_receive_tree_grower_magazine').trigger('change')
+
+  toggle_research_fund_contribution = function() {
+    if ($(this).prop('checked')){
+      $('#research_fund_contribution input').removeAttr('disabled');
+    }else{
+      $('#research_fund_contribution input').attr('disabled','disabled');
+    }
+  }
+  $('#subscription_contribute_to_research_fund').change(toggle_research_fund_contribution);
+  $('#subscription_contribute_to_research_fund').trigger('change')
+
   $('#subscription_associated_branch_names').select2()
   $('#subscription_action_group_ids').select2()

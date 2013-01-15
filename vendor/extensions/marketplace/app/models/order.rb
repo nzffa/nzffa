@@ -12,9 +12,13 @@ class Order < ActiveRecord::Base
   delegate :nzffa_member_id, :to => :reader
 
   def before_destroy
-    if paid?
-      errors.add_to_base('You cannot delete a paid order')
+    unless is_deletable?
+      errors.add_to_base('You cannot delete an order that has been paid online')
     end
+  end
+
+  def is_deletable?
+    not (paid? and payment_method == 'Online')
   end
 
   def before_validation

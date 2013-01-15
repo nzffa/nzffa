@@ -28,6 +28,8 @@
         %td=link_to('show', admin_order_path(order))
         %td=link_to('edit', edit_admin_order_path(order))
         %td
-          -unless order.paid?
+          -if order.is_deletable?
             =link_to('delete', admin_order_path(order), :method => :delete, :confirm => 'This will delete the order and the subscription, proceed?')
+          -else
+            Not deletable
 

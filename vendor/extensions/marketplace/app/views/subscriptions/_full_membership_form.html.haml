@@ -26,6 +26,18 @@
   #special_interest_groups
     =f.collection_select :action_group_ids, ActionGroup.all, :id, :name, {}, :multiple => true
 
+  %p Research Fund Contribution
+  =f.check_box :contribute_to_research_fund
+  =f.label :contribute_to_research_fund, "Contribute to Research Fund"
+  #research_fund_contribution
+    #research_fund_contribution_amount
+      =f.label :research_fund_contribution_amount, 'Amount to contribute'
+      =f.text_field :research_fund_contribution_amount
+
+      %p If you want your contribution treated as a donation (receipt acknowledgement will be sent) tick the below box
+      =f.check_box :research_fund_contribution_is_donation
+      =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
+
   = render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
 
   = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
