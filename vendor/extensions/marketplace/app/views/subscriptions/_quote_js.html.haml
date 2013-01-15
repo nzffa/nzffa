@@ -24,8 +24,10 @@
   toggle_tgm_delivery_radios = function(){
     if ($(this).prop('checked')){
       $('#tree_grower_delivery_location input').removeAttr('disabled');
+      $('#tree_grower_delivery_location').show();
     }else{
       $('#tree_grower_delivery_location input').attr('disabled','disabled');
+      $('#tree_grower_delivery_location').hide();
     }
   }
   $('#subscription_receive_tree_grower_magazine').change(toggle_tgm_delivery_radios);
@@ -34,8 +36,10 @@
   toggle_research_fund_contribution = function() {
     if ($(this).prop('checked')){
       $('#research_fund_contribution input').removeAttr('disabled');
+      $('#research_fund_contribution').show();
     }else{
       $('#research_fund_contribution input').attr('disabled','disabled');
+      $('#research_fund_contribution').hide();
     }
   }
   $('#subscription_contribute_to_research_fund').change(toggle_research_fund_contribution);
