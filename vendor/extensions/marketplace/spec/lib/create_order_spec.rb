@@ -202,13 +202,15 @@ describe CreateOrder do
 
           it 'charges casual member fft marketplace levy' do
             order.should_receive(:add_charge).
-              with(:kind => 'casual_member_fft_marketplace_levy', :amount => 65)
+              with(:kind => 'fft_marketplace_levy', 
+                   :particular => 'casual_membership',
+                   :amount => 65)
           end
 
           it 'charges admin levy' do
             order.should_receive(:add_charge).
               with(:kind => 'admin_levy', 
-                   :particular => 'casual_membership',
+                   :particular => 'fft_marketplace',
                    :amount => 34)
           end
         end
