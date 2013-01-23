@@ -2,6 +2,8 @@ module ReaderMixin
   def self.included(base)
     #base.extend(ClassMethods)
     base.send(:has_many, :adverts)
+    base.send(:has_many, :subscriptions)
+    base.send(:has_many, :orders, :through => :subscriptions)
     base.send(:validates_presence_of, :forename)
     base.send(:validates_presence_of, :surname)
     base.send(:validates_presence_of, :email)
@@ -12,6 +14,15 @@ module ReaderMixin
     base.send(:validates_uniqueness_of, :nzffa_membership_id)
   end
 
+  def name
+    if self[:name]
+      self[:name]
+    elsif forename.present? and surname.present?
+      "#{forename} #{surname}"
+    else
+      nil
+    end
+  end
 
   def active_subscription
     Subscription.active_subscription_for(self)

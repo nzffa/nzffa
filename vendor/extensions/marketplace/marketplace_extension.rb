@@ -21,7 +21,7 @@ class MarketplaceExtension < Radiant::Extension
 
     Page.class_eval { include Marketplace }
     tab 'Readers' do
-      add_item "Readers Extended", "/admin/readers_plus"
+      add_item "Readers Plus", "/admin/readers_plus"
     end
 
     tab 'Marketplace' do
@@ -32,6 +32,7 @@ class MarketplaceExtension < Radiant::Extension
       add_item "Subscriptions", "/admin/subscriptions"
       add_item "Orders", "/admin/orders"
       add_item "Reports", "/admin/reports"
+      add_item "Readers Plus", "/admin/readers_plus"
     end
   end
 end

@@ -77,7 +77,7 @@ class Admin::SubscriptionsController < AdminController
       end
     end
 
-    redirect_to admin_subscriptions_path
+    redirect_to :back
   end
 
   #def destroy

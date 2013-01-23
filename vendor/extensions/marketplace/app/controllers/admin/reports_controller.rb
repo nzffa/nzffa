@@ -4,7 +4,7 @@ class Admin::ReportsController < AdminController
 
   def payments
     @orders = Order.find(:all, :conditions => 'paid_on IS NOT NULL', :order => 'id asc')
-    fields = ['nzffa_member_id', 'subscription_id', 'order_id', 'amount', 'paid_on', 'payment_method']
+    fields = ['nzffa_member_id', 'subscription_id', 'order_id', 'amount', 'paid_on', 'payment_method', 'details']
     csv_string = FasterCSV.generate do |csv|
       csv << fields
       @orders.each {|order| csv << fields.map{|f| order.send(f) } }

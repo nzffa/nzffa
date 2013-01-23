@@ -1,11 +1,18 @@
 -form_for([:admin, @order]) do |f|
   =f.hidden_field :subscription_id
-  =f.label :payment_method
-  =f.select :payment_method, Order::PAYMENT_METHODS, :include_blank => true
-  %br
-  =f.label :paid_on
-  =f.text_field :paid_on
-  %p Enter paid_on date such as #{Date.today.to_s} (Year-Month-Day)
+  %p
+    =f.label :payment_method
+    =f.select :payment_method, Order::PAYMENT_METHODS, :include_blank => true
+  %p
+    =f.label :paid_on
+    =f.text_field :paid_on
+    date such as #{Date.today.to_s} (Year-Month-Day)
+
+  %p
+    =f.label :details
+    =f.text_field :details, :style => 'width: 500px'
+
+
   %table.index#orders
     %thead
       %th kind

@@ -53,7 +53,7 @@ class NzffaSettings
   @tree_grower_magazine_everywhere_else = 60
 
   @full_member_fft_marketplace_levy = 15
-  @casual_member_fft_marketplace_levy = 50
+  @casual_member_fft_marketplace_levy = 15
 
   @fft_marketplace_group_id = 229
   @tree_grower_magazine_group_id = 80

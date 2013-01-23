@@ -89,6 +89,9 @@ class CreateOrder
       if subscription.belong_to_fft?
         order.add_charge(:kind => 'casual_member_fft_marketplace_levy',
                          :amount => casual_member_fft_marketplace_levy_amount)
+        order.add_charge(:kind => 'admin_levy',
+                         :particular => 'casual_membership',
+                         :amount => admin_levy_amount)
       end
     else
       raise 'invalid membership type'

@@ -1,0 +1,26 @@
+%table#subscriptions.index
+  %thead
+    %th id
+    %th reader
+    %th type
+    %th begins_on
+    %th expires_on
+    %th paid_on
+    %th cancelled_on
+    %th active?
+    %th show
+    %th upgrade
+
+  %tbody
+    -subscriptions.each do |sub|
+      %tr
+        %td=sub.id
+        %td=sub.reader.name if sub.reader
+        %td=sub.membership_type
+        %td=sub.begins_on
+        %td=sub.expires_on
+        %td=sub.order.paid_on if sub.order
+        %td=sub.cancelled_on
+        %td=sub.active? ? 'active' : 'not active'
+        %td=link_to 'show', admin_subscription_path(sub)
+        %td=link_to 'upgrade', edit_admin_subscription_path(sub) if sub.can_upgrade?

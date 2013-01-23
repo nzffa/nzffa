@@ -48,6 +48,7 @@ class Admin::OrdersController < AdminController
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
-    redirect_to admin_orders_path, :notice => "Order #{@order.id} deleted"
+    #redirect_to admin_reader_orders_path(@order.reader), :notice => "Order #{@order.id} deleted"
+    redirect_to :back, :notice => "Order #{@order.id} deleted"
   end
 end

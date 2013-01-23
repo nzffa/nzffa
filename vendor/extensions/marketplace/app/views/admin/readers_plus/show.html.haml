@@ -10,7 +10,17 @@
     \:
     =@reader[col]
     %br
-%h1 Subscription
-=render :partial => 'admin/subscriptions/status'
+
+%h1 Current Subscription
+=render :partial => 'admin/subscriptions/status', :locals => {:subscription => @current_subscription}
+
+%h1 All Subscriptions
+= render :partial => 'admin/subscriptions/index_table', :locals => {:subscriptions => @reader.subscriptions}
+
+
+%h1 Orders
 %p
-  =link_to('View Orders', "/admin/readers/#{@reader.id}/orders")
+  -if @reader.orders.present?
+    =render :partial => 'admin/orders/index_table', :locals => {:orders => @reader.orders}
+  -else
+    There are no orders.

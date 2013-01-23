@@ -31,11 +31,27 @@ class Subscription < ActiveRecord::Base
     find(:first, :conditions => {:reader_id => reader.id}, :order => 'id desc')
   end
 
+  def self.current_subscription_for(reader)
+    find(:all, :conditions => ['reader_id = :reader_id 
+                                and begins_on <= :today 
+                                and expires_on > :today 
+                                and cancelled_on is null', 
+                                {:reader_id => reader.id, :today => Date.today}],
+                               :order => 'id desc').each do |sub|
+      return sub
+    end
+    nil
+  end
+
   def self.active_subscription_for(reader)
     find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
       return sub if sub.active?
     end
     nil
+  end
+
+  def can_upgrade?
+    paid? and !cancelled?
   end
 
   def paid?

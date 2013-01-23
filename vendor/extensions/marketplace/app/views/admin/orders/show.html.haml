@@ -1,7 +1,10 @@
-%h1 Order
+%h1 Order #{@order.id}
 %p
   %b Reader:
   =link_to @order.subscription.reader.name, admin_readers_plu_path(@order.reader)
+%p
+  %b Subscription:
+  =link_to @order.subscription.id, admin_subscription_path(@order.subscription) if @order.subscription
 
 %p
   %b Amount:
