@@ -15,7 +15,7 @@
       %tr
         %td=order.id
         %td=order.subscription.id if order.subscription
-        %td=order.reader.name
+        %td=order.reader.name if order.reader
         %td=number_to_currency(order.amount)
         %td
           -if order.created_at
