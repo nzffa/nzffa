@@ -1,0 +1,3 @@
+%h1#edit_page Edit Group
+- form_for :group, :url => admin_group_path(@group), :html => {:method => :put} do |form|
+  = render :partial => "form", :locals => {:f => form}

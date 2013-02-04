@@ -1,0 +1,3 @@
+%h1#new_page New Group
+- form_for :group, :url => admin_groups_path do |form|
+  = render :partial => "form", :locals => {:f => form}

@@ -1,0 +1,25 @@
+.form-area
+  %p#group_title
+    %label{:for=>"group_name"} Name (Required)
+  %p.title= f.text_field "name", :class=>"textbox", :maxlength=>100
+  %br
+  %p.label
+    %label.optional{:for=>"group_notes"} Notes (Optional)
+  %p= f.text_area "notes", :class=>"group_textarea"
+  
+  = updated_stamp @group
+
+  %p.buttons
+    = save_model_button(@group)
+    = save_model_and_continue_editing_button(@group)
+    or 
+    = link_to "Cancel", admin_groups_url
+    
+  = focus 'group_name'
+  
+- content_for :page_css do
+  :sass
+    .group_textarea
+      width: 99.5%
+      height: 100px
+      font-size: 120%
