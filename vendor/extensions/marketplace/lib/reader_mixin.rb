@@ -101,4 +101,16 @@ module ReaderMixin
     group_ids.include? NzffaSettings.full_membership_group_id
   end
 
+  def receive_fft_newsletter?
+    fft_newsletter_group = Group.find(NzffaSettings.fft_newsletter_group_id)
+    self.groups.include? fft_newsletter_group
+    'hello'
+  end
+
+  def receive_nzffa_members_newsletter?
+    nzffa_members_newsletter_group = Group.find(NzffaSettings.nzffa_members_newsletter_group_id)
+    self.groups.include? nzffa_members_newsletter_group
+    'yes sir'
+  end
+
 end

@@ -4,11 +4,11 @@
   =link_to 'edit membership id', edit_admin_readers_plu_path(@reader)
 
 %p
-  -cols = %w[nzffa_membership_id email phone mobile fax organisation notes description post_line1 post_line2 region postcode post_organisation post_city post_province post_country]
+  -cols = %w[nzffa_membership_id email phone mobile fax organisation notes description post_line1 post_line2 region postcode post_organisation post_city post_province post_country receive_fft_newsletter? receive_nzffa_members_newsletter?]
   -cols.each do |col|
     =col
     \:
-    =@reader[col]
+    =@reader.send(col)
     %br
 
 %h1 Current Subscription
