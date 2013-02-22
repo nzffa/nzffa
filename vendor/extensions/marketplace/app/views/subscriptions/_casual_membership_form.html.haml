@@ -1,6 +1,6 @@
 %h1 Casual Membership
 -form_for(@subscription, :url => @action_path) do |f|
-  =f.hidden_field :membership_type
+  =render :partial => 'subscriptions/hidden_fields', :locals => {:f => f}
   =render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
 
   %h2 NZ Tree Grower Magazine

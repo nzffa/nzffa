@@ -31,6 +31,7 @@ class SubscriptionsController < MarketplaceController
     end
     @action_path = subscriptions_path
     @subscription = Subscription.new(params[:subscription])
+    @subscription.reader = current_reader
 
     #yea.. crazy right.
     if Rails.env == 'production'
@@ -51,7 +52,8 @@ class SubscriptionsController < MarketplaceController
   end
 
   def quote_upgrade
-    current_sub = Subscription.active_subscription_for(current_reader)
+    reader = Reader.find_by_id(params[:subscription][:reader_id])# || current_reader
+    current_sub = Subscription.active_subscription_for(reader)
     new_sub = Subscription.new(params[:subscription])
 
     normal_price = CreateOrder.from_subscription(new_sub).amount

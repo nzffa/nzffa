@@ -15,6 +15,7 @@ Given /^there is a registered reader$/ do
   @reader = Reader.create!(:email => 'test@example.org',
                            :forename => 'jim',
                            :surname => 'david',
+                           :post_city => 'city',
                            :post_line1 => 'something',
                            :post_province => 'someting province',
                            :postcode => 'postcode',
@@ -103,4 +104,22 @@ end
 
 Then /^I should see that the subscription was upgraded\.$/ do
   page.should have_content 'Order updated'
+end
+
+Then /^the order form should have an order line for fft$/ do
+  page.should have_content 'casual_member_fft_marketplace_levy'
+end
+
+Then /^the order form should have an order line for admin levy/ do
+  page.should have_content 'admin_levy'
+end
+
+When /^I enter the payment method and date into the order form$/ do
+  select 'Direct Credit', :from => 'order_payment_method'
+  fill_in :order_paid_on, :with => '2012-01-01'
+end
+
+Then /^I should see that the order for \$(\d+)\.(\d+) was created successfully$/ do |arg1, arg2|
+  page.should have_content 'Order updated'
+  page.should have_content 'Amount: $25.00'
 end

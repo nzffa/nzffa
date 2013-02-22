@@ -49,6 +49,14 @@ class Order < ActiveRecord::Base
     order_lines.build(params)
   end
 
+  def charge_is_cancelled_out?(params)
+    order_lines.any? do |line|
+      line.amount == (0 - params[:amount]) &&
+        line.particular == params[:particular] &&
+        line.kind == params[:kind]
+    end
+  end
+
   def order_id
     id
   end

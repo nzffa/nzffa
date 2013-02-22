@@ -27,6 +27,7 @@ class Admin::SubscriptionsController < AdminController
         redirect_to admin_subscription_path(@subscription) and return
       end
       @action_path = admin_subscription_path(@subscription)
+      @subscription.begins_on = Date.today
       render 'subscriptions/modify'
     else
       flash[:error] = 'subscription not found'

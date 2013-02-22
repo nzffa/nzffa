@@ -114,6 +114,11 @@ class CalculatesSubscriptionLevy
     if subscription.belong_to_fft?
       levy += NzffaSettings.full_member_fft_marketplace_levy
     end
+
+    if subscription.contribute_to_research_fund?
+      levy += subscription.research_fund_contribution_amount
+    end
+
     levy += NzffaSettings.full_member_tree_grower_magazine_levy
     levy += subscription.branches.map(&:annual_levy).sum
     levy += subscription.action_groups.map(&:annual_levy).sum

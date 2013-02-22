@@ -17,6 +17,7 @@ class Admin::OrdersController < AdminController
 
   def edit
     @order = Order.find(params[:id])
+    @order.paid_on ||= Date.today
     @order.order_lines.build
   end
 
@@ -27,6 +28,9 @@ class Admin::OrdersController < AdminController
   def update
     @order = Order.find params[:id]
     @order.update_attributes(params[:order])
+    if @order.paid?
+      AppliesSubscriptionGroups.apply(@order.subscription, @order.reader)
+    end
     flash[:notice] = "Order updated"
     redirect_to admin_order_path(@order)
   end
