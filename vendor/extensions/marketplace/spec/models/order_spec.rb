@@ -2,6 +2,19 @@ require 'spec_helper'
 
 describe Order do
 
+  describe 'charge_is_cancelled_out?' do
+    pending 'specs are broken'
+    order = Order.new
+    order.add_refund(:kind => 'apple',
+                     :particular => 'crunchy',
+                     :amount => '5.55')
+
+    order.charge_is_cancelled_out?(:kind => 'apple',
+                                   :particular => 'crunchy',
+                                   :amount => '5.55').should be_true
+
+  end
+
   describe 'adding a charge' do
     it 'creates an order_line when you add a charge' do
       order = Order.new
