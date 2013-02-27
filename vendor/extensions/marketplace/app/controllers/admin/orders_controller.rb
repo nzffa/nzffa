@@ -19,6 +19,10 @@ class Admin::OrdersController < AdminController
     @order = Order.find(params[:id])
     @order.paid_on ||= Date.today
     @order.order_lines.build
+    @order.order_lines.build
+    @order.order_lines.build
+    @order.order_lines.build
+    @order.order_lines.build
   end
 
   def show
