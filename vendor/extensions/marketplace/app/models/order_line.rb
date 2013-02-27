@@ -22,4 +22,12 @@ class OrderLine < ActiveRecord::Base
       order.subscription.expires_on
     end
   end
+
+  def refund_amount(fraction_used)
+    if amount.nil?
+      0
+    else
+      amount - (amount * fraction_used)
+    end
+  end
 end

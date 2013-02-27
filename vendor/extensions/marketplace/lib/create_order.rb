@@ -15,15 +15,17 @@ class CreateOrder
     
     fraction_used = CalculatesSubscriptionLevy.fraction_used(old_sub.begins_on, old_sub.expires_on)
     
-    old_order.order_lines.each do |line|
-      refund_amount = CalculatesSubscriptionLevy.refund_amount(line.amount, fraction_used)
+    old_order.refundable_order_lines.each do |line|
+      next if line.amount == 0
       order.add_refund(:kind => line.kind, 
                        :particular => line.particular,
-                       :amount => refund_amount)
+                       :amount => line.refund_amount(fraction_used))
     end
+
 
     old_sub.cancel!
     order.save!
+    order.remove_cancelling_order_lines!
     order
 
   end
@@ -77,6 +79,7 @@ class CreateOrder
 
         order.add_charge(:kind => 'research_fund_contribution',
                          :particular => particular,
+                         :is_refundable => false,
                          :amount => subscription.research_fund_contribution_amount)
       end
 

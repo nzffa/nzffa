@@ -28,6 +28,7 @@ class Admin::SubscriptionsController < AdminController
       end
       @action_path = admin_subscription_path(@subscription)
       @subscription.begins_on = Date.today
+      @subscription.contribute_to_research_fund = false
       render 'subscriptions/modify'
     else
       flash[:error] = 'subscription not found'
