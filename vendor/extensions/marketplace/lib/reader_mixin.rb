@@ -12,6 +12,38 @@ module ReaderMixin
     base.send(:validates_presence_of, :postcode)
     base.send(:before_validation, :assign_nzffa_membership_id)
     base.send(:validates_uniqueness_of, :nzffa_membership_id)
+
+    group_membership_shortcuts = { 
+      :receive_fft_newsletter => NzffaSettings.fft_newsletter_group_id,
+      :receive_nzffa_members_newsletter => NzffaSettings.nzffa_members_newsletter_group_id,
+      :is_newsletter_editor => NzffaSettings.newsletter_editors_group_id,
+      :is_councillor => NzffaSettings.councillors_group_id,
+      :is_secretary => NzffaSettings.secretarys_group_id,
+      :is_president => NzffaSettings.presidents_group_id,
+      :is_treasurer => NzffaSettings.treasurers_group_id }
+
+    group_membership_shortcuts.each do |method_name, group_id|
+      define_method(method_name) do
+        self.group_ids.include? group_id
+      end
+
+      alias_method  "#{method_name}?", method_name
+
+      define_method("#{method_name}=") do |raw_value|
+        belong_to_group = if raw_value.is_a? String
+                            raw_value.to_i == 1
+                          else
+                            raw_value
+                          end
+
+        group = Group.find(group_id)
+        if belong_to_group
+          self.groups << group
+        else
+          self.groups.delete(group)
+        end
+      end
+    end
   end
 
   def name
@@ -99,16 +131,6 @@ module ReaderMixin
 
   def full_nzffa_member?
     group_ids.include? NzffaSettings.full_membership_group_id
-  end
-
-  def receive_fft_newsletter?
-    fft_newsletter_group = Group.find(NzffaSettings.fft_newsletter_group_id)
-    self.groups.include? fft_newsletter_group
-  end
-
-  def receive_nzffa_members_newsletter?
-    nzffa_members_newsletter_group = Group.find(NzffaSettings.nzffa_members_newsletter_group_id)
-    self.groups.include? nzffa_members_newsletter_group
   end
 
 end

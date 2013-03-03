@@ -17,7 +17,7 @@ class AdvertsController < MarketplaceController
   end
 
   def index
-    @adverts = Advert.paginate(:all, index_params)
+    @adverts = Advert.not_expired.paginate(:all, index_params)
     render :layout => false if request.xhr?
   end
 

@@ -1,37 +1,41 @@
 class NzffaSettings
+  NAMES = %w[ admin_levy
+              forest_size_levys
+              full_member_tree_grower_magazine_levy
+              full_member_fft_marketplace_levy
+              casual_member_fft_marketplace_levy
+              tree_grower_magazine_within_new_zealand
+              tree_grower_magazine_within_australia
+              tree_grower_magazine_everywhere_else
+              fft_marketplace_group_id
+              tree_grower_magazine_group_id
+              full_membership_group_id
+              special_interest_group_levys
+              fft_newsletter_group_id
+              nzffa_members_newsletter_group_id
+              newsletter_editors_group_id
+              councillors_group_id
+              presidents_group_id
+              secretarys_group_id
+              treasurers_group_id ]
+
   class << self
-    attr_accessor :admin_levy
-    attr_accessor :forest_size_levys
-    attr_accessor :full_member_tree_grower_magazine_levy
-    attr_accessor :full_member_fft_marketplace_levy
-    attr_accessor :casual_member_fft_marketplace_levy
-    attr_accessor :tree_grower_magazine_within_new_zealand
-    attr_accessor :tree_grower_magazine_within_australia
-    attr_accessor :tree_grower_magazine_everywhere_else
-    attr_accessor :fft_marketplace_group_id
-    attr_accessor :tree_grower_magazine_group_id
-    attr_accessor :full_membership_group_id
-    attr_accessor :special_interest_group_levys
-    attr_accessor :fft_newsletter_group_id
-    attr_accessor :nzffa_members_newsletter_group_id
+    NAMES.each do |name|
+      attr_accessor name
+    end
   end
 
   def self.remove_defaults
-    admin_levy = nil
-    forest_size_levys = nil
-    full_member_tree_grower_magazine_levy = nil
-    full_member_fft_marketplace_levy = nil
-    casual_member_fft_marketplace_levy = nil
-    tree_grower_magazine_within_new_zealand = nil
-    tree_grower_magazine_within_australia = nil
-    tree_grower_magazine_everywhere_else = nil
-    fft_marketplace_group_id = nil
-    tree_grower_magazine_group_id = nil
-    full_membership_group_id = nil
-    special_interest_group_levys = nil
-    fft_newsletter_group_id = nil
-    nzffa_members_newsletter_group_id = nil
+    NAMES.each do |name|
+      self.send("#{name}=", nil)
+    end
   end
+
+  @newsletter_editors_group_id = 214
+  @councillors_group_id = 203
+  @presidents_group_id = 216
+  @secretarys_group_id = 219
+  @treasurers_group_id = 220
 
   @admin_levy = 19
 
