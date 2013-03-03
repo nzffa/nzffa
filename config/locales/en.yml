@@ -1,5 +1,6 @@
 en:
   reader_extension:
+    password_reset_instructions: "Please enter your email address below. If we recognise it, we'll send you a message with a confirmation link. If it doesn't arrive please check your spam folder."
     dashboard:
       introduction: ""
     is_free_and_quick: ''

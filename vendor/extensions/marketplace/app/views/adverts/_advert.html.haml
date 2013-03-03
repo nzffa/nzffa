@@ -43,7 +43,7 @@
       Website:
       =link_to ensure_http(advert.reader.website), ensure_http(advert.reader.website)
 
-  %h3 Other Listings
+  %h3 Listings by #{advert.reader.organisation}
   %ul
     -@other_listings.each do |a|
       -next if a.is_company_listing? 
