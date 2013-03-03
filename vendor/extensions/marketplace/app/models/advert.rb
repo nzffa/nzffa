@@ -25,7 +25,7 @@ class Advert < ActiveRecord::Base
   validates_attachment_size :image, :in => 1.kilobytes..5.megabytes
 
   belongs_to :reader
-  named_scope :not_expired, lambda { {:conditions => ['expires_on > ?', Date.today]} }
+  named_scope :not_expired, lambda { {:conditions => ['expires_on > ? OR is_company_listing = ?', Date.today, true] }}
   named_scope :published, lambda { {:conditions => {:is_published => true}} }
 
   validates_presence_of :reader

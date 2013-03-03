@@ -27,7 +27,7 @@ class AdvertsController < MarketplaceController
   end
 
   def index_table
-    @adverts = Advert.paginate(:all, index_params)
+    @adverts = Advert.not_expired.paginate(:all, index_params)
     render :partial => 'table', :layout => false
   end
 
