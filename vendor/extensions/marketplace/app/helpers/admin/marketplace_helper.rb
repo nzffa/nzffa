@@ -3,6 +3,12 @@ module Admin::MarketplaceHelper
   # def title text
   #   "<h2>#{text}</h2>"
   # end
+  def reader_group_checkbox_tag(name, description, reader, group_id)
+    s = ""
+    s << check_box_tag(name, "1", reader.group_ids.include?(group_id))
+    s << label_tag(name, description)
+    s
+  end
   
   def make_pretty string
     string.gsub("\n", "<br/>")

@@ -22,6 +22,7 @@ class SubscriptionsController < MarketplaceController
   def modify
     @action_path = upgrade_subscriptions_path
     @subscription = Subscription.active_subscription_for(current_reader)
+    @subscription.contribute_to_research_fund = false
   end
 
   def new

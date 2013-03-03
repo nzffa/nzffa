@@ -1,5 +1,4 @@
 class Admin::ReadersPlusController < AdminController
-  include UpdateReaderNewsletterPreferences
 
   def index
     if params[:page].blank?
@@ -31,7 +30,6 @@ class Admin::ReadersPlusController < AdminController
   def update
     @reader = Reader.find params[:id]
     @reader.attributes = params[:reader]
-    update_newsletter_preference
     if @reader.save(false)
       flash[:notice] = 'Updated reader'
       redirect_to [:admin, :readers_plus]

@@ -26,18 +26,13 @@ class CalculatesSubscriptionLevy
       0
     else
       subscription.price_when_sold - 
+        subscription.research_fund_contribution_amount -
         (subscription.price_when_sold * 
-         fraction_used(subscription.begins_on, subscription.expires_on))
+         fraction_used(subscription.begins_on, 
+                       subscription.expires_on))
     end
   end
 
-  def self.refund_amount(full_amount, fraction_used)
-    if full_amount == nil
-      0
-    else
-      full_amount - (full_amount * fraction_used)
-    end
-  end
 
   def self.upgrade_price(old_sub, new_sub)
     levy_for(new_sub) - credit_if_upgraded(old_sub)

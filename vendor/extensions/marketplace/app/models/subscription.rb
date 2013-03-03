@@ -97,12 +97,20 @@ class Subscription < ActiveRecord::Base
     self.tree_grower_delivery_location ||= 'new_zealand'
     self.nz_tree_grower_copies ||= 1
     self.ha_of_planted_trees ||= '0 - 10'
-    self.research_fund_contribution_amount ||= 10.0
+    self.research_fund_contribution_amount ||= 0.0
   end
   
   def before_save
     if membership_type == 'full'
       self.receive_tree_grower_magazine = true
+    end
+  end
+
+  def research_fund_contribution_amount
+    if contribute_to_research_fund?
+      self[:research_fund_contribution_amount]
+    else
+      0
     end
   end
 

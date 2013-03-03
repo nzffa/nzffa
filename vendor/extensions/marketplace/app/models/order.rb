@@ -3,6 +3,10 @@ class Order < ActiveRecord::Base
   belongs_to :subscription, :dependent => :destroy
   belongs_to :old_subscription, :class_name => 'Subscription'
   has_many :order_lines, :dependent => :destroy
+  has_many :refundable_order_lines, :conditions => {:is_refundable => true}, :class_name => 'OrderLine'
+  has_many :charge_order_lines, :conditions => 'amount >= 0', :class_name => 'OrderLine'
+  has_many :refund_order_lines, :conditions => 'amount < 0', :class_name => 'OrderLine'
+
   accepts_nested_attributes_for :order_lines, :reject_if => :all_blank
   validates_presence_of :amount, :subscription
   validates_numericality_of :amount
@@ -49,11 +53,17 @@ class Order < ActiveRecord::Base
     order_lines.build(params)
   end
 
-  def charge_is_cancelled_out?(params)
-    order_lines.any? do |line|
-      line.amount == (0 - params[:amount]) &&
-        line.particular == params[:particular] &&
-        line.kind == params[:kind]
+  def remove_cancelling_order_lines!
+    charge_order_lines.each do |charge_line|
+      refund_order_lines.each do |refund_line|
+        if ( charge_line.kind == refund_line.kind &&
+             charge_line.particular == refund_line.particular &&
+             charge_line.amount == (0 - refund_line.amount))
+           # refund is the same as charge
+           order_lines.delete(charge_line)
+           order_lines.delete(refund_line)
+        end
+      end
     end
   end
 
