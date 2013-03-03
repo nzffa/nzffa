@@ -17,7 +17,8 @@ class NzffaSettings
               councillors_group_id
               presidents_group_id
               secretarys_group_id
-              treasurers_group_id ]
+              treasurers_group_id 
+              past_members_group_id ]
 
   class << self
     NAMES.each do |name|
@@ -31,6 +32,7 @@ class NzffaSettings
     end
   end
 
+  @past_members_group_id = 237
   @newsletter_editors_group_id = 214
   @councillors_group_id = 203
   @presidents_group_id = 216

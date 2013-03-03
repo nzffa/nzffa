@@ -1,5 +1,11 @@
 class AppliesSubscriptionGroups
   def self.apply(subscription, reader)
+
+    #remove past members group if it exists
+    if reader.group_ids.include? NzffaSettings.past_members_group_id
+      reader.group_ids.delete(NzffaSettings.past_members_group_id)
+    end
+
     if subscription.belong_to_fft?
       reader.groups << Group.find(NzffaSettings.fft_marketplace_group_id)
     end
@@ -53,5 +59,8 @@ class AppliesSubscriptionGroups
         end
       end
     end
+
+    # add them to the past members group
+    reader.group_ids << NzffaSettings.past_members_group_id
   end
 end
