@@ -89,7 +89,14 @@ module ReaderMixin
   end
 
   def associated_branch_group_ids_string
-    active_subscription.associated_branches.map(&:group_id).join(' ') if active_subscription
+    if active_subscription
+      group_ids = []
+      if active_subscription.belong_to_fft? or (active_subscription.membership_type == 'full')
+        group_ids << NzffaSettings.fft_marketplace_group_id 
+      end
+      group_ids += active_subscription.associated_branches.map(&:group_id)
+      group_ids.join(' ')
+    end
   end
 
   def associated_branch_names
