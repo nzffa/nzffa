@@ -84,6 +84,13 @@ GIT
       thor (~> 0.14.6)
 
 GIT
+  remote: git@github.com:enspiral/radiant-page_reader_group_permissions-extension.git
+  revision: 0b0c1424d11176f4886b57f7fdf765e0bb5e38f8
+  specs:
+    radiant-page_reader_group_permissions-extension (1.1)
+      radiant (>= 0.9.1)
+
+GIT
   remote: https://github.com/robguthrie/cucumber-rails.git
   revision: ca9160bd85673d873d0c7e62c5a44a3bb883a170
   branch: v0.3.2fixed
@@ -312,6 +319,7 @@ DEPENDENCIES
   radiant-layouts-extension!
   radiant-mailer-extension
   radiant-navigation_tags-extension (~> 0.2.6)!
+  radiant-page_reader_group_permissions-extension!
   radiant-reader-extension!
   radiant-scheduler-extension (~> 1.0.0)
   radiant-settings-extension (~> 1.1.1)!
