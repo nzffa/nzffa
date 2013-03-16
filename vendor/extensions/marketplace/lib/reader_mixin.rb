@@ -91,7 +91,7 @@ module ReaderMixin
   def associated_branch_group_ids_string
     if active_subscription
       group_ids = []
-      if active_subscription.belong_to_fft? or (active_subscription.membership_type == 'full')
+      if active_subscription.belong_to_fft?
         group_ids << NzffaSettings.fft_marketplace_group_id 
       end
       group_ids += active_subscription.associated_branches.map(&:group_id)
