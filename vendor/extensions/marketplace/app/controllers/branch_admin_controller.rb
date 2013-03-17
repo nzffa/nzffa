@@ -1,4 +1,5 @@
-class BranchAdminController < SiteController
+class BranchAdminController < MarketplaceController
+  before_filter :require_current_reader
   before_filter :require_branch_secretary
   radiant_layout "no_layout"
 
