@@ -1,5 +1,6 @@
 class BranchAdminController < SiteController
   before_filter :require_branch_secretary
+  radiant_layout "no_layout"
 
   def index
     @branch = Branch.find(params[:branch_id])
