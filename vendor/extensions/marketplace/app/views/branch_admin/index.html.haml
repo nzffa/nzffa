@@ -1,7 +1,7 @@
 %h2 #{@branch.name} Members
 
 =link_to 'Email Members', "mailto:#{current_reader.email}?bcc=#{@readers.map(&:email).join(',')}"
-%table{class: 'px1'}
+%table{:class => 'px1'}
   %thead
     %th nzffa id
     %th Forename
