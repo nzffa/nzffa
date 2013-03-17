@@ -1,0 +1,23 @@
+%h2 #{@branch.name} Members
+
+%table
+  %thead
+    %th nzffa id
+    %th Forename
+    %th Surname
+    %th Email
+    %th Phone
+    %th Mobile
+    %th Last Updated
+    %th Edit
+  %tbody
+    -@readers.each do |reader|
+      %tr
+        %td=reader.nzffa_membership_id
+        %td=reader.forename
+        %td=reader.surname
+        %td=reader.email
+        %td=reader.phone
+        %td=reader.mobile
+        %td=reader.updated_at
+        %td=link_to('Edit', branch_admin_edit_path(params[:branch_id], reader.nzffa_membership_id))

@@ -1,0 +1,85 @@
+=f.error_messages
+%p
+  =f.label :nzffa_membership_id
+  =f.text_field :nzffa_membership_id
+
+%p
+  =f.label :forename
+  =f.text_field :forename
+
+%p
+  =f.label :surname
+  =f.text_field :surname
+
+%p
+  =f.label :nickname
+  =f.text_field :nickname
+
+%p
+  =f.label :email
+  =f.text_field :email
+
+%p
+  =f.label :special_cases
+  =f.text_field :special_cases
+
+%h3 Postal Address
+%table
+  %tr
+    %td=f.label :post_line1, 'Address', :class => :required
+    %td=f.text_field :post_line1
+  %tr
+    %td=f.label :post_line2, 'Address line 2'
+    %td=f.text_field :post_line2
+  %tr
+    %td=f.label :post_city, 'Town or City', :class => :required
+    %td=f.text_field :post_city
+  %tr
+    %td=f.label :post_province, 'Region'
+    %td=f.text_field :post_province
+  %tr
+    %td=f.label :country
+    %td=f.text_field :post_country
+  %tr
+    %td=f.label :postcode, "Postcode", :class => :required
+    %td=f.text_field :postcode
+
+%p
+  =f.label :phone
+  =f.text_field :phone
+%p
+  =f.label :mobile
+  =f.text_field :mobile
+%p
+  =f.label :notes
+  =f.text_area :notes
+
+%p
+  =f.label :receive_fft_newsletter
+  =f.check_box :receive_fft_newsletter
+
+%p
+  =f.label :receive_nzffa_members_newsletter
+  =f.check_box :receive_nzffa_members_newsletter
+
+%p
+  =f.label :is_newsletter_editor
+  =f.check_box :is_newsletter_editor
+
+%p
+  =f.label :is_councillor
+  =f.check_box :is_councillor
+
+%p
+  =f.label :is_secretary
+  =f.check_box :is_secretary
+
+%p
+  =f.label :is_treasurer
+  =f.check_box :is_treasurer
+
+%p
+  =f.label :is_president
+  =f.check_box :is_president
+
+=f.submit

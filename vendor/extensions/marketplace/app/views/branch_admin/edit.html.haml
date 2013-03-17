@@ -1,0 +1,4 @@
+%h2 Update Member Details
+
+-form_for @reader, :url => "/branch_admin/#{params[:branch_id]}/update/#{@reader.nzffa_membership_id}" do |f|
+  = render :partial => 'form', :locals => {:f => f}
