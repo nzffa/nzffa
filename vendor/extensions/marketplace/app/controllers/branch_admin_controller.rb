@@ -1,12 +1,13 @@
 class BranchAdminController < MarketplaceController
   before_filter :require_current_reader
   before_filter :require_branch_secretary
+  before_filter :load_group_and_readers, :only => [:index, :email]
   radiant_layout "no_layout"
 
   def index
-    @branch = Branch.find(params[:branch_id])
-    @group = Group.find(@branch.group_id)
-    @readers = @group.readers
+  end
+
+  def email
   end
 
   def edit
@@ -18,17 +19,22 @@ class BranchAdminController < MarketplaceController
     @reader.attributes = params[:reader]
     if @reader.save(false)
       flash[:notice] = 'Updated member'
-      redirect_to branch_admin_path(params[:branch_id])
+      redirect_to branch_admin_path(params[:group_id])
     else
       render :edit
     end
   end
 
   private
+  def load_group_and_readers
+    @group = Group.find(params[:group_id])
+    @readers = @group.readers
+  end
+
   def require_branch_secretary
-    @branch = Branch.find(params[:branch_id])
-    unless current_reader.is_secretary? and current_reader.group_ids.include? @branch.group_id
-      flash[:error] = 'You are not a branch secretary'
+    @group = Group.find(params[:group_id])
+    unless current_reader.is_secretary? and current_reader.groups.include? @group
+      flash[:error] = 'You are not a group member or you are not a secretary'
       redirect_to root_path
     end
   end

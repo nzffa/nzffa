@@ -1,7 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.branch_admin '/branch_admin/:branch_id/', :controller => :branch_admin, :action => :index
-  map.branch_admin_edit '/branch_admin/:branch_id/edit/:nzffa_membership_id', :controller => :branch_admin, :action => :edit
-  map.branch_admin_update '/branch_admin/:branch_id/update/:nzffa_membership_id', :controller => :branch_admin, :action => :update
+  map.branch_admin '/branch_admin/:group_id/', :controller => :branch_admin, :action => :index
+  map.branch_admin_email '/branch_admin/:group_id/email', :controller => :branch_admin, :action => :email
+  map.branch_admin_edit '/branch_admin/:group_id/edit/:nzffa_membership_id', :controller => :branch_admin, :action => :edit
+  map.branch_admin_update '/branch_admin/:group_id/update/:nzffa_membership_id', :controller => :branch_admin, :action => :update
   map.resources :subscriptions, :except => [:destroy, :edit, :update], 
     :collection => { :quote_new => :post, 
                      :quote_upgrade => :post,

@@ -1,14 +1,14 @@
-%h2 #{@branch.name} Members
+%h2 #{@group.name} Members
 
-=link_to 'Email Members', "mailto:#{current_reader.email}?bcc=#{@readers.map(&:email).join(',')}"
+=link_to "Get Email Addresses", branch_admin_email_path(params[:group_id])
 %table{:class => 'px1'}
   %thead
     %th nzffa id
     %th Forename
     %th Surname
     %th Email
-    %th Phone
-    %th Mobile
+    %th{:style => 'width: 100px'} Phone
+    %th{:style => 'width: 100px'} Mobile
     %th Last Updated
     %th Edit
   %tbody
@@ -20,6 +20,6 @@
         %td=reader.email
         %td=reader.phone
         %td=reader.mobile
-        %td=reader.updated_at
-        %td=link_to('Edit', branch_admin_edit_path(params[:branch_id], reader.nzffa_membership_id))
+        %td=l reader.updated_at.to_date
+        %td=link_to('Edit', branch_admin_edit_path(params[:group_id], reader.nzffa_membership_id))
 

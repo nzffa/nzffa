@@ -50,7 +50,7 @@ Given /^I am logged in as the Otago group secretary$/ do
 end
 
 When /^I visit the Otago branch secretary index$/ do
-  visit "/branch_admin/#{@branch.id}"
+  visit "/branch_admin/#{@branch.group_id}"
 end
 
 Then /^I should see a list of readers who are members of the otago branch$/ do
