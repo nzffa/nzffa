@@ -1,4 +1,7 @@
 class Admin::AdvertsController < ApplicationController
+  only_allow_access_to :index, :new, :edit, :create, :update, :remove, :destroy,
+    :when => [:admin, :designer]
+
   before_filter :load_advert, :only => [:show, :edit, :update, :destroy]
   helper :adverts
 
