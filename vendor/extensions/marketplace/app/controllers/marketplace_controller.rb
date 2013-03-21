@@ -11,6 +11,10 @@ class MarketplaceController < SiteController
   ADMIN_GROUP_ID = 100
 
   protected
+  def store_location
+    session[:return_to] = request.url
+  end
+
   def current_reader
     
     unless @current_reader
@@ -23,6 +27,7 @@ class MarketplaceController < SiteController
 
   def require_current_reader
     unless current_reader
+      store_location
       flash[:error] = 'Sorry, but you must be logged in to do this'
       redirect_to '/account/login'
     end
