@@ -84,18 +84,19 @@ GIT
       thor (~> 0.14.6)
 
 GIT
+  remote: git@github.com:enspiral/radiant-page_reader_group_permissions-extension.git
+  revision: 3216d4b49a2b0b4464f6ebf62a6680e6ad3678cf
+  specs:
+    radiant-page_reader_group_permissions-extension (1.1)
+      radiant (>= 0.9.1)
+
+GIT
   remote: https://github.com/robguthrie/cucumber-rails.git
   revision: ca9160bd85673d873d0c7e62c5a44a3bb883a170
   branch: v0.3.2fixed
   specs:
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
-
-PATH
-  remote: /Users/craig/development/radiant_extensions/radiant-page_reader_group_permissions-extension
-  specs:
-    radiant-page_reader_group_permissions-extension (1.1)
-      radiant (>= 0.9.1)
 
 GEM
   remote: http://rubygems.org/
