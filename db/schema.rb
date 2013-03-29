@@ -137,6 +137,9 @@ ActiveRecord::Schema.define(:version => 20130226231316) do
     t.boolean "admin"
   end
 
+  add_index "memberships", ["group_id"], :name => "index_memberships_on_group_id"
+  add_index "memberships", ["reader_id"], :name => "index_memberships_on_reader_id"
+
   create_table "message_readers", :force => true do |t|
     t.integer  "site_id"
     t.integer  "message_id"
@@ -155,9 +158,10 @@ ActiveRecord::Schema.define(:version => 20130226231316) do
     t.integer  "updated_by_id"
     t.integer  "lock_version"
     t.string   "function_id"
-    t.integer  "status_id",     :default => 1
+    t.integer  "status_id",         :default => 1
     t.integer  "layout_id"
     t.datetime "sent_at"
+    t.string   "group_access_type", :default => "or"
   end
 
   create_table "order_lines", :force => true do |t|
