@@ -1,4 +1,7 @@
 class Admin::SubscriptionsController < AdminController
+  only_allow_access_to :index, :new, :edit, :create, :update, :remove, :destroy,
+    :when => [:admin, :designer]
+
   before_filter :load_reader, :only => [:new, :create]
 
   def index

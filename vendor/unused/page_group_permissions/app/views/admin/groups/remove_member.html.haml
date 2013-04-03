@@ -1,0 +1,14 @@
+%h1 Remove Member
+.inset
+  %p
+    Are you sure you want to remove
+    %strong= h @user.name
+    from the group
+    = succeed "?" do
+      %strong= @group.name
+      
+- form_tag '', :method => :delete do
+  %p.buttons
+    = submit_tag "Remove Member", :class => 'button'
+    or
+    = link_to "Cancel", admin_groups_url

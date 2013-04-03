@@ -1,0 +1,73 @@
+- if Radiant::Version.to_s < '0.9'
+  %h1 Groups
+
+.outset
+  %table#groups.index{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+    %thead
+      %tr
+        %th Name
+        %th{:colspan => "2"} Modify
+    %tbody
+      - models.each do |group|
+        %tr.node
+          %td.group
+            = link_to group.name, :action => 'edit', :id => group.id
+            %small.note= h group.notes
+          %td.add-child
+            - form_tag add_member_admin_group_path(group) do
+              =select_tag :user_id, options_for_select(User.find(:all, :order => 'name ASC').map{|u| [u.name, u.id]}.unshift(['—', '']))
+              = image_submit_tag('page_group_permissions/add-member.png', :alt => 'Add Group Member')
+          %td
+            = link_to image('remove', :alt => 'Remove Group'), remove_admin_group_path(group), :class => "action"
+        - group.users.each do |user|
+          %tr.user
+            %td.name{:colspan => "2"}
+              = link_to user.name, edit_admin_user_path(user)
+            %td
+              = link_to image_tag('page_group_permissions/remove-member.png', :alt => 'Remove Group Member'), remove_member_admin_group_path(group, user), :class => "action"
+        - if group.users.empty?
+          %tr.user
+            %td.none{:colspan => "3"} no members
+      %tbody
+  %p.notes= link_to image_tag('page_group_permissions/new-group.png', :alt => 'New Group'), :action => 'new'
+
+  %p.notes Use groups to organize your normal users into publishing teams, with rights to modify certain sections of your site. A user can belong to any number of groups. When a page is owned by a group, its members may edit the page or any underneath it in the site hierarchy. Administrators and Developers can be added to groups, but they already have editing rights to all pages.
+
+- content_for :page_css do
+  :sass
+    #content table.index
+      .node .group
+        font-size: 115%
+        font-weight: bold
+      .user .name
+        font-size: 107%
+        a
+          color: #444
+          text-decoration: none
+      .node .group a
+        color: black
+        margin-left: 5px
+        text-decoration: none
+        &:hover
+          color: blue
+          text-decoration: underline
+      .user
+        .name
+          a:hover
+            color: blue
+            text-decoration: underline
+          padding-left: 26px
+        .none
+          padding-left: 26px
+      .node .note, .user .none
+        color: #666
+        font-size: 90%
+        font-style: italic
+        font-weight: normal
+        margin-left: .5em
+      .node .add-child
+        width: 200px
+        form
+          margin: 0
+    .notes
+      margin: 24px

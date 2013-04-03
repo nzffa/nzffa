@@ -10,6 +10,7 @@ shared/
 tmp/*
 config/database.yml
 log/*
+.idea/
 
 .livereload
 .rvmrc

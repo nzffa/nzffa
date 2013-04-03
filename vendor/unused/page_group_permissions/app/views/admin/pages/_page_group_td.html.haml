@@ -1,0 +1,5 @@
+%td.status
+  - if current_user.groups.include? page.group
+    = page.group_name
+  - else
+    %span{:style => "color: #ccc"}= page.group_name
