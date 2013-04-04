@@ -17,10 +17,13 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors if you bad email addresses should just be ignored
 
-ActionMailer::Base.delivery_method = :sendmail
-ActionMailer::Base.sendmail_settings = {
-  :location => '/usr/sbin/sendmail',
-  :arguments => '-i -t'
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  :user_name => 'nzffa-staging-af9a6c9f38b7d9fa',
+  :password => 'c75709194a0a5e24',
+  :address => 'mailtrap.io',
+  :port => '2525',
+  :authentication => :plain,
 }
 
 ActionMailer::Base.perform_deliveries = true
