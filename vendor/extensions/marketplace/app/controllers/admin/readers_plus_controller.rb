@@ -1,4 +1,7 @@
 class Admin::ReadersPlusController < AdminController
+  include ActionView::Helpers::ActiveRecordHelper
+  include ActionView::Helpers::TagHelper
+
   only_allow_access_to :index, :new, :edit, :create, :update, :remove, :destroy,
     :when => [:admin, :designer]
 
@@ -21,16 +24,16 @@ class Admin::ReadersPlusController < AdminController
   end
 
   def edit
-    @reader = Reader.find params[:id]
+    load_reader
   end
 
   def show
-    @reader = Reader.find params[:id]
+    load_reader
     @current_subscription = Subscription.current_subscription_for(@reader)
   end
 
   def update
-    @reader = Reader.find params[:id]
+    load_reader
     @reader.attributes = params[:reader]
     if @reader.save(false)
       flash[:notice] = 'Updated reader'
@@ -39,4 +42,24 @@ class Admin::ReadersPlusController < AdminController
       render :edit
     end
   end
+
+  def create_user
+    load_reader
+    @user = @reader.build_user
+    if @user
+      if @user.save
+        @reader.update_attribute(:user_id, @user.id)
+        flash[:notice] = "Created user #{@user.login}"
+      else
+        flash[:error] = error_messages_for(:user)
+      end
+    end
+    redirect_to [:admin, :readers_plus]
+  end
+
+  private
+
+    def load_reader
+      @reader = Reader.find params[:id]
+    end
 end
