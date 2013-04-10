@@ -85,7 +85,7 @@ GIT
 
 GIT
   remote: git@github.com:enspiral/radiant-page_reader_group_permissions-extension.git
-  revision: 3216d4b49a2b0b4464f6ebf62a6680e6ad3678cf
+  revision: 434a47468428db88863301d7f4a68971fd0ac8ea
   specs:
     radiant-page_reader_group_permissions-extension (1.1)
       radiant (>= 0.9.1)
