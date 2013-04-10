@@ -52,7 +52,7 @@ gem "radiant-forum-extension", :git => 'git://github.com/enspiral/radiant-forum-
 # gem "radiant-forum-extension", :path => '/Users/craig/development/radiant_extensions/radiant-forum-extension'
 
 gem "radiant-page_reader_group_permissions-extension", :git => 'git@github.com:enspiral/radiant-page_reader_group_permissions-extension.git'
-# gem "radiant-page_reader_group_permissions-extension", :path => '/Users/craig/development/radiant_extensions/radiant-page_reader_group_permissions-extension'
+#gem "radiant-page_reader_group_permissions-extension", :path => '/Users/craig/development/radiant_extensions/radiant-page_reader_group_permissions-extension'
 
 
 group :production, :staging do
