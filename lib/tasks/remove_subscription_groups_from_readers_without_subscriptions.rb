@@ -2,7 +2,10 @@ subscription_group_ids = [11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26
 
 @readers = Reader.all.select do |r| 
   if !r.active_subscription and r.group_ids.any?{|id| subscription_group_ids.include?(id) }
-    r.groups -= subscription_group_ids
+    r.group_ids -= subscription_group_ids
+    r.group_ids += [237] # add past members group
+    r.save false
     puts "removed #{r.id} #{r.email} #{r.name}"
   end
+  puts "Past members group size: #{Group.find(237).readers.size}"
 end
