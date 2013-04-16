@@ -87,6 +87,13 @@ module ReaderMixin
   def associated_branches
     active_subscription.associated_branches if active_subscription
   end
+  
+  def tree_grower_group_ids
+    #NZ Tree Grower subscribers 80, 
+    #Australian Tree Grower subscribers 81, 
+    #Rest of World Tree Grower subscribers 82
+    group_ids.select{|id| [80, 81, 82].include? id }
+  end
 
   def associated_branch_group_ids_string
     if active_subscription
@@ -106,7 +113,14 @@ module ReaderMixin
   end
 
   def action_group_group_ids_string
-    active_subscription.action_groups.map(&:group_id).join(' ') if active_subscription
+    if active_subscription
+      group_ids = []
+      if active_subscription.belong_to_fft?
+        group_ids << NzffaSettings.fft_marketplace_group_id 
+      end
+      group_ids += active_subscription.action_groups.map(&:group_id)
+      group_ids.join(' ')
+    end
   end
 
   def action_group_names
@@ -138,6 +152,23 @@ module ReaderMixin
 
   def full_nzffa_member?
     group_ids.include? NzffaSettings.full_membership_group_id
+  end
+
+  def identifiers
+    #Direct Debit 204 (Note: This is currently under special_cases)
+    #Past members 237
+    #Postal Mail 240
+    #Executive 205
+    #National Newsletter 211
+    #Neil Barr Foundation Trustee 226
+    #Newsletter Editor 214
+    #NZFFA Councillor 203
+    #President 216
+    #Research Committee 235
+    #Secretary 219
+    #Treasurer 220
+    ids = [204, 237, 240, 205, 211, 226, 214, 203, 216, 235, 219, 220]
+    group_ids.select{|id| ids.include?(id) }.join(' ')
   end
 
 end

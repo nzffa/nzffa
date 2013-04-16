@@ -1,3 +1,7 @@
 %h1 Subscriptions
 
 = render :partial => 'admin/subscriptions/index_table', :locals => {:subscriptions => @subscriptions}
+
+%table
+  #actions
+    = will_paginate @readers

@@ -2,7 +2,7 @@ class Admin::SubscriptionsController < AdminController
   before_filter :load_reader, :only => [:new, :create]
 
   def index
-    @subscriptions = Subscription.find(:all, :order => 'id desc')
+    @subscriptions = Subscription.paginate(:page => params[:page], :order => 'id desc')
   end
 
   def show

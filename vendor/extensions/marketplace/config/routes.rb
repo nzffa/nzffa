@@ -35,7 +35,12 @@ ActionController::Routing::Routes.draw do |map|
   map.join_fft '/membership/join-fft', :controller => :membership, :action => :join_fft
 
   map.namespace :admin do |admin|
-    admin.resources :reports, :only => :index, :collection => {:payments => :get, :allocations => :get, :members => :get, :deliveries => :get, :expiries => :get}
+    admin.resources :reports, :only => :index, :collection => {:past_members_no_subscription => :get, 
+                                                               :payments => :get, 
+                                                               :allocations => :get, 
+                                                               :members => :get, 
+                                                               :deliveries => :get, 
+                                                               :expiries => :get}
     admin.resources :subscriptions
     admin.resources :adverts
     admin.resources :readers_plus, :except => [:new, :create]

@@ -12,7 +12,7 @@ class Admin::ReadersPlusController < AdminController
         query_bits << "#{col} LIKE ?"
         token_bits << "%#{token}%"
       end
-      @readers = Reader.paginate(:page => params[:page], :conditions => [query_bits.join(' OR '), *token_bits])
+      @readers = Reader.paginate(:page => params[:page], :conditions => [query_bits.join(' OR '), *token_bits], :order => 'surname asc')
     else
       @readers = Reader.paginate(:page => params[:page])
     end
@@ -30,7 +30,7 @@ class Admin::ReadersPlusController < AdminController
   def update
     @reader = Reader.find params[:id]
     @reader.attributes = params[:reader]
-    if @reader.save(false)
+    if @reader.save
       flash[:notice] = 'Updated reader'
       redirect_to [:admin, :readers_plus]
     else

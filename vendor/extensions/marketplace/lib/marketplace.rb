@@ -2,7 +2,7 @@ module Marketplace
   include Radiant::Taggable
   desc 'Tags to load marketplace into the current page'
 
-  nav_links = "<a href='/account/'>Your Groups</a> | 
+  nav_links = "<a href='/account/'>Members Only Areas</a> | 
                <a href='/membership/details/'>Your Account</a> |
                <a href='/account/logout'>Logout</a>"
   tag 'hello_or_login' do |tag|
