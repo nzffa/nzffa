@@ -92,7 +92,7 @@ module ReaderMixin
     #NZ Tree Grower subscribers 80, 
     #Australian Tree Grower subscribers 81, 
     #Rest of World Tree Grower subscribers 82
-    group_ids.select{|id| [80, 81, 82].include? id }
+    (group_ids & [80, 81, 82]).join(' ')
   end
 
   def associated_branch_group_ids_string
@@ -167,8 +167,7 @@ module ReaderMixin
     #Research Committee 235
     #Secretary 219
     #Treasurer 220
-    ids = [204, 237, 240, 205, 211, 226, 214, 203, 216, 235, 219, 220]
-    group_ids.select{|id| ids.include?(id) }.join(' ')
+    (group_ids & [204, 237, 240, 205, 211, 226, 214, 203, 216, 235, 219, 220]).join(' ')
   end
 
 end
