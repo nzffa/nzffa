@@ -1,4 +1,7 @@
 class Admin::OrdersController < AdminController
+  only_allow_access_to :index, :new, :edit, :create, :update, :remove, :destroy,
+    :when => [:admin, :designer]
+
   def index
     if params[:reader_id]
       @subscriptions = Subscription.find(:all, :conditions => {:reader_id => params[:reader_id]})

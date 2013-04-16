@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
                                                                :expiries => :get}
     admin.resources :subscriptions
     admin.resources :adverts
-    admin.resources :readers_plus, :except => [:new, :create]
+    admin.resources :readers_plus, :except => [:new, :create], :member => [:create_user]
     admin.resources :orders
     admin.resources :readers, :only => [] do |readers|
       readers.resources :orders, :only => :index

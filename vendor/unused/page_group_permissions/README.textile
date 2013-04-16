@@ -1,0 +1,63 @@
+h1. Page Group Permissions
+
+Created by Matt Freels
+
+This extension allows you to organize your users into groups and divide up site-editing privileges accordingly. It requires Radiant 0.8+ and the Shards extension found in the official Radiant repository.
+
+h2. Installation
+
+h3. From the Radiant Extension Registry
+
+# From your RAILS_ROOT run:
+<pre>script/extension install page_group_permissions</pre>
+# Restart your app
+NOTE: In some earlier versions of Radiant, the migrations may not run, and the assets may not be copied and you may therefore need to run:
+<pre>rake radiant:extensions:page_group_permissions:migrate
+rake radiant:extensions:page_group_permissions:update</pre>
+
+h3. From Github
+
+# From your RAILS_ROOT run:
+<pre>cd vendor/extensions
+git clone git://github.com/avonderluft/radiant-page_group_permissions-extension.git ./page_group_permissions
+cd ../../
+rake radiant:extensions:page_group_permissions:migrate
+rake radiant:extensions:page_group_permissions:update
+</pre>
+# Restart your app
+
+h3. Using the gem
+
+# Install the gem
+<pre>gem install radiant-page_group_permissions-extension</pre>
+# Update your Radiant config:  add to environment.rb with other gem.configs
+<pre>config.gem 'radiant-page_group_permissions-extension', :lib => false</pre>
+# Run database migrations
+<pre>rake db:migrate:extensions</pre>
+# Copy assets
+<pre>rake radiant:extensions:update_all</pre>
+# Restart your app
+
+h2. Usage
+
+Create and edit groups and add/remove members from the new groups tag.
+Add page to a group by editing the page.
+A member of a group has permission to edit any page owned by the group or children of said pages.
+
+h2. Revision History
+
+* 5/12/2011 - Compatible with >= 0.9 [Andrew vonderLuft, Jim Gay]
+* 7/7/2009 - Updated to work with Radiant 0.8+ [Matthew Bass]
+
+h2. To do
+
+* Update Group index view to conform to Blade UI
+* Create Help file for Help extension
+
+h2. Contributors
+
+* Matt Freels
+* Nikos Dimitrakopoulos
+* Jim Gay
+* Matthew Bass
+* Andrew vonderLuft
