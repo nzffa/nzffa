@@ -1,24 +1,6 @@
 namespace :radiant do
   namespace :extensions do
     namespace :marketplace do
-      desc 'find out about members'
-      task :freeloaders => :environment do
-
-        #fft_marketplace_group_id = 229
-        #tree_grower_magazine_group_id = 80
-        #full_membership_group_id = 232
-        #fft_newsletter_group_id = 230
-        #nzffa_members_newsletter_group_id = 211
-        #Branch.all.map(&:group_id)
-        #ActionGroup.all.map(&:group_id)
-        subscription_group_ids = [229, 80, 232, 230, 211]
-        @readers = Reader.all.select do |r| 
-          r.subscriptions.empty? and r.group_ids.any?{|id| subscription_group_ids.include?(id) }
-        end
-
-
-      end
-
       
       desc "Runs the migration of the Marketplace extension"
       task :migrate => :environment do
