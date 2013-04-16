@@ -17,9 +17,9 @@ class Admin::ReadersPlusController < AdminController
         query_bits << "#{col} LIKE ?"
         token_bits << "%#{token}%"
       end
-      @readers = Reader.paginate(:page => params[:page], :conditions => [query_bits.join(' OR '), *token_bits], :order => 'surname asc')
+      @readers = Reader.paginate(:page => params[:page], :conditions => [query_bits.join(' OR '), *token_bits], :order => 'surname, forename asc')
     else
-      @readers = Reader.paginate(:page => params[:page])
+      @readers = Reader.paginate(:page => params[:page], :order => 'surname, forename asc')
     end
   end
 
