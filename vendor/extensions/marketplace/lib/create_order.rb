@@ -11,6 +11,7 @@ class CreateOrder
     raise "old subscription is not paid yet. cannot upgrade" unless old_sub.paid?
     
     order = new(new_sub).create_order
+    order.old_subscription = old_sub
     @subscription = new_sub
     
     fraction_used = CalculatesSubscriptionLevy.fraction_used(old_sub.begins_on, old_sub.expires_on)

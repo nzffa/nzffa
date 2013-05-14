@@ -257,3 +257,12 @@ end
 Then /^I should see a Cancel Subscription link$/ do
   page.should have_link 'Cancel Subscription'
 end
+
+Then /^the page should say thank you$/ do
+  page.should have_content 'Thank you. Your payment was successful and your subscription is now active.'
+end
+
+Given /^there is a members newsletter group$/ do
+  @members_newsletter_group = Group.create!(:name => 'members newsletter group')
+  NzffaSettings.nzffa_members_newsletter_group_id = @members_newsletter_group.id
+end

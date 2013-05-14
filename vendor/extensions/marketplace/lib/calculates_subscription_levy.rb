@@ -39,8 +39,10 @@ class CalculatesSubscriptionLevy
   end
 
   def self.levy_for(subscription)
-    subscription_length(subscription.begins_on, subscription.expires_on) * 
-      yearly_levy_for(subscription)
+    order = CreateOrder.from_subscription(subscription)
+    #puts order.order_lines.inspect
+    #puts order.order_lines.map{|ol| [ol.kind, ol.amount.to_s]}.inspect
+    order.amount
   end
 
   def self.yearly_levy_for(subscription)
@@ -73,52 +75,6 @@ class CalculatesSubscriptionLevy
 
   def self.length_of_year_remaining
     subscription_length(Date.today, Date.new(Date.today.year, 12, 31))
-  end
-
-  private
-  def self.casual_membership_levy(subscription)
-    levy = 0
-    if subscription.belong_to_fft?
-      levy += NzffaSettings.casual_member_fft_marketplace_levy
-    end
-    if subscription.receive_tree_grower_magazine?
-      levy += casual_nz_tree_grower_levy(subscription)
-    end
-    levy
-  end
-
-  def self.casual_nz_tree_grower_levy(subscription)
-    per_copy = case subscription.tree_grower_delivery_location
-               when 'new_zealand'
-                 NzffaSettings.tree_grower_magazine_within_new_zealand
-               when 'australia'
-                 NzffaSettings.tree_grower_magazine_within_australia
-               when 'everywhere_else'
-                 NzffaSettings.tree_grower_magazine_everywhere_else
-               else
-                 raise "unknown tree grower magazine deliver location: #{subscription.tree_grower_delivery_location}"
-               end
-    (per_copy.to_i * subscription.nz_tree_grower_copies.to_i)
-  end
-
-  def self.full_membership_levy(subscription)
-    levy = 0
-    levy += NzffaSettings.admin_levy
-    levy += NzffaSettings.forest_size_levys[subscription.ha_of_planted_trees].to_i || 0
-
-    if subscription.belong_to_fft?
-      levy += NzffaSettings.full_member_fft_marketplace_levy
-    end
-
-    if subscription.contribute_to_research_fund?
-      levy += subscription.research_fund_contribution_amount
-    end
-
-    levy += NzffaSettings.full_member_tree_grower_magazine_levy
-    levy += subscription.branches.map(&:annual_levy).sum
-    levy += subscription.action_groups.map(&:annual_levy).sum
-    levy
-    
   end
 
 end

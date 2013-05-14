@@ -23,6 +23,7 @@ class SubscriptionsController < MarketplaceController
     @action_path = upgrade_subscriptions_path
     @subscription = Subscription.active_subscription_for(current_reader)
     @subscription.contribute_to_research_fund = false
+    @subscription.begins_on = Date.today
   end
 
   def new
@@ -33,19 +34,13 @@ class SubscriptionsController < MarketplaceController
     @action_path = subscriptions_path
     @subscription = Subscription.new(params[:subscription])
     @subscription.reader = current_reader
-
-    #yea.. crazy right.
-    if Rails.env == 'production'
-      if Date.today < Date.parse('2013-01-01')
-        @subscription.begins_on = Date.parse('2013-01-01')
-        @subscription.expires_on = Date.parse('2013-12-31')
-      end
-    end
   end
 
   def quote_new
     subscription = Subscription.new(params[:subscription])
     order = CreateOrder.from_subscription(subscription)
+    #puts params[:subscription].inspect
+    #puts order.order_lines.map{|ol| [ol.kind, ol.amount.to_s]}.inspect
 
     render :json => {:price => "#{number_to_currency(order.amount)}", 
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,

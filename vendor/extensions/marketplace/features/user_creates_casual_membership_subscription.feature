@@ -13,7 +13,7 @@ Feature: User creates casual membership subscription
     And there is a Tree Grower Magazine group
     And there is a FFT Marketplace group
 
-  @javascript @wip
+  @javascript 
   Scenario: User subscribes to FFT Marketplace only
     Given the date is "2012-01-01"
     When I visit new subscription
@@ -22,7 +22,7 @@ Feature: User creates casual membership subscription
     And check "Join Farm Forestry Timbers"
     And choose "End of this year"
     And wait a bit
-    Then I should see "Subscription Price: $49 + GST"
+    Then I should see "Subscription Price: $49.00 + GST"
     And I should see "Begins on: 1 January 2012"
     And I should see "Expires on: 31 December 2012"
     When I click 'Proceed to payment'
