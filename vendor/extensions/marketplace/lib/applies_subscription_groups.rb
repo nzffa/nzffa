@@ -27,7 +27,15 @@ class AppliesSubscriptionGroups
 
     when 'casual'
       if subscription.receive_tree_grower_magazine?
-        reader.groups << Group.find(NzffaSettings.tree_grower_magazine_group_id)
+        group_id = case subscription.tree_grower_delivery_location
+                   when 'new_zealand'
+                     NzffaSettings.tree_grower_magazine_group_id
+                   when 'australia'
+                     NzffaSettings.tree_grower_magazine_australia_group_id
+                   when 'everywhere_else'
+                     NzffaSettings.tree_grower_magazine_everywhere_else_group_id
+                   end
+        reader.groups << Group.find(group_id)
       end
     else
       raise "unrecognised membership type #{subscription.membership_type}"
@@ -38,8 +46,10 @@ class AppliesSubscriptionGroups
     group_ids = []
     group_ids << NzffaSettings.fft_marketplace_group_id
     group_ids << NzffaSettings.full_membership_group_id
-    group_ids << NzffaSettings.tree_grower_magazine_group_id
     group_ids << NzffaSettings.nzffa_members_newsletter_group_id
+    group_ids << NzffaSettings.tree_grower_magazine_group_id
+    group_ids << NzffaSettings.tree_grower_magazine_australia_group_id
+    group_ids << NzffaSettings.tree_grower_magazine_everywhere_else_group_id
 
     subscription.branches.each do |branch|
       group_ids << branch.group_id unless action_group.group.nil?

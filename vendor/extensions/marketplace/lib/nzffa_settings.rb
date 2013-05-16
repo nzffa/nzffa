@@ -9,6 +9,8 @@ class NzffaSettings
               tree_grower_magazine_everywhere_else
               fft_marketplace_group_id
               tree_grower_magazine_group_id
+              tree_grower_magazine_australia_group_id
+              tree_grower_magazine_everywhere_else_group_id
               full_membership_group_id
               special_interest_group_levys
               fft_newsletter_group_id
@@ -63,6 +65,8 @@ class NzffaSettings
 
   @fft_marketplace_group_id = 229
   @tree_grower_magazine_group_id = 80
+  @tree_grower_magazine_australia_group_id = 81
+  @tree_grower_magazine_everywhere_else_group_id = 82
   @full_membership_group_id = 232
 
   @fft_newsletter_group_id = 230

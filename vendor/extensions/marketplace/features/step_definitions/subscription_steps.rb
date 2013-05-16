@@ -266,3 +266,13 @@ Given /^there is a members newsletter group$/ do
   @members_newsletter_group = Group.create!(:name => 'members newsletter group')
   NzffaSettings.nzffa_members_newsletter_group_id = @members_newsletter_group.id
 end
+
+Then /^I should belong to the Tree Grower Magazine Australia group$/ do
+  @reader.reload
+  @reader.group_ids.should include NzffaSettings.tree_grower_magazine_australia_group_id
+end
+
+Given /^there is a Tree Grower Magazine Australia group$/ do
+  group = Group.create(:name => 'Tree grower magazine australia')
+  NzffaSettings.tree_grower_magazine_australia_group_id = group.id
+end
