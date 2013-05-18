@@ -11,9 +11,12 @@ class Order < ActiveRecord::Base
   validates_presence_of :amount, :subscription
   validates_numericality_of :amount
   validates_inclusion_of :payment_method, :in => PAYMENT_METHODS, :allow_blank => true
+  validates_presence_of :payment_method, :if => :paid_on
 
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
+
+  after_save :check_if_paid
 
   def before_destroy
     unless is_deletable?
@@ -92,5 +95,13 @@ class Order < ActiveRecord::Base
 
   def paid?
     paid_on.present?
+  end
+
+  def check_if_paid
+    if paid_on_changed? and paid_on_was.nil? and paid_on.present?
+      if old_subscription.present?
+        old_subscription.cancel!
+      end
+    end
   end
 end

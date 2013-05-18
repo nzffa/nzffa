@@ -68,6 +68,26 @@ namespace :radiant do
           NotifySubscriber.deliver_subscription_expired_email(subscription)
         end
       end
+
+      desc 'Reapply the subscriprion groups. Dont choose this in a guess.'
+      task :reapply_subscription_groups => :environment do
+        Reader.find_each do |reader|
+          before_ids = reader.group_ids.uniq
+          AppliesSubscriptionGroups.remove(reader)
+          if reader.has_active_subscription?
+            AppliesSubscriptionGroups.apply(reader.active_subscription, reader)
+          end
+          after_ids = reader.group_ids.uniq
+          removed_ids = before_ids - after_ids
+          added_ids = after_ids - before_ids
+          unless removed_ids.empty?
+            puts "Removed #{removed_ids.inspect} from reader_id: #{reader.id}"
+          end
+          if added_ids.present?
+            puts "added #{added_ids.inspect} to reader_id: #{reader.id}"
+          end
+        end 
+      end
     end
   end
 end

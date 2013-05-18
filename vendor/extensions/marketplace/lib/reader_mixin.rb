@@ -60,6 +60,10 @@ module ReaderMixin
     Subscription.active_subscription_for(self)
   end
 
+  def has_active_subscription?
+    active_subscription
+  end
+
   def main_branch
     active_subscription.main_branch if active_subscription.present?
   end

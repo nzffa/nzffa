@@ -42,7 +42,9 @@ class AppliesSubscriptionGroups
     end
   end
 
-  def self.remove(subscription, reader)
+  def self.remove(subscription, reader = nil)
+    reader = subscription if reader.nil?
+
     group_ids = []
     group_ids << NzffaSettings.fft_marketplace_group_id
     group_ids << NzffaSettings.full_membership_group_id
@@ -50,17 +52,9 @@ class AppliesSubscriptionGroups
     group_ids << NzffaSettings.tree_grower_magazine_group_id
     group_ids << NzffaSettings.tree_grower_magazine_australia_group_id
     group_ids << NzffaSettings.tree_grower_magazine_everywhere_else_group_id
+    group_ids << ActionGroup.all.map(&:group_id)
+    group_ids << Branch.all.map(&:group_id)
 
-    subscription.branches.each do |branch|
-      group_ids << branch.group_id unless action_group.group.nil?
-    end
-
-    subscription.action_groups.each do |action_group|
-      if action_group.group.nil?
-        raise "action group group nil: #{action_group.inspect}"
-      end
-      group_ids << action_group.group_id unless action_group.group.nil?
-    end
 
     group_ids.each do |group_id|
       if group = Group.find_by_id(group_id)

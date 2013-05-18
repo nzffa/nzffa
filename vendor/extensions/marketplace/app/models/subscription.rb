@@ -26,6 +26,12 @@ class Subscription < ActiveRecord::Base
     {:joins => :order,
      :conditions => ['begins_on <= ? AND expires_on >= ? AND cancelled_on IS NULL AND orders.paid_on > "2001-01-01"',  Date.today, Date.today, ]}}
 
+  named_scope :active_for_reader, lambda { |reader| 
+    {:joins => :order,
+     :conditions => ['begins_on <= ? AND expires_on >= ? AND 
+                      cancelled_on IS NULL AND orders.paid_on > "2001-01-01"
+                      AND reader_id = ?',  Date.today, Date.today, reader.id ]}}
+
   
   def self.last_subscription_for(reader)
     find(:first, :conditions => {:reader_id => reader.id}, :order => 'id desc')
