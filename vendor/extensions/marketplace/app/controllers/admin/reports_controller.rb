@@ -95,7 +95,7 @@ class Admin::ReportsController < AdminController
 
   def deliveries
     @subscriptions = Subscription.active.find(:all, :conditions => {'receive_tree_grower_magazine' => true})
-    fields = %w[id nzffa_membership_id forename surname postal_address post_line1 post_line2 post_city post_country postcode num_copies indigenous_group_member]
+    fields = %w[id nzffa_membership_id forename surname postal_address post_line1 post_line2 post_city post_province post_country postcode num_copies indigenous_group_member]
     csv_string = FasterCSV.generate do |csv|
       csv << fields
       @subscriptions.each do |sub|
