@@ -28,7 +28,8 @@ class BranchAdminController < MarketplaceController
   private
   def load_group_and_readers
     @group = Group.find(params[:group_id])
-    @readers = @group.readers.where('email not like "%@nzffa.org.nz"')
+    @allowed_readers = Reader.find(:all, :confitions => 'email not like "%@nzffa.org.nz"')
+    @readers = @group.readers.where('id in (?)', @allowed_readers.map(&:id))
   end
 
   def require_branch_secretary
