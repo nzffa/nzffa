@@ -29,8 +29,7 @@ class BranchAdminController < MarketplaceController
   def load_group_and_readers
     @group = Group.find(params[:group_id])
 
-    @group_readers = @group.readers.where('id in (?)',
-                                          @allowed_readers.map(&:id))
+    @group_readers = @group.readers
     @readers = Reader.find(:all,
                        :conditions => ['(email not like "%@nzffa.org.nz") AND
                                        readers.id IN (?)', @group_readers.map(&:id)])
