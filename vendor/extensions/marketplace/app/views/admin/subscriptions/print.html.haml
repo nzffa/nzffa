@@ -199,9 +199,13 @@
 
 %br
 .payment-box.section
-  How would you like to pay?
+  Want to pay online? Visit www.nzffa.org.nz
+  %br
+  Other payment methods:
   %br
   %table.payment
+    %tr
+      %td{:colspan => 4}
     %tr
       %td
         =check_box_tag :direct_debit
@@ -216,6 +220,7 @@
         =check_box_tag :master_card
         Mastercard
       %td Sorry, American Express not accepted
+
   %table.payment
     %tr
       %td{:colspan => 4}
@@ -255,3 +260,4 @@
       %td
       %td Invoice #
       %td
+
