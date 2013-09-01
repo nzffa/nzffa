@@ -56,6 +56,15 @@ module ReaderMixin
     end
   end
 
+  def postal_address
+    [post_line1,
+     post_line2,
+     post_city,
+     post_province,
+     post_country,
+     postcode]
+  end
+
   def active_subscription
     Subscription.active_subscription_for(self)
   end

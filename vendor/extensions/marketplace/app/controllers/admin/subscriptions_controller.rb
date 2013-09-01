@@ -12,6 +12,11 @@ class Admin::SubscriptionsController < AdminController
     @subscription = Subscription.find(params[:id])
   end
 
+  def print
+    @subscription = Subscription.find(params[:id])
+    @reader = @subscription.reader
+  end
+
   def new
     if @existing_sub = Subscription.active_subscription_for(@reader)
       redirect_to edit_admin_subscription_path(@existing_sub)

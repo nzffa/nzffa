@@ -3,8 +3,9 @@ ActionController::Routing::Routes.draw do |map|
   map.branch_admin_email '/branch_admin/:group_id/email', :controller => :branch_admin, :action => :email
   map.branch_admin_edit '/branch_admin/:group_id/edit/:nzffa_membership_id', :controller => :branch_admin, :action => :edit
   map.branch_admin_update '/branch_admin/:group_id/update/:nzffa_membership_id', :controller => :branch_admin, :action => :update
-  map.resources :subscriptions, :except => [:destroy, :edit, :update], 
-    :collection => { :quote_new => :post, 
+
+  map.resources :subscriptions, :except => [:destroy, :edit, :update],
+    :collection => { :quote_new => :post,
                      :quote_upgrade => :post,
                      :modify => :get,
                      :upgrade => :put,
@@ -41,7 +42,7 @@ ActionController::Routing::Routes.draw do |map|
                                                                :members => :get, 
                                                                :deliveries => :get, 
                                                                :expiries => :get}
-    admin.resources :subscriptions
+    admin.resources :subscriptions, :member => { :print => :get }
     admin.resources :adverts
     admin.resources :readers_plus, :except => [:new, :create], :member => [:create_user]
     admin.resources :orders

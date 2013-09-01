@@ -120,6 +120,10 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def action_group_names
+    action_groups.map(&:name)
+  end
+
   def associated_branches
     list = branches.all
     list -= [main_branch] if main_branch.present?
