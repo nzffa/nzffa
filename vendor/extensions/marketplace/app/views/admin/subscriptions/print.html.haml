@@ -1,3 +1,28 @@
+:css
+  .section {
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .payment-options {
+    width: 100%;
+  }
+  .payment-box {
+    line-height: 3em;
+    border: 1px solid #000
+  }
+  .payment {
+    width: 100%;
+  }
+  .creditcard {
+    width: 70%;
+    height: 2em;
+  }
+  .bx {
+    border: 1px solid #000
+  }
+
+
 %h1 New Zealand Farm Forestry Association (INC)
 
 .section
@@ -37,112 +62,28 @@
     Telephone
     =@reader.phone
     %br
-    Email
-    =@reader.email
 
+    -if @reader.has_real_email_address?
+      Email
+      =@reader.email
+    -else
+      Please provide email address
+      =text_field_tag :email_address
 
-.section
-  %h3 Subscription Renewal / Tax Invoice
-  %h3 #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
-  %table{:style => 'width: 100%'}
-    %tr
-      %td{:style => 'width: 70%'}
-      %td{:style => 'width: 15%'}
-        Rate
-      %td{:style => 'width: 15%'}
-        Total
-    %tr
-      %td
-        %table.current_subscription
-          %tr
-            %td Main Branch and Forest Area
-            %td
-              =@subscription.main_branch_name
+    -unless @reader.receive_nzffa_members_newsletter?
+      %br
+      =check_box_tag :subscribe_to_nzffa_newsletter
+      Tick to receive the NZFFA newsletter
 
-              =@subscription.ha_of_planted_trees
-              ha
-          %tr
-            %td Associate Branches
-            %td=@subscription.associated_branch_names.join(', ')
-          %tr
-            %td Action Groups
-            %td=@subscription.action_group_names.join(', ')
-      %td
-        %table
-          %tr
-            %td
-              -total = 0
-              $
-              =price = NzffaSettings.forest_size_levys[@subscription.ha_of_planted_trees]
-              -total += price
-          %tr
-            %td
-              $
-              =price = @subscription.associated_branches.map(&:annual_levy).sum
-              -total += price
-          %tr
-            %td
-              $
-              =price = @subscription.action_groups.map(&:annual_levy).sum
-              -total += price
-      %td
-      %td
-      %td
-    %tr
-      %td
-        &nbsp;
-      %td
-      %td
-    %tr
-      %td
-        %h4 Subtotal
-      %td
-        $
-        =total
-      %td
-    %tr
-      %td
-        %p
-          Please amend anything that has changed and write the total in the total column.
-          %br
-          Other forest size options:
-          -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
-          =keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size]})" }.join(' and ')
-      %td
-      %td
-
-:css
-  .section {
-    padding: 5px;
-    margin: 5px;
-  }
-
-.section
-  %h3 Additional Options
-  %h4 Associate Branches
-  %table
-    -branches = Branch.find(:all, :order => 'name') - @subscription.branches
-    -branches.in_groups_of(2) do |group|
-      %tr
-        -group.compact.each do |b|
-          %td=check_box_tag b.id
-          %td #{b.name} ($#{b.annual_levy.to_i})
-
-.section
-  %h4 Special Interest Groups
-  %table
-    -action_groups = ActionGroup.find(:all, :order => 'name') - @subscription.action_groups
-    -action_groups.in_groups_of(2) do |group|
-      %tr
-        -group.compact.each do |b|
-          %td=check_box_tag b.id
-          %td #{b.name} ($#{b.annual_levy.to_i})
+-if @subscription.membership_type == 'full'
+  =render 'print_account_full_member'
+-else
+  =render 'print_account_casual_member'
 
 .section
   %h4 Voluntary Research Contribution (Suggested - $10)
-  =check_box_tag :box 
+  =check_box_tag :box
   Tick if yout want your Research Contribtion treated as a donation 
-  (previously #{@subscription.research_fund_contribution_is_donation ? 'ticked' : 'not ticked'})
 
 .section
   %h4 Other Products
@@ -176,26 +117,6 @@
         GST Inclusive Total
       %td{:style => 'width: 15%'}
         $
-
-
-:css
-  .payment-options {
-    width: 100%;
-  }
-  .payment-box {
-    line-height: 3em;
-    border: 1px solid #000
-  }
-  .payment {
-    width: 100%;
-  }
-  .creditcard {
-    width: 70%;
-    height: 2em;
-  }
-  .bx {
-    border: 1px solid #000
-  }
 
 %br
 .payment-box.section
@@ -256,7 +177,9 @@
       %td Cardholder Signature
       %td
     %tr
-      %td NZFFA Member #
+      %td
+        NZFFA Member
+        =@reader.nzffa_membership_id
       %td
       %td Invoice #
       %td

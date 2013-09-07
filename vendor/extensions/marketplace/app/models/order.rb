@@ -18,6 +18,40 @@ class Order < ActiveRecord::Base
 
   after_save :check_if_paid
 
+  def combined_full_member_levy
+    # assume full member
+    admin_levy_line = order_lines.select{|l| l.kind == 'admin_levy'}.first
+    forest_size_levy_line = order_lines.select{|l| l.kind == 'forest_size_levy'}.first
+    tree_grower_levy_line = order_lines.select{|l| l.kind == 'nz_tree_grower_magazine_levy'}.first
+
+    total = admin_levy_line.amount +
+            forest_size_levy_line.amount +
+            tree_grower_levy_line.amount +
+            main_branch_levy
+  end
+
+  def associated_branches_levy
+    total = order_lines.select{|l| l.kind == 'branch_levy'}.map(&:amount).sum
+    total - main_branch_levy
+  end
+
+  def main_branch_levy
+    admin_levy_line = order_lines.select{|l| l.kind == 'admin_levy'}.first
+    main_branch_name = admin_levy_line.particular
+    main_branch_levy_line = order_lines.select do |l|
+      l.kind == 'branch_levy' && l.particular == main_branch_name
+    end.first
+    main_branch_levy_line.amount
+  end
+
+  def action_groups_levy
+    order_lines.select{|l| l.kind == 'action_group_levy'}.map(&:amount).sum
+  end
+
+  def casual_nz_tree_grower_levy
+    order_lines.select{|l| l.kind == 'casual_member_nz_tree_grower_magazine_levy'}.map(&:amount).sum
+  end
+
   def before_destroy
     unless is_deletable?
       errors.add_to_base('You cannot delete an order that has been paid online')

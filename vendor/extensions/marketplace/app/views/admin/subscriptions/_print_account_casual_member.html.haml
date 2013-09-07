@@ -1,0 +1,44 @@
+.section
+  %h3 Subscription Renewal / Tax Invoice
+  %h3 #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
+  %table{:style => 'width: 100%'}
+    %tr
+      %td{:style => 'width: 70%'}
+        Description
+      %td{:style => 'width: 15%'}
+        Rate
+      %td{:style => 'width: 15%'}
+        Total
+    -total = 0
+    -if @subscription.belong_to_fft?
+      %tr
+        %td
+          Farm Forestry Timbers Online Marketplace
+        %td
+          $
+          =price = NzffaSettings.casual_member_fft_marketplace_levy
+          -total += price
+
+    -if @subscription.receive_tree_grower_magazine?
+      %tr
+        %td
+          -case @subscription.tree_grower_delivery_location
+          -when 'new_zealand'
+            NZ Tree Grower Magazine
+          -when 'australia'
+            NZ Tree Grower Magazine (delivered within Australia)
+          -when 'everywhere_else'
+            NZ Tree Grower Magazine (International delivery)
+          =pluralize(@subscription.nz_tree_grower_copies, 'copy')
+        %td
+          $
+          =price = @order.casual_nz_tree_grower_levy
+          -total += price
+    %tr
+      %td
+        %h4 Subtotal
+      %td
+        $
+        =total
+      %td
+

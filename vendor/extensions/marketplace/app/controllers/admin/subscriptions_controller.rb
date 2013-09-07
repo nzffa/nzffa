@@ -14,6 +14,7 @@ class Admin::SubscriptionsController < AdminController
 
   def print
     @subscription = Subscription.find(params[:id])
+    @order = CreateOrder.from_subscription(@subscription)
     @reader = @subscription.reader
   end
 

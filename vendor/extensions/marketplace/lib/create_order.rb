@@ -44,7 +44,7 @@ class CreateOrder
                        :particular => subscription.main_branch_name,
                        :amount => admin_levy_amount)
 
-      order.add_charge(:kind => 'forest_size_levy', 
+      order.add_charge(:kind => 'forest_size_levy',
                        :particular => subscription.ha_of_planted_trees,
                        :amount => forest_size_levy_amount)
 

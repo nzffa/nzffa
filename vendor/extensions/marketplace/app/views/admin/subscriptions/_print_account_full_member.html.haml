@@ -1,0 +1,102 @@
+.section
+  %h3 Subscription Renewal / Tax Invoice
+  %h3 #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
+  %table{:style => 'width: 100%'}
+    %tr
+      %td{:style => 'width: 70%'}
+      %td{:style => 'width: 15%'}
+        Rate
+      %td{:style => 'width: 15%'}
+        Total
+    %tr
+      %td
+        %table.current_subscription
+          %tr
+            %td Main Branch and Forest Area
+            %td
+              =@subscription.main_branch_name
+
+              =@subscription.ha_of_planted_trees
+              ha
+          -if @subscription.belong_to_fft?
+            %tr
+              %td Farm Forestry Timbers Marketplace
+              %td
+          %tr
+            %td Associate Branches
+            %td=@subscription.associated_branch_names.join(', ')
+          %tr
+            %td Action Groups
+            %td=@subscription.action_group_names.join(', ')
+      %td
+        %table
+          -total = 0
+          %tr
+            %td
+              $
+              =price = @order.combined_full_member_levy
+              -total += price
+          -if @subscription.belong_to_fft?
+            %tr
+              %td
+                $
+                =NzffaSettings.full_member_fft_marketplace_levy
+
+          %tr
+            %td
+              $
+              =price = @order.associated_branches_levy
+              -total += price
+          %tr
+            %td
+              $
+              =price = @order.action_groups_levy
+              -total += price
+      %td
+      %td
+      %td
+    %tr
+      %td
+        &nbsp;
+      %td
+      %td
+    %tr
+      %td
+        %h4 Subtotal
+      %td
+        $
+        =total
+      %td
+    %tr
+      %td
+        %p
+          Please amend anything that has changed and write the total in the total column.
+          %br
+          Other forest size options:
+          -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
+          =keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size]})" }.join(' and ')
+      %td
+      %td
+
+
+.section
+  %h3 Additional Options
+  %h4 Associate Branches
+  %table
+    -branches = Branch.find(:all, :order => 'name') - @subscription.branches
+    -branches.in_groups_of(2) do |group|
+      %tr
+        -group.compact.each do |b|
+          %td=check_box_tag b.id
+          %td #{b.name} ($#{b.annual_levy.to_i})
+
+.section
+  %h4 Special Interest Groups
+  %table
+    -action_groups = ActionGroup.find(:all, :order => 'name') - @subscription.action_groups
+    -action_groups.in_groups_of(2) do |group|
+      %tr
+        -group.compact.each do |b|
+          %td=check_box_tag b.id
+          %td #{b.name} ($#{b.annual_levy.to_i})
+

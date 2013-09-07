@@ -56,6 +56,10 @@ module ReaderMixin
     end
   end
 
+  def has_real_email_address?
+    !(email =~ /(\d+)@nzffa.org.nz/)
+  end
+
   def postal_address
     [post_line1,
      post_line2,
@@ -134,6 +138,10 @@ module ReaderMixin
       group_ids += active_subscription.action_groups.map(&:group_id)
       group_ids.join(' ')
     end
+  end
+
+  def current_branches_from_groups
+    Branch.find(:all, :conditions => {:group_id => group_ids})
   end
 
   def action_group_names
