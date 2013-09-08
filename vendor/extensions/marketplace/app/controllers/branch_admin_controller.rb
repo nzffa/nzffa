@@ -1,13 +1,21 @@
 class BranchAdminController < MarketplaceController
   before_filter :require_current_reader
   before_filter :require_branch_secretary
-  before_filter :load_group_and_readers, :only => [:index, :email]
+  before_filter :load_group_and_readers
   radiant_layout "no_layout"
 
   def index
+    @group = Group.find(params[:group_id])
+    @readers = @group.readers
   end
 
   def email
+    @group = Group.find(params[:group_id])
+
+    @group_readers = @group.readers
+    @readers = Reader.find(:all,
+                       :conditions => ['(email not like "%@nzffa.org.nz") AND
+                                       readers.id IN (?)', @group_readers.map(&:id)])
   end
 
   def edit
@@ -25,15 +33,6 @@ class BranchAdminController < MarketplaceController
     end
   end
 
-  private
-  def load_group_and_readers
-    @group = Group.find(params[:group_id])
-
-    @group_readers = @group.readers
-    @readers = Reader.find(:all,
-                       :conditions => ['(email not like "%@nzffa.org.nz") AND
-                                       readers.id IN (?)', @group_readers.map(&:id)])
-  end
 
   def require_branch_secretary
     @group = Group.find(params[:group_id])
