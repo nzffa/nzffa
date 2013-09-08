@@ -1,7 +1,6 @@
 class BranchAdminController < MarketplaceController
   before_filter :require_current_reader
   before_filter :require_branch_secretary
-  before_filter :load_group_and_readers
   radiant_layout "no_layout"
 
   def index
