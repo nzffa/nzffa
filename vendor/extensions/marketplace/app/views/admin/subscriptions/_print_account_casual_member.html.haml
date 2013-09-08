@@ -1,6 +1,5 @@
 .section
-  %h3 Subscription Renewal / Tax Invoice
-  %h3 #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
+  %h3 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
   %table{:style => 'width: 100%'}
     %tr
       %td{:style => 'width: 70%'}

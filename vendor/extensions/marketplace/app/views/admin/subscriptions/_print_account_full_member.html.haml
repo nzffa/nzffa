@@ -1,6 +1,5 @@
 .section
-  %h3 Subscription Renewal / Tax Invoice
-  %h3 #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
+  %h3 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
   %table{:style => 'width: 100%'}
     %tr
       %td{:style => 'width: 70%'}
@@ -80,11 +79,10 @@
 
 
 .section
-  %h3 Additional Options
   %h4 Associate Branches
   %table
     -branches = Branch.find(:all, :order => 'name') - @subscription.branches
-    -branches.in_groups_of(2) do |group|
+    -branches.in_groups_of(4) do |group|
       %tr
         -group.compact.each do |b|
           %td=check_box_tag b.id

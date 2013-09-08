@@ -16,6 +16,7 @@ class Admin::SubscriptionsController < AdminController
     @subscription = Subscription.find(params[:id])
     @order = CreateOrder.from_subscription(@subscription)
     @reader = @subscription.reader
+    render :layout => false
   end
 
   def new
