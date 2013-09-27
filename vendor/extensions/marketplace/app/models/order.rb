@@ -20,14 +20,31 @@ class Order < ActiveRecord::Base
 
   def combined_full_member_levy
     # assume full member
-    admin_levy_line = order_lines.select{|l| l.kind == 'admin_levy'}.first
-    forest_size_levy_line = order_lines.select{|l| l.kind == 'forest_size_levy'}.first
-    tree_grower_levy_line = order_lines.select{|l| l.kind == 'nz_tree_grower_magazine_levy'}.first
-
-    total = admin_levy_line.amount +
-            forest_size_levy_line.amount +
-            tree_grower_levy_line.amount +
+    total = admin_levy+
+            forest_size_levy+
+            full_member_tree_grower_levy+
             main_branch_levy
+  end
+
+  def casual_member_fft_and_admin_levy
+     casual_member_fft_levy + admin_levy
+  end
+
+  def casual_member_fft_levy
+    line_amount(order_lines.select{|l| (l.kind == 'fft_marketplace_levy') &&
+                           (l.particular == 'casual_membership') }.first)
+  end
+
+  def admin_levy
+    order_lines.select{|l| l.kind == 'admin_levy'}.first.amount
+  end
+
+  def forest_size_levy
+    order_lines.select{|l| l.kind == 'forest_size_levy'}.first.amount
+  end
+
+  def full_member_tree_grower_levy
+    order_lines.select{|l| l.kind == 'nz_tree_grower_magazine_levy'}.first.amount
   end
 
   def associated_branches_levy
@@ -137,5 +154,10 @@ class Order < ActiveRecord::Base
         old_subscription.cancel!
       end
     end
+  end
+
+  private
+  def line_amount(line)
+    line ? line.amount : 0
   end
 end

@@ -181,4 +181,5 @@ class Subscription < ActiveRecord::Base
          CalculatesSubscriptionLevy.fraction_used(begins_on, expires_on))
     end
   end
+
 end

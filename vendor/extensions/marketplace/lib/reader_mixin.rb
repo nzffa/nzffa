@@ -191,4 +191,20 @@ module ReaderMixin
     (group_ids & [204, 237, 240, 205, 211, 226, 214, 203, 216, 235, 219, 220]).join(' ')
   end
 
+  def is_branch_life_member?
+    special_cases.split(' ').include? '101'
+  end
+
+  def is_paid_branch_life_member?
+    special_cases.split(' ').include? '111'
+  end
+
+  def is_life_member?
+    special_cases.split(' ').include? '107'
+  end
+
+  def is_direct_debit?
+    special_cases.split(' ').include? '204'
+  end
+
 end

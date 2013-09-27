@@ -15,7 +15,7 @@
           Farm Forestry Timbers Online Marketplace
         %td
           $
-          =price = NzffaSettings.casual_member_fft_marketplace_levy
+          =price = @order.casual_member_fft_and_admin_levy
           -total += price
 
     -if @subscription.receive_tree_grower_magazine?

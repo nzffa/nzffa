@@ -34,7 +34,9 @@ class CreateOrder
   def initialize(subscription)
     @subscription = subscription
   end
+
   attr_accessor :subscription
+  delegate :reader, :to => :subscription
 
   def create_order
     order = Order.new
@@ -127,16 +129,31 @@ class CreateOrder
   end
 
   def branch_levy_amount(branch)
-    subscription.length_in_years * branch.annual_levy
+    if (subscription.main_branch == branch) and
+      (reader.is_branch_life_member? or
+       reader.is_paid_branch_life_member? or
+       reader.is_life_member?)
+      0
+    else
+      subscription.length_in_years * branch.annual_levy
+    end
   end
  
   def forest_size_levy_amount
-    subscription.length_in_years * 
-      NzffaSettings.forest_size_levys[subscription.ha_of_planted_trees]
-  end 
+    if reader.is_branch_life_member? or reader.is_life_member?
+      0
+    else
+      subscription.length_in_years *
+        NzffaSettings.forest_size_levys[subscription.ha_of_planted_trees]
+    end
+  end
 
   def admin_levy_amount
-    @subscription.length_in_years * NzffaSettings.admin_levy
+    if reader.is_branch_life_member? or reader.is_life_member?
+      0
+    else
+      @subscription.length_in_years * NzffaSettings.admin_levy
+    end
   end 
 
   def casual_nz_tree_grower_levy

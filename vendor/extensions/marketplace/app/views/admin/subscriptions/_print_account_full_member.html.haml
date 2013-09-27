@@ -68,6 +68,12 @@
       %td
     %tr
       %td
+        - if reader.is_branch_life_member?
+          %p As you are a Life Member of your branch, your base subscription is paid by the branch.
+        - if reader.is_paid_branch_life_member?
+          %p Paid branch life member.
+        - if reader.is_life_member?
+          %p As you are a Life Member of NZFFA, your base subscription is paid by the association.
         %p
           Please amend anything that has changed and write the total in the total column.
           %br

@@ -35,6 +35,7 @@
   %table{:style => 'width: 100%'}
     %tr
       %td
+        =image_tag 'admin/nzffa_print_logo.png'
       %td
         National Office
         %br
@@ -72,10 +73,11 @@
       Please provide email address
       =text_field_tag :email_address
 
-    -unless @reader.receive_nzffa_members_newsletter?
-      %br
-      =check_box_tag :subscribe_to_nzffa_newsletter
-      Tick to receive the NZFFA newsletter
+    -if @reader.full_nzffa_member?
+      -unless @reader.receive_nzffa_members_newsletter?
+        %br
+        =check_box_tag :subscribe_to_nzffa_newsletter
+        Tick to receive the NZFFA newsletter
 
 -if @subscription.membership_type == 'full'
   =render 'print_account_full_member'
@@ -85,7 +87,7 @@
 .section
   %h4 Voluntary Research Contribution (Suggested - $10)
   =check_box_tag :box
-  Tick if yout want your Research Contribtion treated as a donation 
+  Tick if you want your Research Contribution treated as a donation 
 
 .section
   %h4 Other Products
@@ -122,6 +124,8 @@
 
 %br
 .payment-box.section
+  - if @reader.is_direct_debit?
+    %p Based on your payment last year, the following will be debited from your bank account on [date]. If you want to change the arrangement or the amount, please contact us before that date
   Want to pay online? Visit www.nzffa.org.nz
   %br
   Other payment methods:
