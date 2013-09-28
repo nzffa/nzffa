@@ -213,7 +213,7 @@ module ReaderMixin
     if special_cases.present?
       special_cases.split(' ').include? '111'
     else
-      false
+      []
     end
   end
 
