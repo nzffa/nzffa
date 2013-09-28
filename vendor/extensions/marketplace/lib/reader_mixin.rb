@@ -192,19 +192,29 @@ module ReaderMixin
   end
 
   def is_branch_life_member?
-    special_cases.split(' ').include? '101'
+    split_special_cases.include? '101'
   end
 
   def is_paid_branch_life_member?
-    special_cases.split(' ').include? '111'
+    split_special_cases.include? '111'
   end
 
   def is_life_member?
-    special_cases.split(' ').include? '107'
+    split_special_cases.include? '107'
   end
 
   def is_direct_debit?
-    special_cases.split(' ').include? '204'
+    split_special_cases.include? '204'
+  end
+
+  private
+
+  def split_special_cases
+    if special_cases.present?
+      special_cases.split(' ').include? '111'
+    else
+      false
+    end
   end
 
 end
