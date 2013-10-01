@@ -4,6 +4,11 @@ class Admin::SubscriptionsController < AdminController
 
   before_filter :load_reader, :only => [:new, :create]
 
+  def print_groups
+    start_of_next_year = Date.parse("#{Date.today.year+1}-01-01")
+    @subscriptions = Subscription.active.find(:all, :conditions => ['expires_on < ?', start_of_next_year])
+  end
+
   def index
     @subscriptions = Subscription.paginate(:page => params[:page], :order => 'id desc')
   end

@@ -224,7 +224,7 @@ module ReaderMixin
 
   def split_special_cases
     if special_cases.present?
-      special_cases.split(' ').include? '111'
+      special_cases.split(' ')
     else
       []
     end

@@ -82,6 +82,7 @@ Given /^Eucalyptus Action Group is \$30$/ do
 end
 
 Then /^I should belong to the Tree Grower Magazine group$/ do
+  @reader.reload
   @reader.groups.should include @tree_grower_magazine_group
 end
 
@@ -273,6 +274,6 @@ Then /^I should belong to the Tree Grower Magazine Australia group$/ do
 end
 
 Given /^there is a Tree Grower Magazine Australia group$/ do
-  group = Group.create(:name => 'Tree grower magazine australia')
+  @tree_grower_magazine_australia_group = Group.create(:name => 'Tree grower magazine australia')
   NzffaSettings.tree_grower_magazine_australia_group_id = group.id
 end

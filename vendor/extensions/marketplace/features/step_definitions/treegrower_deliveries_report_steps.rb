@@ -3,6 +3,7 @@ Given /^there is a reader with a treegrower subscription for (\d+)$/ do |arg1|
   @reader = Reader.create!(:email => 'test@example.org',
                           :forename => 'jim',
                           :surname => 'david',
+                          :post_city => 'region',
                           :password => 'password',
                           :password_confirmation => 'password',
                           :post_line1 => 'an address',

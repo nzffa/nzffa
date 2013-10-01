@@ -5,6 +5,7 @@ Given /^the reader's subscription is due to expire in (\d+) days$/ do |arg1|
 
   Order.create!(:subscription => @subscription,
                 :amount => CalculatesSubscriptionLevy.levy_for(@subscription),
+                :payment_method => 'Cheque',
                 :paid_on => Date.today)
 
   @subscription.update_attribute(:expires_on, 30.days.from_now)
@@ -17,6 +18,7 @@ Given /^the reader's subscription is due to expire today$/ do
 
   Order.create!(:subscription => @subscription,
                 :amount => CalculatesSubscriptionLevy.levy_for(@subscription),
+                :payment_method => 'Cheque',
                 :paid_on => Date.today)
 
   @subscription.update_attribute(:expires_on, Date.today)

@@ -4,6 +4,7 @@ Given /^there is a reader called John Tree$/ do
                               :email => 'john@tree.com',
                               :post_line1 => 'an address',
                               :post_province => 'province line',
+                              :post_city => 'region',
                               :postcode => '12345',
                               :password => 'secret',
                               :password_confirmation => 'secret')
@@ -14,6 +15,7 @@ Given /^there is a reader called Helen Bark$/ do
                               :post_line1 => 'an address',
                               :post_province => 'province line',
                               :postcode => '12345',
+                              :post_city => 'region',
                              :surname => 'Bark',
                              :email => 'helen@bark.com',
                              :password => 'secret',

@@ -15,6 +15,7 @@ Feature: User upgrades their subscription
     And Tree Grower Magazine is $50 for full members
     And Tree Grower Magazine "Australia" is $50 / year
     And there is a Tree Grower Magazine group
+    And there is a Tree Grower Magazine Australia group
     And there is a FFT Marketplace group
     And there is a Full Membership group
     And there is a members newsletter group
@@ -40,7 +41,7 @@ Feature: User upgrades their subscription
     And I should see "$25"
     When I enter my credit card details
     Then I should see that payment was successful
-    And I should belong to the Tree Grower Magazine group
+    And I should belong to the Tree Grower Magazine Australia group
     And I should belong to the FFT Marketplace group
     And my original subscription should be cancelled
     And my new subscription should be active

@@ -1,5 +1,20 @@
 Given /^there is an Otago branch and group and a member$/ do
   @group = Group.create!(:name => 'Otago')
+
+  groups = {:past_members_group => 237,
+            :newsletter_editors_group => 214,
+            :fft_group => 211,
+            :councillors_group => 203,
+            :fft_newsletter => 230,
+            :presidents_group => 216,
+            :treasurers_group => 220}
+
+  groups.each_pair do |name, id|
+    g = Group.new(:name => name.to_s)
+    g.id = id
+    g.save!
+  end
+  
   @branch = Branch.create!(:name => 'Otago', :group_id => @group.id)
   @member = Reader.create!(:email => 'member@example.org',
                            :forename => 'member',
@@ -81,7 +96,6 @@ Then /^I should be redirected somewhere$/ do
 end
 
 When /^I click edit next to the first reader in the list$/ do
-  save_and_open_page
   click_on 'Edit'
 end
 
@@ -90,6 +104,5 @@ When /^I change their name$/ do
 end
 
 Then /^I should see that the reader was updated$/ do
-  page.should have_content 'Member Updated'
-
+  page.should have_content 'updated'
 end

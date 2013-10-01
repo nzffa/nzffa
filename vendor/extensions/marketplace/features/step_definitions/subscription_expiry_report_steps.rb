@@ -4,6 +4,7 @@ Given /^a reader had a subscription that expired a week ago$/ do
                            :surname => 'david',
                            :password => 'password',
                            :password_confirmation => 'password',
+                           :post_city => 'region',
                            :post_line1 => 'an address',
                            :post_province => 'province line',
                            :postcode => '12345')
@@ -53,6 +54,7 @@ Given /^a reader had a subscription that expired (\d+) months? ago$/ do |arg1|
                            :surname => 'david',
                            :password => 'password',
                            :password_confirmation => 'password',
+                           :post_city => 'region',
                            :post_line1 => 'an address',
                            :post_province => 'province line',
                            :postcode => '12345')
