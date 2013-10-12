@@ -16,7 +16,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :expires_on, :begins_on
   validates_presence_of :reader
 
-  validates_inclusion_of :ha_of_planted_trees, 
+  validates_inclusion_of :ha_of_planted_trees,
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
 
   named_scope :expiring_on, lambda {|expiry_date| 
@@ -60,14 +60,21 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.new_with_same_attributes(old_sub)
+
     new do |sub|
       [:reader,
        :membership_type,
        :main_branch,
        :branches,
        :action_groups,
+       :special_interest_groups,
        :begins_on,
        :expires_on,
+       :belong_to_fft,
+       :receive_tree_grower_magazine,
+       :contribute_to_research_fund,
+       :research_fund_contribution_amount,
+       :research_fund_contribution_is_donation,
        :tree_grower_delivery_location,
        :ha_of_planted_trees,
        :nz_tree_grower_copies].each do |attr|
