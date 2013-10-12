@@ -59,8 +59,36 @@ class Subscription < ActiveRecord::Base
     nil
   end
 
+  def self.new_with_same_attributes(old_sub)
+    new do |sub|
+      [:reader,
+       :membership_type,
+       :main_branch,
+       :branches,
+       :action_groups,
+       :begins_on,
+       :expires_on,
+       :tree_grower_delivery_location,
+       :ha_of_planted_trees,
+       :nz_tree_grower_copies].each do |attr|
+         sub.send "#{attr}=", old_sub.send(attr)
+       end
+    end
+  end
+
+  def renew_for_year(year)
+    subscription = Subscription.new_with_same_attributes(self)
+
+    beginning_of_next_year = Date.parse "#{year}-01-01"
+    end_of_next_year       = Date.parse "#{year}-12-31"
+
+    subscription.begins_on = beginning_of_next_year
+    subscription.expires_on = end_of_next_year
+    subscription
+  end
+
   def can_upgrade?
-    paid? and !cancelled?
+    paid? and not cancelled?
   end
 
   def paid?

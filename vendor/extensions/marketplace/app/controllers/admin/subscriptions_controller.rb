@@ -12,30 +12,17 @@ class Admin::SubscriptionsController < AdminController
     @num_batches = @subscriptions_count / @batch_size
   end
 
-  def print
-    @subscription = Subscription.find(params[:id])
-    @order = CreateOrder.from_subscription(@subscription)
-    @reader = @subscription.reader
-    render :layout => false
-  end
-
   def print_batch
     read_batch_params
-
-    # sorry dear reader..
-    # this grabs the old subscriptions and groups them into batches
-    # then we modify the inmemory dates, and make non persisted orders
-    # and non persisted subscriptions to display
-    #
-    @unsaved_orders = Subscription.
-                      expiring_before(@expiring_before).
-                      each_slice(@batch_size).map{|g| g }[@batch].map do |sub|
+    @unsaved_orders = subscriptions_in_batches.to_a[@batch].map do |sub|
                         sub.begins_on = @expiring_before
-                        sub.expires_on = Date.parse("#{@expiring_before.year}-12-31")
+                        sub.expires_on = @expiring_before.at_end_of_year
                         CreateOrder.from_subscription(sub)
                       end
     render :layout => false
   end
+
+
 
   def index
     @subscriptions = Subscription.paginate(:page => params[:page], :order => 'id desc')
@@ -43,6 +30,19 @@ class Admin::SubscriptionsController < AdminController
 
   def show
     @subscription = Subscription.find(params[:id])
+  end
+
+  def print
+    @subscription = Subscription.find(params[:id])
+    @order = @subscription.order
+    render :layout => false
+  end
+
+  def print_renewal
+    old_sub = Subscription.find(params[:id])
+    @subscription = old_sub.renew_for_year(Date.today.year+1)
+    @order = CreateOrder.from_subscription(@subscription)
+    render 'print', :layout => false
   end
 
   def new
@@ -72,15 +72,17 @@ class Admin::SubscriptionsController < AdminController
     end
   end
 
+  def renew
+    old_sub = Subscription.find(params[:id])
+    @subscription = old_sub.renew_for_year(Date.today.year+1)
+    @action_path = admin_reader_subscriptions_path(@subscription.reader)
+    render 'subscriptions/new'
+  end
 
   def create
-    if Subscription.active_subscription_for(@reader)
-      flash[:error] = 'This reader already has an active subscription'
-      redirect_to admin_subscriptions_path and return
-    end
     @subscription = Subscription.new(params[:subscription])
     @subscription.reader = @reader
-    
+
     if @subscription.save!
       @order = CreateOrder.from_subscription(@subscription)
       @order.save
@@ -125,8 +127,12 @@ class Admin::SubscriptionsController < AdminController
     #redirect_to admin_subscriptions_path
   #end
 
-
   private
+
+  def subscriptions_in_batches
+    Subscription.expiring_before(@expiring_before).each_slice(@batch_size)
+  end
+
   def load_reader
     unless params[:reader_id]
       flash[:error] = 'reader_id required'
