@@ -1,41 +1,13 @@
-:css
-  body {
-    font-size: 12pt;
-  }
-  table {
-    font-size: 8pt;
-  }
-  .section {
-    padding: 5px;
-    margin: 5px;
-  }
-
-  .payment-options {
-    width: 100%;
-  }
-  .payment-box {
-    line-height: 3em;
-    border: 1px solid #000
-  }
-  .payment {
-    width: 100%;
-  }
-  .creditcard {
-    width: 70%;
-    height: 2em;
-  }
-  .bx {
-    border: 1px solid #000
-  }
-
-
-%h1 New Zealand Farm Forestry Association
 
 .section
   %table{:style => 'width: 100%'}
     %tr
       %td
-        =image_tag 'admin/nzffa_print_logo.png'
+    %tr
+      %td
+        New Zealand Farm Forestry Association
+        %br
+        =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
       %td
         National Office
         %br
@@ -189,4 +161,4 @@
       %td
       %td Invoice #
       %td
-
+.page-break

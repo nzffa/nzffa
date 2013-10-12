@@ -44,7 +44,10 @@ ActionController::Routing::Routes.draw do |map|
                                                                :members => :get, 
                                                                :deliveries => :get, 
                                                                :expiries => :get}
-    admin.resources :subscriptions, :member => { :print => :get }, :collection => {:print_groups => :get}
+    admin.resources :subscriptions,
+      :member => { :print => :get },
+      :collection => {:batches_to_print => :get,
+                      :print_batch => :get}
     admin.resources :adverts
     admin.resources :readers_plus, :except => [:new, :create], :member => [:create_user]
     admin.resources :orders

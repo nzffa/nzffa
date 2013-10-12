@@ -4,9 +4,37 @@ class Admin::SubscriptionsController < AdminController
 
   before_filter :load_reader, :only => [:new, :create]
 
-  def print_groups
-    start_of_next_year = Date.parse("#{Date.today.year+1}-01-01")
-    @subscriptions = Subscription.active.find(:all, :conditions => ['expires_on < ?', start_of_next_year])
+  def batches_to_print
+    read_batch_params
+    @options = batch_params_hash
+    @subscriptions = Subscription.expiring_before(@expiring_before)
+    @subscriptions_count = @subscriptions.count
+    @num_batches = @subscriptions_count / @batch_size
+  end
+
+  def print
+    @subscription = Subscription.find(params[:id])
+    @order = CreateOrder.from_subscription(@subscription)
+    @reader = @subscription.reader
+    render :layout => false
+  end
+
+  def print_batch
+    read_batch_params
+
+    # sorry dear reader..
+    # this grabs the old subscriptions and groups them into batches
+    # then we modify the inmemory dates, and make non persisted orders
+    # and non persisted subscriptions to display
+    #
+    @unsaved_orders = Subscription.
+                      expiring_before(@expiring_before).
+                      each_slice(@batch_size).map{|g| g }[@batch].map do |sub|
+                        sub.begins_on = @expiring_before
+                        sub.expires_on = Date.parse("#{@expiring_before.year}-12-31")
+                        CreateOrder.from_subscription(sub)
+                      end
+    render :layout => false
   end
 
   def index
@@ -15,13 +43,6 @@ class Admin::SubscriptionsController < AdminController
 
   def show
     @subscription = Subscription.find(params[:id])
-  end
-
-  def print
-    @subscription = Subscription.find(params[:id])
-    @order = CreateOrder.from_subscription(@subscription)
-    @reader = @subscription.reader
-    render :layout => false
   end
 
   def new
@@ -112,5 +133,15 @@ class Admin::SubscriptionsController < AdminController
       redirect_to admin_readers_plus_path and return
     end
     @reader = Reader.find(params[:reader_id])
+  end
+
+  def read_batch_params
+    @batch = Integer(params.fetch(:batch) { 0 })
+    @expiring_before = Date.parse(params.fetch(:expiring_before) { "#{Date.today.year + 1}-01-01"})
+    @batch_size = Integer(params.fetch(:batch_size) { 20 })
+  end
+
+  def batch_params_hash
+    {:batch_size => @batch_size, :expiring_before => @expiring_before}
   end
 end
