@@ -31,20 +31,19 @@ class Order < ActiveRecord::Base
   end
 
   def casual_member_fft_levy
-    line_amount(order_lines.select{|l| (l.kind == 'fft_marketplace_levy') &&
-                           (l.particular == 'casual_membership') }.first)
+    line_amount('fft_marketplace_levy', 'casual_membership')
   end
 
   def admin_levy
-    order_lines.select{|l| l.kind == 'admin_levy'}.first.amount
+    line_amount(:admin_levy)
   end
 
   def forest_size_levy
-    order_lines.select{|l| l.kind == 'forest_size_levy'}.first.amount
+    line_amount('forest_size_levy')
   end
 
   def full_member_tree_grower_levy
-    order_lines.select{|l| l.kind == 'nz_tree_grower_magazine_levy'}.first.amount
+    line_amount('nz_tree_grower_magazine_levy')
   end
 
   def associated_branches_levy
@@ -54,6 +53,7 @@ class Order < ActiveRecord::Base
 
   def main_branch_levy
     admin_levy_line = order_lines.select{|l| l.kind == 'admin_levy'}.first
+    return 0 unless admin_levy_line
     main_branch_name = admin_levy_line.particular
     main_branch_levy_line = order_lines.select do |l|
       l.kind == 'branch_levy' && l.particular == main_branch_name
@@ -157,7 +157,14 @@ class Order < ActiveRecord::Base
   end
 
   private
-  def line_amount(line)
+  def line_amount(kind, particular = nil)
+    line = order_lines.select do |l|
+      if particular.nil?
+        l.kind == kind.to_s
+      else
+        l.kind == kind.to_s && l.particular == particular
+      end
+    end.first
     line ? line.amount : 0
   end
 end
