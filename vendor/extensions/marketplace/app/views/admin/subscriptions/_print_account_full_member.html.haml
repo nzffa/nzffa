@@ -1,5 +1,4 @@
 .section
-  %h3 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
   %table{:style => 'width: 100%'}
     %tr
       %td{:style => 'width: 70%'}
@@ -75,32 +74,9 @@
         - if @reader.is_life_member?
           %p As you are a Life Member of NZFFA, your base subscription is paid by the association.
         %p
-          Please amend anything that has changed and write the total in the total column.
-          %br
-          Other forest size options:
-          -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
-          =keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size]})" }.join(' and ')
+          If you wish to change your subscription, please fill in the subscription form and return with updated remittance advice slip.
       %td
       %td
 
 
-.section
-  %h4 Associate Branches
-  %table
-    -branches = Branch.find(:all, :order => 'name') - @subscription.branches
-    -branches.in_groups_of(4) do |group|
-      %tr
-        -group.compact.each do |b|
-          %td=check_box_tag b.id
-          %td #{b.name} ($#{b.annual_levy.to_i})
-
-.section
-  %h4 Special Interest Groups
-  %table
-    -action_groups = ActionGroup.find(:all, :order => 'name') - @subscription.action_groups
-    -action_groups.in_groups_of(2) do |group|
-      %tr
-        -group.compact.each do |b|
-          %td=check_box_tag b.id
-          %td #{b.name} ($#{b.annual_levy.to_i})
 

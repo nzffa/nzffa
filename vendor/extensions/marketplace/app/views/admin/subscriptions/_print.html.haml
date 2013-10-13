@@ -1,4 +1,3 @@
-
 .section
   %table{:style => 'width: 100%'}
     %tr.header
@@ -26,6 +25,8 @@
         www.nzffa.org.nz
 
 .section
+  %h3 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
+  %p &nbsp;
   %table.recipient
     %tr
       %td
@@ -58,108 +59,63 @@
 -else
   =render 'print_account_casual_member'
 
-.section
-  %h4 Voluntary Research Contribution (Suggested - $10)
-  =check_box_tag :box
-  Tick if you want your Research Contribution treated as a donation 
 
 .section
-  %h4 Other Products
-  %table{:width => '70%'}
-    %tr
-      %td Name
-      %td Price (each)
-      %td Quantity
-    %tr
-      %td Wardle's Native NZ Trees and their story
-      %td $95
-      %td
-    %tr
-      %td Neil Barr Book - Eucalypt Trees for Milling
-      %td $15
-      %td
-    %tr
-      %td NZFFA Gate Sign, Jersey Badge and Lapel Pin Pack
-      %td $15
-      %td
-    %tr
-      %td NZFFA Insignia Cap
-      %td $30
-      %td
-
-.section
-  %table{:style => 'width: 100%'}
-    %tr
-      %td{:style => 'width: 70%'}
-      %td{:style => 'width: 15%'}
-        GST Inclusive Total
-      %td{:style => 'width: 15%'}
-        $
-
-%br
-.payment-box.section
   - if @reader.is_direct_debit?
     %p Based on your payment last year, the following will be debited from your bank account on [date]. If you want to change the arrangement or the amount, please contact us before that date
-  Want to pay online? Visit www.nzffa.org.nz
-  %br
-  Other payment methods:
-  %br
-  %table.payment
-    %tr
-      %td{:colspan => 4}
-    %tr
-      %td
-        =check_box_tag :direct_debit
-        Direct Debit
-      %td
-        =check_box_tag :cheque
-        Cheque
-      %td
-        =check_box_tag :visa
-        Visa
-      %td
-        =check_box_tag :master_card
-        Mastercard
-      %td Sorry, American Express not accepted
+  .payment-box
+    %h3 Remittance Advice - Invoice #{@subscription.expires_on.year.to_s}-#{@reader.nzffa_membership_id}
+    %table.payment
+      %tr
+        %td{:colspan => 4}
+      %tr
+        %td
+          =check_box_tag :direct_debit
+          Direct Debit
+        %td
+          =check_box_tag :cheque
+          Cheque
+        %td
+          =check_box_tag :visa
+          Visa
+        %td
+          =check_box_tag :master_card
+          Mastercard
 
-  %table.payment
-    %tr
-      %td{:colspan => 4}
-        %table.creditcard
-          %tr
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-            %td.bx &nbsp;
-    %tr
-      %td Expiry
-      %td
-      %td Amount
-      %td
-    %tr
-      %td Cardholder Name
-      %td
-      %td Cardholder Signature
-      %td
-    %tr
-      %td
-        NZFFA Member
-        =@reader.nzffa_membership_id
-      %td
-      %td Invoice #
-      %td
+    %table.payment
+      %tr
+        %td{:colspan => 4}
+          %table.creditcard
+            %tr
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+              %td.bx &nbsp;
+      %tr
+        %td Expiry
+        %td
+        %td Amount
+        %td
+      %tr
+        %td Cardholder Name
+        %td
+        %td Cardholder Signature
+        %td
+    %p Want to pay online or make changes to your subscription? Visit www.nzffa.org.nz
+
+.page-break
