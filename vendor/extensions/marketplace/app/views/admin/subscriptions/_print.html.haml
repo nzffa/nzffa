@@ -1,13 +1,11 @@
 
 .section
   %table{:style => 'width: 100%'}
-    %tr
+    %tr.header
       %td
-    %tr
-      %td
-        New Zealand Farm Forestry Association
-        %br
-        =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
+        .nzffa-logo-box
+          =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
+        %h2 New Zealand Farm Forestry Association
       %td
         National Office
         %br
@@ -28,28 +26,32 @@
         www.nzffa.org.nz
 
 .section
-  %div{:style => 'border: 1px solid #000; padding: 10px'}
-    =@reader.name
-    (#{@reader.nzffa_membership_id})
-    %br
-    =simple_format @reader.postal_address.to_a.join("\n")
-
-    Telephone
-    =@reader.phone
-    %br
-
-    -if @reader.has_real_email_address?
-      Email
-      =@reader.email
-    -else
-      Please provide email address
-      =text_field_tag :email_address
-
-    -if @reader.full_nzffa_member?
-      -unless @reader.receive_nzffa_members_newsletter?
+  %table.recipient
+    %tr
+      %td
+        .envelope-window
+          =@reader.name
+          %br
+          =simple_format @reader.postal_address.to_a.join("\n")
+      %td
+        Membership id: #{@reader.nzffa_membership_id}
         %br
-        =check_box_tag :subscribe_to_nzffa_newsletter
-        Tick to receive the NZFFA newsletter
+        Telephone:
+        =@reader.phone
+        %br
+
+        -if @reader.has_real_email_address?
+          Email:
+          =@reader.email
+        -else
+          Please provide email address
+          =text_field_tag :email_address
+
+        -if @reader.full_nzffa_member?
+          -unless @reader.receive_nzffa_members_newsletter?
+            %br
+            =check_box_tag :subscribe_to_nzffa_newsletter
+            Tick to receive the NZFFA newsletter
 
 -if @subscription.membership_type == 'full'
   =render 'print_account_full_member'
@@ -161,4 +163,3 @@
       %td
       %td Invoice #
       %td
-.page-break

@@ -11,7 +11,7 @@
       %td
         %table.current_subscription
           %tr
-            %td Main Branch and Forest Area
+            %td Main Branch and Forest Area:
             %td
               =@subscription.main_branch_name
 
@@ -19,13 +19,13 @@
               ha
           -if @subscription.belong_to_fft?
             %tr
-              %td Farm Forestry Timbers Marketplace
+              %td Farm Forestry Timbers Marketplace:
               %td
           %tr
-            %td Associate Branches
+            %td Associate Branches:
             %td=@subscription.associated_branch_names.join(', ')
           %tr
-            %td Action Groups
+            %td Action Groups:
             %td=@subscription.action_group_names.join(', ')
       %td
         %table
