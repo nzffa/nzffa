@@ -2,9 +2,14 @@
 %link{:rel => 'stylesheet', :type => 'text/css', :href => '/stylesheets/normalize.css'}
 = render :partial => 'print_css'
 %h1 Subscription Renewal Form
+Things to include, expiry date or subscription time frame, full member or casual?
+if full member then main branch and associate branches, action groups, else just Tree Grower? (head online to order FFT?)
+
+Membership details, address, email, phone
 
 -keys = NzffaSettings.forest_size_levys.keys
 -areas = keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size]})" }
+
 %p Main Branch:
 %p
   Forest area in ha:
