@@ -1,0 +1,60 @@
+%b
+  Want to pay online?
+  Visit www.nzffa.org.nz
+
+Other payment methods:
+%table.payment
+  %tr
+    %td{:colspan => 4}
+  %tr
+    %td
+      =check_box_tag :direct_debit
+      Direct Debit
+    %td
+      =check_box_tag :cheque
+      Cheque
+    %td
+      =check_box_tag :visa
+      Visa
+    %td
+      =check_box_tag :master_card
+      Mastercard
+    %td
+      Sorry, American Express not accepted
+
+%table.payment
+  %tr
+    %td{:colspan => 4}
+      %table.creditcard
+        %tr
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+          %td.bx &nbsp;
+  %tr
+    %td Expiry
+    %td
+    %td Amount
+    %td
+  %tr
+    %td Cardholder Name
+    %td
+    %td Cardholder Signature
+    %td
+  %tr
+    %td NZFFA Member #{@reader.nzffa_membership_id}

@@ -5,6 +5,7 @@
         .nzffa-logo-box
           =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
         %h2 New Zealand Farm Forestry Association
+        %h1 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
       %td
         National Office
         %br
@@ -25,15 +26,13 @@
         www.nzffa.org.nz
 
 .section
-  %h3 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
   %p &nbsp;
   %table.recipient
     %tr
       %td
         .envelope-window
-          =@reader.name
-          %br
-          =simple_format @reader.postal_address.to_a.join("\n")
+          %h3=@reader.name
+          %h3=simple_format @reader.postal_address.to_a.join("\n")
       %td
         Membership id: #{@reader.nzffa_membership_id}
         %br
@@ -53,6 +52,8 @@
             %br
             =check_box_tag :subscribe_to_nzffa_newsletter
             Tick to receive the NZFFA newsletter
+        %br
+        %b.check-your-details Please check your details
 
 -if @subscription.membership_type == 'full'
   =render 'print_account_full_member'
@@ -61,61 +62,12 @@
 
 
 .section
-  - if @reader.is_direct_debit?
-    %p Based on your payment last year, the following will be debited from your bank account on [date]. If you want to change the arrangement or the amount, please contact us before that date
   .payment-box
-    %h3 Remittance Advice - Invoice #{@subscription.expires_on.year.to_s}-#{@reader.nzffa_membership_id}
-    %table.payment
-      %tr
-        %td{:colspan => 4}
-      %tr
-        %td
-          =check_box_tag :direct_debit
-          Direct Debit
-        %td
-          =check_box_tag :cheque
-          Cheque
-        %td
-          =check_box_tag :visa
-          Visa
-        %td
-          =check_box_tag :master_card
-          Mastercard
-
-    %table.payment
-      %tr
-        %td{:colspan => 4}
-          %table.creditcard
-            %tr
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-              %td.bx &nbsp;
-      %tr
-        %td Expiry
-        %td
-        %td Amount
-        %td
-      %tr
-        %td Cardholder Name
-        %td
-        %td Cardholder Signature
-        %td
-    %p Want to pay online or make changes to your subscription? Visit www.nzffa.org.nz
+    - if @reader.is_direct_debit?
+      %p
+        Based on your payment last year, the following will be debited from your bank account on [date].
+        If you want to change the arrangement or the amount, please contact us before that date
+    -else
+      = render 'remittance_advice'
 
 .page-break

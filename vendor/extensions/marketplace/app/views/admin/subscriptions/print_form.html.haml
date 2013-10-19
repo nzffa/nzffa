@@ -1,6 +1,7 @@
 - @reader = @subscription.reader
 %link{:rel => 'stylesheet', :type => 'text/css', :href => '/stylesheets/normalize.css'}
-= render :partial => 'print_css'
+%link{:rel => 'stylesheet', :type => 'text/css', :href => 'http://nzffa.enspiral.info/css/subscription-form'}
+-#= render :partial => 'print_css'
 %h1 Subscription Renewal Form
 Things to include, expiry date or subscription time frame, full member or casual?
 if full member then main branch and associate branches, action groups, else just Tree Grower? (head online to order FFT?)
@@ -20,6 +21,9 @@ Membership details, address, email, phone
 .section
   %h4 Associate Branches
   %table
+    %tr
+      %td{:colspan = >4}
+        %b Farm Forestry Timbers ($15)
     -branches = Branch.find(:all, :order => 'name') - @subscription.branches
     -branches.in_groups_of(4) do |group|
       %tr
