@@ -31,11 +31,10 @@
   %p &nbsp;
   %table.recipient
     %tr
-      %td
-        .envelope-window
-          %h2=@reader.name
-          %h2=simple_format @reader.postal_address.to_a.join("\n")
-      %td
+      %td.envelope-window
+        %h2=@reader.name
+        %h2=simple_format @reader.postal_address.to_a.join("\n")
+      %td.member-details
         Membership id: #{@reader.nzffa_membership_id}
         %br
         Telephone:
