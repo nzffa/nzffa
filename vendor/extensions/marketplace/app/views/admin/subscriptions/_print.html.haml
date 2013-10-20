@@ -4,9 +4,9 @@
       %td
         .nzffa-logo-box
           =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
-        %h2 New Zealand Farm Forestry Association
+        %h2 New Zealand Farm Forestry Association (Inc) 
         %h1 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
-      %td
+      %td.nzffa-address
         National Office
         %br
         PO Box 10349
@@ -16,7 +16,7 @@
         Wellington 6143
         %br
         New Zealand
-      %td
+      %td.nzffa-contact-details
         Tel +64 4 472 0432
         %br
         Fax +64 4 472 0432
@@ -24,6 +24,8 @@
         nzffa@clear.net.nz
         %br
         www.nzffa.org.nz
+        %br
+        GST# 13-843-503
 
 .section
   %p &nbsp;
@@ -31,8 +33,8 @@
     %tr
       %td
         .envelope-window
-          %h3=@reader.name
-          %h3=simple_format @reader.postal_address.to_a.join("\n")
+          %h2=@reader.name
+          %h2=simple_format @reader.postal_address.to_a.join("\n")
       %td
         Membership id: #{@reader.nzffa_membership_id}
         %br
@@ -65,7 +67,7 @@
   .payment-box
     - if @reader.is_direct_debit?
       %p
-        Based on your payment last year, the following will be debited from your bank account on [date].
+        The GST inclusive total be debited from your bank account on [date].
         If you want to change the arrangement or the amount, please contact us before that date
     -else
       = render 'remittance_advice'

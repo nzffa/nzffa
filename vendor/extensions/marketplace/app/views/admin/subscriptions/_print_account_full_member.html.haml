@@ -2,7 +2,7 @@
   %table{:style => 'width: 100%'}
     %tr
       %td{:style => 'width: 70%'}
-        Please ammend anything that has changed and write the total in the total column.
+        Please amend anything that has changed and write the total in the total column.
         %br
         -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
         -areas = keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size]})" }
@@ -13,58 +13,36 @@
         Total
     %tr
       %td
-        %table.current_subscription
-          %tr
-            %td Main Branch and Forest Area:
-            %td
-              =@subscription.main_branch_name
-
-              =@subscription.ha_of_planted_trees
-              ha
-          -if @subscription.belong_to_fft?
-            %tr
-              %td Farm Forestry Timbers Marketplace:
-              %td
-          %tr
-            %td Associate Branches:
-            %td=@subscription.associated_branch_names.join(', ')
-          %tr
-            %td Action Groups:
-            %td=@subscription.action_group_names.join(', ')
+        %b Main Branch and Forest Area:
+        =@subscription.main_branch_name
+        =@subscription.ha_of_planted_trees
+        ha
       %td
-        %table
-          -total = 0
-          %tr
-            %td.money
-              =price = @order.combined_full_member_levy
-              -total += price
-          -if @subscription.belong_to_fft?
-            %tr
-              %td.money
-                =NzffaSettings.full_member_fft_marketplace_levy
-
-          %tr
-            %td.money
-              =price = @order.associated_branches_levy
-              -total += price
-          %tr
-            %td.money
-              =price = @order.action_groups_levy
-              -total += price
+        =number_to_currency(@order.combined_full_member_levy)
       %td
-      %td
-      %td
+      - if @subscription.belong_to_fft?
+        %tr
+          %td
+            %b Farm Forestry Timbers Marketplace
+          %td= number_to_currency(NzffaSettings.full_member_fft_marketplace_levy)
+          %td
     %tr
       %td
-        &nbsp;
+        %b Associate Branches:
+        =@subscription.associated_branch_names.join(', ')
       %td
+        =number_to_currency(@order.associated_branches_levy)
+    %tr
       %td
+        %b Action Groups:
+        =@subscription.action_group_names.join(', ')
+      %td
+        =number_to_currency(@order.action_groups_levy)
     %tr
       %td.subtotal
-        Subtotal:
+        %b Subtotal:
       %td
-        =total
-      %td
+      %td=number_to_currency(@order.amount)
     %tr
       %td
         - if @reader.is_branch_life_member?
