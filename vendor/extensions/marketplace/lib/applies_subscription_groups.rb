@@ -14,7 +14,6 @@ class AppliesSubscriptionGroups
     when 'full'
       reader.groups << Group.find(NzffaSettings.full_membership_group_id)
       reader.groups << Group.find(NzffaSettings.tree_grower_magazine_group_id)
-      reader.groups << Group.find(NzffaSettings.nzffa_members_newsletter_group_id)
 
       subscription.branches.each do |branch|
         reader.groups << branch.group unless branch.group.nil?
@@ -48,7 +47,6 @@ class AppliesSubscriptionGroups
     group_ids = []
     group_ids << NzffaSettings.fft_marketplace_group_id
     group_ids << NzffaSettings.full_membership_group_id
-    group_ids << NzffaSettings.nzffa_members_newsletter_group_id
     group_ids << NzffaSettings.tree_grower_magazine_group_id
     group_ids << NzffaSettings.tree_grower_magazine_australia_group_id
     group_ids << NzffaSettings.tree_grower_magazine_everywhere_else_group_id
