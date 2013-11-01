@@ -205,22 +205,34 @@ module ReaderMixin
   end
 
   def is_branch_life_member?
-    split_special_cases.include? '101'
+    special_cases_include? 101
   end
 
   def is_paid_branch_life_member?
-    split_special_cases.include? '111'
+    special_cases_include? 111
   end
 
   def is_life_member?
-    split_special_cases.include? '107'
+    special_cases_include? 107
   end
 
   def is_direct_debit?
-    split_special_cases.include? '204'
+    special_cases_include? 204
+  end
+
+  def is_olsens?
+    special_cases_include? 110
+  end
+
+  def pays_base_levys?
+    is_life_member? or is_branch_life_member?
   end
 
   private
+
+  def special_cases_include?(case_number)
+    split_special_cases.include? case_number.to_s
+  end
 
   def split_special_cases
     if special_cases.present?

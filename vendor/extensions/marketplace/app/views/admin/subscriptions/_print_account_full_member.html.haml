@@ -5,11 +5,12 @@
         Please amend anything that has changed and write the total in the total column.
         %br
         -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
-        -areas = keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size]})" }
+        -base_levy = @order.admin_levy + @order.full_member_tree_grower_levy + @order.main_branch_levy
+        -areas = keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size] + base_levy})" }
         Other forest size options: #{areas.join(' and ')}
-      %td{:style => 'width: 15%'}
+      %td.price{:style => 'width: 15%'}
         Rate
-      %td{:style => 'width: 15%'}
+      %td.price{:style => 'width: 15%'}
         Total
     %tr
       %td
@@ -17,40 +18,57 @@
         =@subscription.main_branch_name
         =@subscription.ha_of_planted_trees
         ha
-      %td
+      %td.price
         =number_to_currency(@order.combined_full_member_levy)
       %td
       - if @subscription.belong_to_fft?
         %tr
           %td
             %b Farm Forestry Timbers Marketplace
-          %td= number_to_currency(NzffaSettings.full_member_fft_marketplace_levy)
+          %td.price= number_to_currency(NzffaSettings.full_member_fft_marketplace_levy)
           %td
     %tr
       %td
         %b Associate Branches:
         =@subscription.associated_branch_names.join(', ')
-      %td
+      %td.price
         =number_to_currency(@order.associated_branches_levy)
     %tr
       %td
         %b Action Groups:
         =@subscription.action_group_names.join(', ')
-      %td
+      %td.price
         =number_to_currency(@order.action_groups_levy)
     %tr
       %td.subtotal
         %b Subtotal:
       %td
-      %td=number_to_currency(@order.amount)
+      %td.price=number_to_currency(@order.amount)
     %tr
       %td
+        - if @reader.is_direct_debit?
+          %p Please pay for Additional Options separately from the Direct Debit above or else contact us to change Debit amount.
+
         - if @reader.is_branch_life_member?
-          %p As you are a Life Member of your branch, your base subscription is paid by the branch.
+          %p
+            As you are a Life Member of your branch, your base subscription is paid by the branch.
+            %br
+            However, you are welcome to purchase any of the Optional Additional items below:
+
         - if @reader.is_paid_branch_life_member?
           %p Paid branch life member.
+
         - if @reader.is_life_member?
-          %p As you are a Life Member of NZFFA, your base subscription is paid by the association.
+          %p
+            As you are a Life Member of NZFFA, your base subscription is paid by the association.
+            %br
+            However, you are welcome to purchase any of the Optional Additional items below:
+
+        - if @reader.is_olsens?
+          %p
+            The invoice for your subscription will be sent directly to PF Olsen’s head office.
+            %br
+            For your information, the following were paid last year on your behalf:
       %td
       %td
 
@@ -58,11 +76,6 @@
 .section
   %h4 Associate Branches
   %table
-    %tr
-      %td{:colspan =>4}
-        %b
-          =check_box_tag(0)
-          Farm Forestry Timbers ($15)
     -branches = Branch.find(:all, :order => 'name') - @subscription.branches
     -branches.in_groups_of(4) do |group|
       %tr
@@ -74,14 +87,15 @@
   %h4 Special Interest Groups
   %table
     -action_groups = ActionGroup.find(:all, :order => 'name') - @subscription.action_groups
-    -action_groups.in_groups_of(2) do |group|
+    -action_groups << ActionGroup.new(:name => 'Farm Forestry Timbers', :annual_levy => 15)
+    -action_groups.reverse.in_groups_of(2) do |group|
       %tr
         -group.compact.each do |b|
           %td=check_box_tag b.id
           %td #{b.name} ($#{b.annual_levy.to_i})
 
 .section
-  %h4 Voluntary Research Contribution (Suggested - $10)
+  %h4 Voluntary Research Contribution
   =check_box_tag :box
   Tick if you want your Research Contribution treated as a donation 
 
@@ -90,21 +104,31 @@
   %table{:width => '70%'}
     %tr
       %td
-      %td Price each
-      %td Quantity
+      %td.price Price each
+      %td.price Quantity
     %tr
       %td Wardle's Native NZ Trees and their story
-      %td $95
+      %td.price $95.00
       %td
     %tr
       %td Neil Barr Book - Eucalypt Trees for Milling
-      %td $15
+      %td.price $15.00
       %td
     %tr
       %td NZFFA Gate Sign, Jersey Badge and Lapel Pin Pack
-      %td $15
+      %td.price $15.00
       %td
     %tr
       %td NZFFA Insignia Cap
-      %td $30
+      %td.price $25.00
       %td
+    %tr
+      %td Indigenous Forestry Handbook
+      %td.price $30.00
+      %td
+
+%h3.gst-total
+  -if @subscription.tree_grower_delivery_location != 'new_zealand'
+    NZ Dollar Total
+  -else
+    GST Inclusive Total

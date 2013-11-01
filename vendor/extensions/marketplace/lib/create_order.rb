@@ -110,18 +110,23 @@ class CreateOrder
   end
 
   def casual_member_fft_marketplace_levy_amount
-    subscription.length_in_years * 
+    subscription.length_in_years *
       NzffaSettings.casual_member_fft_marketplace_levy
   end
 
   def full_member_fft_marketplace_levy_amount
-    subscription.length_in_years * 
+    subscription.length_in_years *
       NzffaSettings.full_member_fft_marketplace_levy
   end
 
   def full_member_tree_grower_magazine_levy_amount
-    subscription.length_in_years * 
-      NzffaSettings.full_member_tree_grower_magazine_levy
+    if reader.is_life_member? or
+       reader.is_branch_life_member?
+      0
+    else
+      subscription.length_in_years *
+        NzffaSettings.full_member_tree_grower_magazine_levy
+    end
   end
 
   def action_group_levy_amount(group)

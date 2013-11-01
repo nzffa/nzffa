@@ -32,10 +32,15 @@
   %table.recipient
     %tr
       %td.envelope-window
-        %h2=@reader.name
-        %h2=simple_format @reader.postal_address.to_a.join("\n")
+        %h2.envelope-name=@reader.name
+        %h2.envelope-address=simple_format @reader.postal_address.to_a.join("\n")
       %td.member-details
-        Membership id: #{@reader.nzffa_membership_id}
+        -if @reader.full_nzffa_member?
+          Membership id:
+        -else
+          Subscriber id:
+        #{@reader.nzffa_membership_id}
+
         %br
         Telephone:
         =@reader.phone
@@ -68,7 +73,6 @@
       %p
         The GST inclusive total be debited from your bank account on 15 January 2014.
         If you want to change the arrangement or the amount, please contact us before that date
-    -else
-      = render 'remittance_advice'
+    = render 'remittance_advice'
 
 .page-break

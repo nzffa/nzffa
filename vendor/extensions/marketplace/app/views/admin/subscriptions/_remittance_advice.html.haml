@@ -9,7 +9,7 @@ Other payment methods:
   %tr
     %td
       =check_box_tag :direct_debit
-      Direct Debit
+      Direct Credit
     %td
       =check_box_tag :cheque
       Cheque
@@ -57,7 +57,14 @@ Other payment methods:
     %td Cardholder Signature
     %td
   %tr
-    %td NZFFA Member #{@reader.nzffa_membership_id}
+    %td
+      -if @reader.full_nzffa_member?
+        NZFFA Member
+      -else
+        Subscriber id
+      #{@reader.nzffa_membership_id}
     %td
     %td Invoice #{Date.today.year}-#{@reader.nzffa_membership_id} Date 1/12/2013
 
+%p.if-you-make-changes
+  If you make any changes to the above amounts or are paying by credit card or cheque, please return one copy of this form the NZFFA National Office and retain the other for your records

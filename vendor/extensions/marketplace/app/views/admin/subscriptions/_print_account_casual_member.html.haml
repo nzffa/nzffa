@@ -41,3 +41,34 @@
         =total
       %td
 
+.section
+  %h4 Voluntary Research Contribution
+  =check_box_tag :box
+  Tick if you want your Research Contribution treated as a donation 
+
+.section
+  %h4 Other Products
+  %table{:width => '70%'}
+    %tr
+      %td
+      %td.price Price each
+      %td.price Quantity
+    %tr
+      %td Wardle's Native NZ Trees and their story
+      %td.price $95.00
+      %td
+        -if @subscription.tree_grower_delivery_location != 'new_zealand'
+          plus overseas postage
+    %tr
+      %td Neil Barr Book - Eucalypt Trees for Milling
+      %td.price $15.00
+      %td
+        -if @subscription.tree_grower_delivery_location != 'new_zealand'
+          plus overseas postage
+    %tr
+      %td Indigenous Forestry Handbook
+      %td.price $30.00
+      %td
+        -if @subscription.tree_grower_delivery_location != 'new_zealand'
+          plus overseas postage
+  %p.quote-for-postage Please contact us for a quote for postage
