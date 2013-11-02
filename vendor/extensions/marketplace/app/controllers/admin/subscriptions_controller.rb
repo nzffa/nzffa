@@ -7,14 +7,18 @@ class Admin::SubscriptionsController < AdminController
   def batches_to_print
     read_batch_params
     @options = batch_params_hash
+
     @subscriptions = Subscription.expiring_before(@expiring_before)
-    @subscriptions_count = @subscriptions.count
-    @num_batches = @subscriptions_count / @batch_size
+    @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
   end
 
   def print_batch
     read_batch_params
-    @unsaved_orders = subscriptions_in_batches.to_a[@batch].map do |sub|
+
+    @subscriptions = Subscription.expiring_before(@expiring_before)
+    @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
+
+    @unsaved_orders = @subs_by_postcode[@postcode].map do |sub|
                         sub.begins_on = @expiring_before
                         sub.expires_on = @expiring_before.at_end_of_year
                         CreateOrder.from_subscription(sub)
@@ -126,13 +130,6 @@ class Admin::SubscriptionsController < AdminController
     redirect_to :back
   end
 
-  #def destroy
-    #current_sub = Subscription.find(params[:id])
-    #current_sub.destroy
-    #flash[:notice] = "deleted subscription #{params[id]}"
-    #redirect_to admin_subscriptions_path
-  #end
-
   private
 
   def subscriptions_in_batches
@@ -148,12 +145,12 @@ class Admin::SubscriptionsController < AdminController
   end
 
   def read_batch_params
-    @batch = Integer(params.fetch(:batch) { 0 })
+    @postcode = params.fetch(:postcode) { nil }
     @expiring_before = Date.parse(params.fetch(:expiring_before) { "#{Date.today.year + 1}-01-01"})
-    @batch_size = Integer(params.fetch(:batch_size) { 20 })
   end
 
   def batch_params_hash
-    {:batch_size => @batch_size, :expiring_before => @expiring_before}
+    {:expiring_before => @expiring_before,
+     :postcode => @postcode}
   end
 end
