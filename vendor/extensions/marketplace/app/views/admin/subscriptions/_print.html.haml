@@ -32,8 +32,10 @@
   %table.recipient
     %tr
       %td.envelope-window
-        %h2.envelope-name=@reader.name
-        %h2.envelope-address=simple_format @reader.postal_address.to_a.join("\n")
+        %h2
+          =@reader.name
+          %br
+          =simple_format @reader.postal_address.to_a.join("\n")
       %td.member-details
         -if @reader.full_nzffa_member?
           Membership id:
