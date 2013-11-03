@@ -13,10 +13,8 @@
       %tr
         %td
           Farm Forestry Timbers Online Marketplace
-        %td
-          $
-          =price = @order.casual_member_fft_and_admin_levy
-          -total += price
+        %td.price
+          =number_to_currency(@order.casual_member_fft_and_admin_levy)
 
     -if @subscription.receive_tree_grower_magazine?
       %tr
@@ -29,17 +27,14 @@
           -when 'everywhere_else'
             NZ Tree Grower Magazine (International delivery)
           =pluralize(@subscription.nz_tree_grower_copies, 'copy')
-        %td
-          $
-          =price = @order.casual_nz_tree_grower_levy
-          -total += price
+        %td.price
+          =number_to_currency(@order.casual_nz_tree_grower_levy)
     %tr
       %td
         %h4 Subtotal
       %td
-        $
-        =total
-      %td
+      %td.price
+        =number_to_currency(@order.amount)
 
 .section
   %h4 Voluntary Research Contribution

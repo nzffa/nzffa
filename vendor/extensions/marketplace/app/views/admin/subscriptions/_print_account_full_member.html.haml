@@ -1,4 +1,8 @@
-.section
+-if @reader.is_options_only?
+  .section.options-only
+-else
+  .section
+
   %table{:style => 'width: 100%'}
     %tr
       %td{:style => 'width: 70%'}
@@ -6,8 +10,8 @@
         %br
         -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
         -base_levy = @order.admin_levy + @order.full_member_tree_grower_levy + @order.main_branch_levy
-        -areas = keys.sort.map{ |size| "#{size} ha ($#{NzffaSettings.forest_size_levys[size] + base_levy})" }
-        Other forest size options: #{areas.join(' and ')}
+        -areas = keys.sort.map{ |size| "#{size} ha ($#{(NzffaSettings.forest_size_levys[size] + base_levy).to_i})" }
+        Your main branch and forest area levy for other forest size options: #{areas.join(' and ')}
       %td.price{:style => 'width: 15%'}
         Rate
       %td.price{:style => 'width: 15%'}
@@ -68,7 +72,7 @@
           %p
             The invoice for your subscription will be sent directly to PF Olsen’s head office.
             %br
-            For your information, the following were paid last year on your behalf:
+            For your information, the preceding were paid last year on your behalf:
       %td
       %td
 
@@ -97,6 +101,8 @@
 .section
   %h4 Voluntary Research Contribution
   =check_box_tag :box
+  - if @subscription.research_fund_contribution_amount.to_i > 0
+    Last year #{number_to_currency(@subscription.research_fund_contribution_amount)}
   Tick if you want your Research Contribution treated as a donation 
 
 .section
@@ -128,7 +134,7 @@
       %td
 
 %h3.gst-total
-  -if @subscription.tree_grower_delivery_location != 'new_zealand'
+  -if @subscription.receive_tree_grower_magazine? and @subscription.tree_grower_delivery_location != 'new_zealand'
     NZ Dollar Total
   -else
     GST Inclusive Total
