@@ -1,5 +1,7 @@
 -if @reader.is_options_only?
   .section.options-only
+    %h3 ADDITIONAL SUBSCRIPTION OPTIONS
+    %p.additional-options Select with a tick and write total amount in Total Column 
 -else
   .section
 
@@ -72,7 +74,9 @@
           %p
             The invoice for your subscription will be sent directly to PF Olsen’s head office.
             %br
-            For your information, the preceding were paid last year on your behalf:
+            For your information, the preceding were paid last year on your behalf.
+            %br
+            The following are further subscription options that you may select - please contact NZFFA National Office to amend the invoice
       %td
       %td
 
@@ -92,7 +96,7 @@
   %table
     -action_groups = ActionGroup.find(:all, :order => 'name') - @subscription.action_groups
     -action_groups << ActionGroup.new(:name => 'Farm Forestry Timbers', :annual_levy => 15)
-    -action_groups.reverse.in_groups_of(2) do |group|
+    -action_groups.reverse.in_groups_of(3) do |group|
       %tr
         -group.compact.each do |b|
           %td=check_box_tag b.id

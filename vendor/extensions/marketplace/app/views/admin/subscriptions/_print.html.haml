@@ -71,7 +71,7 @@
   .payment-box
     - if @reader.is_direct_debit?
       %p
-        The GST inclusive total be debited from your bank account on 15 January 2014.
+        %b The GST inclusive total will be debited from your bank account on 15 January 2014.
         If you want to change the arrangement or the amount, please contact us before that date
     = render 'remittance_advice'
 
