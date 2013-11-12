@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-forum-extension.git
-  revision: 71d294bd6cb0981eae1037f57ea9c07702f07a9b
+  revision: 461f1585b17abef657d2a2f9a78edd57a47e970e
   branch: wackamole
   specs:
     radiant-forum-extension (3.0.6)
