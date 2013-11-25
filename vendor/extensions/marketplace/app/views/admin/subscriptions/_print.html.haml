@@ -1,0 +1,81 @@
+.section
+  %table{:style => 'width: 100%'}
+    %tr.header
+      %td
+        .nzffa-logo-box
+          =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
+        %h2 New Zealand Farm Forestry Association (Inc) 
+        %h1
+          Subscription Renewal / Tax Invoice 
+          %br
+          #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
+      %td.nzffa-address
+        National Office
+        %br
+        PO Box 10349
+        %br
+        The Terrace
+        %br
+        Wellington 6143
+        %br
+        New Zealand
+      %td.nzffa-contact-details
+        Tel +64 4 472 0432
+        %br
+        Fax +64 4 472 0432
+        %br
+        nzffa@clear.net.nz
+        %br
+        www.nzffa.org.nz
+        %br
+        GST# 13-843-503
+
+.section
+  %p &nbsp;
+  %table.recipient
+    %tr
+      %td.envelope-window
+        %h2
+          =simple_format [@reader.name, @reader.postal_address.to_a].flatten.join("\n")
+      %td.member-details
+        -if @reader.full_nzffa_member?
+          Membership id:
+        -else
+          Subscriber id:
+        #{@reader.nzffa_membership_id}
+
+        %br
+        Telephone:
+        =@reader.phone
+        %br
+
+        -if @reader.has_real_email_address?
+          Email:
+          =@reader.email
+        -else
+          Please provide email address
+          =text_field_tag :email_address
+
+        -if @reader.full_nzffa_member?
+          -unless @reader.receive_nzffa_members_newsletter?
+            %br
+            =check_box_tag :subscribe_to_nzffa_newsletter
+            Tick to receive the NZFFA newsletter
+        %br
+        %b.check-your-details Please check your details
+
+-if @subscription.membership_type == 'full'
+  =render 'print_account_full_member'
+-else
+  =render 'print_account_casual_member'
+
+
+.section
+  .payment-box
+    - if @reader.is_direct_debit?
+      %b The GST inclusive total will be debited from your bank account on 15 January 2014.
+      If you want to change the arrangement or the amount, please contact us before that date
+      %br
+    = render 'remittance_advice'
+
+.page-break

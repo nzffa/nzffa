@@ -1,5 +1,10 @@
-- @reader = @subscription.reader
 %link{:rel => 'stylesheet', :type => 'text/css', :href => '/stylesheets/normalize.css'}
 %link{:rel => 'stylesheet', :type => 'text/css', :href => 'http://nzffa.enspiral.info/css/subscription-form'}
 = render :partial => 'print_css'
-= render :partial => 'print'
+
+-@unsaved_orders.each do |order|
+  -@order = order
+  -@subscription = order.subscription
+  -@reader = @subscription.reader
+  =render :partial => 'print'
+  .page-break

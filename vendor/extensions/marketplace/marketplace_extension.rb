@@ -25,6 +25,7 @@ class MarketplaceExtension < Radiant::Extension
       add_item "Subscriptions", "/admin/subscriptions"
       add_item "Orders", "/admin/orders"
       add_item "Reports", "/admin/reports"
+      add_item "Print Subscriptions", "/admin/subscriptions/batches_to_print"
     end
 
     tab 'Marketplace' do

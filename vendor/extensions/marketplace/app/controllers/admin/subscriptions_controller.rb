@@ -4,10 +4,29 @@ class Admin::SubscriptionsController < AdminController
 
   before_filter :load_reader, :only => [:new, :create]
 
-  def print_groups
-    start_of_next_year = Date.parse("#{Date.today.year+1}-01-01")
-    @subscriptions = Subscription.active.find(:all, :conditions => ['expires_on < ?', start_of_next_year])
+  def batches_to_print
+    read_batch_params
+    @options = batch_params_hash
+
+    @subscriptions = Subscription.expiring_before(@expiring_before)
+    @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
   end
+
+  def print_batch
+    read_batch_params
+
+    @subscriptions = Subscription.expiring_before(@expiring_before)
+    @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
+
+    @unsaved_orders = @subs_by_postcode[@postcode].map do |sub|
+                        sub.begins_on = @expiring_before
+                        sub.expires_on = @expiring_before.at_end_of_year
+                        CreateOrder.from_subscription(sub)
+                      end
+    render :layout => false
+  end
+
+
 
   def index
     @subscriptions = Subscription.paginate(:page => params[:page], :order => 'id desc')
@@ -19,9 +38,21 @@ class Admin::SubscriptionsController < AdminController
 
   def print
     @subscription = Subscription.find(params[:id])
-    @order = CreateOrder.from_subscription(@subscription)
-    @reader = @subscription.reader
+    @order = @subscription.order
     render :layout => false
+  end
+
+  def print_form
+    @subscription = Subscription.find(params[:id])
+    @order = @subscription.order
+    render :layout => false
+  end
+
+  def print_renewal
+    old_sub = Subscription.find(params[:id])
+    @subscription = old_sub.renew_for_year(Date.today.year+1)
+    @order = CreateOrder.from_subscription(@subscription)
+    render 'print', :layout => false
   end
 
   def new
@@ -51,15 +82,17 @@ class Admin::SubscriptionsController < AdminController
     end
   end
 
+  def renew
+    old_sub = Subscription.find(params[:id])
+    @subscription = old_sub.renew_for_year(Date.today.year+1)
+    @action_path = admin_reader_subscriptions_path(@subscription.reader)
+    render 'subscriptions/new'
+  end
 
   def create
-    if Subscription.active_subscription_for(@reader)
-      flash[:error] = 'This reader already has an active subscription'
-      redirect_to admin_subscriptions_path and return
-    end
     @subscription = Subscription.new(params[:subscription])
     @subscription.reader = @reader
-    
+
     if @subscription.save!
       @order = CreateOrder.from_subscription(@subscription)
       @order.save
@@ -97,20 +130,27 @@ class Admin::SubscriptionsController < AdminController
     redirect_to :back
   end
 
-  #def destroy
-    #current_sub = Subscription.find(params[:id])
-    #current_sub.destroy
-    #flash[:notice] = "deleted subscription #{params[id]}"
-    #redirect_to admin_subscriptions_path
-  #end
-
-
   private
+
+  def subscriptions_in_batches
+    Subscription.expiring_before(@expiring_before).each_slice(@batch_size)
+  end
+
   def load_reader
     unless params[:reader_id]
       flash[:error] = 'reader_id required'
       redirect_to admin_readers_plus_path and return
     end
     @reader = Reader.find(params[:reader_id])
+  end
+
+  def read_batch_params
+    @postcode = params.fetch(:postcode) { nil }
+    @expiring_before = Date.parse(params.fetch(:expiring_before) { "#{Date.today.year + 1}-01-01"})
+  end
+
+  def batch_params_hash
+    {:expiring_before => @expiring_before,
+     :postcode => @postcode}
   end
 end

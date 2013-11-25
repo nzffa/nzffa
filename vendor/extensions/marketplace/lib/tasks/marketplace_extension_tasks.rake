@@ -52,22 +52,22 @@ namespace :radiant do
         end
       end
 
-      desc 'Emails subscription expiry warning emails as required'
-      task :subscription_email_warnings => :environment do
-        @subscriptions = Subscription.expiring_on(30.days.from_now.to_date)
-        @subscriptions.each do |subscription|
-          NotifySubscriber.deliver_subscription_expiring_soon(subscription)
-        end
-      end
+      #desc 'Emails subscription expiry warning emails as required'
+      #task :subscription_email_warnings => :environment do
+        #@subscriptions = Subscription.expiring_on(30.days.from_now.to_date)
+        #@subscriptions.each do |subscription|
+          #NotifySubscriber.deliver_subscription_expiring_soon(subscription)
+        #end
+      #end
 
-      desc 'Emails subscription expiry emails, and expires subscriptions as required'
-      task :subscription_expiry => :environment do
-        @subscriptions = Subscription.expiring_on(Date.today.to_date)
-        @subscriptions.each do |subscription|
-          AppliesSubscriptionGroups.remove(subscription, subscription.reader)
-          NotifySubscriber.deliver_subscription_expired_email(subscription)
-        end
-      end
+      #desc 'Emails subscription expiry emails, and expires subscriptions as required'
+      #task :subscription_expiry => :environment do
+        #@subscriptions = Subscription.expiring_on(Date.today.to_date)
+        #@subscriptions.each do |subscription|
+          #AppliesSubscriptionGroups.remove(subscription, subscription.reader)
+          #NotifySubscriber.deliver_subscription_expired_email(subscription)
+        #end
+      #end
 
       desc 'Reapply the subscriprion groups. Dont choose this in a guess.'
       task :reapply_subscription_groups => :environment do
