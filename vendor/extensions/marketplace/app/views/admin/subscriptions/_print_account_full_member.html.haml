@@ -53,7 +53,7 @@
     %tr
       %td
         - if @reader.is_direct_debit?
-          %p Please pay for Additional Options separately from the Direct Debit above or else contact us to change Debit amount.
+          %p Pay for Additional Options separately from the Direct Debit or contact us to change the amount
 
         - if @reader.is_branch_life_member?
           %p
@@ -110,12 +110,14 @@
   Tick if you want your Research Contribution treated as a donation 
 
 .section
-  %h4 Other Products
   %table{:width => '70%'}
     %tr
       %td
-      %td.price Price each
-      %td.price Quantity
+        %b Other Products
+      %td.price
+        %b Price each
+      %td.price
+        %b Quantity
     %tr
       %td Wardle's Native NZ Trees and their story
       %td.price $95.00

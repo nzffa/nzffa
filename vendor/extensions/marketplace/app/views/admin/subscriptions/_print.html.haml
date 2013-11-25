@@ -5,7 +5,10 @@
         .nzffa-logo-box
           =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
         %h2 New Zealand Farm Forestry Association (Inc) 
-        %h1 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
+        %h1
+          Subscription Renewal / Tax Invoice 
+          %br
+          #{@subscription.begins_on.strftime('%B')} - #{@subscription.expires_on.strftime('%B %Y')}
       %td.nzffa-address
         National Office
         %br
@@ -70,9 +73,9 @@
 .section
   .payment-box
     - if @reader.is_direct_debit?
-      %p
-        %b The GST inclusive total will be debited from your bank account on 15 January 2014.
-        If you want to change the arrangement or the amount, please contact us before that date
+      %b The GST inclusive total will be debited from your bank account on 15 January 2014.
+      If you want to change the arrangement or the amount, please contact us before that date
+      %br
     = render 'remittance_advice'
 
 .page-break
