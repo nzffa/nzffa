@@ -26,6 +26,14 @@ class SubscriptionsController < MarketplaceController
     @subscription.begins_on = Date.today
   end
 
+  def renew
+    @action_path = subscriptions_path
+    old_sub = Subscription.active_subscription_for(current_reader)
+    @subscription = old_sub.renew_for_year(Date.today.year + 1)
+    @subscription.contribute_to_research_fund = false
+    render :new
+  end
+
   def new
     if Subscription.active_subscription_for(current_reader)
       flash[:error] = 'You cannot create a new subscription if you currently have a subscription.'
@@ -66,11 +74,13 @@ class SubscriptionsController < MarketplaceController
   end
 
   def create
-    if Subscription.active_subscription_for(current_reader)
-      flash[:error] = 'You already have an active subscription'
+    @subscription = Subscription.new(params[:subscription])
+
+    if Subscription.active_anytime.find(:all, :conditions => ['begins_on <= ? AND expires_on >= ?', @subscription.begins_on, @subscription.expires_on]).size > 0
+      flash[:error] = 'You already have an active subscription for this time'
       redirect_to subscriptions_path and return
     end
-    @subscription = Subscription.new(params[:subscription])
+
     @subscription.reader = current_reader
     if @subscription.valid?
       @order = CreateOrder.from_subscription(@subscription)

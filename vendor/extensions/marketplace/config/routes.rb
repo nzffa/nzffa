@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
                      :quote_upgrade => :post,
                      :modify => :get,
                      :upgrade => :put,
+                     :renew => :get,
                      :cancel => :post}
 
   map.resources :adverts,

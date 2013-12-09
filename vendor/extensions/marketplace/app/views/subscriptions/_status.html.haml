@@ -1,3 +1,5 @@
+=flash[:error]
+
 -if @subscription.blank?
   %p 
     You have no active subscription.
@@ -7,8 +9,10 @@
 
   -if @subscription.paid?
     %p
-      To extend the subscription length, or add features
-      =link_to 'Modify your subscription', modify_subscriptions_path
+      To add features to your current subscription
+      =link_to 'Add features to your current subscription', modify_subscriptions_path
+      =link_to "Renew subscription for #{Date.today.year + 1}", renew_subscriptions_path
+      
   -else
     %p Your subscription is not active because you need to make payment.
     =link_to 'Make Payment', make_payment_order_path(@subscription.order)

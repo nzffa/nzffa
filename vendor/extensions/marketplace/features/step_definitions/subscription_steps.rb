@@ -275,5 +275,5 @@ end
 
 Given /^there is a Tree Grower Magazine Australia group$/ do
   @tree_grower_magazine_australia_group = Group.create(:name => 'Tree grower magazine australia')
-  NzffaSettings.tree_grower_magazine_australia_group_id = group.id
+  NzffaSettings.tree_grower_magazine_australia_group_id = @tree_grower_magazine_australia_group.id
 end

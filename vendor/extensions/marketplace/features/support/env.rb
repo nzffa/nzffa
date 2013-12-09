@@ -65,3 +65,8 @@ if defined?(ActiveRecord::Base)
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
+
+def view_screenshot
+  page.driver.browser.save_screenshot '/tmp/screenshot.png'
+  Launchy.open '/tmp/screenshot.png'
+end

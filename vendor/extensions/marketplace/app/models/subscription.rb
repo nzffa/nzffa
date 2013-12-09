@@ -32,6 +32,8 @@ class Subscription < ActiveRecord::Base
                       cancelled_on IS NULL AND orders.paid_on > "2001-01-01"
                       AND reader_id = ?',  Date.today, Date.today, reader.id ]}}
 
+  named_scope :active_anytime, {:joins => :order, :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"' ]}
+
   def self.expiring_before(date)
     self.active.find(:all, :conditions => ['expires_on <?', date])
   end
