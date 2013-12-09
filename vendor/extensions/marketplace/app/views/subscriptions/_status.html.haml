@@ -9,7 +9,6 @@
 
   -if @subscription.paid?
     %p
-      To add features to your current subscription
       =link_to 'Add features to your current subscription', modify_subscriptions_path
       =link_to "Renew subscription for #{Date.today.year + 1}", renew_subscriptions_path
       
