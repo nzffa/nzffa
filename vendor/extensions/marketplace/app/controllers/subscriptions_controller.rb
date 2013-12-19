@@ -76,7 +76,7 @@ class SubscriptionsController < MarketplaceController
   def create
     @subscription = Subscription.new(params[:subscription])
 
-    if Subscription.active_anytime.find(:all, :conditions => ['begins_on <= ? AND expires_on >= ?', @subscription.begins_on, @subscription.expires_on]).size > 0
+    if Subscription.active_anytime.find(:all, :conditions => ['reader_id = ? AND begins_on <= ? AND expires_on >= ?', current_reader.id, @subscription.begins_on, @subscription.expires_on]).size > 0
       flash[:error] = 'You already have an active subscription for this time'
       redirect_to subscriptions_path and return
     end
