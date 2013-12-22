@@ -8,10 +8,9 @@
   =render 'subscriptions/subscription'
 
   -if @subscription.paid?
-    %p
-      =link_to 'Add features to your current subscription', modify_subscriptions_path
-      =link_to "Renew subscription for #{Date.today.year + 1}", renew_subscriptions_path
-      
+    %ul
+      %li=link_to "Add features to your #{Date.today.year} subscription", modify_subscriptions_path
+      %li=link_to "Renew subscription for #{Date.today.year + 1}", renew_subscriptions_path
   -else
     %p Your subscription is not active because you need to make payment.
     =link_to 'Make Payment', make_payment_order_path(@subscription.order)

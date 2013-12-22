@@ -1,13 +1,11 @@
 -if @subscription.new_record?
-  %p 
-    Subscription Price: 
+  %p
+    Subscription Price:
     %span#price
-    + GST
 -else
   %p 
-    Subscription Price: 
+    Subscription Price:
     %span#price
-    + GST
   %p
     Credit on current subscription:
     %span#credit
@@ -15,4 +13,3 @@
   %p
     Upgrade Price:
     %span#upgrade_price
-    + GST
