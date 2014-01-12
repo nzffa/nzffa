@@ -84,7 +84,7 @@ class Admin::SubscriptionsController < AdminController
 
   def renew
     old_sub = Subscription.find(params[:id])
-    @subscription = old_sub.renew_for_year(Date.today.year+1)
+    @subscription = old_sub.renew_for_year(old_sub.begins_on.year + 1)
     @action_path = admin_reader_subscriptions_path(@subscription.reader)
     render 'subscriptions/new'
   end
