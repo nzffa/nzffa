@@ -19,7 +19,6 @@ class AppliesSubscriptionGroups
         reader.groups << branch.group unless branch.group.nil?
       end
 
-      
       subscription.action_groups.each do |action_group|
         reader.groups << action_group.group unless action_group.group.nil?
       end
@@ -55,14 +54,13 @@ class AppliesSubscriptionGroups
 
 
     group_ids.each do |group_id|
-      if group = Group.find_by_id(group_id)
-        if reader.groups.include? group
-          reader.groups.delete(group)
-        end
+      if reader.group_ids.include? group_id
+        reader.group_ids.delete(group)
       end
     end
 
     # add them to the past members group
     reader.group_ids << NzffaSettings.past_members_group_id
+    reader.save
   end
 end
