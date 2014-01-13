@@ -55,7 +55,7 @@ class AppliesSubscriptionGroups
 
     group_ids.each do |group_id|
       if reader.group_ids.include? group_id
-        reader.group_ids.delete(group)
+        reader.group_ids.delete(group_id)
       end
     end
 
