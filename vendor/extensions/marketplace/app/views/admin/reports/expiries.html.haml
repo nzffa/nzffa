@@ -8,6 +8,7 @@
     %th expired_on
   %tbody
     -@subscriptions.each do |s|
+      -next unless s.reader.present?
       -r = s.reader
       %tr
         %td=r.nzffa_membership_id
