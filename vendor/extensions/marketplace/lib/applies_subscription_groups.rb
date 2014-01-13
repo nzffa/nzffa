@@ -44,6 +44,7 @@ class AppliesSubscriptionGroups
     reader = subscription if reader.nil?
 
     group_ids = []
+    group_ids << NzffaSettings.past_members_group_id
     group_ids << NzffaSettings.fft_marketplace_group_id
     group_ids << NzffaSettings.full_membership_group_id
     group_ids << NzffaSettings.tree_grower_magazine_group_id
@@ -54,12 +55,9 @@ class AppliesSubscriptionGroups
 
 
     group_ids.each do |group_id|
-      if reader.group_ids.include? group_id
-        reader.group_ids.delete(group_id)
-      end
+      Membership.find(:all, :conditions => {:group_id => group_id, :reader_id => reader.id}).each(&:destroy)
     end
 
-    # add them to the past members group
     reader.group_ids << NzffaSettings.past_members_group_id
     reader.save
   end
