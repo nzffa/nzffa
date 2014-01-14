@@ -25,7 +25,7 @@ class BranchAdminController < MarketplaceController
     all_reader_ids = subscriptions.map(&:reader_id)
     current_reader_ids = @group.reader_ids
 
-    @readers = Reader.find(all_reader_ids - current_reader_ids)
+    @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
 
     render_csv_of_readers
   end
@@ -43,7 +43,7 @@ class BranchAdminController < MarketplaceController
     all_reader_ids = subscriptions.map(&:reader_id)
     current_reader_ids = @group.reader_ids
 
-    @readers = Reader.find(all_reader_ids - current_reader_ids)
+    @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
 
     render_csv_of_readers
   end
