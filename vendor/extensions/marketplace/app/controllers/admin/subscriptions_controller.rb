@@ -50,7 +50,7 @@ class Admin::SubscriptionsController < AdminController
 
   def print_renewal
     old_sub = Subscription.find(params[:id])
-    @subscription = old_sub.renew_for_year(Date.today.year+1)
+    @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
     @order = CreateOrder.from_subscription(@subscription)
     render 'print', :layout => false
   end

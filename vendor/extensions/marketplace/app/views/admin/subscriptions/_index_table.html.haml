@@ -25,3 +25,4 @@
         %td=link_to 'show', admin_subscription_path(sub)
         %td=link_to 'upgrade', edit_admin_subscription_path(sub) if sub.can_upgrade?
         %td=link_to 'renew', renew_admin_subscription_path(sub)
+        %td=link_to 'print renewal', renew_admin_subscription_path(sub)
