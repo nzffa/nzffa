@@ -95,7 +95,8 @@ class Admin::ReportsController < AdminController
 
   def deliveries
     @subscriptions = Subscription.active.find(:all, :conditions => {'receive_tree_grower_magazine' => true})
-    fields = %w[id nzffa_membership_id forename surname postal_address post_line1 post_line2 post_city post_province post_country postcode num_copies indigenous_group_member]
+    fields = %w[id nzffa_membership_id forename surname postal_address post_line1 post_line2 post_city
+    post_province post_country postcode num_copies indigenous_group_member]
     csv_string = FasterCSV.generate do |csv|
       csv << fields
       @subscriptions.each do |sub|
@@ -117,6 +118,31 @@ class Admin::ReportsController < AdminController
 
   def expiries
     all_subscriptions = Subscription.find(:all, :conditions => ['expires_on < ? and expires_on > ?', Date.today, 3.months.ago])
-    @subscriptions = all_subscriptions.select{|s| Subscription.active_subscription_for(s.reader).blank? }
+
+    @subscriptions = all_subscriptions.select do |s|
+      s.reader.present? and Subscription.active_subscription_for(s.reader).blank?
+    end
+
+    fields = %w[id nzffa_membership_id expired_on forename surname postal_address post_line1 post_line2 post_city
+    post_province post_country postcode phone mobile num_copies indigenous_group_member]
+
+    csv_string = FasterCSV.generate do |csv|
+      csv << fields
+      @subscriptions.each do |sub|
+        r = sub.reader
+        next unless r
+        csv << fields.map do |field|
+          case field
+          when 'expired_on' then sub.expires_on.to_s
+          when 'num_copies' then sub.nz_tree_grower_copies
+          when 'indigenous_group_member' then r.group_ids.include?(209).inspect
+          else r.send(field)
+          end
+        end
+      end
+    end
+    headers["Content-Type"] ||= 'text/csv'
+    headers["Content-Disposition"] = "attachment; filename=\"subscription_expiries_3_months_to_#{Date.today.to_s}\""
+    render :text => csv_string
   end
 end
