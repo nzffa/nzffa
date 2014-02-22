@@ -25,9 +25,8 @@ class CalculatesSubscriptionLevy
     if subscription.price_when_sold == nil
       0
     else
-      subscription.price_when_sold - 
-        subscription.research_fund_contribution_amount -
-        (subscription.price_when_sold * 
+      subscription.price_when_sold_without_research_contribution -
+        (subscription.price_when_sold_without_research_contribution * 
          fraction_used(subscription.begins_on, 
                        subscription.expires_on))
     end

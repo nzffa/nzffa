@@ -208,6 +208,12 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def price_when_sold_without_research_contribution
+    if order and order.paid?
+      order.amount - research_fund_contribution_amount
+    end
+  end
+
   def length_in_years
     CalculatesSubscriptionLevy.subscription_length(begins_on, expires_on)
   end
