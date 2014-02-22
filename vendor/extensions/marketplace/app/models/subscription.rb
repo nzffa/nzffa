@@ -97,7 +97,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def can_upgrade?
-    paid? and not cancelled?
+    paid? and (not cancelled?) and active?
   end
 
   def paid?
