@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.branch_admin_update '/branch_admin/:group_id/update/:nzffa_membership_id', :controller => :branch_admin, :action => :update
   map.branch_admin_members_csv '/branch_admin/:group_id/members_csv', :controller => :branch_admin, :action => :members_csv
   map.branch_admin_past_members_csv '/branch_admin/:group_id/past_members_csv', :controller => :branch_admin, :action => :past_members_csv
+  map.branch_admin_past_fft_members_csv '/branch_admin/:group_id/past_fft_members_csv', :controller => :branch_admin, :action => :past_fft_members_csv
   map.branch_admin_last_year_members_csv '/branch_admin/:group_id/last_year_members_csv', :controller => :branch_admin, :action => :last_year_members_csv
 
   map.resources :subscriptions, :except => [:destroy, :edit, :update],
