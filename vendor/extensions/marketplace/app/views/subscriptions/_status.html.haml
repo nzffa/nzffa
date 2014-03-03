@@ -1,11 +1,19 @@
 =flash[:error]
 
+
 -if @subscription.blank?
-  %p 
-    You have no active subscription.
-    =link_to 'Buy a subscription', new_subscription_path
+  - if @last_year_subscription.present?
+    %p
+      Your subscription has expired.
+      =link_to "Renew your subscription", renew_subscriptions_path
+  - else
+    %p
+      You have no active subscription.
+      =link_to 'Buy a subscription', new_subscription_path
 -else
   =render 'subscriptions/subscription'
+
+  %h3 Subscription Options
 
   -if @subscription.paid?
     %ul

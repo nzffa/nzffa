@@ -28,8 +28,14 @@ class SubscriptionsController < MarketplaceController
 
   def renew
     @action_path = subscriptions_path
-    old_sub = Subscription.active_subscription_for(current_reader)
-    @subscription = old_sub.renew_for_year(Date.today.year + 1)
+    if old_sub = Subscription.active_subscription_for(current_reader)
+      @subscription = old_sub.renew_for_year(Date.today.year + 1)
+    elsif old_sub = Subscription.most_recent_subscription_for(current_reader)
+      @subscription = old_sub.renew_for_year(Date.today.year)
+    else
+      redirect_to :back
+    end
+
     @subscription.contribute_to_research_fund = false
     render :new
   end

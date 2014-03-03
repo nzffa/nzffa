@@ -54,6 +54,26 @@ class Subscription < ActiveRecord::Base
     nil
   end
 
+  def self.last_year_subscription_for(reader)
+    first_day = 1.year.ago.at_beginning_of_year
+    last_day = 1.year.ago.at_end_of_year
+    find(:all, :joins => :order,
+               :conditions => ['reader_id = :reader_id and begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"',
+                                {:reader_id => reader.id, :first_day => first_day, :last_day => last_day}],
+                               :order => 'id desc').each do |sub|
+      return sub
+    end
+    nil
+  end
+
+  def self.most_recent_subscription_for(reader)
+    find(:all, :conditions => ['reader_id = :reader_id and cancelled_on is null', {:reader_id => reader.id}],
+                               :order => 'id desc').each do |sub|
+      return sub
+    end
+    nil
+  end
+
   def self.active_subscription_for(reader)
     find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
       return sub if sub.active?
