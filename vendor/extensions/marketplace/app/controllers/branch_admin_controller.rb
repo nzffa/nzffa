@@ -5,7 +5,7 @@ class BranchAdminController < MarketplaceController
 
   def index
     @group = Group.find(params[:group_id])
-    @readers = @group.readers.sort {|a,b| a.surname <=> b.surname }
+    @readers = @group.readers
 
     respond_to do |format|
       format.html

@@ -26,7 +26,7 @@
     %th Address
     %th Edit
   %tbody
-    -@readers.each do |reader|
+    -@readers.sort {|a,b| a.surname <=> b.surname }.each do |reader|
       %tr
         %td=reader.nzffa_membership_id
         %td=reader.name
