@@ -5,7 +5,7 @@ class BranchAdminController < MarketplaceController
 
   def index
     @group = Group.find(params[:group_id])
-    @readers = @group.readers
+    @readers = @group.readers.sort {|a,b| a.surname <=> b.surname }
   end
 
   def members_csv

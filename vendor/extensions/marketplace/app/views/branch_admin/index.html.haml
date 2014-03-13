@@ -16,22 +16,20 @@
 %table{:class => 'px1'}
   %thead
     %th nzffa id
-    %th Forename
-    %th Surname
+    %th Name
     %th Email
     %th{:style => 'width: 100px'} Phone
-    %th{:style => 'width: 100px'} Mobile
-    %th Last Updated
+    %th Address
     %th Edit
   %tbody
     -@readers.each do |reader|
       %tr
         %td=reader.nzffa_membership_id
-        %td=reader.forename
-        %td=reader.surname
+        %td=reader.name
         %td=reader.email
-        %td=reader.phone
-        %td=reader.mobile
-        %td=l reader.updated_at.to_date
+        %td
+          =raw [reader.phone, reader.mobile].select{|f| f.present?}.join('<br>')
+        %td
+          =raw reader.postal_address_array.select{|f| f.present?}.join('<br>')
         %td=link_to('Edit', branch_admin_edit_path(params[:group_id], reader.nzffa_membership_id))
 
