@@ -1,12 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
-  map.branch_admin '/branch_admin/:group_id/', :controller => :branch_admin, :action => :index
+  map.branch_admin '/branch_admin/:group_id.:format', :controller => :branch_admin, :action => :index
+  map.branch_admin_past_members '/branch_admin/:group_id/past_members.:format', :controller => :branch_admin, :action => :past_members
+  map.branch_admin_last_year_members '/branch_admin/:group_id/last_year_members.:format', :controller => :branch_admin, :action => :last_year_members
+  map.branch_admin_past_fft_members '/branch_admin/:group_id/past_fft_members', :controller => :branch_admin, :action => :past_fft_members
+
   map.branch_admin_email '/branch_admin/:group_id/email', :controller => :branch_admin, :action => :email
   map.branch_admin_edit '/branch_admin/:group_id/edit/:nzffa_membership_id', :controller => :branch_admin, :action => :edit
   map.branch_admin_update '/branch_admin/:group_id/update/:nzffa_membership_id', :controller => :branch_admin, :action => :update
-  map.branch_admin_members_csv '/branch_admin/:group_id/members_csv', :controller => :branch_admin, :action => :members_csv
-  map.branch_admin_past_members_csv '/branch_admin/:group_id/past_members_csv', :controller => :branch_admin, :action => :past_members_csv
-  map.branch_admin_past_fft_members_csv '/branch_admin/:group_id/past_fft_members_csv', :controller => :branch_admin, :action => :past_fft_members_csv
-  map.branch_admin_last_year_members_csv '/branch_admin/:group_id/last_year_members_csv', :controller => :branch_admin, :action => :last_year_members_csv
 
   map.resources :subscriptions, :except => [:destroy, :edit, :update],
     :collection => { :quote_new => :post,
@@ -27,15 +27,12 @@ ActionController::Routing::Routes.draw do |map|
       :email => [:get]
     }
 
-  map.resources :orders, :only => [], 
-    :member => { :make_payment => :get}, 
+  map.resources :orders, :only => [],
+    :member => { :make_payment => :get},
     :collection => { :payment_finished => :get }
 
-  #map.reader_dashboard '/membership/dashboard', :controller => :membership, :action => :dashboard
   map.membership_details '/membership/details', :controller => :membership, :action => :details
   map.register_membership '/membership/register', :controller => :membership, :action => :register
-  # map.reader_dashboard '/membership/dashboard', :controller => :membership, :action => :dashboard
-  # map.register '/membership/register', :controller => :membership, :action => :register
 
   map.join_fft_button '/membership/join-fft-button', :controller => :membership, :action => :join_fft_button
   map.join_fft '/membership/join-fft', :controller => :membership, :action => :join_fft

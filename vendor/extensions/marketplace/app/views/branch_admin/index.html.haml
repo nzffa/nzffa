@@ -1,16 +1,20 @@
 %h2 #{@group.name} Members
 
-=link_to "Current Member Email Addresses", branch_admin_email_path(params[:group_id])
+
+=link_to_unless_current "Current Members", branch_admin_path(params[:group_id])
 %br
-=link_to "Current Members Spreadsheet", branch_admin_members_csv_path(params[:group_id])
+-if params[:group_id].to_i == NzffaSettings.fft_marketplace_group_id
+  =link_to_unless_current "Past FFT members", branch_admin_past_fft_members_path
+-else
+  =link_to_unless_current "Past Members - all", branch_admin_past_members_path(params[:group_id])
+  %br
+  =link_to_unless_current "Past Members - last year only", branch_admin_last_year_members_path(params[:group_id])
 %br
 
--if params[:group_id].to_i == NzffaSettings.fft_marketplace_group_id
-  =link_to "Past FFT members", branch_admin_past_fft_members_csv_path
--else
-  =link_to "Past Members Spreadsheet", branch_admin_past_members_csv_path(params[:group_id])
-  %br
-  =link_to "Past Members Last Year Only Spreadsheet", branch_admin_last_year_members_csv_path(params[:group_id])
+=link_to "Email current members", branch_admin_email_path(params[:group_id])
+%br
+
+=link_to "Download CSV (for Excel)", url_for(:format => :csv)
 %br
 
 %table{:class => 'px1'}

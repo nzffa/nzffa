@@ -6,15 +6,14 @@ class BranchAdminController < MarketplaceController
   def index
     @group = Group.find(params[:group_id])
     @readers = @group.readers.sort {|a,b| a.surname <=> b.surname }
+
+    respond_to do |format|
+      format.html
+      format.csv { render_csv_of_readers }
+    end
   end
 
-  def members_csv
-    @group = Group.find(params[:group_id])
-    @readers = @group.readers
-    render_csv_of_readers
-  end
-
-  def past_members_csv
+  def past_members
     @group = Group.find(params[:group_id])
     @branch = Branch.find(:first, :conditions => {:group_id => @group.id})
 
@@ -27,18 +26,13 @@ class BranchAdminController < MarketplaceController
 
     @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
 
-    render_csv_of_readers
+    respond_to do |format|
+      format.html { render :index }
+      format.csv { render_csv_of_readers }
+    end
   end
 
-  def past_fft_members_csv
-    # because fft is not a branch on the subscription, we have to look at the subscription column belong_to_fft
-    all_fft_readers = Subscription.active_anytime.find(:all, :conditions => {:belong_to_fft => true}).map(&:reader).uniq
-    current_fft_readers = Subscription.active.find(:all, :conditions => {:belong_to_fft => true}).map(&:reader).uniq
-    @readers = all_fft_readers - current_fft_readers
-    render_csv_of_readers
-  end
-
-  def last_year_members_csv
+  def last_year_members
     @group = Group.find(params[:group_id])
     @branch = Branch.find(:first, :conditions => {:group_id => @group.id})
 
@@ -53,8 +47,24 @@ class BranchAdminController < MarketplaceController
 
     @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
 
-    render_csv_of_readers
+    respond_to do |format|
+      format.html { render :index }
+      format.csv { render_csv_of_readers }
+    end
   end
+
+  def past_fft_members
+    # because fft is not a branch on the subscription, we have to look at the subscription column belong_to_fft
+    all_fft_readers = Subscription.active_anytime.find(:all, :conditions => {:belong_to_fft => true}).map(&:reader).uniq
+    current_fft_readers = Subscription.active.find(:all, :conditions => {:belong_to_fft => true}).map(&:reader).uniq
+    @readers = all_fft_readers - current_fft_readers
+
+    respond_to do |format|
+      format.html { render :index }
+      format.csv { render_csv_of_readers }
+    end
+  end
+
 
   def email
     @group = Group.find(params[:group_id])
