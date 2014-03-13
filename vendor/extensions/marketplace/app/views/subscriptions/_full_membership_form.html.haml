@@ -3,7 +3,7 @@
 -form_for(@subscription, :url => @action_path) do |f|
   =render :partial => 'subscriptions/hidden_fields', :locals => {:f => f}
 
-  %p How many hectares of planted trees do you have?
+  %h3 How many hectares of planted trees do you have?
   #ha_of_planted_trees
     =f.radio_button :ha_of_planted_trees, '0 - 10'
     =f.label :ha_of_planted_trees_0__10, '0 - 10ha'
@@ -14,19 +14,19 @@
     =f.radio_button :ha_of_planted_trees, '41+'
     =f.label :ha_of_planted_trees_41, '40+ ha'
 
-  %p Select the main branch you want to belong to
+  %h3 Select the main branch you want to belong to
   #main_branch
     =f.collection_select :main_branch_name, Branch.all, :name, :name
 
-  %p Select any additional branches you want to be a member of
+  %h3 Select any additional branches you want to be a member of
   #associated_branches
     =f.collection_select :associated_branch_names, Branch.all, :name, :name, {}, :multiple => true
 
-  %p Select any special interest groups you want to belong to
+  %h3 Select any special interest groups you want to belong to
   #special_interest_groups
     =f.collection_select :action_group_ids, ActionGroup.all, :id, :name, {}, :multiple => true
 
-  %h2 Research Fund Contribution
+  %h3 Research Fund Contribution
   =f.check_box :contribute_to_research_fund
   =f.label :contribute_to_research_fund, "Contribute to Research Fund"
   #research_fund_contribution
@@ -38,16 +38,11 @@
       =f.check_box :research_fund_contribution_is_donation
       =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
 
-  %p
-    &nbsp;
-
   = render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
 
   = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
-
-  = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
-
   = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
+  = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
 
   =f.submit 'Proceed to payment'
 
