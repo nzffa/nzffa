@@ -38,6 +38,9 @@
       =f.check_box :research_fund_contribution_is_donation
       =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
 
+  %p
+    &nbsp;
+
   = render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
 
   = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
