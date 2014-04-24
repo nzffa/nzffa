@@ -159,7 +159,7 @@ class CreateOrder
     else
       @subscription.length_in_years * NzffaSettings.admin_levy
     end
-  end 
+  end
 
   def casual_nz_tree_grower_levy
     per_copy = case subscription.tree_grower_delivery_location
@@ -172,9 +172,11 @@ class CreateOrder
                else
                  raise "unknown tree grower magazine deliver location: #{subscription.tree_grower_delivery_location}"
                end
-    #raise "length: #{subscription.length_in_years.to_s} per_copy: #{per_copy} copies: #{subscription.nz_tree_grower_copies}"
 
-    subscription.length_in_years * (per_copy.to_i * subscription.nz_tree_grower_copies.to_i)
+    if reader.is_complimentary_tree_grower?
+      0
+    else
+      subscription.length_in_years * (per_copy.to_i * subscription.nz_tree_grower_copies.to_i)
+    end
   end
-
 end

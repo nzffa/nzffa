@@ -204,6 +204,10 @@ module ReaderMixin
     (group_ids & [204, 237, 240, 205, 211, 226, 214, 203, 216, 235, 219, 220]).join(' ')
   end
 
+  def is_complimentary_tree_grower?
+    special_cases_include? 102
+  end
+
   def is_options_only?
     special_cases_include? 900
   end
