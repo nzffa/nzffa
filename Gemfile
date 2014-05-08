@@ -12,6 +12,8 @@ gem "radiant", :git => 'git://github.com/enspiral/radiant.git', :branch => '1.0.
 gem 'hpricot'
 gem 'fastercsv'
 gem 'httparty'
+gem 'sanitize', '2.0.3'
+gem 'mime-types', '1.22'
 # alternatively, in development
 # gem "radiant", :path => "/path/to/radiant/root"
 
