@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-forum-extension.git
-  revision: 10e7d5b7a0c9fbd5104a43fd0e0da1570940f383
+  revision: bf4e7d0d34c695c5ecee2f0728e9ed16154ef168
   branch: wackamole
   specs:
     radiant-forum-extension (3.0.6)
@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
-  revision: aca069e1cb8b5f7cdf0d2c4f53d13f0fccc51ab9
+  revision: cbfc38f3bec28d4722485c160cabb82dc0b5b4b4
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
