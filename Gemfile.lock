@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/enspiral/radiant-reader-extension.git
-  revision: 0066c0b914c7b479a955b3dbf307eb7eab28bb15
+  revision: fb6a80dfa78c4bbfc0bf9246d48b84ec08556dc0
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -147,7 +147,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    color (1.5.1)
+    color (1.6)
     compass (0.11.7)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
