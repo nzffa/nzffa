@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226231316) do
+ActiveRecord::Schema.define(:version => 20130415223527) do
 
   create_table "action_groups", :force => true do |t|
     t.string   "name"
@@ -118,6 +118,14 @@ ActiveRecord::Schema.define(:version => 20130226231316) do
   end
 
   add_index "groups", ["ancestry"], :name => "index_groups_on_ancestry"
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
+
+  add_index "groups_users", ["group_id"], :name => "index_groups_users_on_group_id"
+  add_index "groups_users", ["user_id"], :name => "index_groups_users_on_user_id"
 
   create_table "layouts", :force => true do |t|
     t.string   "name",          :limit => 100
@@ -231,12 +239,12 @@ ActiveRecord::Schema.define(:version => 20130226231316) do
     t.date     "appears_on"
     t.date     "expires_on"
     t.integer  "position",                              :default => 0,     :null => false
-    t.integer  "group_id"
     t.text     "allowed_children_cache"
     t.boolean  "commentable",                           :default => true
     t.boolean  "comments_closed",                       :default => false
     t.datetime "replied_at"
     t.integer  "replied_by_id"
+    t.integer  "group_id"
   end
 
   add_index "pages", ["class_name"], :name => "pages_class_name"
@@ -368,6 +376,7 @@ ActiveRecord::Schema.define(:version => 20130226231316) do
     t.integer  "posts_count",             :default => 0
     t.integer  "old_id"
     t.string   "special_cases"
+    t.string   "bank_account_number"
   end
 
   create_table "sessions", :force => true do |t|
