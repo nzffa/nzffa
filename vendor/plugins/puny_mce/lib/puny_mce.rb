@@ -18,7 +18,7 @@ module PunyMCE
       :plugins => %w( BBCode Paste Image Emoticons Link ForceBlocks Protect TextColor EditSource Safari2x Entities ForceNL TabFocus )
     },
     :nzffa => {
-      :toolbar => %w(bold italic underline strike increasefontsize decreasefontsize ul ol indent outdent left center right style removeformat link unlink image),
+      :toolbar => %w(bold italic underline strike ul ol indent outdent left center right style removeformat link unlink image),
       :plugins => %w(Paste Image Link)
     }
   }
