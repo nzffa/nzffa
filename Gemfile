@@ -60,7 +60,7 @@ gem "radiant-page_reader_group_permissions-extension", :git => 'git@github.com:e
 gem "radiant-reorder_children-extension"
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
-gem 'fog'
+gem 'fog', '1.1.0'
 gem 'parallel', '~> 0.5.12'
 
 group :production, :staging do
