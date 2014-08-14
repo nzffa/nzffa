@@ -59,14 +59,12 @@ gem "radiant-page_reader_group_permissions-extension", :git => 'git@github.com:e
 
 gem "radiant-reorder_children-extension"
 
+gem 'backup', :git => 'git://github.com/jdutil/backup.git'
+gem 'fog'
+gem 'parallel', '~> 0.5.12'
+
 group :production, :staging do
   gem 'airbrake'
-end
-
-group :production do
-  gem 'backup', :git => 'git://github.com/jdutil/backup.git', :branch => 'bump_fog'
-  gem 'fog'
-  gem 'parallel', '~> 0.5.12'
 end
 
 # If you're running tests or specs
