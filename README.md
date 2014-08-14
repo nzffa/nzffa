@@ -9,7 +9,7 @@ Current Radiant version is: 1.0.1
 
 ## License
 
-The NZFFA website source code is released under the MIT license and is copyright (c) 2011 NZFFA.
+The NZFFA website source code is released under the MIT license and is copyright (c) 2011-2014 NZFFA.
 
 ## Development Installation
 
