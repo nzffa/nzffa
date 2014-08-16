@@ -52,6 +52,7 @@ gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
 gem "radiant-search-extension"
+gem "radiant-copy_move-extension",          "~> 2.4.3"
 
 gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
 # The above gem uses rr for mocking

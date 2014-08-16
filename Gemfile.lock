@@ -200,6 +200,8 @@ GEM
       cocaine (~> 0.3.2)
       paperclip (~> 2.7.0)
       uuidtools (~> 2.1.2)
+    radiant-copy_move-extension (2.4.5)
+      radiant (>= 1.0.0.rc2)
     radiant-debug-extension (1.0.2)
     radiant-exporter-extension (1.1.0)
     radiant-mailer-extension (1.0.6)
@@ -295,6 +297,7 @@ DEPENDENCIES
   radiant-archive-extension (~> 1.0.7)
   radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-clipped-extension (~> 1.1.1)
+  radiant-copy_move-extension (~> 2.4.3)
   radiant-debug-extension (~> 1.0.2)
   radiant-exporter-extension (~> 1.1.0)
   radiant-forum-extension!
