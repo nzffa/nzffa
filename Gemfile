@@ -4,14 +4,13 @@ source 'https://rubygems.org'
 # If new versions of your installed gems are available, run `bundle update`
 
 # this breaks specs.. but is necessary for attachements i think
-gem "radiant", :git => 'git://github.com/enspiral/radiant.git', :branch => '1.0.1-updated-paperclip'
-#gem "radiant", :path => '/Users/rob/src/radiant'
-#gem "radiant", "~> 1.0.1"
-#gem 'rails', '2.3.11'
+gem "radiant", '1.1.4'
+
+gem "RedCloth", "~> 4.2.9"
 
 gem 'hpricot'
 gem 'fastercsv'
-gem 'httparty'
+gem 'httparty', '0.10.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
 # alternatively, in development
@@ -27,7 +26,16 @@ gem 'mime-types', '1.22'
 
 gem "mysql", "~> 2.8.1"
 gem 'whenever', :require => false
-
+# Default Extensions
+gem "radiant-archive-extension",             "~> 1.0.7"
+gem "radiant-debug-extension",               "~> 1.0.2"
+gem "radiant-exporter-extension",            "~> 1.1.0"
+gem "radiant-markdown_filter-extension",     "~> 1.0.2"
+gem "radiant-sheets-extension",              "~> 1.1.0"
+gem "radiant-snippets-extension",            "~> 1.1.2"
+gem "radiant-site_templates-extension",      "~> 1.0.6"
+gem "radiant-smarty_pants_filter-extension", "~> 1.0.2"
+gem "radiant-textile_filter-extension",      "~> 1.0.4"
 # Language packs
 # gem "radiant-dutch_language_pack-extension",    "~> 1.0.0"
 # gem "radiant-french_language_pack-extension",   "~> 1.0.0"
@@ -36,8 +44,10 @@ gem 'whenever', :require => false
 # gem "radiant-japanese_language_pack-extension", "~> 1.0.0"
 # gem "radiant-russian_language_pack-extension",  "~> 1.0.0"
 
+gem "radiant-clipped-extension", "~> 1.1.1"
+
 gem "radiant-scheduler-extension", "~> 1.0.0"
-gem "radiant-navigation_tags-extension", "~> 0.2.6", :git => 'git://github.com/enspiral/navigation_tags.git'
+gem "radiant-navigation_tags-extension", "~> 0.2.7"
 gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
@@ -85,5 +95,5 @@ group :test, :cucumber, :development do
 end
 
 group :development do
-  gem 'capistrano'
+  gem 'capistrano', "~> 2.14.1"
 end
