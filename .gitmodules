@@ -1,3 +1,0 @@
-[submodule "vendor/extensions/forum"]
-	path = vendor/extensions/forum
-	url = git://github.com/spanner/radiant-forum-extension.git
