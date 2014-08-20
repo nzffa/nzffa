@@ -1,4 +1,4 @@
-class Admin::OrdersController < AdminController
+class Admin::OrdersController < Admin::ResourceController
   only_allow_access_to :index, :new, :edit, :create, :update, :remove, :destroy,
     :when => [:admin, :designer]
 
@@ -8,8 +8,9 @@ class Admin::OrdersController < AdminController
 
       @orders = Order.find(:all, :conditions => {:subscription_id => @subscriptions.map(&:id)})
     else
-      @orders = Order.all
+      @orders = paginated? ? Order.paginate(pagination_parameters) : Order.all
     end
+    
   end
 
   def new
