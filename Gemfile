@@ -24,7 +24,10 @@ gem 'mime-types', '1.22'
 # gem "therubyrhino" # Mozilla Rhino for JRuby
 # gem "johnson" # Mozilla SpiderMonkey for Ruby
 
-gem "mysql", "~> 2.8.1"
+gem "mysql2"
+gem "activerecord-mysql2-adapter"
+gem "execjs", "2.0.2"
+
 gem 'whenever', :require => false
 # Default Extensions
 gem "radiant-archive-extension",             "~> 1.0.7"

@@ -70,6 +70,8 @@ GEM
       rack (~> 1.1.0)
     activerecord (2.3.18)
       activesupport (= 2.3.18)
+    activerecord-mysql2-adapter (0.0.3)
+      mysql2
     activeresource (2.3.18)
       activesupport (= 2.3.18)
     activesupport (2.3.18)
@@ -125,7 +127,7 @@ GEM
     delocalize (0.2.6)
     diff-lcs (1.2.5)
     excon (0.7.12)
-    execjs (2.2.1)
+    execjs (2.0.2)
     fastercsv (1.5.5)
     ffi (1.9.3)
     fog (1.1.0)
@@ -154,7 +156,7 @@ GEM
     mime-types (1.22)
     multi_json (1.0.4)
     multi_xml (0.5.5)
-    mysql (2.8.1)
+    mysql2 (0.3.16)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.1.2)
@@ -278,6 +280,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (~> 4.2.9)
+  activerecord-mysql2-adapter
   airbrake
   backup!
   capistrano (~> 2.14.1)
@@ -285,13 +288,14 @@ DEPENDENCIES
   cucumber (= 1.1.0)
   cucumber-rails!
   database_cleaner (>= 0.5.0)
+  execjs (= 2.0.2)
   fastercsv
   fog (= 1.1.0)
   hpricot
   httparty (= 0.10.0)
   launchy
   mime-types (= 1.22)
-  mysql (~> 2.8.1)
+  mysql2
   parallel (~> 0.5.12)
   radiant (= 1.1.4)
   radiant-archive-extension (~> 1.0.7)
