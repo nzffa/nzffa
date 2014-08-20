@@ -26,7 +26,7 @@ gem 'mime-types', '1.22'
 
 gem "mysql2"
 gem "activerecord-mysql2-adapter"
-gem "execjs", "2.0.2"
+gem "execjs", "2.0.0"
 
 gem 'whenever', :require => false
 # Default Extensions

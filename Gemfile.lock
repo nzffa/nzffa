@@ -127,7 +127,7 @@ GEM
     delocalize (0.2.6)
     diff-lcs (1.2.5)
     excon (0.7.12)
-    execjs (2.0.2)
+    execjs (2.0.0)
     fastercsv (1.5.5)
     ffi (1.9.3)
     fog (1.1.0)
@@ -288,7 +288,7 @@ DEPENDENCIES
   cucumber (= 1.1.0)
   cucumber-rails!
   database_cleaner (>= 0.5.0)
-  execjs (= 2.0.2)
+  execjs (= 2.0.0)
   fastercsv
   fog (= 1.1.0)
   hpricot
