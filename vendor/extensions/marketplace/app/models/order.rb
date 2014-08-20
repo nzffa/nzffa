@@ -13,6 +13,8 @@ class Order < ActiveRecord::Base
   validates_inclusion_of :payment_method, :in => PAYMENT_METHODS, :allow_blank => true
   validates_presence_of :payment_method, :if => :paid_on
 
+  default_scope :order => "created_at DESC"
+
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
 
