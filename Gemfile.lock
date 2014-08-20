@@ -31,8 +31,8 @@ GIT
       radiant-reader-extension (~> 3.0.23)
 
 GIT
-  remote: git://github.com/enspiral/radiant-reader-extension.git
-  revision: 00f06a7a983511a8e4a3331c3a3329a021f7141a
+  remote: git://github.com/nzffa/radiant-reader-extension.git
+  revision: 804cf260b1fcdc86f595b6fbfa7966af42db481e
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
