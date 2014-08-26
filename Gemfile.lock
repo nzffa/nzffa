@@ -22,7 +22,7 @@ GIT
       radiant (>= 0.9.1)
 
 GIT
-  remote: git://github.com/enspiral/radiant-forum-extension.git
+  remote: git://github.com/nzffa/radiant-forum-extension.git
   revision: 0e23c7036ee57c88d5753310024dbc5750f66543
   branch: wackamole
   specs:
