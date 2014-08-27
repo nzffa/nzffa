@@ -14,7 +14,7 @@ set :user, "nzffa"
 set :group, "www-data"
 
 set :scm, :git
-set :repository, "git@github.com:dsatch/nzffa.git"
+set :repository, "git@github.com:nzffa/nzffa.git"
 #set :deploy_via, :remote_cache
 set :bundle_without, [:development, :test, :cucumber]
 
