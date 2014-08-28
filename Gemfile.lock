@@ -15,7 +15,7 @@ GIT
       thor (~> 0.14.6)
 
 GIT
-  remote: git@github.com:enspiral/radiant-page_reader_group_permissions-extension.git
+  remote: git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git
   revision: 574a8eae7edf6898c53cc11d23132ee372eb3176
   specs:
     radiant-page_reader_group_permissions-extension (1.1)
