@@ -13,16 +13,6 @@ gem 'fastercsv'
 gem 'httparty', '0.10.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
-# alternatively, in development
-# gem "radiant", :path => "/path/to/radiant/root"
-
-# Uncomment to support CoffeeScript with a JS runtime (used in the Sheets extension)
-# gem "execjs"
-# And you may need one of these:
-# gem "mustang" # Google V8 for Ruby
-# gem "therubyracer" # Google V8 for Ruby
-# gem "therubyrhino" # Mozilla Rhino for JRuby
-# gem "johnson" # Mozilla SpiderMonkey for Ruby
 
 gem "mysql2"
 gem "activerecord-mysql2-adapter"
@@ -69,8 +59,10 @@ gem 'radiant-reader-extension', :git => 'git://github.com/nzffa/radiant-reader-e
 gem "radiant-forum-extension", :git => 'git://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
 #gem "radiant-forum-extension", :path => '/Users/craig/development/enspiral/radiant/radiant-forum-extension'
 
-gem "radiant-page_reader_group_permissions-extension", :git => 'git@github.com:enspiral/radiant-page_reader_group_permissions-extension.git'
+gem "radiant-page_reader_group_permissions-extension", :git => 'git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git'
 #gem "radiant-page_reader_group_permissions-extension", :path => '/Users/craig/development/radiant_extensions/radiant-page_reader_group_permissions-extension'
+
+gem "radiant-conference-extension", :git => 'git://github.com/nzffa/radiant-nzffa_conference-extension.git'
 
 gem "radiant-reorder_children-extension"
 
