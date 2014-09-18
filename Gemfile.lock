@@ -15,6 +15,12 @@ GIT
       thor (~> 0.14.6)
 
 GIT
+  remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
+  revision: 3ea52fedad698ec46351d57becfeb60b9ec6bcfe
+  specs:
+    radiant-conference-extension (1.0.0)
+
+GIT
   remote: git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git
   revision: 574a8eae7edf6898c53cc11d23132ee372eb3176
   specs:
@@ -306,6 +312,7 @@ DEPENDENCIES
   radiant-archive-extension (~> 1.0.7)
   radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-clipped-extension (~> 1.1.1)
+  radiant-conference-extension!
   radiant-copy_move-extension (~> 2.4.3)
   radiant-debug-extension (~> 1.0.2)
   radiant-exporter-extension (~> 1.1.0)
