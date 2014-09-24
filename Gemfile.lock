@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-reader-extension.git
-  revision: 804cf260b1fcdc86f595b6fbfa7966af42db481e
+  revision: c477701e362fa7a52927334a84b336dc8f995024
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -239,7 +239,7 @@ GEM
       activesupport (= 2.3.18)
       rake (>= 0.8.3)
     rake (10.3.2)
-    rdoc (4.1.1)
+    rdoc (4.1.2)
       json (~> 1.4)
     ref (1.0.5)
     rr (1.1.2)
