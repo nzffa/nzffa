@@ -330,7 +330,7 @@ DEPENDENCIES
   radiant-sheets-extension (~> 1.1.0)
   radiant-site_templates-extension (~> 1.0.6)
   radiant-smarty_pants_filter-extension (~> 1.0.2)
-  radiant-snippets-extension (~> 1.1.2)
+  radiant-snippets-extension (~> 1.1.3)
   radiant-textile_filter-extension (~> 1.0.4)
   rr
   rspec (= 1.3.2)
