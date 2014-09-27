@@ -53,7 +53,7 @@ gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-shar
 gem 'rr', :group => :test
 
 # This depends on radiant-layouts-extension
-# gem "radiant-reader-extension", :git => 'git://github.com/enspiral/radiant-reader-extension.git'
+# gem 'radiant-reader-extension', :path => "vendor/extensions/reader"
 gem 'radiant-reader-extension', :git => 'git://github.com/nzffa/radiant-reader-extension.git'
 
 gem "radiant-forum-extension", :git => 'git://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
@@ -62,6 +62,7 @@ gem "radiant-forum-extension", :git => 'git://github.com/nzffa/radiant-forum-ext
 gem "radiant-page_reader_group_permissions-extension", :git => 'git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git'
 #gem "radiant-page_reader_group_permissions-extension", :path => '/Users/craig/development/radiant_extensions/radiant-page_reader_group_permissions-extension'
 
+# gem "radiant-conference-extension", :path => 'vendor/extensions/conference'
 gem "radiant-conference-extension", :git => 'git://github.com/nzffa/radiant-nzffa_conference-extension.git'
 
 gem "radiant-reorder_children-extension"
