@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-reader-extension.git
-  revision: f41b69bbf727275f7e7927d071afb5a4c2eb108e
+  revision: 333ef9a60fcfacc4f6d0f99b2e2c1a6df6adbaf6
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
