@@ -13,15 +13,17 @@ $("ul#conference_options input").change(function(){
   updateTotal()
 })
 
+$("input[name*=single_or_couple]").change(function(){ updateTotal() })
+
 function updateTotal(){
   var total = 0
   var total_cell = $("ul#conference_options li").last().children(".total")
 
   $("ul#conference_options li").first().each(function() {
+    var total = 0
     if($(this).children("input:checked").size() > 0){
       // full conference, don't bother digging
-      price = parseInt( $(this).children(".levy").first().text().split("$")[1] );
-      $(total_cell).html("$ " + price)
+      total = parseInt( $(this).children(".levy").first().text().split("$")[1] );
     }
     else{
       $("#conference_options ul li input:checked").each(function() {
@@ -30,8 +32,11 @@ function updateTotal(){
             total += price
           }
       });
-      $(total_cell).html("$ " + total)
     }
+    if($("#conference_subscription_single_or_couple_couple").prop('checked')){
+      total *= 2
+    }
+    $(total_cell).html("$ " + total)
   })
 }
 
