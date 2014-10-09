@@ -1,7 +1,4 @@
-%h1 Subscriptions
+.outset= render :partial => 'admin/subscriptions/index_table', :locals => {:subscriptions => @subscriptions}
 
-= render :partial => 'admin/subscriptions/index_table', :locals => {:subscriptions => @subscriptions}
-
-%table
-  #actions
-    = will_paginate @readers
+#actions
+  = will_paginate @readers
