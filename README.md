@@ -59,3 +59,6 @@ To update the staging server to match production
 cd ~/staging/current
 bundle exec rake sync RAILS_ENV=staging
 ```
+##About this extension
+
+This is the NZFFA Member Management System based on Radiant CMS. It provides for paid subscriptions to Readers groups and also an online marketplace.
