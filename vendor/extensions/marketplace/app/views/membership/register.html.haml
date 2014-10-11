@@ -1,8 +1,6 @@
 %h2 Registration
-%p
-  This is free.
 -if @reader.new_record?
-  If you already registered you can 
+  This is free. If you already registered you can 
   =link_to 'Sign in here', '/account/login'
   %p
     If you would rather print a subscription form, 
@@ -15,6 +13,8 @@
 
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
+  %p
+    You are registered.
   %p
     =f.label :forname, 'First name', :class => :required
     %br
