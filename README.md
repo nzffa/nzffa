@@ -61,7 +61,9 @@ bundle exec rake sync RAILS_ENV=staging
 ```
 ##About this extension
 
-This is the NZFFA Member Management System based on Radiant CMS. It provides for paid subscriptions to Readers groups and also an online marketplace. For the member management system our following forked extensions are required:
+This is the NZFFA Member Management System based on Radiant CMS. It provides for paid subscriptions to Readers groups and also an online marketplace. See the wiki for more details.
+
+For the member management system our following forked extensions are required:
 
 radiant-reader-extension
 
