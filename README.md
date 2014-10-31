@@ -1,6 +1,6 @@
-# NZ Farm Forestry Association Website
+# NZ Farm Forestry Association Membership Management System
 
-This website uses Radiant CMS. For more information on Radiant, see:
+This MMS uses Radiant CMS as its core. For more information on Radiant, see:
 http://github.com/radiant/radiant/
 
 Current Radiant version is: 1.0.1
@@ -59,3 +59,18 @@ To update the staging server to match production
 cd ~/staging/current
 bundle exec rake sync RAILS_ENV=staging
 ```
+##About this extension
+
+This is the NZFFA Member Management System based on Radiant CMS. It provides for paid subscriptions to Readers groups. This gives restricted access to view or edit content and also an online marketplace. See the [wiki] (/nzffa/nzffa/wiki) for more details.
+
+For the complete member management system our following forked extensions are required:
+
+radiant-reader-extension
+
+radiant-forum-extension
+
+radiant-page_reader_group_permissions-extension
+
+For conferences you can bolt on our radiant-nzffa_conference-extension
+
+The code is well tested and robust. [The NZFFA website] (http://www.nzffa.org.nz) has been based on this MMS for many years.
