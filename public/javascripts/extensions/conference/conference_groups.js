@@ -22,10 +22,20 @@ function updateTotal(){
   $("ul#conference_options li").first().each(function() {
     var total = 0
     if($(this).children("input:checked").size() > 0){
-      // full conference, don't bother digging
+      // use full conference price
       total = parseInt( $(this).children(".levy").first().text().split("$")[1] );
+      // add extra day option prices if applicable
+      $("#conference_options ul li input:checked").each(function() {
+        price = parseInt( $(this).parent().attr('data-extra_levy') );
+        if($.isNumeric(price)){
+          total += price
+        }
+      });
     }
     else{
+      // Add day registration levy if applicable
+      total += parseInt($("ul#conference_options li").first().attr('data-day_registration_fee'))
+      
       $("#conference_options ul li input:checked").each(function() {
         price = parseInt( $(this).parent().children(".levy").first().text().split("$")[1] );
           if($.isNumeric(price)){
