@@ -100,7 +100,13 @@ class BranchAdminController < MarketplaceController
   end
 
   def render_csv_of_readers
-    csv_string = FasterCSV.generate do |csv|
+    if RUBY_VERSION =~ /1.9/
+      require 'csv'
+      csv_lib = CSV
+    else
+      csv_lib = FasterCSV
+    end
+    csv_string = csv_lib.generate do |csv|
       csv << %w[nzffa_membership_id name email phone postal_address]
       @readers.each do |r|
         csv << [r.nzffa_membership_id, r.name, r.email, r.phone, r.postal_address_string]
