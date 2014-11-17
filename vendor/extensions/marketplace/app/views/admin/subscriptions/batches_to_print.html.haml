@@ -1,8 +1,0 @@
-%h1 Print Subscription Renewal Forms
-
-#{@subscriptions_count} subscriptions grouped by postcode
-
-%ul
--@subs_by_postcode.keys.map{|k| k.to_s }.sort.each do |postcode|
-  %li=link_to postcode, print_batch_admin_subscriptions_path(@options.merge(:postcode => postcode))
-

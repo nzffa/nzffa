@@ -1,4 +1,0 @@
-describe ActionGroup do
-
-end
-

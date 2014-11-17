@@ -1,8 +1,0 @@
--if @reader
-  -if @reader.group_ids.include?(NzffaSettings.fft_marketplace_group_id)
-    =link_to('You are a member of Farm Forestry Timbers.', MembershipController::FFT_MEMBERS_AREA_PATH)
-  -else
-    You need to #{link_to('subscribe to Farm Forestry Timbers', subscriptions_path)} to place an ad in the marketplace.
--else
-  You need to #{link_to('register', '/become-a-member/')} to become a member.
-  Members can #{link_to('login', '/specialty-timber-market/participate/membership')} to create adverts
