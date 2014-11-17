@@ -1,5 +1,6 @@
+%h2 Registration
 -if @reader.new_record?
-  If you already registered you can 
+  This is free. If you already registered you can 
   =link_to 'Sign in here', '/account/login'
   %p
     If you would rather print a subscription form, 
@@ -12,6 +13,8 @@
 
 -form_for(@reader, :url => '/membership/register') do |f|
   %p=f.error_messages
+  %p
+    You are registered.
   %p
     =f.label :forname, 'First name', :class => :required
     %br
@@ -76,10 +79,9 @@
     =check_box_tag :receive_fft_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.fft_newsletter_group_id)
     =label_tag :receive_fft_newsletter, 'Receive Farm Forestry Timbers Newsletter'
 
-  -if @reader.group_ids.include?(NzffaSettings.full_membership_group_id)
-    %p
-      =check_box_tag :receive_nzffa_members_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.nzffa_members_newsletter_group_id)
-      =label_tag :receive_nzffa_members_newsletter, 'Receive NZFFA Members Newsletter'
+  %p
+    =check_box_tag :receive_nzffa_members_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.nzffa_members_newsletter_group_id)
+    =label_tag :receive_nzffa_members_newsletter, 'Receive NZFFA Members Newsletter'
 
 
   %p
