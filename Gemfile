@@ -65,6 +65,9 @@ gem "radiant-page_reader_group_permissions-extension", :git => 'git://github.com
 # gem "radiant-conference-extension", :path => 'vendor/extensions/conference'
 gem "radiant-conference-extension", :git => 'git://github.com/nzffa/radiant-nzffa_conference-extension.git'
 
+# gem "radiant-nzffa_marketplace-extension", :path => 'vendor/extensions/marketplace'
+gem "radiant-marketplace-extension", :git => 'git://github.com/nzffa/radiant-nzffa_marketplace-extension.git'
+
 gem "radiant-reorder_children-extension"
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
