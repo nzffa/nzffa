@@ -31,13 +31,13 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
-  revision: 4bfff84973d55fae1fd065edf0e63506a66b9eaa
+  revision: e64239c5b5eefcdb192b0e1640b3831a51f33d0e
   specs:
     radiant-conference-extension (1.0.0)
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_marketplace-extension.git
-  revision: 9df7cfaabb8525093fb4f64c1abce9eec2705e95
+  revision: fcf314cd74a4c652033c269d9ec5d9f101b131a8
   specs:
     radiant-marketplace-extension (1.0.1)
       spreadsheet
