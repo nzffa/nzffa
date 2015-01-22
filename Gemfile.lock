@@ -31,13 +31,13 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
-  revision: ed3cf7d6b3ec88092e885078b1d286f5a657a018
+  revision: aec806e5725c243f03b6010f344d0d7704730518
   specs:
     radiant-conference-extension (1.0.0)
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_marketplace-extension.git
-  revision: 9f8590f8746f972c3d021a2743dab3d5420c81ba
+  revision: f81f79f4d6ca2381b67d7e6e788885aef94b6e3c
   specs:
     radiant-marketplace-extension (1.0.1)
       spreadsheet
@@ -269,7 +269,7 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     snail (0.5.7)
-    spreadsheet (1.0.0)
+    spreadsheet (1.0.1)
       ruby-ole (>= 1.0)
     stringex (1.3.3)
     term-ansicolor (1.3.0)
