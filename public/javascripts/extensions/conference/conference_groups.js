@@ -1,5 +1,10 @@
 $("#conference_options").tristate()
 updateTotal()
+
+if($("input[name*=single_or_couple]:checked").val() == 'couple'){
+  $("input.partner").show()
+}
+
 $("ul#conference_options input").change(function(){
   // If a conference day just got un-checked, uncheck all it's radiobutton day options
   if(!$(this).prop('checked') && $(this).prop('type') == "checkbox"){
@@ -16,7 +21,7 @@ $("ul#conference_options input").change(function(){
 $("input[name*=single_or_couple]").change(function(){
   if($("input[name*=single_or_couple]:checked").val() == 'couple'){
     $("input.partner").show()
-  }    
+  }
   else{
     $("input.partner").hide().prop('checked', false)
   }   
