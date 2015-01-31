@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
-  revision: f81d96774320220e8c34a26661696012146b1d00
+  revision: 3514582ffecf2430e06d9e18af25ec6473d2a372
   specs:
     radiant-conference-extension (1.0.0)
 
