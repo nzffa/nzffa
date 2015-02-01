@@ -68,6 +68,10 @@ function updateTotal(){
         else{
           if($.isNumeric(price)){
             total += price
+            // Once more if couple registration..
+            if($("#conference_subscription_single_or_couple_couple").prop('checked')){
+              total += price
+            }
           }
         }
         
