@@ -58,23 +58,20 @@ function updateTotal(){
       }
       total += to_add
       
-      $("#conference_options ul li input:checked").each(function() {
+      // start with day registrations..
+      $("#conference_options ul li input[type=checkbox]:checked").each(function() {
         price = parseInt( $(this).parent().children(".levy").first().text().split("$")[1] );
-        if($(this).hasClass('partner') && $("#conference_subscription_single_or_couple_couple").prop('checked') ){
-          if($.isNumeric(price)){
-            total += price
+        if($.isNumeric(price)){
+          total += price;
+          if($("#conference_subscription_single_or_couple_couple").prop('checked')){
+            total += price;
           }
         }
-        else{
-          if($.isNumeric(price)){
-            total += price
-            // Once more if couple registration..
-            if($("#conference_subscription_single_or_couple_couple").prop('checked')){
-              total += price
-            }
-          }
-        }
-        
+      });
+      // Then add day options prices
+      $("#conference_options ul li input[type=radio]:checked").each(function() {
+        price = parseInt( $(this).parent().children(".levy").first().text().split("$")[1] );
+        if($.isNumeric(price)){ total += price }
       });
     }
     $(total_cell).html("$ " + total)
