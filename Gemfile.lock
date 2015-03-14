@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_marketplace-extension.git
-  revision: fad3e906b36bbd4c066352603778a900cb1ddb23
+  revision: c80862636293cb4330d44e0fe79f6b674b7b8e41
   specs:
     radiant-marketplace-extension (1.0.1)
       spreadsheet
@@ -269,7 +269,7 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     snail (0.5.7)
-    spreadsheet (1.0.1)
+    spreadsheet (1.0.3)
       ruby-ole (>= 1.0)
     stringex (1.3.3)
     term-ansicolor (1.3.0)
