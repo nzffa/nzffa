@@ -48,6 +48,7 @@ gem 'radiant-mailer-extension'
 gem "radiant-search-extension"
 gem "radiant-copy_move-extension",          "~> 2.4.3"
 gem "radiant-grandchildren_tags-extension"
+gem "radiant-if_id_tags-extension"
 
 gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
 # The above gem uses rr for mocking

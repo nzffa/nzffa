@@ -221,6 +221,7 @@ GEM
     radiant-debug-extension (1.0.2)
     radiant-exporter-extension (1.1.0)
     radiant-grandchildren_tags-extension (1.0.0)
+    radiant-if_id_tags-extension (1.0.0)
     radiant-mailer-extension (1.0.6)
     radiant-mailer_layouts-extension (0.1.1)
     radiant-markdown_filter-extension (1.0.2)
@@ -328,6 +329,7 @@ DEPENDENCIES
   radiant-exporter-extension (~> 1.1.0)
   radiant-forum-extension!
   radiant-grandchildren_tags-extension
+  radiant-if_id_tags-extension
   radiant-layouts-extension!
   radiant-mailer-extension
   radiant-markdown_filter-extension (~> 1.0.2)
