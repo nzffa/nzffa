@@ -18,7 +18,7 @@ class NzffaExtension < Radiant::Extension
 
   def activate
     Reader.send :include, ReaderMixin
-    AccountsController.send :include, Marketplace::AccountsControllerExtension
+    AccountsController.send :include, Nzffa::AccountsControllerExtension
 
     tab 'Readers' do
       add_item "Readers Plus", "/admin/readers_plus"
