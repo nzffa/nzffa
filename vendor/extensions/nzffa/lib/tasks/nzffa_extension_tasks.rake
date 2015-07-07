@@ -42,6 +42,52 @@ namespace :radiant do
           TranslationSupport.write_file(filename, basename, comments, other)
         end
       end
+      
+      desc 'Emails marketplace expiry warning emails as required'
+      task :email_warnings => :environment do
+        Advert.find(:all, :conditions =>
+                    {:expires_on => 7.days.from_now.to_date}).each do |advert|
+          ExpiryMailer.deliver_warning_email(advert)
+          puts "Emailed: #{advert.reader.email}"
+        end
+      end
+
+      #desc 'Emails subscription expiry warning emails as required'
+      #task :subscription_email_warnings => :environment do
+        #@subscriptions = Subscription.expiring_on(30.days.from_now.to_date)
+        #@subscriptions.each do |subscription|
+          #NotifySubscriber.deliver_subscription_expiring_soon(subscription)
+        #end
+      #end
+
+      #desc 'Emails subscription expiry emails, and expires subscriptions as required'
+      #task :subscription_expiry => :environment do
+        #@subscriptions = Subscription.expiring_on(Date.today.to_date)
+        #@subscriptions.each do |subscription|
+          #AppliesSubscriptionGroups.remove(subscription, subscription.reader)
+          #NotifySubscriber.deliver_subscription_expired_email(subscription)
+        #end
+      #end
+
+      desc 'Reapply the subscriprion groups. Dont choose this in a guess.'
+      task :reapply_subscription_groups => :environment do
+        Reader.find_each do |reader|
+          before_ids = reader.group_ids.uniq
+          AppliesSubscriptionGroups.remove(reader)
+          if reader.has_active_subscription?
+            AppliesSubscriptionGroups.apply(reader.active_subscription, reader)
+          end
+          after_ids = reader.group_ids.uniq
+          removed_ids = before_ids - after_ids
+          added_ids = after_ids - before_ids
+          unless removed_ids.empty?
+            puts "Removed #{removed_ids.inspect} from reader_id: #{reader.id}"
+          end
+          if added_ids.any?
+            puts "Added #{added_ids.inspect} to reader_id: #{reader.id}"
+          end
+        end 
+      end
     end
   end
 end

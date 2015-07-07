@@ -1,0 +1,6 @@
+%h2 Email #{@group.name} Members
+
+%p Copy and Paste the text below into the BCC field of a new email
+
+%p=@readers.map{|r| "\"#{r.name}\" &lt;#{r.email}&gt;"}.join(', ')
+

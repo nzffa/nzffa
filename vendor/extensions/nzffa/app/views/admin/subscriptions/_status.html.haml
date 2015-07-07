@@ -1,0 +1,26 @@
+%p
+  -if subscription.blank?
+    no current subscription.
+    =link_to 'Create Subscription', new_admin_reader_subscription_path(@reader)
+  -else
+    =render :partial => 'subscriptions/subscription', :locals => {:subscription => subscription}
+
+    -if subscription.can_upgrade?
+      %p
+        =link_to 'Upgrade the subscription', edit_admin_subscription_path(subscription)
+    -if subscription.cancelled?
+      %p cancelled on #{subscription.cancelled_on}
+
+    -if not subscription.paid?
+      %p the subscription has not been paid. Either #{link_to('cancel', cancel_admin_reader_subscription_path(@reader, subscription), :method => :post, :confirm => "Really cancel this?")} or #{link_to('mark as paid', edit_admin_order_path(subscription.order))}.
+
+    %p
+      =link_to 'Print as subscription form', print_admin_subscription_path(subscription)
+
+    %p
+      =link_to 'Print renewal subscription form', print_renewal_admin_subscription_path(subscription)
+
+    %p
+      =link_to 'Renew this subscription', renew_admin_subscription_path(subscription)
+      (New subscription with same details as this one, but for next year)
+

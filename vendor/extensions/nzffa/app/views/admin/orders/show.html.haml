@@ -1,0 +1,44 @@
+%h1 Order #{@order.id}
+%p
+  %b Reader:
+  =link_to @order.subscription.reader.name, admin_readers_plu_path(@order.reader)
+%p
+  %b Subscription:
+  =link_to @order.subscription.id, admin_subscription_path(@order.subscription) if @order.subscription
+
+%p
+  %b Amount:
+  =number_to_currency @order.amount
+
+%p
+  %b Payment method:
+  =@order.payment_method
+
+%p
+  %b Subscription:
+  =@order.subscription.description
+
+%p
+  %b Paid on:
+  -if @order.paid?
+    =l @order.paid_on
+  -else
+    Not Paid
+
+%h2 Order Lines
+%table
+  %thead
+    %tr
+      %th id
+      %th Kind
+      %th Particular
+      %th Amount
+  %tbody
+    -@order.order_lines.each do |line|
+      %tr
+        %td=line.id
+        %td=line.kind
+        %td=line.particular
+        %td=number_to_currency(line.amount)
+
+=link_to 'Edit Order', edit_admin_order_path(@order)

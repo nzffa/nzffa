@@ -1,0 +1,7 @@
+%p
+  Reader:
+  =link_to @subscription.reader.name, admin_readers_plu_path(@subscription.reader) if @subscription.reader
+%p
+  Order:
+  =link_to @subscription.order.id, admin_order_path(@subscription.order) if @subscription.order
+=render :partial => 'admin/subscriptions/status', :locals => {:subscription => @subscription}

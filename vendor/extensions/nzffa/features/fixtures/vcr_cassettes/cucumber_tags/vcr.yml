@@ -1,0 +1,43 @@
+--- 
+http_interactions: 
+- request: 
+    method: post
+    uri: https://sec.paymentexpress.com/pxpay/pxaccess.aspx
+    body: 
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <GenerateRequest>
+          <CurrencyInput>NZD</CurrencyInput>
+          <TxnType>Purchase</TxnType>
+          <AmountInput>50.00</AmountInput>
+          <UrlFail>http://nzffa.dev/orders/failure</UrlFail>
+          <PxPayKey>0edb744f3d87e729ae22dc66dcdd7db8bc52ac5dbcb6ca613ef99d457481ad35</PxPayKey>
+          <UrlSuccess>http://nzffa.dev/orders/success</UrlSuccess>
+          <MerchantReference>Order:1</MerchantReference>
+          <PxPayUserId>NZFFA_dev</PxPayUserId>
+        </GenerateRequest>
+
+    headers: {}
+
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Expires: 
+      - Tue, 28 Aug 2012 01:16:16 GMT
+      Content-Length: 
+      - "419"
+      Server: 
+      - DPS_PX_SERVER
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - application/xhtml+xml; charset=utf-8
+      Date: 
+      - Tue, 28 Aug 2012 01:17:16 GMT
+    body: 
+      string: <Request valid="1"><URI>https://sec.paymentexpress.com/pxpay/pxpay.aspx?userid=NZFFA_dev&amp;request=v5PVbyaGjbYuZTjUp-mmvDKs9eszKAQyQ9nU8rEJCPQlggzJaNVV1zXLpunJx8cYzbXlDm84kEzEm1QsExFZu4gpBb2_Bmos575HY7vO5ayMd7cjaxCeE6twWOxDuPW0cLuUIIPbYZpA4XGIiLoIisN2jnRMdghVco0EhzJfZxcbQs5vXeOb-xKbdWQubE7Kvz3LXIlBS8A5GURWqVd3ZEpFDnvCFLycTSx2rF4biAhK6pyAeX0ljW_q46-w8gaK9XvTmlWGEBEQ4hGdXjRPEoxyARwiIHBkqBZdfHw33KPMI=</URI></Request>
+    http_version: 
+  recorded_at: Tue, 28 Aug 2012 01:17:21 GMT
+recorded_with: VCR 2.2.4

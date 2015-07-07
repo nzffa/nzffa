@@ -1,5 +1,8 @@
 # Uncomment this if you reference any of your controllers in activate
 # require_dependency "application_controller"
+# 
+require 'reader_mixin'
+#require 'reader_validator'
 require "radiant-nzffa-extension"
 
 class NzffaExtension < Radiant::Extension
@@ -14,8 +17,16 @@ class NzffaExtension < Radiant::Extension
   end
 
   def activate
-    # tab 'Content' do
-    #   add_item "Nzffa", "/admin/nzffa", :after => "Pages"
-    # end
+    Reader.send :include, ReaderMixin
+    AccountsController.send :include, Marketplace::AccountsControllerExtension
+
+    tab 'Readers' do
+      add_item "Readers Plus", "/admin/readers_plus"
+      add_item "Subscriptions", "/admin/subscriptions"
+      add_item "Orders", "/admin/orders"
+      add_item "Reports", "/admin/reports"
+      add_item "Print Subscriptions", "/admin/subscriptions/batches_to_print"
+    end
+
   end
 end

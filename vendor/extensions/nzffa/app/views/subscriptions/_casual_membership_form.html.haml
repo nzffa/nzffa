@@ -1,0 +1,32 @@
+%h1 Casual Membership
+-form_for(@subscription, :url => @action_path) do |f|
+  =render :partial => 'subscriptions/hidden_fields', :locals => {:f => f}
+  =render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
+
+  %h3 NZ Tree Grower Magazine
+  %p This Quarterly publication is the official Journal of the NZ Farm Forestry Association. Get it delivered.
+  =f.check_box :receive_tree_grower_magazine
+  =f.label :receive_tree_grower_magazine, 'Subscribe to NZ Tree Grower Magazine'
+
+  #tree_grower_delivery_location
+    %p Where will you have the magazine delivered to? 
+    =f.radio_button :tree_grower_delivery_location, 'new_zealand'
+    =f.label :tree_grower_delivery_location_new_zealand, 'New Zealand'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'australia'
+    =f.label :tree_grower_delivery_location_australia, 'Australia'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'everywhere_else'
+    =f.label :tree_grower_delivery_location_everywhere_else, 'Everywhere else'
+
+    %p Do you want more than 1 copy of each edition? If so, how many copies of each edition of NZ Tree Grower would you like?
+    =f.label :nz_tree_grower_copies, 'Number of copies'
+    =f.text_field :nz_tree_grower_copies
+
+  = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
+
+  = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
+
+  = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
+  =f.submit 'Proceed to payment'
+= render :partial => 'subscriptions/quote_js'

@@ -6,15 +6,15 @@ module NavigationHelpers
   # The keys and values here may be used in your standard web steps
   # Using:
   #
-  #   When I go to the "nzffa" admin page
+  #   When I go to the "marketplace" admin page
   # 
   # would direct the request to the path you provide in the value:
   # 
-  #   admin_nzffa_path
+  #   admin_marketplace_path
   # 
   PathMatchers = {} unless defined?(PathMatchers)
   PathMatchers.merge!({
-    # /nzffa/i => 'admin_nzffa_path'
+    # /marketplace/i => 'admin_marketplace_path'
   })
   
 end

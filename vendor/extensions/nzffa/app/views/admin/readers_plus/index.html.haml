@@ -1,0 +1,43 @@
+- include_stylesheet('admin/reader')
+%p
+  %form#query-form{:action => admin_readers_plus_path, :method => :get}
+    =hidden_field_tag 'sort', 'date'
+    =hidden_field_tag 'page', ''
+    =label_tag 'Search:'
+    =text_field_tag 'query', params[:query], :size => 10
+%br
+
+%table#readers.index.outset
+  %thead
+    %th reader id
+    %td nzffa id
+    %td forename
+    %td surname
+    %td email
+    %td has backend login?
+    %td show
+    %td edit
+  %tbody
+    -@readers.each do |r|
+      %tr
+        %td= r.id
+        %td= r.nzffa_membership_id
+        %td= r.forename
+        %td= r.surname
+        %td= r.email
+        %td
+          - if r.user
+            Yes
+            - parts = []
+            - parts << "admin" if r.user.admin?
+            - parts << "designer" if r.user.designer?
+            - group_count = r.groups.count
+            - parts << pluralize(group_count, 'group') if group_count > 0
+            = "(#{parts.join(' | ')})" unless parts.empty?
+          - else
+            = link_to('create', "/admin/readers_plus/#{r.id}/create_user", :method => :post)
+        %td= link_to('view', "/admin/readers_plus/#{r.id}")
+        %td= link_to('edit', "/admin/readers_plus/#{r.id}/edit")
+
+  #actions
+    = will_paginate @readers
