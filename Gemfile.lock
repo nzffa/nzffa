@@ -216,7 +216,7 @@ GEM
       cocaine (~> 0.3.2)
       paperclip (~> 2.7.0)
       uuidtools (~> 2.1.2)
-    radiant-copy_move-extension (2.4.7)
+    radiant-copy_move-extension (2.4.8)
       radiant (>= 1.0.0.rc2)
     radiant-debug-extension (1.0.2)
     radiant-exporter-extension (1.1.0)
