@@ -1,5 +1,5 @@
 .outset
-  %table.index#orders{:summary=>'Orders'}
+  %table.index#orders{:summary=>'Orders', :style => " background-color: white; color: black"}
     %thead
       %tr
         %th id
@@ -8,14 +8,12 @@
         %th amount
         %th created on
         %th paid on
-        %th show
-        %th edit
-        %th delete
+        %th Actions
       
     %tbody
       - orders.each do |order|
         %tr
-          %td=order.id
+          %td.name=link_to(order.id, admin_order_path(order))
           %td=order.subscription.id if order.subscription
           %td=order.reader.name if order.reader
           %td=number_to_currency(order.amount)
@@ -27,13 +25,13 @@
               =l order.paid_on
             -else
               Not Paid
-          %td=link_to('show', admin_order_path(order))
-          %td=link_to('edit', edit_admin_order_path(order))
+
           %td
+            =link_to(t('edit'), edit_admin_order_path(order), :class => 'action')
             -if order.is_deletable?
-              =link_to('delete', admin_order_path(order), :method => :delete, :confirm => 'This will delete the order and the subscription, proceed?')
+              =link_to(image('minus') + ' ' + I18n.t('remove'), admin_order_path(order), :method => :delete, :confirm => 'This will delete the order and the subscription, proceed?', :class => 'action')
             -else
               Not deletable
       - if orders.empty?
         %tr
-          %td{:span => 9}= "No orders"
+          %td{:colspan => 9}= "No orders"

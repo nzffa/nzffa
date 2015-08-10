@@ -1,5 +1,5 @@
 .outset
-  %table#subscriptions.index
+  %table#subscriptions.index{:style => " background-color: white; color: black"}
     %thead
       %th id
       %th reader
@@ -9,23 +9,21 @@
       %th paid_on
       %th cancelled_on
       %th active?
-      %th show
-      %th upgrade
-      %th renew
-      %th print renewal
-
     %tbody
       -subscriptions.each do |sub|
         %tr
-          %td=sub.id
-          %td=sub.reader.name if sub.reader
+          %td.name=link_to sub.id, admin_subscription_path(sub) if sub.reader
+          %td= link_to sub.reader.name, edit_admin_reader_path(sub.reader) if sub.reader
           %td=sub.membership_type
           %td=sub.begins_on
           %td=sub.expires_on
           %td=sub.order.paid_on if sub.order
           %td=sub.cancelled_on
           %td=sub.active? ? 'active' : 'not active'
-          %td=link_to 'show', admin_subscription_path(sub)
-          %td=link_to 'upgrade', edit_admin_subscription_path(sub) if sub.can_upgrade?
-          %td=link_to 'renew', renew_admin_subscription_path(sub)
-          %td=link_to 'print renewal', print_renewal_admin_subscription_path(sub)
+        - if sub.active?
+          %tr
+            %td{:colspan => 12}
+              = render :partial => "admin/subscriptions/status", :locals => {:subscription => sub}
+      - if subscriptions.empty?
+        %tr
+          %td{:colspan => 12}= 'No subscriptions'
