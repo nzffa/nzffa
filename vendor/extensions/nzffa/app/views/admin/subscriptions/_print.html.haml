@@ -36,7 +36,7 @@
     %tr
       %td.envelope-window
         %h2
-          =simple_format [@reader.name, @reader.postal_address.to_a].flatten.join("\n")
+          =simple_format [@reader.name, @reader.postal_address.to_s].flatten.join("\n")
       %td.member-details
         -if @reader.full_nzffa_member?
           Membership id:
