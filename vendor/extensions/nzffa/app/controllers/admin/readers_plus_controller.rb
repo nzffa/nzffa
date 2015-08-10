@@ -43,19 +43,7 @@ class Admin::ReadersPlusController < AdminController
     end
   end
 
-  def create_user
-    load_reader
-    @user = @reader.build_user
-    if @user
-      if @user.save
-        @reader.update_attribute(:user_id, @user.id)
-        flash[:notice] = "Created user #{@user.login}"
-      else
-        flash[:error] = error_messages_for(:user)
-      end
-    end
-    redirect_to [:admin, :readers_plus]
-  end
+  
 
   private
 
