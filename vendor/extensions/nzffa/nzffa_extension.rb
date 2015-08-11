@@ -30,7 +30,6 @@ class NzffaExtension < Radiant::Extension
     
     admin.reader.index.add :thead, "ids_ths", :before => "title_header"
     admin.reader.index.add :tbody, "ids_tds", :before => "title_cell"
-    admin.reader.edit.add :form, "form_additions", :after => "edit_notes"
     admin.reader.edit.form_bottom.unshift 'form_bottom_additions'
   end
 end
