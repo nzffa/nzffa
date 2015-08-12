@@ -21,7 +21,6 @@ class NzffaExtension < Radiant::Extension
     AccountsController.send :include, Nzffa::AccountsControllerExtension
 
     tab 'Readers' do
-      add_item "Readers Plus", "/admin/readers_plus"
       add_item "Subscriptions", "/admin/subscriptions"
       add_item "Orders", "/admin/orders"
       add_item "Reports", "/admin/reports"
