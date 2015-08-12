@@ -27,9 +27,9 @@
               Not Paid
 
           %td
-            =link_to(t('edit'), edit_admin_order_path(order), :class => 'action')
+            =link_to t('edit'), edit_admin_order_path(order)
             -if order.is_deletable?
-              =link_to(image('minus') + ' ' + I18n.t('remove'), admin_order_path(order), :method => :delete, :confirm => 'This will delete the order and the subscription, proceed?', :class => 'action')
+              =link_to(image('minus') + ' ' + I18n.t('remove'), admin_order_path(order), :method => :delete, :confirm => 'This will delete the order and the subscription, proceed?')
             -else
               Not deletable
       - if orders.empty?
