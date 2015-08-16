@@ -33,6 +33,8 @@ class NzffaExtension < Radiant::Extension
     admin.group.edit.add :form, "group_levy", :after => "edit_group"
     admin.group.show.main.delete 'members'
     admin.group.show.main.delete 'pages'
+    admin.group.show.footer.delete 'notes'
+    admin.group.show.footer.delete 'javascript'
     admin.group.show.main << 'existing_pages'
     # admin.group.show.main << 'existing_members'
     admin.group.show.main << 'members'
