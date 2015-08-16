@@ -1,0 +1,24 @@
+.clear{:style => "clear: both; margin-bottom: 22px;"}
+%h1=t('reader_extension.group_members').titlecase
+
+.outset
+  %table.index#orders{:summary=>'Orders', :style => " background-color: white; color: black"}
+    %thead
+      %tr
+        %th NZFFA_id
+        %th Name
+        %th Email
+        %th Phone
+        %th Address
+      
+    %tbody
+      - @group.readers.each do |reader|
+        %tr
+          %td.nzffa_id= reader.nzffa_membership_id
+          %td.name=link_to(reader.name, edit_admin_reader_path(reader))
+          %td= reader.email
+          %td= raw [reader.phone, reader.mobile].select{|f| f.present?}.join('<br>')
+          %td= raw reader.postal_address_array.select{|f| f.present?}.join('<br>')
+      - if @group.readers.empty?
+        %tr
+          %td{:colspan => 9}= "No members"

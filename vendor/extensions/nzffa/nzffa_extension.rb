@@ -34,6 +34,7 @@ class NzffaExtension < Radiant::Extension
     admin.group.show.main.delete 'members'
     admin.group.show.main.delete 'pages'
     admin.group.show.main << 'existing_pages'
-    admin.group.show.main << 'existing_members'
+    # admin.group.show.main << 'existing_members'
+    admin.group.show.main << 'members'
   end
 end
