@@ -16,11 +16,11 @@
 
   %h3 Select the main branch you want to belong to
   #main_branch
-    =f.collection_select :main_branch_name, Branch.all, :name, :name
+    =f.collection_select :main_branch_name, Group.branches, :name, :name
 
   %h3 Select any additional branches you want to be a member of
   #associated_branches
-    =f.collection_select :associated_branch_names, Branch.all, :name, :name, {}, :multiple => true
+    =f.collection_select :associated_branch_names, Group.branches, :name, :name, {}, :multiple => true
 
   %h3 Select any special interest groups you want to belong to
   #special_interest_groups

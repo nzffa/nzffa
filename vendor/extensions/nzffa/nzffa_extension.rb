@@ -18,8 +18,8 @@ class NzffaExtension < Radiant::Extension
 
   def activate
     Reader.send :include, ReaderMixin
+    Group.send :include, Nzffa::BranchGroupExtension
     AccountsController.send :include, Nzffa::AccountsControllerExtension
-
     tab 'Readers' do
       add_item "Subscriptions", "/admin/subscriptions"
       add_item "Orders", "/admin/orders"
@@ -30,5 +30,6 @@ class NzffaExtension < Radiant::Extension
     admin.reader.index.add :thead, "ids_ths", :before => "title_header"
     admin.reader.index.add :tbody, "ids_tds", :before => "title_cell"
     admin.reader.edit.form_bottom.unshift 'form_bottom_additions'
+    admin.group.edit.add :form, "group_levy", :after => "edit_group"
   end
 end

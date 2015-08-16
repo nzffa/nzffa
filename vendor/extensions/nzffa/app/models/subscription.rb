@@ -3,9 +3,9 @@ class Subscription < ActiveRecord::Base
 
   has_one :order, :dependent => :destroy
   belongs_to :reader
-  has_many :subscriptions_branches, :dependent => :destroy
-  has_many :branches, :through => :subscriptions_branches
-  belongs_to :main_branch, :class_name => 'Branch'
+  has_many :subscriptions_branches, :dependent => :destroy, :source => :group
+  has_many :branches, :through => :subscriptions_branches, :class_name => 'Group'
+  belongs_to :main_branch, :class_name => 'Group'
   has_many :action_groups_subscriptions, :dependent => :destroy
   has_many :action_groups, :through => :action_groups_subscriptions
 
@@ -206,7 +206,7 @@ class Subscription < ActiveRecord::Base
     if main_branch.present?
       branch_names -= [main_branch.name]
     end
-    self.branches += Branch.find(:all, :conditions => {:name => branch_names})
+    self.branches += Group.branches.find_all_by_name branch_names
   end
 
   def main_branch_name
@@ -218,7 +218,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def main_branch_name=(name)
-    self.main_branch = Branch.find_by_name(name)
+    self.main_branch = Group.branches.find_by_name(name)
     self.branches << self.main_branch
   end
 

@@ -24,7 +24,7 @@ Membership details, address, email, phone
     %tr
       %td{:colspan = >4}
         %b Farm Forestry Timbers ($15)
-    -branches = Branch.find(:all, :order => 'name') - @subscription.branches
+    -branches = Group.branches.all(:order => 'name') - @subscription.branches
     -branches.in_groups_of(4) do |group|
       %tr
         -group.compact.each do |b|

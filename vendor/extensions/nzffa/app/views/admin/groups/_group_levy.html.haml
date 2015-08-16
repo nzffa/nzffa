@@ -1,4 +1,4 @@
-- if (@group.ancestors + [@group]).include?(branches_group)
+- if @group.is_branch_group?
   %p.group_levy
     = label_tag :group_annual_levy, "Levy"
     = text_field :group, :annual_levy, :maxlength => 100, :class => "textbox", :value => @group.annual_levy

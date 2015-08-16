@@ -156,7 +156,7 @@ module ReaderMixin
   end
 
   def current_branches_from_groups
-    Branch.find(:all, :conditions => {:group_id => group_ids})
+    Group.branches.find_all_by_group_id(group_ids)
   end
 
   def action_group_names
