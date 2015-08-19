@@ -57,7 +57,7 @@ function instantiateCkEditor(){
 	
 	var usedFilter = $('message_filter_id')
 	if(usedFilter.value == 'CKEditor'){
-		putInEditor(partIndex)
+		putInEditor()
 	}
 	
   // var timer = setInterval(function() {
@@ -73,21 +73,21 @@ function instantiateCkEditor(){
 	
 }
 
-function toggleEditor(partIndex){
+function toggleEditor(){
 	var filterId = $('message_filter_id')
 	if(filterId.value == 'CKEditor'){
-		putInEditor(partIndex)
+		putInEditor()
 	} else {
-		removeEditor(partIndex)
+		removeEditor()
 	}
 }
 
-function removeEditor(partIndex){
+function removeEditor(){
 	var instance = CKEDITOR.instances['message_body']
 	instance.destroy()
 }
 
-function putInEditor(partIndex){
+function putInEditor(){
 	var textarea = $('message_body')
 	CKEDITOR.replace(textarea)
 }
