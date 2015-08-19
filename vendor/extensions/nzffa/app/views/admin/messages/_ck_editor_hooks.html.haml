@@ -1,0 +1,8 @@
+- include_javascript 'extensions/ck_editor_filter/ckeditor/ckeditor'
+- include_javascript 'extensions/ck_editor_filter/radiant.ckeditor.reader_messages'
+
+:javascript
+  Event.observe(window,'load',function(){ 
+    instantiateCkEditor('message_body')
+  })
+  Event.observe($('message_filter_id'),'change',function(){ toggleEditor('message_body') })

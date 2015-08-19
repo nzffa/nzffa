@@ -36,7 +36,7 @@ class NzffaExtension < Radiant::Extension
     admin.group.show.footer.delete 'notes'
     admin.group.show.footer.delete 'javascript'
     admin.group.show.main << 'existing_pages'
-    # admin.group.show.main << 'existing_members'
     admin.group.show.main << 'members'
+    admin.message.edit.add :main, "ck_editor_hooks"
   end
 end
