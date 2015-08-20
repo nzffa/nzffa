@@ -52,8 +52,8 @@ class AppliesSubscriptionGroups
     group_ids_to_delete << NzffaSettings.tree_grower_magazine_group_id
     group_ids_to_delete << NzffaSettings.tree_grower_magazine_australia_group_id
     group_ids_to_delete << NzffaSettings.tree_grower_magazine_everywhere_else_group_id
-    group_ids_to_delete.concat ActionGroup.all.map(&:group_id)
-    group_ids_to_delete.concat Group.branches.map(&:group_id)
+    group_ids_to_delete.concat Group.action_groups.map(&:id)
+    group_ids_to_delete.concat Group.branches.map(&:id)
     
     group_ids_to_add = []
     if reader.subscriptions.any?

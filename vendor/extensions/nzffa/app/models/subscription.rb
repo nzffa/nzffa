@@ -6,8 +6,8 @@ class Subscription < ActiveRecord::Base
   has_many :subscriptions_branches, :dependent => :destroy, :source => :group
   has_many :branches, :through => :subscriptions_branches, :class_name => 'Group'
   belongs_to :main_branch, :class_name => 'Group'
-  has_many :action_groups_subscriptions, :dependent => :destroy
-  has_many :action_groups, :through => :action_groups_subscriptions
+  has_many :action_groups_subscriptions, :dependent => :destroy, :source => :group
+  has_many :action_groups, :through => :action_groups_subscriptions, :class_name => 'Group'
 
   validates_inclusion_of :membership_type, :in => ['full', 'casual']
   validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'

@@ -18,7 +18,7 @@ class NzffaExtension < Radiant::Extension
 
   def activate
     Reader.send :include, ReaderMixin
-    Group.send :include, Nzffa::BranchGroupExtension
+    Group.send :include, Nzffa::GroupExtension
     AccountsController.send :include, Nzffa::AccountsControllerExtension
     tab 'Readers' do
       add_item "Subscriptions", "/admin/subscriptions"

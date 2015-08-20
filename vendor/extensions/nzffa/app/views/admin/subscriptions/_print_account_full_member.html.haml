@@ -94,8 +94,8 @@
 .section
   %h4 Special Interest Groups
   %table
-    -action_groups = ActionGroup.find(:all, :order => 'name') - @subscription.action_groups
-    -action_groups << ActionGroup.new(:name => 'Farm Forestry Timbers', :annual_levy => 15)
+    -action_groups = Group.action_groups.all(:order => 'name') - @subscription.action_groups
+    -action_groups << Group.find(NzffaSettings.fft_marketplace_group_id)
     -action_groups.reverse.in_groups_of(3) do |group|
       %tr
         -group.compact.each do |b|
