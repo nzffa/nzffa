@@ -38,10 +38,7 @@ class CalculatesSubscriptionLevy
   end
 
   def self.levy_for(subscription)
-    order = CreateOrder.from_subscription(subscription)
-    #puts order.order_lines.inspect
-    #puts order.order_lines.map{|ol| [ol.kind, ol.amount.to_s]}.inspect
-    order.amount
+    CreateOrder.from_subscription(subscription).amount
   end
 
   def self.yearly_levy_for(subscription)
