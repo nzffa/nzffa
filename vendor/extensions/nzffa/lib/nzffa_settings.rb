@@ -36,7 +36,7 @@ class NzffaSettings
     end
   end
 
-  @admin_levy = Radiant::Config["nzffa.admin_levy"]
+  @admin_levy = Radiant::Config["nzffa.admin_levy"].to_i
   
   @forest_size_levys = {}
   ['0 - 10', '11 - 40', '41+'].each do |key|
