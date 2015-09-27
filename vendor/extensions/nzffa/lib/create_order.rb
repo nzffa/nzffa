@@ -157,7 +157,7 @@ class CreateOrder
     if reader.is_branch_life_member? or reader.is_life_member?
       0
     else
-      @subscription.length_in_years * NzffaSettings.admin_levy
+      @subscription.length_in_years * Radiant::Config["nzffa.admin_levy"]
     end
   end
 
