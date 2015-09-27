@@ -36,49 +36,24 @@ class NzffaSettings
     end
   end
 
-  # @past_members_group_id = 237
-  # @newsletter_editors_group_id = 214
-  # @councillors_group_id = 203
-  # @presidents_group_id = 216
-  # @secretarys_group_id = 219
-  # @treasurers_group_id = 220
-  #
-  # @admin_levy = 19
-  #
-  # @forest_size_levys = {'0 - 10'  => 0,
-  #                      '11 - 40' => 51,
-  #                      '41+'     => 120}
-
+  @admin_levy = Radiant::Config["nzffa.admin_levy"]
+  
   @forest_size_levys = {}
   ['0 - 10', '11 - 40', '41+'].each do |key|
     @forest_size_levys[key] = Radiant::Config["nzffa.forest_size_#{key.gsub(' ','')}_levy"].to_i
   end
 
-  # @special_interest_group_levys = {
-  #   'Eucalyptus Action Group'  => 15,
-  #   'Cypress Development Group' => 15,
-  #   'Acacia Melanoxylon Interest Group Organisation (AMIGO)' => 15,
-  #   'Indigenous Forest Section' => 30,
-  #   'Sequoia Action Group' => 15
-  # }
+  @full_member_tree_grower_magazine_levy = Radiant::Config["nzffa.full_member_tgm_levy"].to_i
 
-  @full_member_tree_grower_magazine_levy = 50
-  @tree_grower_magazine_within_new_zealand = 50
-  @tree_grower_magazine_within_australia = 55
-  @tree_grower_magazine_everywhere_else = 60
-
-  @full_member_fft_marketplace_levy = 15
-  @casual_member_fft_marketplace_levy = 15
-
-#  @fft_marketplace_group_id = 229
-#  @tree_grower_magazine_group_id = 80
-#  @tree_grower_magazine_australia_group_id = 81
-#  @tree_grower_magazine_everywhere_else_group_id = 82
-#  @full_membership_group_id = 232
-#
-#  @fft_newsletter_group_id = 230
-#  @nzffa_members_newsletter_group_id = 211
-#  @small_scale_forest_grower_newsletter_group_id = 255
-#  @forest_grower_levy_payer_newsletter_group_id = 250
+  @full_member_fft_marketplace_levy = Radiant::Config["nzffa.full_member_marketplace_levy"].to_i
+  @casual_member_fft_marketplace_levy = Radiant::Config["nzffa.casual_member_marketplace_levy"].to_i
   
+  @fft_marketplace_group_id = Radiant::Config["nzffa.fft_marketplace_group_id"].to_i
+  @fft_newsletter_group_id = Radiant::Config["nzffa.fft_newsletter_group_id"].to_i
+  
+  @full_membership_group_id = Radiant::Config["nzffa.full_membership_group_id"].to_i
+  @small_scale_forest_grower_newsletter_group_id = Radiant::Config["nzffa.small_scale_fg_newsletter_group_id"].to_i
+  @forest_grower_levy_payer_newsletter_group_id = Radiant::Config["nzffa.fg_levy_payer_newsletter_group_id"].to_i
+  
+  @nzffa_members_newsletter_group_id = Radiant::Config["nzffa.members_newsletter_group_id"].to_i
 end

@@ -9,30 +9,10 @@ Radiant.config do |config|
     nzffa.define 'forest_size_0-10_levy', :value => 0
     nzffa.define 'forest_size_11-40_levy', :value => 51
     nzffa.define 'forest_size_41+_levy', :value => 120
+    
+    nzffa.define 'full_member_tgm_levy', :value => 50
+    
+    nzffa.define 'casual_member_marketplace_levy', :value => 15
+    nzffa.define 'full_member_marketplace_levy', :value => 15
   end
 end
-
-
-# @past_members_group_id = 237
-# @newsletter_editors_group_id = 214
-# @councillors_group_id = 203
-# @presidents_group_id = 216
-# @secretarys_group_id = 219
-# @treasurers_group_id = 220
-#
-# @admin_levy = 19
-#
-# @forest_size_levys = {'0 - 10'  => 0,
-#                       '11 - 40' => 51,
-#                       '41+'     => 120}
-
-#  @fft_marketplace_group_id = 229
-#  @tree_grower_magazine_group_id = 80
-#  @tree_grower_magazine_australia_group_id = 81
-#  @tree_grower_magazine_everywhere_else_group_id = 82
-#  @full_membership_group_id = 232
-#
-#  @fft_newsletter_group_id = 230
-#  @nzffa_members_newsletter_group_id = 211
-#  @small_scale_forest_grower_newsletter_group_id = 255
-#  @forest_grower_levy_payer_newsletter_group_id = 250

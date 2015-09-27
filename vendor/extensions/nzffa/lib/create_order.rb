@@ -157,18 +157,18 @@ class CreateOrder
     if reader.is_branch_life_member? or reader.is_life_member?
       0
     else
-      @subscription.length_in_years * Radiant::Config["nzffa.admin_levy"]
+      @subscription.length_in_years * NzffaSettings.admin_levy
     end
   end
 
   def casual_nz_tree_grower_levy
     per_copy = case subscription.tree_grower_delivery_location
                when 'new_zealand'
-                 NzffaSettings.tree_grower_magazine_within_new_zealand
+                 Group.tg_magazine_nz_group.annual_levy
                when 'australia'
-                 NzffaSettings.tree_grower_magazine_within_australia
+                 Group.tgm_australia_group.annual_levy
                when 'everywhere_else'
-                 NzffaSettings.tree_grower_magazine_everywhere_else
+                 Group.tgm_everywhere_else_group.annual_levy
                else
                  raise "unknown tree grower magazine deliver location: #{subscription.tree_grower_delivery_location}"
                end
