@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/jomz/radiant-reader-extension.git
-  revision: b7347f8706a025db8cc435c09194536940ac6ae4
+  revision: 8e710534a1329c6194178a45693b09b597abc0ed
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
-  revision: a0c595ffecd159e99a68b8ff761c6d349885ff61
+  revision: 8e2324cadf6adcfeb2f7cbd70646847e5c9e8eac
   specs:
     radiant-conference-extension (1.0.0)
 
