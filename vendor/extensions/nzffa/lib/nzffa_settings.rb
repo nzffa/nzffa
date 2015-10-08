@@ -43,6 +43,11 @@ class NzffaSettings
     @forest_size_levys[key] = Radiant::Config["nzffa.forest_size_#{key.gsub(' ','')}_levy"].to_i
   end
 
+  roles = %w(councillor president secretary treasurer past_member newsletter_editor)
+  roles.each do |key|
+    eval "@#{key}s_group_id = #{Radiant::Config["nzffa.#{key}s_group_id"].to_i}"
+  end
+
   @full_member_tree_grower_magazine_levy = Radiant::Config["nzffa.full_member_tgm_levy"].to_i
 
   @full_member_fft_marketplace_levy = Radiant::Config["nzffa.full_member_marketplace_levy"].to_i
