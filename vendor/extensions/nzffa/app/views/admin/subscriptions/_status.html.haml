@@ -34,3 +34,7 @@
     =link_to 'Renew this subscription', renew_admin_subscription_path(subscription)
     (Same subscription details as this one, but for next year)
 
+- else
+  %p
+    no current subscription.
+    =link_to 'Create Subscription', new_admin_reader_subscription_path(@reader)
