@@ -1,6 +1,6 @@
 %p
   Reader:
-  =link_to @subscription.reader.name, admin_reader_path(@subscription.reader) if @subscription.reader
+  =link_to @subscription.reader.name, edit_admin_reader_path(@subscription.reader) if @subscription.reader
 %p
   Order:
   =link_to @subscription.order.id, admin_order_path(@subscription.order) if @subscription.order
