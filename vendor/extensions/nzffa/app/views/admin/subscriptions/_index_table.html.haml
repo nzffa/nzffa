@@ -9,6 +9,7 @@
       %th paid_on
       %th cancelled_on
       %th active?
+      %th.actions{:colspan => 4}
     %tbody
       -subscriptions.each do |sub|
         %tr
@@ -20,10 +21,13 @@
           %td=sub.order.paid_on if sub.order
           %td=sub.cancelled_on
           %td=sub.active? ? 'active' : 'not active'
-        - if sub.active?
-          %tr
-            %td{:colspan => 12}
-              = render :partial => "admin/subscriptions/status", :locals => {:subscription => sub}
+          %td
+            - if sub.active?
+              =link_to('Upgrade', edit_admin_subscription_path(sub)) if sub.can_upgrade?
+          %td=link_to 'Renew', renew_admin_subscription_path(sub)
+          %td=link_to 'As subscription form', print_admin_subscription_path(sub)
+          %td=link_to 'As renewal form', print_renewal_admin_subscription_path(sub)
+              
       - if subscriptions.empty?
         %tr
           %td{:colspan => 12}= 'No subscriptions'
