@@ -7,21 +7,21 @@ class AppliesSubscriptionGroups
       if subscription.belong_to_fft?
         # swap with fft_newsletter if it exists
         reader.memberships.find_all_by_group_id(NzffaSettings.fft_newsletter_group_id).each(&:destroy)
-        reader.groups << Group.find(NzffaSettings.fft_marketplace_group_id)
+        reader.groups << Group.fft_marketplace_group
       end
 
       case subscription.membership_type
       when 'full'
-        reader.groups << Group.find(NzffaSettings.full_membership_group_id)
-        reader.groups << Group.find(NzffaSettings.tree_grower_magazine_group_id)
+        reader.groups << Group.full_membership_group
+        reader.groups << Group.tg_magazine_nz_group
         reader.memberships.find_all_by_group_id(NzffaSettings.small_scale_forest_grower_newsletter_group_id).each(&:destroy)
 
         subscription.branches.each do |branch|
-          reader.groups << branch.group unless branch.group.nil?
+          reader.groups << branch
         end
 
         subscription.action_groups.each do |action_group|
-          reader.groups << action_group.group unless action_group.group.nil?
+          reader.groups << action_group
         end
 
       when 'casual'

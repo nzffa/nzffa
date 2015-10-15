@@ -111,12 +111,12 @@ class CreateOrder
 
   def casual_member_fft_marketplace_levy_amount
     subscription.length_in_years *
-      NzffaSettings.casual_member_fft_marketplace_levy
+      NzffaSettings.casual_member_fft_marketplace_levy.to_i
   end
 
   def full_member_fft_marketplace_levy_amount
     subscription.length_in_years *
-      NzffaSettings.full_member_fft_marketplace_levy
+      NzffaSettings.full_member_fft_marketplace_levy.to_i
   end
 
   def full_member_tree_grower_magazine_levy_amount
@@ -125,12 +125,12 @@ class CreateOrder
       0
     else
       subscription.length_in_years *
-        NzffaSettings.full_member_tree_grower_magazine_levy
+        NzffaSettings.full_member_tree_grower_magazine_levy.to_i
     end
   end
 
   def action_group_levy_amount(group)
-    subscription.length_in_years * group.annual_levy
+    subscription.length_in_years * group.annual_levy.to_i
   end
 
   def branch_levy_amount(branch)
@@ -149,7 +149,7 @@ class CreateOrder
       0
     else
       subscription.length_in_years *
-        NzffaSettings.forest_size_levys[subscription.ha_of_planted_trees]
+        NzffaSettings.forest_size_levys[subscription.ha_of_planted_trees].to_i
     end
   end
 
@@ -157,18 +157,18 @@ class CreateOrder
     if reader.is_branch_life_member? or reader.is_life_member?
       0
     else
-      @subscription.length_in_years * NzffaSettings.admin_levy
+      @subscription.length_in_years * NzffaSettings.admin_levy.to_i
     end
   end
 
   def casual_nz_tree_grower_levy
     per_copy = case subscription.tree_grower_delivery_location
                when 'new_zealand'
-                 Group.tg_magazine_nz_group.annual_levy
+                 Group.tg_magazine_nz_group.annual_levy.to_i
                when 'australia'
-                 Group.tgm_australia_group.annual_levy
+                 Group.tgm_australia_group.annual_levy.to_i
                when 'everywhere_else'
-                 Group.tgm_everywhere_else_group.annual_levy
+                 Group.tgm_everywhere_else_group.annual_levy.to_i
                else
                  raise "unknown tree grower magazine deliver location: #{subscription.tree_grower_delivery_location}"
                end
