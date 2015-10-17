@@ -14,13 +14,13 @@
 =link_to "Email current members", branch_admin_email_path(params[:group_id])
 %br
 
-=link_to "Download CSV", url_for(:format => :csv)
+%p
+  Download spreadsheet as 
+  = link_to "CSV (Comma seperated values)", url_for(:format => :csv)
+  or as 
+  = link_to "XLS (for Excel)", url_for(:format => :xls)
 
-=link_to "Download XLS (for Excel)", url_for(:format => :xls)
-
-%br
-
-%table{:class => 'px1', :border => 0, :cellspacing => 0}
+%table{:class => 'px1', :border => 0, :cellspacing => 0, :style => "margin-top: 1em"}
   %thead
     %th nzffa id
     %th Name
