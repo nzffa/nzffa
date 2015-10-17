@@ -1,0 +1,12 @@
+%p Dear #{@reader_params[:forename]} #{@reader_params[:surname]},
+
+%p Thanks for registering on the NZFFA Website.
+
+-hostname = ActionMailer::Base.default_url_options[:host]
+-login_url = "http://#{hostname}/account/login"
+
+%p For your reference you can login by clicking here: #{link_to(login_url, login_url)}
+
+%p Your email address is: #{@reader_params[:email]} and your password is: #{@reader_params[:password]}
+
+%p Thank you.

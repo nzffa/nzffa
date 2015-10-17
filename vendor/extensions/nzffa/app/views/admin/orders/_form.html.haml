@@ -1,0 +1,30 @@
+-form_for([:admin, @order]) do |f|
+  =f.hidden_field :subscription_id
+  %p
+    =f.label :payment_method
+    =f.select :payment_method, Order::PAYMENT_METHODS, :include_blank => true
+  %p
+    =f.label :paid_on
+    =f.text_field :paid_on
+    date such as #{Date.today.to_s} (Year-Month-Day)
+
+  %p
+    =f.label :details
+    =f.text_field :details, :style => 'width: 500px'
+
+
+  %table.index#orders
+    %thead
+      %th kind
+      %th particular
+      %th amount
+    %tbody
+      -@order.order_lines.each do |ol|
+        %tr
+          =hidden_field_tag "order[order_lines_attributes][#{ol.object_id}][id]", ol.id
+          %td=text_field_tag "order[order_lines_attributes][#{ol.object_id}][kind]", ol.kind
+          %td=text_field_tag "order[order_lines_attributes][#{ol.object_id}][particular]", ol.particular
+          %td=text_field_tag "order[order_lines_attributes][#{ol.object_id}][amount]", ol.amount
+
+
+  =f.submit 'Save'

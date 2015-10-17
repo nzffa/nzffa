@@ -1,0 +1,35 @@
+-if subscription
+  %p
+    %b Listing in Farm Forestry Timbers Marketplace?
+    =subscription.belong_to_fft? ? 'Yes' : 'No'
+
+  %p
+    %b Receive NZ Tree Grower Magazine?
+    =subscription.receive_tree_grower_magazine? ? 'Yes' : 'No'
+    -if subscription.receive_tree_grower_magazine?
+      #{subscription.nz_tree_grower_copies} copies
+
+  -if subscription.membership_type == 'full'
+    %p
+      %b Forest Area:
+      =subscription.ha_of_planted_trees
+    %p
+      %b Branches:
+      %ul
+        -subscription.branches.each do |branch|
+          %li=branch.name
+    %p
+      %b Action Groups:
+      %ul
+        -subscription.action_groups.each do |action_group|
+          %li=action_group.name
+
+  - unless subscription.paid?
+    %p the subscription has not been paid. Either #{link_to('cancel', cancel_admin_reader_subscription_path(@reader, subscription), :method => :post, :confirm => "Really cancel this?")} or #{link_to('mark as paid', edit_admin_order_path(subscription.order))}.
+
+  %div.actions
+    =link_to('Upgrade', edit_admin_subscription_path(subscription)) if subscription.can_upgrade?
+    =link_to 'Print as subscription form', print_admin_subscription_path(subscription)
+    =link_to 'Print renewal subscription form', print_renewal_admin_subscription_path(subscription)
+    =link_to 'Renew this subscription', renew_admin_subscription_path(subscription)
+    (Same subscription details as this one, but for next year)

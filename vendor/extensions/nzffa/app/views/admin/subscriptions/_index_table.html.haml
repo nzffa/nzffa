@@ -1,0 +1,35 @@
+.outset
+  %table#subscriptions.index{:style => " background-color: white; color: black"}
+    %thead
+      %th id
+      %th reader
+      %th type
+      %th begins_on
+      %th expires_on
+      %th paid_on
+      %th cancelled_on
+      %th active?
+      %th.actions{:colspan => 4}
+    %tbody
+      -subscriptions.each do |sub|
+        %tr
+          %td.name=link_to sub.id, admin_subscription_path(sub) if sub.reader
+          %td= link_to sub.reader.name, edit_admin_reader_path(sub.reader) if sub.reader
+          %td=sub.membership_type
+          %td=sub.begins_on
+          %td=sub.expires_on
+          %td=sub.order.paid_on if sub.order
+          %td=sub.cancelled_on
+          %td=sub.active? ? 'active' : 'not active'
+          %td
+            - if sub.active?
+              =link_to('Upgrade', edit_admin_subscription_path(sub)) if sub.can_upgrade?
+          %td=link_to 'Renew', renew_admin_subscription_path(sub)
+          %td=link_to 'As subscription form', print_admin_subscription_path(sub)
+          %td=link_to 'As renewal form', print_renewal_admin_subscription_path(sub)
+              
+      - if subscriptions.empty?
+        %tr
+          %td{:colspan => 12}= 'No subscriptions'
+- if subscriptions.select{|s| s.active?}.empty?
+  %p=link_to 'Create Subscription', new_admin_reader_subscription_path(@reader), {:class => 'action_button', :style => 'color: #000'}

@@ -1,0 +1,29 @@
+=flash[:error]
+
+
+-if @subscription.blank?
+  - if @last_year_subscription.present?
+    %p
+      Your subscription has expired.
+      =link_to "Renew your subscription", renew_subscriptions_path
+  - else
+    %p
+      You have no active subscription.
+      =link_to 'Buy a subscription', new_subscription_path
+-else
+  =render 'subscriptions/subscription'
+
+  %h3 Subscription Options
+
+  -if @subscription.paid?
+    %ul
+      %li=link_to "Add features to your #{Date.today.year} subscription", modify_subscriptions_path
+      %li=link_to "Renew subscription for #{Date.today.year + 1}", renew_subscriptions_path
+  -else
+    %p Your subscription is not active because you need to make payment.
+    =link_to 'Make Payment', make_payment_order_path(@subscription.order)
+
+    %p If you want you can cancel this subscription and create a new one.
+    =link_to 'Cancel Subscription', cancel_subscriptions_path, :method => :post
+
+

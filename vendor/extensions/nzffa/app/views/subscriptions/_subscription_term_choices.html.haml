@@ -1,0 +1,18 @@
+%h3 Expiry Date
+#subscription_term
+  -if @current_user && @current_user.admin?
+    %p Enter begin date then expiry date as 2012-12-31 (Year-Month-Day)
+    =f.text_field :begins_on
+    =f.text_field :expires_on
+  -else
+    -begin_year = @subscription.begins_on.year
+    -end_of_this_year = Date.new(begin_year, 12, 31).to_s
+    -end_of_next_year = Date.new(begin_year+1, 12, 31).to_s
+    =f.hidden_field :begins_on
+    =f.radio_button :expires_on, end_of_this_year
+    =f.label "expires_on_#{end_of_this_year.gsub('-','')}", 'End of this year'
+    %br
+    =f.radio_button :expires_on, end_of_next_year
+    =f.label "expires_on_#{end_of_next_year.gsub('-','')}", 'End of next year'
+
+

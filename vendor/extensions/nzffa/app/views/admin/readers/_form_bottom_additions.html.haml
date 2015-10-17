@@ -1,0 +1,6 @@
+.clear{:style => "clear: both"}
+%h1 Subscriptions
+= render :partial => 'admin/subscriptions/index_table', :locals => {:subscriptions => @reader.subscriptions}
+
+%h1 Orders
+= render :partial => 'admin/orders/index_table', :locals => {:orders => @reader.orders}

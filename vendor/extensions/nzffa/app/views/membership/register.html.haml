@@ -1,0 +1,17 @@
+%h2 Registration
+
+-if @reader.new_record?
+  This is the first step and is free. Once registered you'll be able to select from a range of subscription options. 
+  %p
+    If you are already registered you can 
+    =link_to 'Sign in here', '/account/login'
+  %p
+    If you would rather print a subscription form, 
+    %a{:href=>"/assets/951/NZFFA-Tree-Grower-Application-form.pdf", :target => "_blank"}
+      download this PDF
+    \. You can post this to us with a cheque.
+%hr  
+
+%p Fields marked with * are required
+
+= render 'reader_form', :locals => {:url => '/membership/register'}

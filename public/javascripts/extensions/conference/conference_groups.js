@@ -32,11 +32,13 @@ function updateTotal(){
   var total = 0
   var total_cell = $("ul#conference_options li").last().children(".total")
 
-  $("ul#conference_options li").first().each(function() {
-    var total = 0
-    if($(this).children("input:checked").size() > 0){
+  var full_conf_li = $("ul#conference_options li").first()
+  var full_conf_price = parseInt( $(full_conf_li).children(".levy").first().text().split("$")[1] || 0);
+  
+  $(full_conf_li).each(function() {
+    if(($(this).children("input:checked").size() > 0) && full_conf_price > 0){
       // use full conference price
-      total = parseInt( $(this).children(".levy").first().text().split("$")[1] );
+      total = full_conf_price
 
       if($("#conference_subscription_single_or_couple_couple").prop('checked')){
         total *= 2

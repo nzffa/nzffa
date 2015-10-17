@@ -1,0 +1,3 @@
+describe NotifySubscriber do
+  
+end

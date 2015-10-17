@@ -1,0 +1,7 @@
+#group_pages.box
+  %h3
+    =t('reader_extension.private_pages').titlecase
+  %ul
+    - page = Page.respond_to?(:homepage) ? Page.homepage : Page.find_by_parent_id(nil)
+    %li{:id => "page_holder_#{page.id}"}
+      = render :partial => 'existing_page', :locals => {:page => page, :group => @group}

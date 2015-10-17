@@ -1,0 +1,13 @@
+%p Dear #{@subscription.reader.forename} #{@subscription.reader.surname},
+
+%p Your NZFFA subscription will expire in #{@subscription.days_to_expire} days
+
+-hostname = ActionMailer::Base.default_url_options[:host]
+-subscriptions_url = "http://#{hostname}"+'/subscriptions/'
+
+%p To renew your subscription please visit #{link_to(subscriptions_url, subscriptions_url)}.
+
+%p 
+  Thank you,
+  %br
+  The NZFFA team.
