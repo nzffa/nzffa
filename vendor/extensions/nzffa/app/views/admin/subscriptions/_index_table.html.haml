@@ -31,3 +31,5 @@
       - if subscriptions.empty?
         %tr
           %td{:colspan => 12}= 'No subscriptions'
+- if subscriptions.select{|s| s.active?}.empty?
+  %p=link_to 'Create Subscription', new_admin_reader_subscription_path(@reader), {:class => 'action_button', :style => 'color: #000'}
