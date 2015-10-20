@@ -32,7 +32,7 @@ class Admin::ReportsController < AdminController
     end
 
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_past_members_no_subscription_#{DateTime.now.to_s}\"" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_past_members_no_subscription_#{DateTime.now.to_s}\".csv" 
     render :text => csv_string
   end
 
@@ -44,7 +44,7 @@ class Admin::ReportsController < AdminController
       @orders.each {|order| csv << fields.map{|f| order.send(f) } }
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_payments_#{DateTime.now.to_s}\"" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_payments_#{DateTime.now.to_s}\".csv" 
     render :text => csv_string
   end
 
@@ -62,7 +62,7 @@ class Admin::ReportsController < AdminController
       end
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_allocations_#{DateTime.now.to_s}\"" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_allocations_#{DateTime.now.to_s}\".csv" 
     render :text => csv_string
   end
 
@@ -89,7 +89,7 @@ class Admin::ReportsController < AdminController
       end
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_members_#{DateTime.now.to_s}\"" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_members_#{DateTime.now.to_s}\".csv" 
     render :text => csv_string
   end
 
@@ -112,7 +112,7 @@ class Admin::ReportsController < AdminController
       end
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_tree_grower_magazine_deliveries_#{Date.today.to_s}\"" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_tree_grower_magazine_deliveries_#{Date.today.to_s}\".csv" 
     render :text => csv_string
   end
 
@@ -142,7 +142,7 @@ class Admin::ReportsController < AdminController
       end
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"subscription_expiries_3_months_to_#{Date.today.to_s}\""
+    headers["Content-Disposition"] = "attachment; filename=\"subscription_expiries_3_months_to_#{Date.today.to_s}\".csv"
     render :text => csv_string
   end
 end
