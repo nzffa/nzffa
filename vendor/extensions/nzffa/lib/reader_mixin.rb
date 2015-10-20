@@ -102,11 +102,12 @@ module ReaderMixin
   end
 
   def main_branch_id
-    main_branch.id if main_branch
+    # Appears to not be in use..
+    # main_branch.id if main_branch
   end
 
   def main_branch_group_id
-    main_branch.group_id if main_branch
+    main_branch.id if main_branch
   end
 
   def associated_branch_ids
@@ -125,7 +126,7 @@ module ReaderMixin
     #NZ Tree Grower subscribers 80, 
     #Australian Tree Grower subscribers 81, 
     #Rest of World Tree Grower subscribers 82
-    (group_ids & [80, 81, 82]).join(' ')
+    (group_ids & [NzffaSettings.tree_grower_magazine_group_id, NzffaSettings.tree_grower_magazine_within_australia, NzffaSettings.tree_grower_magazine_everywhere_else]).join(' ')
   end
 
   def associated_branch_group_ids_string
@@ -134,7 +135,7 @@ module ReaderMixin
       if active_subscription.belong_to_fft?
         group_ids << NzffaSettings.fft_marketplace_group_id 
       end
-      group_ids += active_subscription.associated_branches.map(&:group_id)
+      group_ids += active_subscription.associated_branches.map(&:id)
       group_ids.join(' ')
     end
   end
@@ -151,7 +152,7 @@ module ReaderMixin
       if active_subscription.belong_to_fft?
         group_ids << NzffaSettings.fft_marketplace_group_id 
       end
-      group_ids += active_subscription.action_groups.map(&:group_id)
+      group_ids += active_subscription.action_groups.map(&:id)
       group_ids.join(' ')
     end
   end
