@@ -72,5 +72,5 @@ class NzffaSettings
   @small_scale_forest_grower_newsletter_group_id = Radiant::Config["nzffa.small_scale_fg_newsletter_group_id"].to_i
   @forest_grower_levy_payer_newsletter_group_id = Radiant::Config["nzffa.fg_levy_payer_newsletter_group_id"].to_i
   
-  @nzffa_members_newsletter_group_id = Radiant::Config["nzffa.members_newsletter_group_id"].to_i
+  @nzffa_members_newsletter_group_id = Radiant::Config["nzffa.nzffa_members_newsletter_group_id"].to_i
 end
