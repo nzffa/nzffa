@@ -61,9 +61,9 @@ class NzffaSettings
     eval "@#{key}_group_id = #{Radiant::Config["nzffa.#{key}_group_id"].to_i}"
   end
   
-  @tree_grower_magazine_group_id = Radiant::Config["nzffa.tg_magazine_nz"]
-  @tree_grower_magazine_within_australia = Radiant::Config["nzffa.tgm_australia"]
-  @tree_grower_magazine_everywhere_else = Radiant::Config["nzffa.tgm_everywhere_else"]
+  @tree_grower_magazine_group_id = Radiant::Config["nzffa.tg_magazine_nz_group_id"].to_i
+  @tree_grower_magazine_within_australia = Radiant::Config["nzffa.tgm_australia_group_id"].to_i
+  @tree_grower_magazine_everywhere_else = Radiant::Config["nzffa.tgm_everywhere_else_group_id"].to_i
   
   @fft_marketplace_group_id = Radiant::Config["nzffa.fft_marketplace_group_id"].to_i
   @fft_newsletter_group_id = Radiant::Config["nzffa.fft_newsletter_group_id"].to_i
