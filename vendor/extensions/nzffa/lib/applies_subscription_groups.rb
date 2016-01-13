@@ -30,9 +30,9 @@ class AppliesSubscriptionGroups
                      when 'new_zealand'
                        NzffaSettings.tree_grower_magazine_group_id
                      when 'australia'
-                       NzffaSettings.tree_grower_magazine_australia_group_id
+                       NzffaSettings.tree_grower_magazine_within_australia
                      when 'everywhere_else'
-                       NzffaSettings.tree_grower_magazine_everywhere_else_group_id
+                       NzffaSettings.tree_grower_magazine_everywhere_else
                      end
           reader.groups << Group.find(group_id)
         end
@@ -62,7 +62,7 @@ class AppliesSubscriptionGroups
     if reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
       group_ids_to_add << NzffaSettings.fft_newsletter_group_id
     end
-    
+        
     group_ids_to_delete.each do |group_id|
       reader.memberships.find_all_by_group_id(group_id).each(&:destroy)
     end
