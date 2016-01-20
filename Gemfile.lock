@@ -58,8 +58,8 @@ GIT
       spreadsheet
 
 GIT
-  remote: git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git
-  revision: bee8324c333ee6000a5f8b236f239c2c4abf1954
+  remote: git@github.com:nzffa/radiant-page_reader_group_permissions-extension.git
+  revision: 4bc9f5012414158e3ea0d547a50e4076db18ce4f
   specs:
     radiant-page_reader_group_permissions-extension (1.1)
       radiant (>= 0.9.1)
