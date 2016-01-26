@@ -12,7 +12,7 @@ The NZFFA website source code is released under the MIT license and is copyright
 
 ##About this extension
 
-This is the NZFFA Membership Management System based on Radiant CMS and is the main project that ties all the rest together. Most of the extensions are pulled in via the Gemfile. 
+This is the NZFFA Membership Management System based on Radiant CMS and is the main project that ties our membership management system together. Most of the extensions are pulled in via the Gemfile. 
 
 Note: This repository has a few additional extensions in vendor/extensions, one of which is named nzffa;
 https://github.com/nzffa/nzffa/tree/master/vendor/extensions/nzffa
@@ -36,5 +36,5 @@ radiant-page_reader_group_permissions-extension
 
 For conferences you can bolt on our radiant-nzffa_conference-extension
 
-The code is well tested and robust. [The NZFFA website] (http://www.nzffa.org.nz) has been based on this for many years. Development continues
+The code is well tested and robust. [The NZFFA website] (http://www.nzffa.org.nz) has been based on this for many years. Development continues...
 
