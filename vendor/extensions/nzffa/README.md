@@ -1,5 +1,3 @@
 # Nzffa
 
-Radiant is _so_ freaking awesome, but I made it better through this extension.
-
-Created by Your Name. 
+This extension holds reader subscriptions and payments functionality, and branch admin.
