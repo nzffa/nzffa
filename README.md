@@ -12,10 +12,12 @@ The NZFFA website source code is released under the MIT license and is copyright
 
 ##About this extension
 
-This is the NZFFA Membership Management System based on Radiant CMS and is the main project that ties all the rest together. Most of the extensions are pulled in via the Gemfile. It has a few more extensions in vendor/extensions, one of which is named nzffa;
+This is the NZFFA Membership Management System based on Radiant CMS and is the main project that ties all the rest together. Most of the extensions are pulled in via the Gemfile. 
+
+Note: This repository has a few additional extensions in vendor/extensions, one of which is named nzffa;
 https://github.com/nzffa/nzffa/tree/master/vendor/extensions/nzffa
-This is what holds the reader subscriptions and payments functionality, and branch admin.
-Some more nzffa specific gems are pulled in via the Gemfile here:
+This is what holds the reader subscriptions and payments functionality, and branch admin (Front-end administration login is provided for each group secretary to access and edit records within group directories).
+Some more nzffa MMS specific gems are pulled in via the Gemfile here:
 https://github.com/nzffa/nzffa/blob/master/Gemfile#L58-L73
 These are either written for nzffa specifically, or somewhat customised versions of existing extensions.
 Things could be cleaner still, but we're getting there.
