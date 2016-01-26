@@ -1,6 +1,6 @@
 # NZ Farm Forestry Association Membership Management System
 
-This is NZFFA's radiant instance. For more information on Radiant, see:
+This repository is NZFFA's radiant instance. For more information on Radiant, see:
 http://github.com/radiant/radiant/
 
 Current Radiant version is: 1.0.1
