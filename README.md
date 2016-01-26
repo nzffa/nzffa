@@ -18,7 +18,7 @@ This is what holds the reader subscriptions and payments functionality, and bran
 Some more nzffa specific gems are pulled in via the Gemfile here:
 https://github.com/nzffa/nzffa/blob/master/Gemfile#L58-L73
 These are either written for nzffa specifically, or somewhat customised versions of existing extensions.
-Things could be cleaner still, but they are already much better organized than before.
+Things could be cleaner still, but we're getting there.
 
 For the complete member management system our following forked extensions are required:
 
