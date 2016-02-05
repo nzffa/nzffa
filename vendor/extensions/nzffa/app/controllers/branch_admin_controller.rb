@@ -115,7 +115,7 @@ class BranchAdminController < MarketplaceController
     end
 
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"#{@group.name}_#{action_name}_#{DateTime.now.to_s}\""
+    headers["Content-Disposition"] = "attachment; filename=\"#{@group.name.slugify}_#{action_name}_#{DateTime.now.to_s}\""
     render :text => csv_string
   end
   
@@ -132,7 +132,7 @@ class BranchAdminController < MarketplaceController
       sheet.row(i+2).replace(columns.map {|k| reader.send(k)})
     end
     
-    filename = "#{@group.name}-#{Time.now.strftime("%Y-%m-%d")}.xls"
+    filename = "#{@group.name.slugify}-#{Time.now.strftime("%Y-%m-%d")}.xls"
     tmp_file = Tempfile.new(filename)
     book.write tmp_file.path
     send_file tmp_file.path, :filename => filename
