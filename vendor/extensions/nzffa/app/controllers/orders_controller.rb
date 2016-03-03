@@ -5,7 +5,7 @@ class OrdersController < MarketplaceController
     @order = Order.find params[:id]
     redirect_to PxPayParty.payment_url_for(:amount => @order.amount,
                                            :merchant_reference => "Order:#{@order.id}",
-                                           :return_url => "http://#{request.host}#{payment_finished_orders_url}")
+                                           :return_url => payment_finished_orders_url)
 
   end
 
