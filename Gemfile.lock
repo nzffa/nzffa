@@ -58,6 +58,12 @@ GIT
       spreadsheet
 
 GIT
+  remote: git://github.com/radiant/radiant-scheduler-extension
+  revision: 03d2c84f2c14f025e766e5f056b6a5b2ab002082
+  specs:
+    radiant-scheduler-extension (1.0.0)
+
+GIT
   remote: git@github.com:nzffa/radiant-page_reader_group_permissions-extension.git
   revision: 4bc9f5012414158e3ea0d547a50e4076db18ce4f
   specs:
@@ -194,7 +200,6 @@ GEM
       bluecloth (~> 2.1.0)
     radiant-navigation_tags-extension (0.2.7)
     radiant-reorder_children-extension (1.0.10)
-    radiant-scheduler-extension (1.0.0)
     radiant-search-extension (1.0.0)
     radiant-sheets-extension (1.1.0)
       coffee-script (~> 2.2.0)
@@ -270,7 +275,7 @@ DEPENDENCIES
   radiant-page_reader_group_permissions-extension!
   radiant-reader-extension!
   radiant-reorder_children-extension
-  radiant-scheduler-extension (~> 1.0.0)
+  radiant-scheduler-extension!
   radiant-search-extension
   radiant-settings-extension (~> 1.1.1)!
   radiant-sheets-extension (~> 1.1.0)
