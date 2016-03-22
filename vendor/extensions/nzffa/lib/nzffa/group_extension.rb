@@ -2,17 +2,14 @@ module Nzffa::GroupExtension
   
   def self.included(klass)
     klass.class_eval do
-      def self.branches
-        self.branches_holder.children
-      end
+      
+      named_scope :branches, :conditions => ['ancestry = ?', Radiant::Config['nzffa.branches_group_id'] ]
       
       def self.branches_holder
         find(Radiant::Config['nzffa.branches_group_id'])
       end
       
-      def self.action_groups
-        self.action_groups_holder.children
-      end
+      named_scope :action_groups, :conditions => ['ancestry = ?', Radiant::Config['nzffa.action_groups_group_id']]
       
       def self.action_groups_holder
         find(Radiant::Config['nzffa.action_groups_group_id'])

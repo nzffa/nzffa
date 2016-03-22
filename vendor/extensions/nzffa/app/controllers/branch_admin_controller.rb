@@ -16,14 +16,14 @@ class BranchAdminController < MarketplaceController
 
   def past_members
     @group = Group.find(params[:group_id])
-    subscription_branches = SubscriptionsBranch.find_all_by_group_id(@group.id)
-    subscription_ids = subscription_branches.map(&:subscription_id)
-    subscriptions = Subscription.find(:all, :conditions => {:id => subscription_ids})
+    group_subscriptions = GroupSubscription.find_all_by_group_id(@group.id)
+    subscription_ids = group_subscriptions.map(&:subscription_id)
+    subscriptions = Subscription.find(subscription_ids)
 
     all_reader_ids = subscriptions.map(&:reader_id)
     current_reader_ids = @group.reader_ids
 
-    @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
+    @readers = Reader.find(all_reader_ids - current_reader_ids)
 
     respond_to do |format|
       format.html { render :index }
@@ -37,14 +37,14 @@ class BranchAdminController < MarketplaceController
     
     start_of_last_year = 1.year.ago.at_beginning_of_year
     end_of_last_year= 1.year.ago.at_end_of_year
-    subscription_branches = SubscriptionsBranch.find(:all, :joins => :subscription, :conditions => ['group_id = ? and (subscriptions.begins_on > ? and subscriptions.expires_on < ?)', @group.id, start_of_last_year, end_of_last_year])
-    subscription_ids = subscription_branches.map(&:subscription_id)
-    subscriptions = Subscription.find(:all, :conditions => {:id => subscription_ids})
+    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and (subscriptions.begins_on > ? and subscriptions.expires_on < ?)', @group.id, start_of_last_year, end_of_last_year])
+    subscription_ids = group_subscriptions.map(&:subscription_id)
+    subscriptions = Subscription.find(subscription_ids)
 
-    all_reader_ids = subscriptions.map(&:reader_id)
+    last_year_reader_ids = subscriptions.map(&:reader_id)
     current_reader_ids = @group.reader_ids
 
-    @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
+    @readers = Reader.find(last_year_reader_ids - current_reader_ids)
 
     respond_to do |format|
       format.html { render :index }

@@ -1,13 +1,10 @@
 class Subscription < ActiveRecord::Base
-  # FFT_BRANCH_NAME = 'Farm Forestry Timbers'
-
   has_one :order, :dependent => :destroy
   belongs_to :reader
-  has_many :subscriptions_branches, :dependent => :destroy, :source => :group
-  has_many :branches, :through => :subscriptions_branches, :class_name => 'Group'
   belongs_to :main_branch, :class_name => 'Group'
-  has_many :action_groups_subscriptions, :dependent => :destroy, :source => :group
-  has_many :action_groups, :through => :action_groups_subscriptions, :class_name => 'Group'
+  
+  has_many :group_subscriptions, :dependent => :destroy, :source => :group
+  has_many :groups, :through => :group_subscriptions
 
   validates_inclusion_of :membership_type, :in => ['full', 'casual']
   validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
@@ -180,48 +177,67 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def action_groups
+    groups.action_groups
+  end
+
   def action_group_names
     action_groups.map(&:name)
   end
+  
+  def action_group_ids
+    action_groups.map(&:id)
+  end
+  
+  def action_group_ids=(ids)
+    self.groups -= Group.action_groups
+    self.groups += Group.action_groups.find(ids)
+  end
+
+  def branches
+    groups.branches
+  end
 
   def associated_branches
-    list = branches.all
-    list -= [main_branch] if main_branch.present?
-    list
+    branches - [ main_branch ]
   end
 
   def associated_branch_ids
-    ids = branches.map(&:id)
-    ids -= [main_branch.id] if main_branch.present?
-    ids
+    associated_branches.map(&:id)
   end
 
   def associated_branch_names
-    names = branches.map(&:name)
-    names -= [main_branch.name] if main_branch.present?
-    names
+    associated_branches.map(&:name)
   end
 
   def associated_branch_names=(branch_names)
     if main_branch.present?
       branch_names -= [main_branch.name]
     end
-    self.branches += Group.branches.find_all_by_name branch_names
+    self.groups += Group.branches.find_all_by_name branch_names
   end
 
   def main_branch_name
-    if main_branch.present?
-      self.main_branch.name
-    else
-      nil
-    end
+    main_branch.try :name
   end
 
   def main_branch_name=(name)
     self.main_branch = Group.branches.find_by_name(name)
-    self.branches << self.main_branch
+    self.groups << self.main_branch
   end
-
+  
+  def belongs_to_fft
+    self.groups.include?(Group.fft_group)
+  end
+  
+  def belongs_to_fft=(bool)
+    if bool
+      self.groups << Group.fft_group
+    else
+      self.groups -= [ Group.fft_group ]
+    end
+  end
+    
   def price_when_sold
     if order and order.paid?
       order.amount
