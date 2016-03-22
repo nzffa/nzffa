@@ -4,7 +4,7 @@ class AppliesSubscriptionGroups
       #remove past members group if it exists
       reader.memberships.find_all_by_group_id(NzffaSettings.past_members_group_id).each(&:destroy)
     
-      if subscription.belong_to_fft?
+      if subscription.belongs_to_fft?
         # swap with fft_newsletter if it exists
         reader.memberships.find_all_by_group_id(NzffaSettings.fft_newsletter_group_id).each(&:destroy)
         reader.groups << Group.fft_marketplace_group
@@ -22,6 +22,10 @@ class AppliesSubscriptionGroups
 
         subscription.action_groups.each do |action_group|
           reader.groups << action_group
+        end
+        
+        subscription.groups.each do |group|
+          reader.groups << group
         end
 
       when 'casual'

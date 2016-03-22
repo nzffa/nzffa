@@ -46,16 +46,22 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
-  revision: a638005a29aae78c5024a3a9cd34d2850246903e
+  revision: 6cf188755beeee6c66afc40b9ca8a62f69ecf68c
   specs:
     radiant-conference-extension (1.0.0)
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_marketplace-extension.git
-  revision: 046aad0f63e2ecbd8a40cb7aa6b2f4c4a82a36c8
+  revision: 3b3e6b2c6aee49c4f4fcd49bffe6907fb3b1a98b
   specs:
     radiant-marketplace-extension (1.0.1)
       spreadsheet
+
+GIT
+  remote: git://github.com/radiant/radiant-scheduler-extension
+  revision: 03d2c84f2c14f025e766e5f056b6a5b2ab002082
+  specs:
+    radiant-scheduler-extension (1.0.0)
 
 GIT
   remote: git@github.com:nzffa/radiant-page_reader_group_permissions-extension.git
@@ -194,7 +200,6 @@ GEM
       bluecloth (~> 2.1.0)
     radiant-navigation_tags-extension (0.2.7)
     radiant-reorder_children-extension (1.0.10)
-    radiant-scheduler-extension (1.0.0)
     radiant-search-extension (1.0.0)
     radiant-sheets-extension (1.1.0)
       coffee-script (~> 2.2.0)
@@ -270,7 +275,7 @@ DEPENDENCIES
   radiant-page_reader_group_permissions-extension!
   radiant-reader-extension!
   radiant-reorder_children-extension
-  radiant-scheduler-extension (~> 1.0.0)
+  radiant-scheduler-extension!
   radiant-search-extension
   radiant-settings-extension (~> 1.1.1)!
   radiant-sheets-extension (~> 1.1.0)
