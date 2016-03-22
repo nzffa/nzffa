@@ -63,7 +63,7 @@ gem 'radiant-reader-extension', :git => 'git://github.com/jomz/radiant-reader-ex
 gem "radiant-forum-extension", :git => 'git://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
 # gem "radiant-forum-extension", :path => 'vendor/extensions/forum'
 
-gem "radiant-page_reader_group_permissions-extension", :git => 'git@github.com:nzffa/radiant-page_reader_group_permissions-extension.git'
+gem "radiant-page_reader_group_permissions-extension", :git => 'git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git'
 # gem "radiant-page_reader_group_permissions-extension", :path => 'vendor/extensions/page_reader_group_permissions'
 
 # gem "radiant-conference-extension", :path => 'vendor/extensions/conference'

@@ -58,17 +58,17 @@ GIT
       spreadsheet
 
 GIT
-  remote: git://github.com/radiant/radiant-scheduler-extension
-  revision: 03d2c84f2c14f025e766e5f056b6a5b2ab002082
-  specs:
-    radiant-scheduler-extension (1.0.0)
-
-GIT
-  remote: git@github.com:nzffa/radiant-page_reader_group_permissions-extension.git
+  remote: git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git
   revision: 4bc9f5012414158e3ea0d547a50e4076db18ce4f
   specs:
     radiant-page_reader_group_permissions-extension (1.1)
       radiant (>= 0.9.1)
+
+GIT
+  remote: git://github.com/radiant/radiant-scheduler-extension
+  revision: 03d2c84f2c14f025e766e5f056b6a5b2ab002082
+  specs:
+    radiant-scheduler-extension (1.0.0)
 
 GEM
   remote: https://rubygems.org/
