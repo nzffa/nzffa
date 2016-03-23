@@ -23,7 +23,7 @@ class BranchAdminController < MarketplaceController
     all_reader_ids = subscriptions.map(&:reader_id)
     current_reader_ids = @group.reader_ids
 
-    @readers = Reader.find(all_reader_ids - current_reader_ids)
+    @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
 
     respond_to do |format|
       format.html { render :index }
@@ -44,7 +44,7 @@ class BranchAdminController < MarketplaceController
     last_year_reader_ids = subscriptions.map(&:reader_id)
     current_reader_ids = @group.reader_ids
 
-    @readers = Reader.find(last_year_reader_ids - current_reader_ids)
+    @readers = Reader.find(:all, :conditions => {:id => (last_year_reader_ids - current_reader_ids)})
 
     respond_to do |format|
       format.html { render :index }
@@ -52,20 +52,6 @@ class BranchAdminController < MarketplaceController
       format.xls { render_xls_of_readers }
     end
   end
-
-  def past_fft_members
-    # because fft is not a branch on the subscription, we have to look at the subscription column belong_to_fft
-    all_fft_readers = Subscription.active_anytime.find(:all, :conditions => {:belong_to_fft => true}).map(&:reader).uniq
-    current_fft_readers = Subscription.active.find(:all, :conditions => {:belong_to_fft => true}).map(&:reader).uniq
-    @readers = (all_fft_readers - current_fft_readers).compact
-
-    respond_to do |format|
-      format.html { render :index }
-      format.csv { render_csv_of_readers }
-      format.xls { render_xls_of_readers }
-    end
-  end
-
 
   def email
     @group = Group.find(params[:group_id])
