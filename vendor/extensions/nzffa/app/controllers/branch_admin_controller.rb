@@ -16,9 +16,8 @@ class BranchAdminController < MarketplaceController
 
   def past_members
     @group = Group.find(params[:group_id])
-    group_subscriptions = GroupSubscription.find_all_by_group_id(@group.id)
-    subscription_ids = group_subscriptions.map(&:subscription_id)
-    subscriptions = Subscription.find(subscription_ids)
+    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and subscriptions.expires_on < ?', @group.id, end_of_last_year])
+    subscriptions = Subscription.find(group_subscriptions.map(&:subscription_id))
 
     all_reader_ids = subscriptions.map(&:reader_id)
     current_reader_ids = @group.reader_ids
@@ -34,9 +33,6 @@ class BranchAdminController < MarketplaceController
 
   def last_year_members
     @group = Group.find(params[:group_id])
-    
-    start_of_last_year = 1.year.ago.at_beginning_of_year
-    end_of_last_year= 1.year.ago.at_end_of_year
     group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and (subscriptions.begins_on > ? and subscriptions.expires_on < ?)', @group.id, start_of_last_year, end_of_last_year])
     subscription_ids = group_subscriptions.map(&:subscription_id)
     subscriptions = Subscription.find(subscription_ids)
@@ -78,6 +74,15 @@ class BranchAdminController < MarketplaceController
   end
 
   private
+  
+  def start_of_last_year
+    1.year.ago.at_beginning_of_year
+  end
+  
+  def end_of_last_year
+    1.year.ago.at_end_of_year
+  end
+  
   def require_branch_secretary
     @group = Group.find(params[:group_id])
     unless current_reader.is_secretary? and current_reader.groups.include? @group
