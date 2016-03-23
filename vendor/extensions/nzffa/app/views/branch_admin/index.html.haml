@@ -3,12 +3,9 @@
 
 =link_to_unless_current "Current Members", branch_admin_path(params[:group_id])
 %br
--if params[:group_id].to_i == NzffaSettings.fft_marketplace_group_id
-  =link_to_unless_current "Past FFT members", branch_admin_past_fft_members_path
--else
-  =link_to_unless_current "Past Members - all", branch_admin_past_members_path(params[:group_id])
-  %br
-  =link_to_unless_current "Past Members - last year only", branch_admin_last_year_members_path(params[:group_id])
+=link_to_unless_current "Past Members - all", branch_admin_past_members_path(params[:group_id])
+%br
+=link_to_unless_current "Past Members - last year only", branch_admin_last_year_members_path(params[:group_id])
 %br
 
 =link_to "Email current members", branch_admin_email_path(params[:group_id])
