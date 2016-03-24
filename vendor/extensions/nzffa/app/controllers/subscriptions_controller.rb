@@ -1,6 +1,6 @@
 class SubscriptionsController < MarketplaceController
   radiant_layout "no_layout"
-  before_filter :require_current_reader, :except => :renew
+  before_filter :require_current_reader, :except => [:renew, :print, :print_renewal]
   include ActionView::Helpers::NumberHelper
 
   def index
@@ -27,12 +27,7 @@ class SubscriptionsController < MarketplaceController
   end
 
   def renew
-    unless (params[:token].nil? || params[:reader_id].nil?)
-      current_reader = Reader.find_by_id_and_perishable_token(params[:reader_id], params['token'])
-    else
-      require_current_reader
-    end
-    
+    try_to_log_in_from_token
     @action_path = subscriptions_path
     if old_sub = Subscription.active_subscription_for(current_reader)
       @subscription = old_sub.renew_for_year(Date.today.year + 1)
@@ -49,12 +44,14 @@ class SubscriptionsController < MarketplaceController
   end
   
   def print
+    try_to_log_in_from_token
     @subscription = Subscription.most_recent_subscription_for(current_reader)
     @order = @subscription.order
     render 'print', :layout => false
   end
 
   def print_renewal
+    try_to_log_in_from_token
     if old_sub = Subscription.active_subscription_for(current_reader)
       @subscription = old_sub.renew_for_year(Date.today.year + 1)
     elsif old_sub = Subscription.most_recent_subscription_for(current_reader)
@@ -138,6 +135,14 @@ class SubscriptionsController < MarketplaceController
       redirect_to make_payment_order_path(@order)
     else
       render :modify
+    end
+  end
+
+  def try_to_log_in_from_token
+    unless (params[:token].nil? || params[:reader_id].nil?)
+      self.current_reader = Reader.find_by_id_and_perishable_token(params[:reader_id], params['token'])
+    else
+      require_current_reader
     end
   end
 end
