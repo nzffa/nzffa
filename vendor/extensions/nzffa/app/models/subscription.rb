@@ -79,13 +79,10 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.new_with_same_attributes(old_sub)
-
     new do |sub|
       [:reader,
        :membership_type,
        :main_branch,
-       :branches,
-       :action_groups,
        :special_interest_groups,
        :begins_on,
        :expires_on,
@@ -99,6 +96,8 @@ class Subscription < ActiveRecord::Base
        :nz_tree_grower_copies].each do |attr|
          sub.send "#{attr}=", old_sub.send(attr)
        end
+       
+       sub.groups.concat old_sub.groups
     end
   end
 
@@ -178,7 +177,8 @@ class Subscription < ActiveRecord::Base
   end
 
   def action_groups
-    groups.action_groups
+    # Do not use groups.action_groups here; it will make new_with_same_attributes fail
+    groups.select{|g| g.is_action_group?}
   end
 
   def action_group_names
@@ -195,7 +195,8 @@ class Subscription < ActiveRecord::Base
   end
 
   def branches
-    groups.branches
+    # Do not use groups.branches here; it will make new_with_same_attributes fail
+    groups.select{|g| g.is_branch_group?}
   end
 
   def associated_branches

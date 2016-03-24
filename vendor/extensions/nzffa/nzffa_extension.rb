@@ -27,6 +27,8 @@ class NzffaExtension < Radiant::Extension
       add_item "Print Subscriptions", "/admin/subscriptions/batches_to_print"
     end
     
+    Page.send :include, Nzffa::MessageSubscriptionTags
+    
     admin.reader.index.add :thead, "ids_ths", :before => "title_header"
     admin.reader.index.add :tbody, "ids_tds", :before => "title_cell"
     admin.reader.edit.add :form, 'form_additions', :after => "edit_notes"

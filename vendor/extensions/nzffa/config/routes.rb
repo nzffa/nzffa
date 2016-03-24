@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
                      :modify => :get,
                      :upgrade => :put,
                      :renew => :get,
+                     :print_renewal => :get,
+                     :print => :get,
                      :cancel => :post}
 
   map.resources :orders, :only => [],

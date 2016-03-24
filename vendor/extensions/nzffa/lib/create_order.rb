@@ -140,7 +140,7 @@ class CreateOrder
        reader.is_life_member?)
       0
     else
-      subscription.length_in_years * branch.annual_levy
+      subscription.length_in_years * branch.annual_levy.to_i
     end
   end
  

@@ -39,7 +39,7 @@ class Admin::SubscriptionsController < AdminController
   def print
     @subscription = Subscription.find(params[:id])
     @order = @subscription.order
-    render :layout => false
+    render 'subscriptions/print', :layout => false
   end
 
   def print_form
@@ -52,7 +52,7 @@ class Admin::SubscriptionsController < AdminController
     old_sub = Subscription.find(params[:id])
     @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
     @order = CreateOrder.from_subscription(@subscription)
-    render 'print', :layout => false
+    render 'subscriptions/print', :layout => false
   end
 
   def new

@@ -65,9 +65,9 @@
         %b.check-your-details Please check your details
 
 -if @subscription.membership_type == 'full'
-  =render 'print_account_full_member'
+  =render 'subscriptions/print_account_full_member'
 -else
-  =render 'print_account_casual_member'
+  =render 'subscriptions/print_account_casual_member'
 
 
 .section
@@ -76,6 +76,6 @@
       %b The GST inclusive total will be debited from your bank account on 15 January 2016.
       If you want to change the arrangement or the amount, please contact us before that date
       %br
-    = render 'remittance_advice'
+    = render 'subscriptions/remittance_advice'
 
 .page-break

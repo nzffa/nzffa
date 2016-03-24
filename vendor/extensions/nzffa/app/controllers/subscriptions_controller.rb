@@ -1,6 +1,6 @@
 class SubscriptionsController < MarketplaceController
   radiant_layout "no_layout"
-  before_filter :require_current_reader
+  before_filter :require_current_reader, :except => :renew
   include ActionView::Helpers::NumberHelper
 
   def index
@@ -27,7 +27,34 @@ class SubscriptionsController < MarketplaceController
   end
 
   def renew
+    unless (params[:token].nil? || params[:reader_id].nil?)
+      current_reader = Reader.find_by_id_and_perishable_token(params[:reader_id], params['token'])
+    else
+      require_current_reader
+    end
+    
     @action_path = subscriptions_path
+    if old_sub = Subscription.active_subscription_for(current_reader)
+      @subscription = old_sub.renew_for_year(Date.today.year + 1)
+    elsif old_sub = Subscription.most_recent_subscription_for(current_reader)
+      @subscription = old_sub.renew_for_year(Date.today.year)
+    else
+      flash[:error] = 'No previous subscription found'
+      @subscription = current_reader.subscriptions.build
+      redirect_to :new and return
+    end
+    
+    @subscription.contribute_to_research_fund = false
+    render :new
+  end
+  
+  def print
+    @subscription = Subscription.most_recent_subscription_for(current_reader)
+    @order = @subscription.order
+    render 'print', :layout => false
+  end
+
+  def print_renewal
     if old_sub = Subscription.active_subscription_for(current_reader)
       @subscription = old_sub.renew_for_year(Date.today.year + 1)
     elsif old_sub = Subscription.most_recent_subscription_for(current_reader)
@@ -35,9 +62,10 @@ class SubscriptionsController < MarketplaceController
     else
       redirect_to :back
     end
-
-    @subscription.contribute_to_research_fund = false
-    render :new
+    
+    @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
+    @order = CreateOrder.from_subscription(@subscription)
+    render 'print', :layout => false
   end
 
   def new
