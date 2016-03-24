@@ -24,11 +24,11 @@ class AppliesSubscriptionGroups
         if subscription.receive_tree_grower_magazine?
           group_id = case subscription.tree_grower_delivery_location
                      when 'new_zealand'
-                       NzffaSettings.tree_grower_magazine_group_id
+                       NzffaSettings.tg_magazine_new_zealand_group_id
                      when 'australia'
-                       NzffaSettings.tree_grower_magazine_within_australia
+                       NzffaSettings.tgm_within_australia_group_id
                      when 'everywhere_else'
-                       NzffaSettings.tree_grower_magazine_everywhere_else
+                       NzffaSettings.tgm_everywhere_else_group_id
                      end
           reader.groups << Group.find(group_id)
         end
