@@ -5,10 +5,6 @@ class NzffaSettings
               full_member_fft_marketplace_levy
               casual_member_fft_marketplace_levy
               
-              tree_grower_magazine_within_new_zealand
-              tree_grower_magazine_within_australia
-              tree_grower_magazine_everywhere_else
-              
               fft_marketplace_group_id
               tree_grower_magazine_group_id
               tree_grower_magazine_australia_group_id
@@ -20,7 +16,9 @@ class NzffaSettings
               presidents_group_id
               secretarys_group_id
               treasurers_group_id 
+              
               past_members_group_id
+              non_renewed_members_group_id
               
               fft_newsletter_group_id
               nzffa_members_newsletter_group_id
@@ -52,7 +50,7 @@ class NzffaSettings
   
   
 
-  roles = %w(councillor president secretary treasurer past_member newsletter_editor)
+  roles = %w(councillor president secretary treasurer newsletter_editor past_member non_renewed_member)
   roles.each do |key|
     eval "@#{key}s_group_id = #{Radiant::Config["nzffa.#{key}s_group_id"].to_i}"
   end

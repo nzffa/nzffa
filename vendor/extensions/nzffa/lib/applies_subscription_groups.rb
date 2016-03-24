@@ -1,10 +1,10 @@
 class AppliesSubscriptionGroups
   def self.apply(subscription, reader)
     if subscription.active?
-      #remove past members group if it exists
-      reader.memberships.find_all_by_group_id(NzffaSettings.past_members_group_id).each(&:destroy)
+      #remove past members group if they exist
+      reader.memberships.find_all_by_group_id([NzffaSettings.past_members_group_id, NzffaSettings.non_renewed_members_group_id]).each(&:destroy)
     
-      if subscription.belongs_to_fft?
+      if subscription.belongs_to_fft
         # swap with fft_newsletter if it exists
         reader.memberships.find_all_by_group_id(NzffaSettings.fft_newsletter_group_id).each(&:destroy)
         reader.groups << Group.fft_marketplace_group
@@ -16,14 +16,6 @@ class AppliesSubscriptionGroups
         reader.groups << Group.tg_magazine_nz_group
         reader.memberships.find_all_by_group_id(NzffaSettings.small_scale_forest_grower_newsletter_group_id).each(&:destroy)
 
-        subscription.branches.each do |branch|
-          reader.groups << branch
-        end
-
-        subscription.action_groups.each do |action_group|
-          reader.groups << action_group
-        end
-        
         subscription.groups.each do |group|
           reader.groups << group
         end
@@ -44,6 +36,7 @@ class AppliesSubscriptionGroups
         raise "unrecognised membership type #{subscription.membership_type}"
       end
     end
+    
   end
 
   def self.remove(subscription, reader = nil)
