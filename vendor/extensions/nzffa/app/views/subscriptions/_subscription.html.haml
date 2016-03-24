@@ -36,3 +36,6 @@
       -subscription.action_groups.each do |action_group|
         %li=action_group.name
 
+%p
+  = link_to "Print receipt", print_subscriptions_path
+  = link_to "Print renewal form", print_renewal_subscriptions_path

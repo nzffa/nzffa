@@ -1,6 +1,7 @@
 class SubscriptionsController < MarketplaceController
   radiant_layout "no_layout"
   before_filter :require_current_reader, :except => [:renew, :print, :print_renewal]
+  before_filter :try_to_log_in_from_token, :only => [:renew, :print, :print_renewal]
   include ActionView::Helpers::NumberHelper
 
   def index
@@ -27,31 +28,29 @@ class SubscriptionsController < MarketplaceController
   end
 
   def renew
-    try_to_log_in_from_token
     @action_path = subscriptions_path
     if old_sub = Subscription.active_subscription_for(current_reader)
       @subscription = old_sub.renew_for_year(Date.today.year + 1)
+      @subscription.contribute_to_research_fund = false
+      render :new
     elsif old_sub = Subscription.most_recent_subscription_for(current_reader)
       @subscription = old_sub.renew_for_year(Date.today.year)
+      @subscription.contribute_to_research_fund = false
+      render :new
     else
       flash[:error] = 'No previous subscription found'
-      @subscription = current_reader.subscriptions.build
-      redirect_to :new and return
+      redirect_to(:action => :index) and return
     end
     
-    @subscription.contribute_to_research_fund = false
-    render :new
   end
   
   def print
-    try_to_log_in_from_token
     @subscription = Subscription.most_recent_subscription_for(current_reader)
     @order = @subscription.order
     render 'print', :layout => false
   end
 
   def print_renewal
-    try_to_log_in_from_token
     if old_sub = Subscription.active_subscription_for(current_reader)
       @subscription = old_sub.renew_for_year(Date.today.year + 1)
     elsif old_sub = Subscription.most_recent_subscription_for(current_reader)
@@ -140,9 +139,15 @@ class SubscriptionsController < MarketplaceController
 
   def try_to_log_in_from_token
     unless (params[:token].nil? || params[:reader_id].nil?)
-      self.current_reader = Reader.find_by_id_and_perishable_token(params[:reader_id], params['token'])
+      reader = Reader.find_by_id_and_perishable_token(params[:reader_id], params['token'])
+      if reader
+        self.current_reader = reader
+      else
+        flash[:error] = 'Could not log in with that token. Please try logging in manually.'
+      end
     else
       require_current_reader
     end
   end
+
 end
