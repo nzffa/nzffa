@@ -86,7 +86,6 @@ class Subscription < ActiveRecord::Base
        :special_interest_groups,
        :begins_on,
        :expires_on,
-       :belong_to_fft,
        :receive_tree_grower_magazine,
        :contribute_to_research_fund,
        :research_fund_contribution_amount,
