@@ -122,13 +122,6 @@ module ReaderMixin
     active_subscription.associated_branches if active_subscription
   end
   
-  def tree_grower_group_ids
-    #NZ Tree Grower subscribers 80, 
-    #Australian Tree Grower subscribers 81, 
-    #Rest of World Tree Grower subscribers 82
-    (group_ids & [NzffaSettings.tree_grower_magazine_group_id, NzffaSettings.tree_grower_magazine_within_australia, NzffaSettings.tree_grower_magazine_everywhere_else]).join(' ')
-  end
-
   def associated_branch_group_ids_string
     if active_subscription
       group_ids = []
