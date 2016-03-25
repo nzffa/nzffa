@@ -138,16 +138,12 @@ class SubscriptionsController < MarketplaceController
   end
 
   def try_to_log_in_from_token
-    unless (params[:token].nil? || params[:reader_id].nil?)
-      reader = Reader.find_by_id_and_perishable_token(params[:reader_id], params['token'])
-      if reader
-        self.current_reader = reader
-      else
-        flash[:error] = 'Could not log in with that token. Please try logging in manually.'
-      end
+    if reader = Reader.find_by_id_and_perishable_token(params[:reader_id], params['token'])
+      self.current_reader = reader
     else
-      require_current_reader
+      flash[:error] = 'Could not log in with that token. Please try logging in manually.'
     end
+    require_current_reader
   end
 
 end
