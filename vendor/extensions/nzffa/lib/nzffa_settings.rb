@@ -6,7 +6,7 @@ class NzffaSettings
               casual_member_fft_marketplace_levy
               
               tg_magazine_new_zealand_group_id
-              tgm_within_australia_group_id
+              tgm_australia_group_id
               tgm_everywhere_else_group_id
               
               fft_marketplace_group_id
@@ -53,8 +53,8 @@ class NzffaSettings
   @casual_member_fft_marketplace_levy = Radiant::Config["nzffa.casual_member_marketplace_levy"].to_i
   
   @tg_magazine_new_zealand_group_id = Radiant::Config['nzffa.tg_magazine_nz_group_id']
-  @tgm_australia_group_id = Radiant::Config['nzffa.tg_magazine_nz_group_id']
-  @tgm_everywhere_else_group_id = Radiant::Config['nzffa.tg_magazine_nz_group_id']
+  @tgm_australia_group_id = Radiant::Config['nzffa.tgm_australia_group_id']
+  @tgm_everywhere_else_group_id = Radiant::Config['nzffa.tgm_everywhere_else_group_id']
 
   roles = %w(councillor president secretary treasurer newsletter_editor past_member non_renewed_member)
   roles.each do |key|
