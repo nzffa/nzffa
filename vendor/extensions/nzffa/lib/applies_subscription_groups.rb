@@ -21,6 +21,11 @@ class AppliesSubscriptionGroups
         end
 
       when 'casual'
+        if subscription.belongs_to_fft
+          # swap with fft_newsletter if it exists
+          reader.memberships.find_all_by_group_id(NzffaSettings.fft_newsletter_group_id).each(&:destroy)
+          reader.groups << Group.fft_marketplace_group
+        end
         if subscription.receive_tree_grower_magazine?
           group_id = case subscription.tree_grower_delivery_location
                      when 'new_zealand'
