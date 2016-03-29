@@ -90,7 +90,7 @@ namespace :radiant do
         # Rebuild non-renewed members group
         group = Group.find(NzffaSettings.non_renewed_members_group_id)
         group.readers.clear
-        last_year_subscriptions = Subscription.find(:all, :conditions => ['begins_on > ? and expires_on < ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
+        last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
         last_year_member_ids = last_year_subscriptions.map(&:reader_id)
         active_member_ids = Subscription.active.map(&:reader_id)
         non_renewed_members = Reader.find(:all, :conditions => {:id => (last_year_member_ids - active_member_ids)})
