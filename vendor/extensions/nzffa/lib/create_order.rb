@@ -66,7 +66,7 @@ class CreateOrder
                        :particular => 'full_membership',
                        :amount => full_member_tree_grower_magazine_levy_amount)
 
-      if subscription.belong_to_fft?
+      if subscription.belongs_to_fft
         order.add_charge(:kind => 'fft_marketplace_levy',
                          :particular => 'full_membership',
                          :amount => full_member_fft_marketplace_levy_amount)
@@ -92,7 +92,7 @@ class CreateOrder
                          :particular => subscription.tree_grower_delivery_location,
                          :amount => casual_nz_tree_grower_levy)
       end
-      if subscription.belong_to_fft?
+      if subscription.belongs_to_fft
         order.add_charge(:kind => 'fft_marketplace_levy',
                          :particular => 'casual_membership',
                          :amount => casual_member_fft_marketplace_levy_amount)

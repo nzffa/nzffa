@@ -132,7 +132,7 @@ module ReaderMixin
   def associated_branch_group_ids_string
     if active_subscription
       group_ids = []
-      if active_subscription.belong_to_fft?
+      if active_subscription.belongs_to_fft
         group_ids << NzffaSettings.fft_marketplace_group_id 
       end
       group_ids += active_subscription.associated_branches.map(&:id)
@@ -149,7 +149,7 @@ module ReaderMixin
   def action_group_group_ids_string
     if active_subscription
       ids = []
-      if active_subscription.belong_to_fft?
+      if active_subscription.belongs_to_fft
         ids << NzffaSettings.fft_marketplace_group_id 
       end
       ids += Group.action_groups.find_all_by_id(group_ids).map(&:id)
