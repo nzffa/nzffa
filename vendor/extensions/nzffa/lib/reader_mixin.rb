@@ -145,13 +145,13 @@ module ReaderMixin
       if active_subscription.belong_to_fft?
         ids << NzffaSettings.fft_marketplace_group_id 
       end
-      ids += Group.action_groups.find_all_by_group_id(group_ids).map(&:id)
+      ids += Group.action_groups.find_all_by_id(group_ids).map(&:id)
       ids.join(' ')
     end
   end
 
   def current_branches_from_groups
-    Group.branches.find_all_by_group_id(group_ids)
+    Group.branches.find_all_by_id(group_ids)
   end
 
   def action_group_names
