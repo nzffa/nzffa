@@ -126,7 +126,7 @@ module ReaderMixin
     #NZ Tree Grower subscribers 80, 
     #Australian Tree Grower subscribers 81, 
     #Rest of World Tree Grower subscribers 82
-    (group_ids & [NzffaSettings.tree_grower_magazine_group_id, NzffaSettings.tree_grower_magazine_within_australia, NzffaSettings.tree_grower_magazine_everywhere_else]).join(' ')
+    (group_ids & [NzffaSettings.tg_magazine_new_zealand_group_id, NzffaSettings.tgm_australia_group_id, NzffaSettings.tgm_everywhere_else_group_id]).join(' ')
   end
 
   def associated_branch_group_ids_string
