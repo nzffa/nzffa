@@ -33,7 +33,7 @@ class BranchAdminController < MarketplaceController
 
   def last_year_members
     @group = Group.find(params[:group_id])
-    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and (subscriptions.begins_on > ? and subscriptions.expires_on < ?)', @group.id, start_of_last_year, end_of_last_year])
+    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and (subscriptions.expires_on > ? and subscriptions.expires_on < ?)', @group.id, start_of_last_year, end_of_last_year])
     subscription_ids = group_subscriptions.map(&:subscription_id)
     subscriptions = Subscription.find(subscription_ids)
 
