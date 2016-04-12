@@ -1,3 +1,7 @@
+- include_stylesheet('admin/reader')
+- content_for 'page_css' do
+  = css_for_readers_groups @group.readers
+
 .clear{:style => "clear: both; margin-bottom: 22px;"}
 %h1=t('reader_extension.group_members').titlecase
 
@@ -10,6 +14,7 @@
         %th Email
         %th Phone
         %th Address
+        %th Groups
       
     %tbody
       - @group.readers.each do |reader|
@@ -19,6 +24,7 @@
           %td= reader.email
           %td= raw [reader.phone, reader.mobile].select{|f| f.present?}.join('<br>')
           %td= raw reader.postal_address_array.select{|f| f.present?}.join('<br>')
+          %td= pretty_group_links(reader.groups)
       - if @group.readers.empty?
         %tr
           %td{:colspan => 9}= "No members"
