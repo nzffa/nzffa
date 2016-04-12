@@ -46,8 +46,13 @@ class SubscriptionsController < MarketplaceController
   
   def print
     @subscription = Subscription.active_subscription_for(current_reader)
-    @order = @subscription.order
-    render 'print', :layout => false
+    if @subscription.nil?
+      flash[:error] = 'No active subscription found'
+      redirect_to(:action => :index) and return
+    else
+      @order = @subscription.order
+      render 'print', :layout => false
+    end
   end
 
   def print_renewal
