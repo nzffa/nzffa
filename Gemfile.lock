@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/jomz/radiant-reader-extension.git
-  revision: c370fd40678af856093133502ea5909a82b98b82
+  revision: d582395f20afc81043e347c3013468cf81cee79d
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -111,7 +111,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    color (1.7.1)
+    color (1.8)
     compass (0.12.7)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)

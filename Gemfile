@@ -57,7 +57,7 @@ gem 'rr', :group => :test
 
 # This depends on radiant-layouts-extension
 gem 'radiant-reader-extension', :git => 'git://github.com/jomz/radiant-reader-extension.git'
-# gem 'radiant-reader-extension', :path => '~/rails/extensions/radiant-reader-extension'
+# gem 'radiant-reader-extension', :path => 'vendor/extensions/reader'
 # gem 'radiant-reader-extension', :git => 'git://github.com/nzffa/radiant-reader-extension.git'
 
 gem "radiant-forum-extension", :git => 'git://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
