@@ -45,7 +45,7 @@ class SubscriptionsController < MarketplaceController
   end
   
   def print
-    @subscription = Subscription.most_recent_subscription_for(current_reader)
+    @subscription = Subscription.active_subscription_for(current_reader)
     @order = @subscription.order
     render 'print', :layout => false
   end
