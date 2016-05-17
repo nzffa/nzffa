@@ -51,6 +51,7 @@ gem "radiant-copy_move-extension",          "~> 2.4.3"
 gem "radiant-grandchildren_tags-extension"
 gem "radiant-if_id_tags-extension"
 gem "radiant-find_by_id_tag-extension"
+gem "radiant-find_replace-extension"
 
 gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
 # The above gem uses rr for mocking
