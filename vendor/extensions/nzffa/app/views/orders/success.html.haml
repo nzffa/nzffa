@@ -1,8 +1,10 @@
-Thank you. Your payment was successful and your subscription is now active.
+%p
+  Thank you. Your payment was successful and your subscription is now active.
 
 -if @subscription.belong_to_fft?
   One final step:
   =link_to('Please update your Farm Forestry Timbers Marketplace Listing', '/specialty-timber-market/marketplace/edit-company-listing')
--else
-  =link_to('Return to your account page', '/membership/details')
+
+%p= link_to('Download and print your receipt', print_subscriptions_url)
+%p= link_to('Return to your account page', '/membership/details')
   
