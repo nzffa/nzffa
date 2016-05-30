@@ -1,7 +1,7 @@
 class BranchAdminController < MarketplaceController
   before_filter :require_current_reader
   before_filter :require_branch_secretary
-  radiant_layout "no_layout"
+  radiant_layout { |c| Radiant::Config['reader.layout'] }
 
   def index
     @group = Group.find(params[:group_id])

@@ -1,6 +1,6 @@
 class MembershipController < MarketplaceController
   include UpdateReaderNewsletterPreferences
-  radiant_layout "no_layout"
+  radiant_layout { |c| Radiant::Config['reader.layout'] }
   AFTER_SIGNUP_PATH = '/become-a-nzffa-member/youre-registered'
   before_filter :require_current_reader, :only => [:details, :update]
 
