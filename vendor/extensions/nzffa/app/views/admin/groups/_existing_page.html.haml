@@ -8,11 +8,11 @@
 
 - else
   - cssclass = "fake_checkbox"
-  - if page.has_group?(group) or group.page_permissions.select{|permission| permission.permitted.ancestors.include?(page) }.any?
+  - if page.has_group?(group) or group.page_permissions.select{|permission| permission.permitted.try(:ancestors).try(:include?, page) }.any?
     - cssclass << ' checked' if page.has_group?(group)
     = link_to page.title, toggle_admin_permission_url(:group_id => group.id, :page_id => page.id),  {:class => cssclass, :id => "toggle_page_#{page.id}"}
 
-- children_to_show = page.children.select{|c| c.has_group?(group) or group.page_permissions.select{|permission| permission.permitted.ancestors.include?(page) }.any? }
+- children_to_show = page.children.select{|c| c.has_group?(group) or group.page_permissions.select{|permission| permission.permitted.try(:ancestors).try(:include?, page) }.any? }
 - if children_to_show.any?
   %ul
     - children_to_show.each do |child|
