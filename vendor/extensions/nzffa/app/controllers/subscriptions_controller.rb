@@ -1,5 +1,5 @@
 class SubscriptionsController < MarketplaceController
-  radiant_layout "no_layout"
+  radiant_layout { |c| Radiant::Config['reader.layout'] }
   before_filter :require_current_reader, :except => [:renew, :print, :print_renewal]
   before_filter :try_to_log_in_from_token, :only => [:renew, :print, :print_renewal]
   include ActionView::Helpers::NumberHelper
