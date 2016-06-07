@@ -192,7 +192,7 @@ GEM
       radiant (>= 1.0.0.rc2)
     radiant-debug-extension (1.0.2)
     radiant-exporter-extension (1.1.0)
-    radiant-find_by_id_tag-extension (1.0.0)
+    radiant-find_by_id_tag-extension (1.1.0)
     radiant-find_replace-extension (1.0.0)
     radiant-grandchildren_tags-extension (1.0.0)
     radiant-if_id_tags-extension (1.0.0)
@@ -266,7 +266,7 @@ DEPENDENCIES
   radiant-copy_move-extension (~> 2.4.3)
   radiant-debug-extension (~> 1.0.2)
   radiant-exporter-extension (~> 1.1.0)
-  radiant-find_by_id_tag-extension
+  radiant-find_by_id_tag-extension (~> 1.1.0)
   radiant-find_replace-extension
   radiant-forum-extension!
   radiant-grandchildren_tags-extension
