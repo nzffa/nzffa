@@ -50,7 +50,8 @@ gem "radiant-search-extension"
 gem "radiant-copy_move-extension",          "~> 2.4.3"
 gem "radiant-grandchildren_tags-extension"
 gem "radiant-if_id_tags-extension"
-gem "radiant-find_by_id_tag-extension"
+gem "radiant-find_by_id_tag-extension", "~> 1.1.0"
+# gem 'radiant-find_by_id_tag-extension', :path => 'vendor/extensions/find_by_id_tag'
 gem "radiant-find_replace-extension"
 
 gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
