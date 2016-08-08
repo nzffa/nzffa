@@ -84,6 +84,7 @@ class Subscription < ActiveRecord::Base
        :membership_type,
        :main_branch,
        :special_interest_groups,
+       :belongs_to_fft,
        :begins_on,
        :expires_on,
        :receive_tree_grower_magazine,
@@ -231,8 +232,7 @@ class Subscription < ActiveRecord::Base
   end
   
   def belongs_to_fft=(bool)
-    # Since this is no longer a boolean column, we need to convert ourselves
-    if bool.to_i > 0
+    if bool
       self.groups << Group.fft_group
     else
       self.groups -= [ Group.fft_group ]

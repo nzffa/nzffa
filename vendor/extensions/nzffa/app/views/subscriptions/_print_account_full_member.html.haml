@@ -27,7 +27,7 @@
       %td.price
         =number_to_currency(@order.combined_full_member_levy)
       %td
-      - if @subscription.belong_to_fft?
+      - if @subscription.belongs_to_fft
         %tr
           %td
             %b Farm Forestry Timbers Marketplace
