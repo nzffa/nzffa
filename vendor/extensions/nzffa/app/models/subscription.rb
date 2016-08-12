@@ -232,6 +232,9 @@ class Subscription < ActiveRecord::Base
   end
   
   def belongs_to_fft=(bool)
+    if bool.is_a? Integer
+      bool = bool > 0
+    end
     if bool
       self.groups << Group.fft_group
     else
