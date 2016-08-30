@@ -39,7 +39,6 @@ ActionController::Routing::Routes.draw do |map|
                                                                :expiries => :get}
     admin.resources :subscriptions,
       :member     => { :print => :get,
-                       :print_form => :get,
                        :print_renewal => :get,
                        :renew => :get },
       :collection => { :batches_to_print => :get,
