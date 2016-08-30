@@ -24,6 +24,8 @@ class OrdersController < MarketplaceController
     if result['Success'] == '1'
       @order.paid!('Online')
       AppliesSubscriptionGroups.apply(@order.subscription, current_reader)
+
+      BackOfficeMailer.deliver_new_member_paid_registration(@order.reader)
       render :success
     else
       render :failure
