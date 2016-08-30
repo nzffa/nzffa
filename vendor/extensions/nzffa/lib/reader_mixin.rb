@@ -17,7 +17,6 @@ module ReaderMixin
       :receive_fft_newsletter => NzffaSettings.fft_newsletter_group_id,
       :receive_nzffa_members_newsletter => NzffaSettings.nzffa_members_newsletter_group_id,
       :receive_small_scale_forest_grower_newsletter => NzffaSettings.small_scale_forest_grower_newsletter_group_id,
-      :receive_forest_grower_levy_payer_newsletter => NzffaSettings.forest_grower_levy_payer_newsletter_group_id,
       
       :is_newsletter_editor => NzffaSettings.newsletter_editors_group_id,
       :is_councillor => NzffaSettings.councillors_group_id,

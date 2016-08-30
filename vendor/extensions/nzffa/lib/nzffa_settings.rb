@@ -26,8 +26,7 @@ class NzffaSettings
               
               fft_newsletter_group_id
               nzffa_members_newsletter_group_id
-              small_scale_forest_grower_newsletter_group_id
-              forest_grower_levy_payer_newsletter_group_id ]
+              small_scale_forest_grower_newsletter_group_id ]
 
   class << self
     NAMES.each do |name|
@@ -74,7 +73,5 @@ class NzffaSettings
   
   @full_membership_group_id = Radiant::Config["nzffa.full_membership_group_id"].to_i
   @small_scale_forest_grower_newsletter_group_id = Radiant::Config["nzffa.small_scale_fg_newsletter_group_id"].to_i
-  @forest_grower_levy_payer_newsletter_group_id = Radiant::Config["nzffa.fg_levy_payer_newsletter_group_id"].to_i
-  
   @nzffa_members_newsletter_group_id = Radiant::Config["nzffa.nzffa_members_newsletter_group_id"].to_i
 end
