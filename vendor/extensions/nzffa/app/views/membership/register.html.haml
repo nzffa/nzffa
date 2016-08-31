@@ -5,11 +5,12 @@
   %p
     If you are already registered you can 
     =link_to 'Sign in here', '/account/login'
-  %p
-    If you would rather print a subscription form, 
-    %a{:href=>"/assets/951/NZFFA-Tree-Grower-Application-form.pdf", :target => "_blank"}
-      download this PDF
-    \. You can post this to us with a cheque.
+  
+  - if path = Asset.find(Radiant::Config['nzffa.subscription_form_asset_id']).asset.url
+    %p
+      If you would rather print a subscription form, 
+      %a{:href=> path , :target => "_blank"} download this PDF
+      \. You can post this to us with a cheque.
 %hr  
 
 %p Fields marked with * are required
