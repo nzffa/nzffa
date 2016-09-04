@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "1.9"
 # If you make any changes in this file, please run `bundle install`.
 # If new versions of your installed gems are available, run `bundle update`
 
