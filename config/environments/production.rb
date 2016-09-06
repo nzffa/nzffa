@@ -23,11 +23,19 @@ config.action_controller.perform_caching             = true
 #   SiteController.cache_timeout = 12.hours
 # end
 
-ActionMailer::Base.delivery_method = :sendmail
-ActionMailer::Base.sendmail_settings = {
-  :location => '/usr/sbin/sendmail',
-  :arguments => '-i -t'
+# ActionMailer::Base.delivery_method = :sendmail
+# ActionMailer::Base.sendmail_settings = {
+#   :location => '/usr/sbin/sendmail',
+#   :arguments => '-i -t'
+# }
+
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  :address  => "smtp.sitehost.co.nz",
+  :port  => 25,
+  :domain => 'nzffa.org.nz'
 }
+
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "iso-8859-1"
