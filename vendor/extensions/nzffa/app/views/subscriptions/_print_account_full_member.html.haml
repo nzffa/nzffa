@@ -46,10 +46,19 @@
       %td.price
         =number_to_currency(@order.action_groups_levy)
     %tr
+      %td
+        %b Voluntary Research Contribution:
+      %td.price
+        = number_to_currency(@subscription.research_fund_contribution_amount)
+    %tr
+      %td
+        = check_box_tag :box
+        Tick if you want your Research Contribution treated as a donation 
+    %tr
       %td.subtotal
         %b Subtotal:
-      %td
       %td.price=number_to_currency(@order.amount)
+      %td
     %tr
       %td
         - if @reader.is_direct_debit?
@@ -101,13 +110,6 @@
         -group.compact.each do |b|
           %td=check_box_tag b.id
           %td #{b.name} ($#{b.annual_levy.to_i})
-
-.section
-  %h4 Voluntary Research Contribution
-  =check_box_tag :box
-  - if @subscription.research_fund_contribution_amount.to_i > 0
-    Last year #{number_to_currency(@subscription.research_fund_contribution_amount)}
-  Tick if you want your Research Contribution treated as a donation 
 
 .section
   %table{:width => '70%'}
