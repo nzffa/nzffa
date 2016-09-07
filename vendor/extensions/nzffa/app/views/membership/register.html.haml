@@ -6,7 +6,7 @@
     If you are already registered you can 
     =link_to 'Sign in here', '/account/login'
   
-  - if path = Asset.find(Radiant::Config['nzffa.subscription_form_asset_id']).asset.url
+  - if path = Asset.find_by_id(Radiant::Config['nzffa.subscription_form_asset_id']).try(:asset).try(:url)
     %p
       If you would rather print a subscription form, 
       %a{:href=> path , :target => "_blank"} download this PDF
