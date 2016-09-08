@@ -29,11 +29,17 @@ config.action_controller.perform_caching             = true
 #   :arguments => '-i -t'
 # }
 
+# SMTP config is stored in a yml outside of the git repo
+# Capistrano symlinks to the file in shared/config
+ymlconf = YAML.load_file("#{Rails.root}/config/application.yml")
+
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
-  :address  => "smtp.sitehost.co.nz",
-  :port  => 25,
-  :domain => 'nzffa.org.nz'
+  :address  => ymlconf['smtp']['address'],
+  :port  => ymlconf['smtp']['port'],
+  :domain => ymlconf['smtp']['domain'],
+  :login => ymlconf['smtp']['login'],
+  :password => ymlconf['smtp']['password']
 }
 
 ActionMailer::Base.perform_deliveries = true
