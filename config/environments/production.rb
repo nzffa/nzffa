@@ -38,8 +38,10 @@ ActionMailer::Base.smtp_settings = {
   :address  => ymlconf['smtp']['address'],
   :port  => ymlconf['smtp']['port'],
   :domain => ymlconf['smtp']['domain'],
-  :login => ymlconf['smtp']['login'],
-  :password => ymlconf['smtp']['password']
+  :user_name => ymlconf['smtp']['user_name'],
+  :password => ymlconf['smtp']['password'],
+  :authentication => :login,
+  :ssl => true
 }
 
 ActionMailer::Base.perform_deliveries = true
