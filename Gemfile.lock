@@ -59,7 +59,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git
-  revision: 4bc9f5012414158e3ea0d547a50e4076db18ce4f
+  revision: 23b4a4c4c3cc429d9aaef728f8c799432c1401cd
   specs:
     radiant-page_reader_group_permissions-extension (1.1)
       radiant (>= 0.9.1)
