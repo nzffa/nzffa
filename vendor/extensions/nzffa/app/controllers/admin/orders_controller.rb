@@ -37,7 +37,7 @@ class Admin::OrdersController < Admin::ResourceController
     @order = Order.find params[:id]
     if !@order.paid? && params[:order]["paid_on"] =~ /[\d]{4}-[\d]{1,2}-[\d]{2}/
       @order.update_attributes(params[:order])
-      BackOfficeMailer.deliver_donation_receipt_to_member(@order)
+      BackOfficeMailer.deliver_donation_receipt_to_member(@order) if @order.subscription.research_fund_contribution_is_donation? and @order.subscription.research_fund_contribution_amount.to_i > 0
     else # update_attributes repetition seems weird but is needed
       @order.update_attributes(params[:order])
     end
