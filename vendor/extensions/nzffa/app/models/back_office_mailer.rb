@@ -20,7 +20,7 @@ class BackOfficeMailer < ActionMailer::Base
 
   def donation_receipt_to_member(order)
     subject    "Thank you for your research fund contribution! Here is your donation receipt."
-    recipients ['benny@gorilla-webdesign.be']
+    recipients order.subscription.reader.email
     # cc         ['admin@nzffa.org.nz']
     from       'admin@nzffa.org.nz'
     sent_on    Time.now
