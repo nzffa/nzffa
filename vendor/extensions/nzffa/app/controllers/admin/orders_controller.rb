@@ -35,6 +35,9 @@ class Admin::OrdersController < Admin::ResourceController
 
   def update
     @order = Order.find params[:id]
+    if !@order.paid? && params[:order]["paid_on"] =~ /[\d]{4}-[\d]{1,2}-[\d]{2}/
+      BackOfficeMailer.deliver_donation_receipt_to_member(@order)
+    end
     @order.update_attributes(params[:order])
     if @order.paid?
       AppliesSubscriptionGroups.apply(@order.subscription, @order.reader)
@@ -48,6 +51,7 @@ class Admin::OrdersController < Admin::ResourceController
 
     if @order.save
       if @order.paid?
+        BackOfficeMailer.deliver_donation_receipt_to_member(@order)
         AppliesSubscriptionGroups.apply(@order.subscription, @order.reader)
       end
       flash[:notice] = 'Order created'

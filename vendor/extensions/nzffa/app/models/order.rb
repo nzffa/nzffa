@@ -144,6 +144,11 @@ class Order < ActiveRecord::Base
       old_subscription.cancel!
     end
     update_attribute(:paid_on, Date.today)
+    
+    if subscription.research_fund_contribution_is_donation? and subscription.research_fund_contribution_amount.to_i > 0
+      # Send donation receipt
+      BackOfficeMailer.deliver_donation_receipt_to_member(subscription)
+    end
   end
 
   def paid?

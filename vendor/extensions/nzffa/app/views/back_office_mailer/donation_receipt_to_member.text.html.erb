@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <%= image_tag 'http://nzffa.org.nz/images/nzffa-logo.gif' %>
+
+    <h2>New Zealand Farm Forestry Association Inc.</h2>
+    <p>PO Box 10349<br/>
+      The Terrace<br/>
+      Wellington 6143<br/>
+      New Zealand</p>
+    <p>
+      Tel +64 4 472 0432<br/>
+      Fax +64 4 473 6904<br/>
+      admin@nzffa.org.nz<br/>
+      www.nzffa.org.nz<br/>
+      GST# 13-843-503
+    </p>
+    <h1>DONATION RECEIPT ACKNOWLEDGEMENT</h1>
+    <%= simple_format [@reader.name, @reader.postal_address.to_s].flatten.join("\n") %>
+  
+    <p>This formally acknowledges your donation of $ <%= @order.subscription.research_fund_contribution_amount.to_i %>,00 on <%= @order.paid_on.strftime("%d %b %Y") %> to the NZFFA Research Fund.</p>
+
+    <p><%= image_tag 'http://nzffa.org.nz/images/admin/signature_treasurer.jpg' %><br/>
+        Bruce Bulloch,<br/>
+        National Treasurer<br/>
+        NZ Farm Forestry Association</p>
+
+    <p>Note: NZFFA is a charity registered with the Charities Section of the Department of Internal Affairs and this receipt may be used to claim a tax rebate.</p>
+  </body>
+</html>
