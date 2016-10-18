@@ -21,7 +21,7 @@
     <h1>DONATION RECEIPT ACKNOWLEDGEMENT</h1>
     <%= simple_format [@reader.name, @reader.postal_address.to_s].flatten.join("\n") %>
   
-    <p>This formally acknowledges your donation of $ <%= @order.subscription.research_fund_contribution_amount.to_i %>,00 on <%= @order.paid_on.strftime("%d %b %Y") %> to the NZFFA Research Fund.</p>
+    <p>This formally acknowledges your donation of $ <%= @order.subscription.research_fund_contribution_amount.to_i %>.00 on <%= @order.paid_on.strftime("%d %b %Y") %> to the NZFFA Research Fund.</p>
 
     <p><%= image_tag 'http://nzffa.org.nz/images/admin/signature_treasurer.jpg' %><br/>
         Bruce Bulloch,<br/>
