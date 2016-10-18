@@ -145,7 +145,7 @@ class Order < ActiveRecord::Base
     end
     update_attribute(:paid_on, Date.today)
     
-    if subscription.research_fund_contribution_is_donation? and subscription.research_fund_contribution_amount.to_i > 0
+    if needs_donation_receipt?
       # Send donation receipt
       BackOfficeMailer.deliver_donation_receipt_to_member(subscription)
     end
@@ -162,7 +162,12 @@ class Order < ActiveRecord::Base
       end
     end
   end
-
+  
+  def needs_donation_receipt?
+    subscription.contribute_to_research_fund &&
+    subscription.research_fund_contribution_is_donation? && subscription.research_fund_contribution_amount.to_i > 0
+  end
+  
   private
   def line_amount(kind, particular = nil)
     line = order_lines.select do |l|
