@@ -12,10 +12,10 @@ function instantiateCkEditor(partIndex){
 		['Styles','Format'],
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-    ['RadiantPreview', 'PasteCode', 'Paste', 'RemoveFormat'],
+    ['radiantpreview', 'PasteCode', 'Paste', 'RemoveFormat'],
     ['Find','Replace'],
     ['Image','Paperclipped', 'Table','HorizontalRule','SpecialChar'],
-    ['Link','Unlink','Anchor'],
+    ['Link','Unlink','Anchor'], ['TextColor', 'BGColor'],
     ['Source', '-', 'Maximize']
 	//// 	Alternative toolbar config
 	//    ['Source','-','Templates'],
