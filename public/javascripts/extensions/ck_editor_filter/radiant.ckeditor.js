@@ -1,9 +1,10 @@
 function instantiateCkEditor(partIndex){
-	CKEDITOR.config.startupOutlineBlocks = true
+	CKEDITOR.disableAutoInline = true;
+  CKEDITOR.config.startupOutlineBlocks = true
 	CKEDITOR.config.colorButton_enableMore = false
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
-	CKEDITOR.config.extraPlugins = 'paperclipped,MediaEmbed,radiantpreview'
+	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode'
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
 	CKEDITOR.config.toolbar =
@@ -11,9 +12,9 @@ function instantiateCkEditor(partIndex){
 		['Styles','Format'],
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-    ['RadiantPreview', 'Paste', 'RemoveFormat'],
+    ['RadiantPreview', 'PasteCode', 'Paste', 'RemoveFormat'],
     ['Find','Replace'],
-    ['Image','Paperclipped', 'MediaEmbed', 'Table','HorizontalRule','SpecialChar'],
+    ['Image','Paperclipped', 'Table','HorizontalRule','SpecialChar'],
     ['Link','Unlink','Anchor'],
     ['Source', '-', 'Maximize']
 	//// 	Alternative toolbar config
@@ -110,12 +111,6 @@ InsertIntoCk = Behavior.create({
         editor.insertHtml("<img src=\"" + href + "\" alt=\"\" />")
       else
         editor.insertHtml("<a href=\"" + href + "\">" + this.element.up(".back").down(".title").innerHTML + "</a>")
-    }
-    else{
-      var radius_tag = '<r:asset:' + tag_name;
-      if (asset_size != '') radius_tag = radius_tag + ' size="' + asset_size + '"';
-      radius_tag =  radius_tag +' id="' + asset_id + '" />';
-      Asset.InsertAtCursor(textbox, radius_tag);
     }
   }
 });
