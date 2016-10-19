@@ -1,7 +1,6 @@
 function instantiateCkEditor(){
 	CKEDITOR.disableAutoInline = true;
 	CKEDITOR.config.startupOutlineBlocks = true
-	CKEDITOR.config.colorButton_enableMore = false
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
 	CKEDITOR.config.extraPlugins = 'paperclipped,image2,pastecode'
