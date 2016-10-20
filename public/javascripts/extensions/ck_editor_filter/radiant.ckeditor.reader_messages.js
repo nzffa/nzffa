@@ -1,5 +1,7 @@
 function instantiateCkEditor(){
 	CKEDITOR.disableAutoInline = true;
+  CKEDITOR.config.allowedContent = true;
+  // ^ skips html validating altogether.. 
 	CKEDITOR.config.startupOutlineBlocks = true
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
