@@ -42,7 +42,7 @@
   =check_box_tag :box
   - if @subscription.research_fund_contribution_amount.to_i > 0
     Last year #{number_to_currency(@subscription.research_fund_contribution_amount)}
-  Tick if you want Research Contribution treated as a donation - receipt will be sent
+  Tick if you want your Research Contribution treated as a donation - receipt will be sent
 
 .section
   %table{:width => '70%'}
@@ -56,6 +56,12 @@
     %tr
       %td Wardle's Native Trees of New Zealand and Their Story
       %td.price $95.00
+      %td.quantity
+        -if @subscription.tree_grower_delivery_location != 'new_zealand'
+          plus overseas postage
+    %tr
+      %td Wardle's 'Woodside - A small forest managed on multiple use principles'
+      %td.price $35.00
       %td.quantity
         -if @subscription.tree_grower_delivery_location != 'new_zealand'
           plus overseas postage
