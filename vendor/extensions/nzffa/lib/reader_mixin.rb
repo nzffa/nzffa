@@ -49,9 +49,7 @@ module ReaderMixin
   end
 
   def name
-    if self[:name]
-      self[:name]
-    elsif forename.present? and surname.present?
+    if forename.present? and surname.present?
       "#{forename} #{surname}"
     else
       nil
