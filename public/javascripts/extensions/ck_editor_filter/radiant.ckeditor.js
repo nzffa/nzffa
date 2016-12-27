@@ -5,7 +5,7 @@ function instantiateCkEditor(partIndex){
   CKEDITOR.config.startupOutlineBlocks = true
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
-	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode'
+	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode,pastefromword'
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
 	CKEDITOR.config.toolbar =
@@ -13,7 +13,7 @@ function instantiateCkEditor(partIndex){
 		['Styles','Format'],
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-    ['radiantpreview', 'PasteCode', 'Paste', 'RemoveFormat'],
+    ['radiantpreview', 'PasteCode', 'Paste','PasteFromWord', 'RemoveFormat'],
     ['Find','Replace'],
     ['Image','Paperclipped', 'Table','HorizontalRule','SpecialChar'],
     ['Link','Unlink','Anchor'], ['TextColor', 'BGColor'],
