@@ -70,11 +70,6 @@ GIT
   specs:
     radiant-scheduler-extension (1.0.0)
 
-PATH
-  remote: vendor/extensions/page_parts
-  specs:
-    radiant-page_parts-extension (1.1.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -284,7 +279,6 @@ DEPENDENCIES
   radiant-markdown_filter-extension (~> 1.0.2)
   radiant-marketplace-extension!
   radiant-navigation_tags-extension (~> 0.2.7)
-  radiant-page_parts-extension!
   radiant-page_reader_group_permissions-extension!
   radiant-reader-extension!
   radiant-relations-extension

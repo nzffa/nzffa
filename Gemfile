@@ -78,7 +78,6 @@ gem "radiant-conference-extension", :git => 'git://github.com/nzffa/radiant-nzff
 gem "radiant-marketplace-extension", :git => 'git://github.com/nzffa/radiant-nzffa_marketplace-extension.git'
 
 gem "radiant-reorder_children-extension"
-gem "radiant-page_parts-extension", :path => 'vendor/extensions/page_parts'
 gem 'radiant-relations-extension'
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
