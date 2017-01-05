@@ -36,12 +36,6 @@ GIT
       vcard (~> 0.1.1)
 
 GIT
-  remote: git://github.com/kbingman/radiant-page_parts-extension.git
-  revision: 8ea5f8c18a04fb7f2df53a123cc5fbac2dd4c0e8
-  specs:
-    radiant-page_parts-extension (1.1.1)
-
-GIT
   remote: git://github.com/nzffa/radiant-forum-extension.git
   revision: 487f4166952d3a5b6e64cd5c228e40b24244e965
   branch: wackamole
@@ -75,6 +69,11 @@ GIT
   revision: 03d2c84f2c14f025e766e5f056b6a5b2ab002082
   specs:
     radiant-scheduler-extension (1.0.0)
+
+PATH
+  remote: vendor/extensions/page_parts
+  specs:
+    radiant-page_parts-extension (1.1.1)
 
 GEM
   remote: https://rubygems.org/
