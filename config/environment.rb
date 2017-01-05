@@ -17,7 +17,7 @@ Radiant::Initializer.run do |config|
   # Only load the extensions named here, in the order given. By default all
   # extensions in vendor/extensions are loaded, in alphabetical order. :all
   # can be used as a placeholder for all extensions not explicitly named.
-  # config.extensions = [ :all ]
+  config.extensions = [ :all, :page_parts, :relations ]
   
   # Unload the extensions named here.
   # config.ignore_extensions []
