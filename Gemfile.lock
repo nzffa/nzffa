@@ -202,6 +202,7 @@ GEM
     radiant-markdown_filter-extension (1.0.2)
       bluecloth (~> 2.1.0)
     radiant-navigation_tags-extension (0.2.7)
+    radiant-relations-extension (1.2.2)
     radiant-reorder_children-extension (1.0.10)
     radiant-search-extension (1.0.0)
     radiant-sheets-extension (1.1.0)
@@ -280,6 +281,7 @@ DEPENDENCIES
   radiant-navigation_tags-extension (~> 0.2.7)
   radiant-page_reader_group_permissions-extension!
   radiant-reader-extension!
+  radiant-relations-extension
   radiant-reorder_children-extension
   radiant-scheduler-extension!
   radiant-search-extension
