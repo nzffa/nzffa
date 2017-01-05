@@ -36,6 +36,12 @@ GIT
       vcard (~> 0.1.1)
 
 GIT
+  remote: git://github.com/kbingman/radiant-page_parts-extension.git
+  revision: 8ea5f8c18a04fb7f2df53a123cc5fbac2dd4c0e8
+  specs:
+    radiant-page_parts-extension (1.1.1)
+
+GIT
   remote: git://github.com/nzffa/radiant-forum-extension.git
   revision: 487f4166952d3a5b6e64cd5c228e40b24244e965
   branch: wackamole
@@ -279,6 +285,7 @@ DEPENDENCIES
   radiant-markdown_filter-extension (~> 1.0.2)
   radiant-marketplace-extension!
   radiant-navigation_tags-extension (~> 0.2.7)
+  radiant-page_parts-extension!
   radiant-page_reader_group_permissions-extension!
   radiant-reader-extension!
   radiant-relations-extension
