@@ -75,7 +75,7 @@ module ReaderMixin
      post_city,
      post_province,
      post_country,
-     postcode]
+     postcode].select{|e| e.present?}
   end
 
   def postal_address_string
