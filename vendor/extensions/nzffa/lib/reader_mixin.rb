@@ -72,10 +72,9 @@ module ReaderMixin
   def postal_address_array
     [post_line1,
      post_line2,
-     post_city,
+     "#{post_city} #{postcode}",
      post_province,
-     post_country,
-     postcode].select{|e| e.present?}
+     post_country].select{|e| e.present?}
   end
 
   def postal_address_string
