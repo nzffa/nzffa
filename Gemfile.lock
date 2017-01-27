@@ -52,7 +52,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_marketplace-extension.git
-  revision: c5d9efe3847be8634f17a4581daf375bb5603029
+  revision: c274723181687d15c8b45d9de9b7ab1ca0f01c4e
   specs:
     radiant-marketplace-extension (1.0.1)
       spreadsheet
