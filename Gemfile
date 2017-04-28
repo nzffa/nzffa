@@ -38,7 +38,8 @@ gem "radiant-textile_filter-extension",      "~> 1.0.4"
 # gem "radiant-japanese_language_pack-extension", "~> 1.0.0"
 # gem "radiant-russian_language_pack-extension",  "~> 1.0.0"
 
-gem "radiant-clipped-extension", "~> 1.1.1"
+# gem "radiant-clipped-extension", "~> 1.1.1"
+gem "radiant-clipped-extension", :git => "git://github.com/radiant/radiant-clipped-extension"
 
 gem "radiant-scheduler-extension", :git => "git://github.com/radiant/radiant-scheduler-extension"
 # gem "radiant-scheduler-extension", :path => "vendor/extensions/scheduler"

@@ -183,7 +183,7 @@ GEM
       will_paginate (~> 2.3.11)
     radiant-archive-extension (1.0.7)
     radiant-ck_editor_filter-extension (0.2.8)
-    radiant-clipped-extension (1.1.1)
+    radiant-clipped-extension (1.1.2)
       acts_as_list (= 0.1.4)
       cocaine (~> 0.3.2)
       paperclip (~> 2.7.0)
