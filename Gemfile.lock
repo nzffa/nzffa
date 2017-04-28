@@ -66,9 +66,9 @@ GIT
 
 GIT
   remote: git://github.com/radiant/radiant-scheduler-extension
-  revision: 03d2c84f2c14f025e766e5f056b6a5b2ab002082
+  revision: 2ae87cf68903f6d485d477d67e751f4461272761
   specs:
-    radiant-scheduler-extension (1.0.0)
+    radiant-scheduler-extension (1.0.2)
 
 GEM
   remote: https://rubygems.org/
