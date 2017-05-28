@@ -5,7 +5,8 @@ module Nzffa::NewsletterLinkTags
   
   desc "Looks for and rewrites relative links so they work in newsletters. The website host is looked up in Radiant::Config['site.host'].
   
-  Usage: <r:absolutize_relative_links>Your newsletter contents ...</r:absolutize_relative_links>"
+  <pre><code><r:absolutize_relative_links>Your newsletter contents ...</r:absolutize_relative_links></code></pre>"
+  
   tag "absolutize_relative_links" do |tag|
     output = tag.expand
     host = "http://#{Radiant::Config['site.host'].gsub(/http(s?):\/\//,'')}"
