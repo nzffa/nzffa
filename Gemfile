@@ -30,17 +30,9 @@ gem "radiant-snippets-extension",            "~> 1.1.3"
 gem "radiant-site_templates-extension",      "~> 1.0.6"
 gem "radiant-smarty_pants_filter-extension", "~> 1.0.2"
 gem "radiant-textile_filter-extension",      "~> 1.0.4"
-# Language packs
-# gem "radiant-dutch_language_pack-extension",    "~> 1.0.0"
-# gem "radiant-french_language_pack-extension",   "~> 1.0.0"
-# gem "radiant-german_language_pack-extension",   "~> 1.0.0"
-# gem "radiant-italian_language_pack-extension",  "~> 1.0.0"
-# gem "radiant-japanese_language_pack-extension", "~> 1.0.0"
-# gem "radiant-russian_language_pack-extension",  "~> 1.0.0"
 
 # gem "radiant-clipped-extension", "~> 1.1.1"
-gem "radiant-clipped-extension", :git => "git://github.com/radiant/radiant-clipped-extension"
-
+gem "radiant-clipped-extension", :git => "git://github.com/radiant/radiant-clipped-extension", :ref => 'd6b8071704'
 gem "radiant-scheduler-extension", :git => "git://github.com/radiant/radiant-scheduler-extension"
 # gem "radiant-scheduler-extension", :path => "vendor/extensions/scheduler"
 gem "radiant-navigation_tags-extension", "~> 0.2.7"
@@ -82,11 +74,12 @@ gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
-gem 'fog', '1.1.0'
+gem 'fog', '~> 1.1'
 gem 'parallel', '~> 0.5.12'
 
+gem 'rdoc', '4.2.0'
 group :production, :staging do
-  gem 'airbrake'
+  gem 'airbrake', '4.1.0'
 end
 
 # If you're running tests or specs
