@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/jomz/radiant-reader-extension.git
-  revision: dfd457b4caa6f67bb3ab35a54b62d833c5715acd
+  revision: eec9672cc90dba683a3d38511b1e557bab30cd9d
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -106,12 +106,11 @@ GEM
       multi_json
     ancestry (1.2.5)
       activerecord (>= 2.2.2)
-    arel (8.0.0)
-    authlogic (2.1.10)
+    authlogic (2.1.11)
       activerecord (~> 2.3.0)
       activesupport (~> 2.3.0)
     bluecloth (2.1.0)
-    builder (3.2.3)
+    builder (3.2.2)
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
@@ -119,12 +118,12 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     chronic (0.10.2)
-    chunky_png (1.3.8)
+    chunky_png (1.3.4)
     cocaine (0.3.2)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.12.2)
+    coffee-script-source (1.8.0)
     color (1.8)
     compass (0.12.7)
       chunky_png (~> 1.2)
@@ -133,45 +132,19 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     delocalize (0.2.6)
-    excon (0.56.0)
-    execjs (2.7.0)
+    excon (0.7.12)
+    execjs (2.0.0)
     fastercsv (1.5.5)
-    fog (1.24.0)
-      fog-brightbox
-      fog-core (~> 1.23)
-      fog-json
-      fog-radosgw (>= 0.0.2)
-      fog-sakuracloud (>= 0.0.4)
-      fog-softlayer
-      ipaddress (~> 0.5)
-      nokogiri (~> 1.5, >= 1.5.11)
-    fog-brightbox (0.11.0)
-      fog-core (~> 1.22)
-      fog-json
-      inflecto (~> 0.0.2)
-    fog-core (1.24.0)
+    fog (1.1.0)
       builder
-      excon (~> 0.38)
-      formatador (~> 0.2)
+      excon (~> 0.7.4)
+      formatador (~> 0.2.0)
       mime-types
-      net-scp (~> 1.1)
-      net-ssh (>= 2.1.3)
-    fog-json (1.0.2)
-      fog-core (~> 1.0)
-      multi_json (~> 1.10)
-    fog-radosgw (0.0.5)
-      fog-core (>= 1.21.0)
-      fog-json
-      fog-xml (>= 0.0.1)
-    fog-sakuracloud (1.7.5)
-      fog-core
-      fog-json
-    fog-softlayer (1.1.4)
-      fog-core
-      fog-json
-    fog-xml (0.1.3)
-      fog-core
-      nokogiri (>= 1.5.11, < 2.0.0)
+      multi_json (~> 1.0.3)
+      net-scp (~> 1.0.4)
+      net-ssh (>= 2.2.1)
+      nokogiri (~> 1.5.0)
+      ruby-hmac
     formatador (0.2.5)
     fssm (0.2.10)
     haml (3.1.8)
@@ -180,21 +153,17 @@ GEM
     httparty (0.10.0)
       multi_json (~> 1.0)
       multi_xml
-    i18n (0.8.4)
-    inflecto (0.0.2)
-    ipaddress (0.8.3)
-    json (1.8.6)
+    json (1.8.3)
     mime-types (1.22)
-    minitest (5.10.2)
-    multi_json (1.12.1)
-    multi_xml (0.6.0)
-    mysql2 (0.4.6)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
+    multi_json (1.0.4)
+    multi_xml (0.5.5)
+    mysql2 (0.3.17)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.4)
-    net-ssh-gateway (1.3.0)
+    net-ssh (2.9.2)
+    net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nokogiri (1.5.11)
     open4 (1.3.4)
@@ -205,7 +174,7 @@ GEM
       mime-types
     parallel (0.5.21)
     rack (1.1.6)
-    rack-cache (1.7.0)
+    rack-cache (1.2)
       rack (>= 0.4)
     radiant (1.1.4)
       RedCloth (~> 4.2.0)
@@ -226,7 +195,7 @@ GEM
       tzinfo (~> 0.3.31)
       will_paginate (~> 2.3.11)
     radiant-archive-extension (1.0.7)
-    radiant-ck_editor_filter-extension (0.2.9)
+    radiant-ck_editor_filter-extension (0.2.8)
     radiant-copy_move-extension (2.4.8)
       radiant (>= 1.0.0.rc2)
     radiant-debug-extension (1.0.2)
@@ -261,26 +230,27 @@ GEM
       activeresource (= 2.3.18)
       activesupport (= 2.3.18)
       rake (>= 0.8.3)
-    rake (12.0.0)
+    rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
-    rr (1.2.0)
-    ruby-ole (1.2.12.1)
+    rr (1.1.2)
+    ruby-hmac (0.4.0)
+    ruby-ole (1.2.11.8)
     rubypants (0.2.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.19)
     snail (0.5.7)
-    spreadsheet (1.1.4)
+    spreadsheet (1.0.4)
       ruby-ole (>= 1.0)
     stringex (1.3.3)
     thor (0.14.6)
-    tzinfo (0.3.53)
+    tzinfo (0.3.44)
     uuidtools (2.1.5)
     vcard (0.1.1)
-    whenever (0.9.7)
+    whenever (0.9.4)
       chronic (>= 0.6.3)
-    will_paginate (2.3.17)
+    will_paginate (2.3.16)
 
 PLATFORMS
   ruby
@@ -288,11 +258,11 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (~> 4.2.9)
   activerecord-mysql2-adapter
-  airbrake (= 4.1.0)
+  airbrake
   backup!
   capistrano (~> 2.14.1)
   fastercsv
-  fog (~> 1.1)
+  fog (= 1.1.0)
   hpricot
   httparty (= 0.10.0)
   mime-types (= 1.22)
@@ -329,10 +299,9 @@ DEPENDENCIES
   radiant-smarty_pants_filter-extension (~> 1.0.2)
   radiant-snippets-extension (~> 1.1.3)
   radiant-textile_filter-extension (~> 1.0.4)
-  rdoc (= 4.2.0)
   rr
   sanitize (= 2.0.3)
   whenever
 
 BUNDLED WITH
-   1.15.0.pre.3
+   1.10.6
