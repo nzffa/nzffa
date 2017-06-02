@@ -74,6 +74,7 @@ gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
+gem 'fog-core', '1.24.0'
 gem 'fog', '~> 1.1'
 gem 'parallel', '~> 0.5.12'
 

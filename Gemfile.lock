@@ -291,6 +291,7 @@ DEPENDENCIES
   capistrano (~> 2.14.1)
   fastercsv
   fog (~> 1.1)
+  fog-core (= 1.24.0)
   hpricot
   httparty (= 0.10.0)
   mime-types (= 1.22)
