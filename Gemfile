@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 
 # this breaks specs.. but is necessary for attachements i think
 gem "radiant", '1.1.4'
+gem "rdoc", "4.2.0"
 
 gem "RedCloth", "~> 4.2.9"
 
@@ -82,11 +83,11 @@ gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
-gem 'fog', '1.1.0'
+gem 'fog', '~> 1.1'
 gem 'parallel', '~> 0.5.12'
 
 group :production, :staging do
-  gem 'airbrake'
+  gem 'airbrake', '4.1.0'
 end
 
 # If you're running tests or specs
