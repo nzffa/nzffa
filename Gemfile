@@ -39,8 +39,8 @@ gem "radiant-textile_filter-extension",      "~> 1.0.4"
 # gem "radiant-japanese_language_pack-extension", "~> 1.0.0"
 # gem "radiant-russian_language_pack-extension",  "~> 1.0.0"
 
-# gem "radiant-clipped-extension", "~> 1.1.1"
-gem "radiant-clipped-extension", :git => "git://github.com/radiant/radiant-clipped-extension"
+gem "radiant-clipped-extension", "~> 1.1.2"
+# gem "radiant-clipped-extension", :git => "git://github.com/radiant/radiant-clipped-extension"
 
 gem "radiant-scheduler-extension", :git => "git://github.com/radiant/radiant-scheduler-extension"
 # gem "radiant-scheduler-extension", :path => "vendor/extensions/scheduler"
@@ -83,7 +83,9 @@ gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
-gem 'fog', '~> 1.1'
+gem 'fog', '1.1.0'
+gem 'net-ssh', '2.9.4'
+gem 'multi_json', '1.0.4'
 gem 'parallel', '~> 0.5.12'
 
 group :production, :staging do
