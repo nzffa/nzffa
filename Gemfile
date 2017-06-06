@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 # this breaks specs.. but is necessary for attachements i think
 gem "radiant", '1.1.4'
 gem "rdoc", "4.2.0"
+gem "rake", "10.4.2"
 
 gem "RedCloth", "~> 4.2.9"
 
