@@ -160,7 +160,7 @@ GEM
       mime-types
     parallel (0.5.21)
     rack (1.1.6)
-    rack-cache (1.7.0)
+    rack-cache (1.2)
       rack (>= 0.4)
     radiant (1.1.4)
       RedCloth (~> 4.2.0)
@@ -252,6 +252,7 @@ DEPENDENCIES
   mysql2
   net-ssh (= 2.9.4)
   parallel (~> 0.5.12)
+  rack-cache (= 1.2)
   radiant (= 1.1.4)
   radiant-archive-extension (~> 1.0.7)
   radiant-ck_editor_filter-extension (~> 0.2.5)

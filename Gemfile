@@ -19,6 +19,7 @@ gem 'mime-types', '1.22'
 gem "mysql2"
 gem "activerecord-mysql2-adapter"
 gem "execjs", "2.0.0"
+gem "rack-cache", "1.2"
 # gem "therubyracer"
 
 gem 'whenever', :require => false
