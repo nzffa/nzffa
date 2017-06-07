@@ -229,7 +229,7 @@ GEM
     tzinfo (0.3.53)
     uuidtools (2.1.5)
     vcard (0.1.1)
-    whenever (0.9.7)
+    whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (2.3.17)
 
@@ -282,7 +282,7 @@ DEPENDENCIES
   rdoc (= 4.2.0)
   rr
   sanitize (= 2.0.3)
-  whenever
+  whenever (= 0.9.4)
 
 BUNDLED WITH
    1.15.0.pre.3

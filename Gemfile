@@ -22,7 +22,7 @@ gem "execjs", "2.0.0"
 gem "rack-cache", "1.2"
 # gem "therubyracer"
 
-gem 'whenever', :require => false
+gem 'whenever', '0.9.4', :require => false
 # Default Extensions
 gem "radiant-archive-extension",             "~> 1.0.7"
 # gem "radiant-debug-extension",               "~> 1.0.2"
