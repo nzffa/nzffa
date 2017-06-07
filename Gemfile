@@ -20,6 +20,7 @@ gem "mysql2"
 gem "activerecord-mysql2-adapter"
 gem "rack-cache", "1.2"
 gem "execjs", "2.0.0"
+gem "ref", "1.0.5"
 gem "therubyracer"
 
 gem 'whenever', '0.9.4', :require => false
