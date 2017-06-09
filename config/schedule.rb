@@ -1,3 +1,4 @@
+env :PATH, ENV['PATH']
 set :output, "#{path}/log/cron.log"
 set :job_template, nil
 
