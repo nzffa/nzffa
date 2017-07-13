@@ -11,7 +11,7 @@ class BackOfficeMailer < ActionMailer::Base
   
   def new_member_paid_registration(member)
     subject    "A new member has just paid his registration online - NZFFA ID #{member.nzffa_membership_id}"
-    recipients ['admin@nzffa.org.nz', 'benny@gorilla-webdesign.be']
+    recipients ['admin@nzffa.org.nz']
     from       'admin@nzffa.org.nz'
     sent_on    Time.now
     
