@@ -65,8 +65,8 @@ GIT
       radiant (>= 0.9.1)
 
 GIT
-  remote: git://github.com/radiant/radiant-scheduler-extension
-  revision: 5e3047434b9652e82b65bb8824f06236f1fcce7b
+  remote: git://github.com/nzffa/radiant-scheduler-extension
+  revision: 858f287455f10afba21e6a9a6f09df3e2b1ad887
   specs:
     radiant-scheduler-extension (1.0.3)
 

@@ -45,7 +45,7 @@ gem "radiant-snippets-extension",            "~> 1.1.3"
 gem "radiant-clipped-extension", "~> 1.1.2"
 # gem "radiant-clipped-extension", :git => "git://github.com/radiant/radiant-clipped-extension"
 
-gem "radiant-scheduler-extension", :git => "git://github.com/radiant/radiant-scheduler-extension"
+gem "radiant-scheduler-extension", :git => "git://github.com/nzffa/radiant-scheduler-extension"
 # gem "radiant-scheduler-extension", :path => "vendor/extensions/scheduler"
 gem "radiant-navigation_tags-extension", "~> 0.2.7"
 gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
