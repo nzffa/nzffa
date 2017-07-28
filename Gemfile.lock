@@ -194,7 +194,7 @@ GEM
     radiant-find_replace-extension (1.0.2)
     radiant-grandchildren_tags-extension (1.0.0)
     radiant-html_tags-extension (1.0.0)
-    radiant-if_date_tags-extension (1.0.1)
+    radiant-if_date_tags-extension (1.0.2)
     radiant-if_id_tags-extension (1.0.0)
     radiant-mailer-extension (1.0.6)
     radiant-mailer_layouts-extension (0.1.1)
