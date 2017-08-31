@@ -10,15 +10,12 @@ ActionController::Routing::Routes.draw do |map|
                      :cancel => :post}
 
   map.resources :orders, :only => [],
-   :member => { :make_payment => :get},
+   :member => { :make_payment => :get },
    :collection => { :payment_finished => :get }
 
   map.membership_details '/membership/details', :controller => :membership, :action => :details
   map.register_membership '/membership/register', :controller => :membership, :action => :register
   map.update_membership '/membership/update', :controller => :membership, :action => :update
-
-  map.join_fft_button '/membership/join-fft-button', :controller => :membership, :action => :join_fft_button
-  map.join_fft '/membership/join-fft', :controller => :membership, :action => :join_fft
 
   map.branch_admin '/branch_admin/:group_id.:format', :controller => :branch_admin, :action => :index
   map.branch_admin_past_members '/branch_admin/:group_id/past_members.:format', :controller => :branch_admin, :action => :past_members
@@ -31,19 +28,25 @@ ActionController::Routing::Routes.draw do |map|
   map.new_reader "/become-a-member", :controller => 'membership', :action => 'register'
   
   map.namespace :admin do |admin|
-    admin.resources :reports, :only => :index, :collection => {:past_members_no_subscription => :get, 
-                                                               :payments => :get, 
-                                                               :allocations => :get, 
-                                                               :members => :get, 
-                                                               :deliveries => :get, 
-                                                               :expiries => :get}
+    admin.resources :reports,
+      :only => :index,
+      :collection => {
+        :past_members_no_subscription => :get, 
+        :payments => :get, 
+        :allocations => :get, 
+        :members => :get, 
+        :deliveries => :get, 
+        :expiries => :get
+      }
     admin.resources :subscriptions,
       :member     => { :print => :get,
                        :print_renewal => :get,
                        :renew => :get },
       :collection => { :batches_to_print => :get,
                        :print_batch => :get}
-    admin.resources :readers_plus, :except => [:new, :create], :member => [:create_user]
+    admin.resources :readers_plus,
+      :except => [:new, :create],
+      :member => [:create_user]
     admin.resources :orders
     admin.resources :readers, :only => [] do |readers|
      readers.resources :orders, :only => :index

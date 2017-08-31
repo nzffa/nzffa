@@ -12,6 +12,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :nz_tree_grower_copies
   validates_presence_of :expires_on, :begins_on
   validates_presence_of :reader
+  validates_numericality_of :research_fund_contribution_amount, :greater_than_or_equal_to => 0
 
   validates_inclusion_of :ha_of_planted_trees,
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'

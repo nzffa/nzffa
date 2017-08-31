@@ -33,7 +33,7 @@
   #research_fund_contribution
     #research_fund_contribution_amount
       =f.label :research_fund_contribution_amount, 'Amount to contribute'
-      =f.text_field :research_fund_contribution_amount
+      %input{:name => "subscription[research_fund_contribution_amount]", :id => "subscription_research_fund_contribution_amount", :type => 'number', :min => 0}
 
       %p If you want your contribution treated as a donation (receipt acknowledgement will be sent) tick the below box
       =f.check_box :research_fund_contribution_is_donation

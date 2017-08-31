@@ -1,6 +1,5 @@
-class SubscriptionsController < MarketplaceController
-  radiant_layout { |c| Radiant::Config['reader.layout'] }
-  before_filter :require_current_reader, :except => [:renew, :print, :print_renewal]
+class SubscriptionsController < ReaderActionController
+  before_filter :require_reader, :except => [:renew, :print, :print_renewal]
   before_filter :try_to_log_in_from_token, :only => [:renew, :print, :print_renewal]
   include ActionView::Helpers::NumberHelper
 
@@ -82,8 +81,6 @@ class SubscriptionsController < MarketplaceController
   def quote_new
     subscription = Subscription.new(params[:subscription])
     order = CreateOrder.from_subscription(subscription)
-    #puts params[:subscription].inspect
-    #puts order.order_lines.map{|ol| [ol.kind, ol.amount.to_s]}.inspect
 
     render :json => {:price => "#{number_to_currency(order.amount)}", 
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
@@ -148,7 +145,7 @@ class SubscriptionsController < MarketplaceController
     else
       flash[:error] = 'Could not log in with that token. Please try logging in manually.'
     end
-    require_current_reader
+    require_reader
   end
 
 end

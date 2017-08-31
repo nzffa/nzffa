@@ -1,5 +1,5 @@
-class OrdersController < MarketplaceController
-  before_filter :require_current_reader
+class OrdersController < ReaderActionController
+  before_filter :require_reader
 
   def make_payment
     @order = Order.find params[:id]
@@ -25,7 +25,7 @@ class OrdersController < MarketplaceController
       @order.paid!('Online')
       AppliesSubscriptionGroups.apply(@order.subscription, current_reader)
 
-      unless @subscription.reader.orders.select{|o| !o.paid_on.nil?}.size > 1
+      unless @subscription.reader.orders.select{|o| !o.paid_on.nil? }.size > 1
         BackOfficeMailer.deliver_new_member_paid_registration(@subscription.reader)
       end
       render :success
