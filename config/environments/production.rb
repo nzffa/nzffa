@@ -19,9 +19,9 @@ config.action_controller.perform_caching             = true
 # config.action_mailer.raise_delivery_errors = false
 
 # Cache your content for a longer time, the default is 5.minutes
-# config.after_initialize do
-#   SiteController.cache_timeout = 12.hours
-# end
+config.after_initialize do
+  SiteController.cache_timeout = 2.hours
+end
 
 # ActionMailer::Base.delivery_method = :sendmail
 # ActionMailer::Base.sendmail_settings = {
@@ -45,7 +45,7 @@ ActionMailer::Base.smtp_settings = {
   # :ssl => true
 }
 
-ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.perform_deliveries = false
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "iso-8859-1"
 ActionMailer::Base.default_url_options[:host] = "nzffa.org.nz"
