@@ -1,5 +1,5 @@
 class BranchAdminController < MarketplaceController
-  before_filter :require_current_reader
+  before_filter :require_reader
   before_filter :require_branch_secretary
   radiant_layout { |c| Radiant::Config['reader.layout'] }
 
