@@ -3,7 +3,7 @@
 %p Your NZFFA subscription will expire in #{@subscription.days_to_expire} days
 
 -hostname = ActionMailer::Base.default_url_options[:host]
--subscriptions_url = "http://#{hostname}"+'/subscriptions/'
+-subscriptions_url = "http://#{hostname}" + membership_details_path
 
 %p To renew your subscription please visit #{link_to(subscriptions_url, subscriptions_url)}.
 

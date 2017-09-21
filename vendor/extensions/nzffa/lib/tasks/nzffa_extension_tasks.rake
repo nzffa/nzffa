@@ -43,13 +43,16 @@ namespace :radiant do
         end
       end
       
-      #desc 'Emails subscription expiry warning emails as required'
-      #task :subscription_email_warnings => :environment do
-        #@subscriptions = Subscription.expiring_on(30.days.from_now.to_date)
-        #@subscriptions.each do |subscription|
-          #NotifySubscriber.deliver_subscription_expiring_soon(subscription)
-        #end
-      #end
+      desc 'Emails subscription expiry warning emails as required'
+      # Sent out once a year on November 14th ...
+      task :subscription_email_warnings => :environment do
+        @subscriptions = Subscription.active.expiring_on(Time.now.end_of_year.to_date)
+        @subscriptions.each do |subscription|
+          # unless if the renewal is free
+          next if !(CreateOrder.from_subscription(subscription.renew_for_year(Time.now.end_of_year + 1.year)).amount > 0)
+          NotifySubscriber.deliver_subscription_expiring_soon(subscription)
+        end
+      end
 
       #desc 'Emails subscription expiry emails, and expires subscriptions as required'
       #task :subscription_expiry => :environment do
@@ -60,7 +63,7 @@ namespace :radiant do
         #end
       #end
 
-      desc 'Reapply the subscriprion groups. Dont choose this in a guess.'
+      desc 'Reapply the subscription groups. Dont choose this in a guess.'
       task :reapply_subscription_groups => :environment do
         Reader.find_each do |reader|
           before_ids = reader.group_ids.uniq
