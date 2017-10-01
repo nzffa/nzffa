@@ -1,5 +1,4 @@
 class BranchAdminController < MarketplaceController
-  before_filter :require_reader
   before_filter :require_branch_secretary
   radiant_layout { |c| Radiant::Config['reader.layout'] }
 
@@ -84,11 +83,12 @@ class BranchAdminController < MarketplaceController
   end
   
   def require_branch_secretary
-    @group = Group.find(params[:group_id])
+    require_reader
     unless current_reader.is_secretary? and current_reader.groups.include? @group
       flash[:error] = 'You are not a group member or you are not a secretary'
       redirect_to root_path
     end
+    @group = Group.find(params[:group_id])
   end
 
   def render_csv_of_readers
