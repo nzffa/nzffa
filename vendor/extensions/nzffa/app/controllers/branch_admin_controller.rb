@@ -84,11 +84,10 @@ class BranchAdminController < MarketplaceController
   
   def require_branch_secretary
     require_reader
-    unless current_reader.is_secretary? and current_reader.groups.include? @group
-      flash[:error] = 'You are not a group member or you are not a secretary'
-      redirect_to root_path
-    end
     @group = Group.find(params[:group_id])
+    unless current_reader.is_secretary? and current_reader.groups.include? @group
+      raise ReaderError::AccessDenied, 'You are not a group member or you are not a secretary'
+    end
   end
 
   def render_csv_of_readers
