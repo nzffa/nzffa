@@ -86,9 +86,17 @@ module ReaderMixin
   end
 
   def has_active_subscription?
-    active_subscription
+    !active_subscription.nil?
+  end
+  
+  def subscription_for_next_year
+    Subscription.next_year_subscription_for(self)
   end
 
+  def has_subscription_for_next_year?
+    !subscription_for_next_year.nil?
+  end
+  
   def main_branch
     active_subscription.main_branch if active_subscription.present?
   end
