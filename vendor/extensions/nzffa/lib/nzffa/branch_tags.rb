@@ -70,11 +70,11 @@ module Nzffa::BranchTags
       <pre><code><r:branches:each:#{role}:reader>...</r:branches:each:#{role}:reader></code></pre>
     }
     tag "branches:each:#{role}" do |tag|
-      id = tag.locals.branch.homepage.try(:field, role + '_reader_id')
+      id = tag.locals.branch.homepage.try(:field, role + '_reader_id').try(:content)
       tag.expand if id && tag.locals.send("#{role}=", Reader.find(id))
     end
     tag "branch:#{role}" do |tag|
-      id = tag.locals.branch.homepage.try(:field, role + '_reader_id')
+      id = tag.locals.branch.homepage.try(:field, role + '_reader_id').try(:content)
       tag.expand if id && tag.locals.send("#{role}=", Reader.find(id))
     end
     tag "branches:each:#{role}:reader" do |tag|
