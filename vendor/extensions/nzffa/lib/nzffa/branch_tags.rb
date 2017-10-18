@@ -121,7 +121,7 @@ module Nzffa::BranchTags
     by = (attr[:by] || 'name').strip
     order = (attr[:order] || 'asc').strip
     order_string = ''
-    if Group.new.attributes.keys.include?(by)
+    if Group.columns.map(&:name).include?(by)
       order_string << by
     else
       raise TagError.new("`by' attribute of `each' tag must be set to a valid field name")
