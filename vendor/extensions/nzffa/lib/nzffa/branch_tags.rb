@@ -53,35 +53,18 @@ module Nzffa::BranchTags
     tag.locals.group = tag.locals.branch
     tag.expand
   end
-  desc %{
-    Sets the page scope to the current group's homepage.
-    
-    <pre><code><r:group:homepage>...</r:group:homepage></code></pre>
-  }
-  tag "group:homepage" do |tag|
-    tag.locals.page = tag.locals.group.homepage
-    tag.expand
-  end
   
   %w(secretary president treasurer councillor newsletter_editor).each do |role|
     desc %{
-      Sets the reader scope to the current branch's #{role}.
+      Sets the reader scope to the current group's #{role}.
       The reader id of the #{role} is to be set in a page field '#{role}_reader_id' on the homepage of this branch
-      <pre><code><r:branches:each:#{role}:reader>...</r:branches:each:#{role}:reader></code></pre>
+      <pre><code><r:#{role}:reader>...</r:#{role}:reader></code></pre>
     }
-    tag "branches:each:#{role}" do |tag|
-      id = tag.locals.branch.homepage.try(:field, role + '_reader_id').try(:content)
+    tag role do |tag|
+      id = tag.locals.group.homepage.try(:field, role + '_reader_id').try(:content)
       tag.expand if id && tag.locals.send("#{role}=", Reader.find(id))
     end
-    tag "branch:#{role}" do |tag|
-      id = tag.locals.branch.homepage.try(:field, role + '_reader_id').try(:content)
-      tag.expand if id && tag.locals.send("#{role}=", Reader.find(id))
-    end
-    tag "branches:each:#{role}:reader" do |tag|
-      tag.locals.reader = tag.locals.send(role)
-      tag.expand
-    end
-    tag "branch:#{role}:reader" do |tag|
+    tag "#{role}:reader" do |tag|
       tag.locals.reader = tag.locals.send(role)
       tag.expand
     end
@@ -89,24 +72,14 @@ module Nzffa::BranchTags
   end
   
   desc %{
-    Renders a link to the branch_admin page of the current branch.
+    Renders a link to the branch_admin page of the current group if it is a branch.
     You can set your own link text by using this as a double tag
 
-    <pre><code><r:branches:each:admin_link>link text</r:branches:each:admin_link></code></pre>
-  }
-  tag "branches:each:admin_link" do |tag|
-    # Can not do this because tag.double?
-    # tag.render('branch:admin_link', tag.attr.dup)
-    # So just duplicate code..:
-    url = "/branch_admin/#{tag.locals.branch.id}"
-    options = tag.attr.dup
-    attributes = options.inject('') { |s, (k, v)| s << %{#{k.downcase}="#{v}" } }.strip
-    attributes = " #{attributes}" unless attributes.empty?
-    text = tag.double? ? tag.expand : url
-    %{<a href="#{url}"#{attributes}>#{text}</a>}
-  end
-  tag "branch:admin_link" do |tag|
-    url = "/branch_admin/#{tag.locals.branch.id}"
+    <pre><code><r:group:admin_link>link text</r:group:admin_link></code></pre>
+    }
+  tag "group:admin_link" do |tag|
+    return unless tag.locals.group.parent == Group.branches_holder
+    url = "/branch_admin/#{tag.locals.group.id}"
     options = tag.attr.dup
     attributes = options.inject('') { |s, (k, v)| s << %{#{k.downcase}="#{v}" } }.strip
     attributes = " #{attributes}" unless attributes.empty?
