@@ -78,7 +78,7 @@ module Nzffa::BranchTags
     <pre><code><r:group:admin_link>link text</r:group:admin_link></code></pre>
     }
   tag "group:admin_link" do |tag|
-    return unless tag.locals.group.parent == Group.branches_holder
+    return unless [Group.branches_holder, Group.action_groups_holder].include?(tag.locals.group.parent)
     url = "/branch_admin/#{tag.locals.group.id}"
     options = tag.attr.dup
     attributes = options.inject('') { |s, (k, v)| s << %{#{k.downcase}="#{v}" } }.strip
