@@ -3,5 +3,9 @@
   =f.text_field :special_cases
 
 %p
+  =f.check_box :disallow_renewal_mails
+  =f.label :disallow_renewal_mails, "Disallow subscription renewal emails", :class => 'checkbox'
+
+%p
   = f.label :nzffa_membership_id, "NZFFA membership ID"
   = f.text_field :nzffa_membership_id, {:disabled => true}
