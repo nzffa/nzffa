@@ -50,7 +50,10 @@ namespace :radiant do
         @subscriptions.each do |subscription|
           # unless if the renewal is free
           next if !(CreateOrder.from_subscription(subscription.renew_for_year(Time.now.end_of_year + 1.year)).amount > 0)
+          # .. or if the reader already has a subscription for next year
           next if subscription.reader.has_subscription_for_next_year?
+          # .. or if the reader is marked to disallow renewal emails
+          next if subscription.reader.disallow_renewal_mails
           NotifySubscriber.deliver_subscription_expiring_soon(subscription)
         end
       end
