@@ -55,6 +55,7 @@ namespace :radiant do
           # .. or if the reader is marked to disallow renewal emails
           next if subscription.reader.disallow_renewal_mails
           NotifySubscriber.deliver_subscription_expiring_soon(subscription)
+          puts "Emailed subscription renewal to #{subscription.reader.email}"
         end
       end
 
