@@ -85,6 +85,7 @@ gem "radiant-marketplace-extension", :git => 'git://github.com/nzffa/radiant-nzf
 
 gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
+gem "radiant-linx-extension"
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
 gem 'fog', '1.1.0'
