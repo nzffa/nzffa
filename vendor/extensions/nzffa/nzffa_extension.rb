@@ -20,6 +20,7 @@ class NzffaExtension < Radiant::Extension
     Reader.send :include, ReaderMixin
     Group.send :include, Nzffa::GroupExtension
     AccountsController.send :include, Nzffa::AccountsControllerExtension
+    Admin::MessagesController.send :include, Nzffa::MessagesControllerExtension
     tab 'Readers' do
       add_item "Subscriptions", "/admin/subscriptions"
       add_item "Orders", "/admin/orders"
@@ -44,5 +45,7 @@ class NzffaExtension < Radiant::Extension
     admin.group.show.main << 'existing_pages'
     admin.group.show.main << 'members'
     admin.message.edit.add :main, "ck_editor_hooks"
+    admin.message.show.delivery.delete 'options'
+    admin.message.show.delivery << "delivery_options_override"
   end
 end
