@@ -58,7 +58,8 @@ gem "radiant-if_id_tags-extension"
 gem "radiant-html_tags-extension"
 gem "radiant-find_by_id_tag-extension", "~> 1.2.1"
 # gem 'radiant-find_by_id_tag-extension', :path => 'vendor/extensions/find_by_id_tag'
-gem "radiant-find_replace-extension", "~> 1.0.2"
+gem "radiant-find_replace-extension", "~> 1.0.4"
+# gem "radiant-find_replace-extension", :path => 'vendor/extensions/find_replace'
 gem "radiant-if_date_tags-extension", "~> 1.0.0"
 
 gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
