@@ -1,0 +1,51 @@
+/* line 2, ../sass/admin/find_replace.sass */
+#find_replace_form table.index {
+  margin-bottom: 90px;
+}
+/* line 4, ../sass/admin/find_replace.sass */
+#find_replace_form table.index th:nth-child(1) {
+  width: 2.5em;
+}
+/* line 7, ../sass/admin/find_replace.sass */
+#find_replace_form table.index tr.warning em {
+  font-weight: bold;
+}
+/* line 9, ../sass/admin/find_replace.sass */
+#find_replace_form table.index tr.warning span {
+  color: red;
+  font-weight: bold;
+}
+/* line 12, ../sass/admin/find_replace.sass */
+#find_replace_form footer {
+  display: flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #777777;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #555555), color-stop(33.333%, #666666), color-stop(66.667%, #777777), color-stop(100%, #777777));
+  background-image: -webkit-linear-gradient(top, #555555, #666666, #777777, #777777);
+  background-image: -moz-linear-gradient(top, #555555, #666666, #777777, #777777);
+  background-image: -o-linear-gradient(top, #555555, #666666, #777777, #777777);
+  background-image: -ms-linear-gradient(top, #555555, #666666, #777777, #777777);
+  background-image: linear-gradient(top, #555555, #666666, #777777, #777777);
+  color: #eeeeee;
+}
+/* line 26, ../sass/admin/find_replace.sass */
+#find_replace_form footer .left, #find_replace_form footer .right {
+  flex: 1;
+  padding: 0.5em;
+}
+/* line 30, ../sass/admin/find_replace.sass */
+#find_replace_form li.find label, #find_replace_form li.replace label {
+  display: flex;
+  margin-bottom: 0.2em;
+}
+/* line 33, ../sass/admin/find_replace.sass */
+#find_replace_form li.find label input, #find_replace_form li.replace label input {
+  flex: auto;
+}
+/* line 36, ../sass/admin/find_replace.sass */
+#find_replace_form label a {
+  color: #eeeeee;
+}
