@@ -1,5 +1,5 @@
 class OrdersController < ReaderActionController
-  before_filter :require_reader
+  before_filter :require_reader, :except => :payment_finished
 
   def make_payment
     @order = Order.find params[:id]
