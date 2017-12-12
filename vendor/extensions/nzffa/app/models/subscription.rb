@@ -39,6 +39,12 @@ class Subscription < ActiveRecord::Base
   def self.last_subscription_for(reader)
     find(:first, :conditions => {:reader_id => reader.id}, :order => 'id desc')
   end
+  
+  def self.last_paid_subscription_for(reader)
+    find(:first, :joins => :order,
+     :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"
+                      AND reader_id = ?', reader.id ], :order => 'id desc')
+  end
 
   def self.current_subscription_for(reader)
     find(:all, :conditions => ['reader_id = :reader_id 

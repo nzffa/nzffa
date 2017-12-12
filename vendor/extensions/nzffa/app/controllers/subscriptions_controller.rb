@@ -44,7 +44,7 @@ class SubscriptionsController < ReaderActionController
   end
   
   def print
-    @subscription = Subscription.active_subscription_for(current_reader)
+    @subscription = Subscription.last_paid_subscription_for(current_reader)
     if @subscription.nil?
       flash[:error] = 'No active subscription found'
       redirect_to(:action => :index) and return
