@@ -87,7 +87,7 @@ class BranchAdminController < MarketplaceController
     @group = Group.find(params[:group_id])
     allowed_reader_ids = @group.homepage.try(:field, 'branch_admin_access_reader_ids').try(:content).to_s.split(',').map(&:to_i).compact
     allowed_reader_ids << @group.homepage.field('secretary_reader_id').try(:content).to_i
-    unless current_reader.is_secretary? and allowed_reader_ids.include? current_reader.id
+    unless allowed_reader_ids.include? current_reader.id
       raise ReaderError::AccessDenied, 'You are not a group member or you are not a secretary'
     end
   end
