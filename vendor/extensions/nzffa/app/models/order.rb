@@ -147,7 +147,7 @@ class Order < ActiveRecord::Base
     
     if needs_donation_receipt?
       # Send donation receipt
-      BackOfficeMailer.deliver_donation_receipt_to_member(self)
+      BackOfficeMailer.deliver_donation_receipt_to_member(Order.find(id))
     end
   end
 
