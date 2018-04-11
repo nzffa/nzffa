@@ -10,9 +10,6 @@ class NzffaSettings
               tgm_everywhere_else_group_id
               
               fft_marketplace_group_id
-              tree_grower_magazine_group_id
-              tree_grower_magazine_australia_group_id
-              tree_grower_magazine_everywhere_else_group_id
               full_membership_group_id
               
               newsletter_editors_group_id
@@ -51,9 +48,9 @@ class NzffaSettings
   @full_member_fft_marketplace_levy = Radiant::Config["nzffa.full_member_marketplace_levy"].to_i
   @casual_member_fft_marketplace_levy = Radiant::Config["nzffa.casual_member_marketplace_levy"].to_i
   
-  @tg_magazine_new_zealand_group_id = Radiant::Config['nzffa.tg_magazine_nz_group_id']
-  @tgm_australia_group_id = Radiant::Config['nzffa.tgm_australia_group_id']
-  @tgm_everywhere_else_group_id = Radiant::Config['nzffa.tgm_everywhere_else_group_id']
+  @tg_magazine_new_zealand_group_id = Radiant::Config['nzffa.tg_magazine_nz_group_id'].to_i
+  @tgm_australia_group_id = Radiant::Config['nzffa.tgm_australia_group_id'].to_i
+  @tgm_everywhere_else_group_id = Radiant::Config['nzffa.tgm_everywhere_else_group_id'].to_i
 
   roles = %w(councillor president secretary treasurer newsletter_editor past_member non_renewed_member)
   roles.each do |key|
@@ -63,10 +60,6 @@ class NzffaSettings
   more_groups.each do |key|
     eval "@#{key}_group_id = #{Radiant::Config["nzffa.#{key}_group_id"].to_i}"
   end
-  
-  @tree_grower_magazine_group_id = Radiant::Config["nzffa.tg_magazine_nz_group_id"].to_i
-  @tree_grower_magazine_within_australia = Radiant::Config["nzffa.tgm_australia_group_id"].to_i
-  @tree_grower_magazine_everywhere_else = Radiant::Config["nzffa.tgm_everywhere_else_group_id"].to_i
   
   @fft_marketplace_group_id = Radiant::Config["nzffa.fft_marketplace_group_id"].to_i
   @fft_newsletter_group_id = Radiant::Config["nzffa.fft_newsletter_group_id"].to_i

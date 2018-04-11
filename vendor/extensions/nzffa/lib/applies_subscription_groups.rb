@@ -46,9 +46,9 @@ class AppliesSubscriptionGroups
     group_ids_to_delete = []
     group_ids_to_delete << NzffaSettings.fft_marketplace_group_id
     group_ids_to_delete << NzffaSettings.full_membership_group_id
-    group_ids_to_delete << NzffaSettings.tree_grower_magazine_group_id
-    group_ids_to_delete << NzffaSettings.tree_grower_magazine_australia_group_id
-    group_ids_to_delete << NzffaSettings.tree_grower_magazine_everywhere_else_group_id
+    group_ids_to_delete << NzffaSettings.tg_magazine_new_zealand_group_id
+    group_ids_to_delete << NzffaSettings.tgm_australia_group_id
+    group_ids_to_delete << NzffaSettings.tgm_everywhere_else_group_id
     group_ids_to_delete.concat Group.action_groups.map(&:id)
     group_ids_to_delete.concat Group.branches.map(&:id)
     
