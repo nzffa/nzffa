@@ -68,7 +68,7 @@ namespace :radiant do
         #end
       #end
 
-      desc 'Reapply the subscription groups. Dont choose this in a guess.'
+      desc 'Reapply the subscription groups. Non-destructive; run as often as you like.'
       task :reapply_subscription_groups => :environment do
         Reader.find_each do |reader|
           before_ids = reader.group_ids.uniq
@@ -86,14 +86,23 @@ namespace :radiant do
             puts "Added #{added_ids.inspect} to reader_id: #{reader.id}"
           end
         end
-        # Rebuild non-renewed members group
+        # Rebuild non-renewed members groups
         group = Group.find(NzffaSettings.non_renewed_members_group_id)
         group.readers.clear
-        last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
+        last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "full"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
         last_year_member_ids = last_year_subscriptions.map(&:reader_id)
-        active_member_ids = Subscription.active.map(&:reader_id)
+        active_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'full'").map(&:reader_id)
         non_renewed_members = Reader.find(:all, :conditions => {:id => (last_year_member_ids - active_member_ids)})
         group.readers << non_renewed_members
+        puts "Added #{non_renewed_members.size} readers to non_renewed_members group"
+        casual_group = Group.find(NzffaSettings.non_renewed_casual_members_group_id)
+        casual_group.readers.clear
+        last_year_casual_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
+        last_year_casual_member_ids = last_year_casual_subscriptions.map(&:reader_id)
+        active_casual_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'casual'").map(&:reader_id)
+        non_renewed_casual_members = Reader.find(:all, :conditions => {:id => (last_year_casual_member_ids - active_casual_member_ids)})
+        casual_group.readers << non_renewed_casual_members
+        puts "Added #{non_renewed_casual_members.size} readers to non_renewed_casual_members group"
       end
     end
   end

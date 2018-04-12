@@ -7,7 +7,7 @@ class AppliesSubscriptionGroups
         NzffaSettings.past_casual_members_group_id,
         NzffaSettings.non_renewed_members_group_id,
         NzffaSettings.non_renewed_casual_members_group_id,
-        NzffaSettings.resigned_members]).each(&:destroy)
+        NzffaSettings.resigned_members_group_id]).each(&:destroy)
     
       if subscription.belongs_to_fft
         # swap with fft_newsletter if it exists
@@ -58,8 +58,13 @@ class AppliesSubscriptionGroups
     group_ids_to_delete.concat Group.branches.map(&:id)
     
     group_ids_to_add = []
-    if reader.subscriptions.any?
-      group_ids_to_add << NzffaSettings.past_members_group_id
+    if reader.subscriptions.active_anytime.any?
+      subscr = reader.subscriptions.active_anytime.last
+      if subscr.membership_type == 'casual'
+        group_ids_to_add << NzffaSettings.past_casual_members_group_id
+      elsif subscr.membership_type == 'full'
+        group_ids_to_add << NzffaSettings.past_members_group_id
+      end
     end
     if reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
       group_ids_to_add << NzffaSettings.fft_newsletter_group_id
