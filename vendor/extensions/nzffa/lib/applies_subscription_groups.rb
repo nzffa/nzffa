@@ -2,7 +2,12 @@ class AppliesSubscriptionGroups
   def self.apply(subscription, reader)
     if subscription.active?
       #remove past members group if they exist
-      reader.memberships.find_all_by_group_id([NzffaSettings.past_members_group_id, NzffaSettings.non_renewed_members_group_id]).each(&:destroy)
+      reader.memberships.find_all_by_group_id([
+        NzffaSettings.past_members_group_id,
+        NzffaSettings.past_casual_members_group_id,
+        NzffaSettings.non_renewed_members_group_id,
+        NzffaSettings.non_renewed_casual_members_group_id,
+        NzffaSettings.resigned_members]).each(&:destroy)
     
       if subscription.belongs_to_fft
         # swap with fft_newsletter if it exists
