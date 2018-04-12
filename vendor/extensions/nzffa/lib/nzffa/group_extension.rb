@@ -15,7 +15,7 @@ module Nzffa::GroupExtension
         find(Radiant::Config['nzffa.action_groups_group_id'])
       end
       
-      %w(past_members newsletter_editors councillors presidents secretarys treasurers
+      %w(past_members past_casual_members newsletter_editors councillors presidents secretarys treasurers
       fft_marketplace tg_magazine_nz tgm_australia tgm_everywhere_else full_membership fft_newsletter small_scale_fg_newsletter fg_levy_payer_newsletter).each do |gname|
         eval "def self.#{gname}_group; find(Radiant::Config['nzffa.#{gname}_group_id']); end"
       end
