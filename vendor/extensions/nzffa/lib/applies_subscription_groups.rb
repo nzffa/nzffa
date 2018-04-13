@@ -67,7 +67,7 @@ class AppliesSubscriptionGroups
       end
     end
     if reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
-      group_ids_to_add << NzffaSettings.fft_newsletter_group_id
+      group_ids_to_add << NzffaSettings.fft_newsletter_group_id unless reader.subscriptions.active_anytime.last.membership_type == 'casual'
     end
         
     group_ids_to_delete.each do |group_id|
