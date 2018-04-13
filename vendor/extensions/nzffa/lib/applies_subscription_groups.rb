@@ -62,12 +62,16 @@ class AppliesSubscriptionGroups
       subscr = reader.subscriptions.active_anytime.last
       if subscr.membership_type == 'casual'
         group_ids_to_add << NzffaSettings.past_casual_members_group_id
+        if reader.group_ids.include? NzffaSettings.small_scale_forest_grower_newsletter_group_id
+          # has been added mistakingly, mark for deletion;
+          group_ids_to_delete << NzffaSettings.small_scale_forest_grower_newsletter_group_id
+        end
       elsif subscr.membership_type == 'full'
         group_ids_to_add << NzffaSettings.past_members_group_id
+        if reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
+          group_ids_to_add << NzffaSettings.fft_newsletter_group_id
+        end
       end
-    end
-    if reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
-      group_ids_to_add << NzffaSettings.fft_newsletter_group_id unless reader.subscriptions.active_anytime.last.membership_type == 'casual'
     end
         
     group_ids_to_delete.each do |group_id|
