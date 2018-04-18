@@ -23,6 +23,8 @@ ActionController::Routing::Routes.draw do |map|
   map.branch_admin_past_fft_members '/branch_admin/:group_id/past_fft_members', :controller => :branch_admin, :action => :past_fft_members
 
   map.branch_admin_email '/branch_admin/:group_id/email', :controller => :branch_admin, :action => :email
+  map.branch_admin_email_past_members '/branch_admin/:group_id/email_past_members', :controller => :branch_admin, :action => :email_past_members
+  map.branch_admin_email_last_year_members '/branch_admin/:group_id/email_last_year_members', :controller => :branch_admin, :action => :email_last_year_members
   map.branch_admin_edit '/branch_admin/:group_id/edit/:nzffa_membership_id', :controller => :branch_admin, :action => :edit
   map.branch_admin_update '/branch_admin/:group_id/update/:nzffa_membership_id', :controller => :branch_admin, :action => :update
   map.new_reader "/become-a-member", :controller => 'membership', :action => 'register'

@@ -1,9 +1,9 @@
 class BranchAdminController < MarketplaceController
   before_filter :require_branch_secretary
+  before_filter :set_group
   radiant_layout { |c| Radiant::Config['reader.layout'] }
 
   def index
-    @group = Group.find(params[:group_id])
     @readers = @group.readers
 
     respond_to do |format|
@@ -14,14 +14,7 @@ class BranchAdminController < MarketplaceController
   end
 
   def past_members
-    @group = Group.find(params[:group_id])
-    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and subscriptions.expires_on < ?', @group.id, end_of_last_year])
-    subscriptions = Subscription.find(group_subscriptions.map(&:subscription_id))
-
-    all_reader_ids = subscriptions.map(&:reader_id)
-    current_reader_ids = @group.reader_ids
-
-    @readers = Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
+    @readers = find_past_members
 
     respond_to do |format|
       format.html { render :index }
@@ -31,16 +24,8 @@ class BranchAdminController < MarketplaceController
   end
 
   def last_year_members
-    @group = Group.find(params[:group_id])
-    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and (subscriptions.expires_on > ? and subscriptions.expires_on < ?)', @group.id, start_of_last_year, end_of_last_year])
-    subscription_ids = group_subscriptions.map(&:subscription_id)
-    subscriptions = Subscription.find(subscription_ids)
-
-    last_year_reader_ids = subscriptions.map(&:reader_id)
-    current_reader_ids = @group.reader_ids
-
-    @readers = Reader.find(:all, :conditions => {:id => (last_year_reader_ids - current_reader_ids)})
-
+    @readers = find_last_year_members
+    
     respond_to do |format|
       format.html { render :index }
       format.csv { render_csv_of_readers }
@@ -49,12 +34,26 @@ class BranchAdminController < MarketplaceController
   end
 
   def email
-    @group = Group.find(params[:group_id])
-
     @group_readers = @group.readers
     @readers = Reader.find(:all,
                        :conditions => ['(email not like "%@nzffa.org.nz") AND
                                        readers.id IN (?)', @group_readers.map(&:id)])
+  end
+  
+  def email_past_members
+    @past_members = find_past_members
+    @readers = Reader.find(:all,
+                       :conditions => ['(email not like "%@nzffa.org.nz") AND
+                                       readers.id IN (?)', @past_members.map(&:id)])
+    render :email
+  end
+  
+  def email_last_year_members
+    @last_year_members = find_last_year_members
+    @readers = Reader.find(:all,
+                       :conditions => ['(email not like "%@nzffa.org.nz") AND
+                                       readers.id IN (?)', @last_year_members.map(&:id)])
+    render :email    
   end
 
   def edit
@@ -80,6 +79,27 @@ class BranchAdminController < MarketplaceController
   
   def end_of_last_year
     1.year.ago.at_end_of_year
+  end
+  
+  def find_past_members
+    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and subscriptions.expires_on < ?', @group.id, end_of_last_year])
+    subscriptions = Subscription.find(group_subscriptions.map(&:subscription_id))
+
+    all_reader_ids = subscriptions.map(&:reader_id)
+    current_reader_ids = @group.reader_ids
+
+    Reader.find(:all, :conditions => {:id => (all_reader_ids - current_reader_ids)})
+  end
+  
+  def find_last_year_members
+    group_subscriptions = GroupSubscription.find(:all, :joins => :subscription, :conditions => ['group_id = ? and (subscriptions.expires_on > ? and subscriptions.expires_on < ?)', @group.id, start_of_last_year, end_of_last_year])
+    subscription_ids = group_subscriptions.map(&:subscription_id)
+    subscriptions = Subscription.find(subscription_ids)
+
+    last_year_reader_ids = subscriptions.map(&:reader_id)
+    current_reader_ids = @group.reader_ids
+
+    Reader.find(:all, :conditions => {:id => (last_year_reader_ids - current_reader_ids)})
   end
   
   def require_branch_secretary
@@ -128,5 +148,9 @@ class BranchAdminController < MarketplaceController
     tmp_file = Tempfile.new(filename)
     book.write tmp_file.path
     send_file tmp_file.path, :filename => filename
+  end
+  
+  def set_group
+    @group = Group.find(params[:group_id])
   end
 end
