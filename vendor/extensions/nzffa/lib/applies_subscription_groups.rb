@@ -47,6 +47,7 @@ class AppliesSubscriptionGroups
   def self.remove(subscription, reader = nil)
     # Is only ever called from rake task, not from controller
     reader = subscription if reader.nil?
+    return true if reader.is_resigned?
     # find old subscription and add to 'swap' groups
     group_ids_to_delete = []
     group_ids_to_delete << NzffaSettings.fft_marketplace_group_id

@@ -22,7 +22,8 @@ module ReaderMixin
       :is_councillor => NzffaSettings.councillors_group_id,
       :is_secretary => NzffaSettings.secretarys_group_id,
       :is_president => NzffaSettings.presidents_group_id,
-      :is_treasurer => NzffaSettings.treasurers_group_id }
+      :is_treasurer => NzffaSettings.treasurers_group_id,
+      :is_resigned => NzffaSettings.resigned_members_group_id }
 
     group_membership_shortcuts.each do |method_name, group_id|
       define_method(method_name) do
