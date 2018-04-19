@@ -1,5 +1,11 @@
-%h2 #{@group.name} Members
-
+%h2
+  = @group.name
+  - if @past_members
+    Past Members - all
+  - elsif @last_year_members
+    Past Members - last year only
+  - else
+    Current Members
 
 =link_to_unless_current "Current Members", branch_admin_path(params[:group_id])
 %br
@@ -12,7 +18,7 @@
 %br
 =link_to "Email past members", branch_admin_email_past_members_path(params[:group_id])
 %br
-=link_to "Email last year members", branch_admin_email_last_year_members_path(params[:group_id])
+=link_to "Email past members - last year only", branch_admin_email_last_year_members_path(params[:group_id])
 %br
 
 %p

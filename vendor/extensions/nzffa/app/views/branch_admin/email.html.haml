@@ -1,4 +1,12 @@
-%h2 Email #{@group.name}#{' past' if @past_members}#{' last year '} members
+%h2
+  Email
+  = @group.name
+  - if @past_members
+    past members
+  - elsif @last_year_members
+    past members - last year only
+  - else
+    current members
 
 %p Copy and Paste the text below into the BCC field of a new email
 

@@ -14,7 +14,7 @@ class BranchAdminController < MarketplaceController
   end
 
   def past_members
-    @readers = find_past_members
+    @readers = @past_members = find_past_members
 
     respond_to do |format|
       format.html { render :index }
@@ -24,7 +24,7 @@ class BranchAdminController < MarketplaceController
   end
 
   def last_year_members
-    @readers = find_last_year_members
+    @readers = @last_year_members = find_last_year_members
     
     respond_to do |format|
       format.html { render :index }
