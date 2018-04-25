@@ -7,6 +7,7 @@ class AppliesSubscriptionGroups
         NzffaSettings.past_casual_members_group_id,
         NzffaSettings.non_renewed_members_group_id,
         NzffaSettings.non_renewed_casual_members_group_id,
+        NzffaSettings.non_renewed_cas_fft_members_group_id,
         NzffaSettings.resigned_members_group_id]).each(&:destroy)
     
       if subscription.belongs_to_fft
