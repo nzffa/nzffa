@@ -22,7 +22,7 @@ class NzffaSettings
               past_casual_members_group_id
               non_renewed_members_group_id
               non_renewed_casual_members_group_id
-              non_renewed_fft_members_group_id
+              non_renewed_cas_fft_members_group_id
               resigned_members_group_id
               
               fft_newsletter_group_id
