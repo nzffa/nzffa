@@ -22,6 +22,7 @@ class NzffaSettings
               past_casual_members_group_id
               non_renewed_members_group_id
               non_renewed_casual_members_group_id
+              non_renewed_fft_members_group_id
               resigned_members_group_id
               
               fft_newsletter_group_id
@@ -60,6 +61,7 @@ class NzffaSettings
     eval "@#{key}s_group_id = #{Radiant::Config["nzffa.#{key}s_group_id"].to_i}"
   end
   @non_renewed_casual_members_group_id = Radiant::Config['nzffa.non_renewed_cas_members_group_id'].to_i #because config key was too long..
+  @non_renewed_cas_fft_members_group_id = Radiant::Config['nzffa.non_renewed_fft_members_group_id'].to_i
   more_groups = %w(fft_marketplace full_membership)
   more_groups.each do |key|
     eval "@#{key}_group_id = #{Radiant::Config["nzffa.#{key}_group_id"].to_i}"
