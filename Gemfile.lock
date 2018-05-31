@@ -190,7 +190,7 @@ GEM
       uuidtools (~> 2.1.2)
     radiant-copy_move-extension (2.4.8)
       radiant (>= 1.0.0.rc2)
-    radiant-find_by_id_tag-extension (1.2.1)
+    radiant-find_by_id_tag-extension (1.2.2)
     radiant-find_replace-extension (1.0.5)
     radiant-grandchildren_tags-extension (1.0.0)
     radiant-html_tags-extension (1.0.0)
@@ -266,7 +266,7 @@ DEPENDENCIES
   radiant-clipped-extension (~> 1.1.2)
   radiant-conference-extension!
   radiant-copy_move-extension (~> 2.4.3)
-  radiant-find_by_id_tag-extension (~> 1.2.1)
+  radiant-find_by_id_tag-extension (~> 1.2.2)
   radiant-find_replace-extension (~> 1.0.5)
   radiant-forum-extension!
   radiant-grandchildren_tags-extension
@@ -296,4 +296,4 @@ DEPENDENCIES
   whenever (= 0.9.4)
 
 BUNDLED WITH
-   1.15.0.pre.3
+   1.16.1
