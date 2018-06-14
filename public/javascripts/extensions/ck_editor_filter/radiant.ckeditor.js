@@ -1,7 +1,7 @@
 function instantiateCkEditor(partIndex){
 	CKEDITOR.disableAutoInline = true;
 	CKEDITOR.config.allowedContent = true;
-	// ^ skips html validating altogether.. 
+	// ^ skips html validating altogether..
 	CKEDITOR.config.startupOutlineBlocks = true
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
@@ -9,6 +9,8 @@ function instantiateCkEditor(partIndex){
 	CKEDITOR.config.disableNativeSpellChecker = false
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
+	CKEDITOR.config.entities_additional = ['#39', '#x00100', '#x00101'];
+	CKEDITOR.config.specialChars = CKEDITOR.config.specialChars.concat( [ '&amacr;', '&Amacr;' ] );
 	CKEDITOR.config.toolbar =
 	[
 		['Styles','Format'],
@@ -57,23 +59,23 @@ function instantiateCkEditor(partIndex){
 			}
     }
 	)
-	
+
 	var usedFilter = $('part_' + partIndex +'_filter_id')
 	if(usedFilter.value == 'CKEditor'){
 		putInEditor(partIndex)
 	}
-	
-	var timer = setInterval(function() { 
+
+	var timer = setInterval(function() {
 		// Make image asset draggable
 		Asset.MakeDraggables
-		// Make asset bucket thumbnails draggable 
+		// Make asset bucket thumbnails draggable
 	  $$('div.resized').each(function(element){
 			if(!element.hasClassName("move"))
 	    	new Draggable(element, { revert: true })
 	    	element.addClassName('move')
 	  })
 	}, 5000);
-	
+
 }
 
 function toggleEditor(partIndex){
