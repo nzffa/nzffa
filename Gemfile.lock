@@ -191,7 +191,7 @@ GEM
     radiant-copy_move-extension (2.4.8)
       radiant (>= 1.0.0.rc2)
     radiant-find_by_id_tag-extension (1.2.2)
-    radiant-find_replace-extension (1.0.5)
+    radiant-find_replace-extension (1.0.6)
     radiant-grandchildren_tags-extension (1.0.0)
     radiant-html_tags-extension (1.0.0)
     radiant-if_date_tags-extension (1.0.2)
@@ -267,7 +267,7 @@ DEPENDENCIES
   radiant-conference-extension!
   radiant-copy_move-extension (~> 2.4.3)
   radiant-find_by_id_tag-extension (~> 1.2.2)
-  radiant-find_replace-extension (~> 1.0.5)
+  radiant-find_replace-extension (~> 1.0.6)
   radiant-forum-extension!
   radiant-grandchildren_tags-extension
   radiant-html_tags-extension
