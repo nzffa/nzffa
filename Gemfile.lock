@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-forum-extension.git
-  revision: 052d219e83d79c95c5fa3300645871de7a896e07
+  revision: 6fd05d3152cdfb51b134cf7dcfc61a7a7a985eb1
   branch: wackamole
   specs:
     radiant-forum-extension (3.0.6)
