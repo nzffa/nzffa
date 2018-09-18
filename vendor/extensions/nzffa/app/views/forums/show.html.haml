@@ -2,9 +2,7 @@
   = @forum.name
 
 - content_for :introduction do
-  / = clean_html(@forum.description)
-  = Sanitize.clean(@forum.description, Sanitize::Config::NZFFA)
-
+  = Sanitize.clean(textilize(@forum.description), Sanitize::Config::NZFFA)
 - content_for :sidebar do
   = render :partial => "topics/latest"
 
