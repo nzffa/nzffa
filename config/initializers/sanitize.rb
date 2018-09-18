@@ -10,7 +10,7 @@ class Sanitize
 
       :attributes => {
         :all         => ['dir', 'lang', 'title'],
-        'a'          => ['href'],
+        'a'          => ['href', 'target'],
         'blockquote' => ['cite'],
         'col'        => ['span', 'width'],
         'colgroup'   => ['span', 'width'],
