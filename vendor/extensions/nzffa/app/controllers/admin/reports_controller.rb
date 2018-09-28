@@ -17,7 +17,7 @@ class Admin::ReportsController < AdminController
     subscription_group_ids = [11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 80, 201, 209, 211, 217, 221, 225, 229, 230, 232]
     csv_string = READER_CSV_LIB.generate do |csv|
       csv << %w[id nzffa_membership_id name email expired_on group_ids]
-      @readers = Reader.all.select do |r| 
+      @readers = Reader.all.select do |r|
         if !r.active_subscription and r.group_ids.any?{|id| subscription_group_ids.include?(id) }
           mooched_ids = r.group_ids.select{|id| subscription_group_ids.include?(id) }
 
@@ -32,7 +32,7 @@ class Admin::ReportsController < AdminController
     end
 
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_past_members_no_subscription_#{DateTime.now.to_s}\".csv" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_past_members_no_subscription_#{DateTime.now.to_s}\".csv"
     render :text => csv_string
   end
 
@@ -44,38 +44,38 @@ class Admin::ReportsController < AdminController
       @orders.each {|order| csv << fields.map{|f| order.send(f) } }
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_payments_#{DateTime.now.to_s}\".csv" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_payments_#{DateTime.now.to_s}\".csv"
     render :text => csv_string
   end
 
   def allocations
     @orders = Order.find(:all, :conditions => 'paid_on IS NOT NULL', :order => 'id asc')
-    fields = ['nzffa_member_id', 'subscription_id', 'order_id', 
-              'order_line_id', 'kind', 'particular', 'amount', 
+    fields = ['nzffa_member_id', 'subscription_id', 'order_id',
+              'order_line_id', 'kind', 'particular', 'amount',
               'paid_on', 'payment_method', 'subscription_begins_on', 'subscription_begins_on', 'subscription_expires_on']
     csv_string = READER_CSV_LIB.generate do |csv|
       csv << fields
-      @orders.each do |order| 
+      @orders.each do |order|
         order.order_lines.each do |line|
           csv << fields.map{|f| line.send(f) }
         end
       end
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_allocations_#{DateTime.now.to_s}\".csv" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_allocations_#{DateTime.now.to_s}\".csv"
     render :text => csv_string
   end
 
   def members
     @readers = Reader.all
-    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2 
-    post_city post_province post_country postcode full_nzffa_member? main_branch_group_id 
+    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2
+    post_city post_province post_country postcode full_nzffa_member? main_branch_group_id
     associated_branch_group_ids_string action_group_group_ids_string special_cases identifiers
     bank_account_number tree_grower_group_ids disallow_renewal_mails]
     csv_string = READER_CSV_LIB.generate(:col_sep => "\t") do |csv|
       csv << fields
       @readers.each do |reader|
-        csv << fields.map do |field| 
+        csv << fields.map do |field|
           if field.match(/_names$/)
             if names = reader.send(field)
               names.join('. ')
@@ -89,7 +89,34 @@ class Admin::ReportsController < AdminController
       end
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_members_#{DateTime.now.to_s}\".csv" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_members_#{DateTime.now.to_s}\".csv"
+    render :text => csv_string
+  end
+
+  def members_w_subscription_renewal_optout
+    @readers = Reader.find_all_by_disallow_renewal_mails(true)
+    fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2
+    post_city post_province post_country postcode full_nzffa_member? main_branch_group_id
+    associated_branch_group_ids_string action_group_group_ids_string special_cases identifiers
+    bank_account_number tree_grower_group_ids]
+    csv_string = READER_CSV_LIB.generate(:col_sep => "\t") do |csv|
+      csv << fields
+      @readers.each do |reader|
+        csv << fields.map do |field|
+          if field.match(/_names$/)
+            if names = reader.send(field)
+              names.join('. ')
+            else
+              nil
+            end
+          else
+            reader.send(field)
+          end
+        end
+      end
+    end
+    headers["Content-Type"] ||= 'text/csv'
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_members_w_subscription_renewal_optout_#{DateTime.now.to_s}\".csv"
     render :text => csv_string
   end
 
@@ -112,7 +139,7 @@ class Admin::ReportsController < AdminController
       end
     end
     headers["Content-Type"] ||= 'text/csv'
-    headers["Content-Disposition"] = "attachment; filename=\"nzffa_tree_grower_magazine_deliveries_#{Date.today.to_s}\".csv" 
+    headers["Content-Disposition"] = "attachment; filename=\"nzffa_tree_grower_magazine_deliveries_#{Date.today.to_s}\".csv"
     render :text => csv_string
   end
 

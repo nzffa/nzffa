@@ -28,16 +28,17 @@ ActionController::Routing::Routes.draw do |map|
   map.branch_admin_edit '/branch_admin/:group_id/edit/:nzffa_membership_id', :controller => :branch_admin, :action => :edit
   map.branch_admin_update '/branch_admin/:group_id/update/:nzffa_membership_id', :controller => :branch_admin, :action => :update
   map.new_reader "/become-a-member", :controller => 'membership', :action => 'register'
-  
+
   map.namespace :admin do |admin|
     admin.resources :reports,
       :only => :index,
       :collection => {
-        :past_members_no_subscription => :get, 
-        :payments => :get, 
-        :allocations => :get, 
-        :members => :get, 
-        :deliveries => :get, 
+        :past_members_no_subscription => :get,
+        :payments => :get,
+        :allocations => :get,
+        :members => :get,
+        :members_w_subscription_renewal_optout => :get, 
+        :deliveries => :get,
         :expiries => :get
       }
     admin.resources :subscriptions,
