@@ -37,64 +37,48 @@ class Subscription < ActiveRecord::Base
   end
   
   def self.last_subscription_for(reader)
-    find(:first, :conditions => {:reader_id => reader.id}, :order => 'id desc')
+    find_by_reader_id(reader.id, :order => 'id desc')
   end
   
   def self.last_paid_subscription_for(reader)
-    find(:first, :joins => :order,
-     :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"
-                      AND reader_id = ?', reader.id ], :order => 'id desc')
+    find_by_reader_id(reader.id,
+      :joins => :order,
+      :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"'],
+      :order => 'id desc')
   end
 
   def self.current_subscription_for(reader)
-    find(:all, :conditions => ['reader_id = :reader_id 
-                                and begins_on <= :today 
+    find_by_reader_id(reader.id, :conditions => ['begins_on <= :today 
                                 and expires_on > :today 
                                 and cancelled_on is null', 
-                                {:reader_id => reader.id, :today => Date.today}],
-                               :order => 'id desc').each do |sub|
-      return sub
-    end
-    nil
+                                {:today => Date.today}],
+                               :order => 'id desc')
   end
 
   def self.last_year_subscription_for(reader)
     first_day = 1.year.ago.at_beginning_of_year
     last_day = 1.year.ago.at_end_of_year
-    find(:all, :joins => :order,
-               :conditions => ['reader_id = :reader_id and begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"',
-                                {:reader_id => reader.id, :first_day => first_day, :last_day => last_day}],
-                               :order => 'id desc').each do |sub|
-      return sub
-    end
-    nil
+    find_by_reader_id(reader.id, :joins => :order,
+               :conditions => ['begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"',
+                                {:first_day => first_day, :last_day => last_day}],
+                               :order => 'id desc')
   end
   
   def self.next_year_subscription_for(reader)
     first_day = 1.year.from_now.at_beginning_of_year
     last_day = 1.year.from_now.at_end_of_year
-    find(:all, :joins => :order,
-               :conditions => ['reader_id = :reader_id and begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"',
-                                {:reader_id => reader.id, :first_day => first_day, :last_day => last_day}],
-                               :order => 'id desc').each do |sub|
-      return sub
-    end
-    nil
+    find_by_reader_id(reader.id,
+      :joins => :order,
+      :conditions => ['begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"', {:first_day => first_day, :last_day => last_day}],
+      :order => 'id desc')
   end
 
   def self.most_recent_subscription_for(reader)
-    find(:all, :conditions => ['reader_id = :reader_id and cancelled_on is null', {:reader_id => reader.id}],
-                               :order => 'id desc').each do |sub|
-      return sub
-    end
-    nil
+    find_by_reader_id(reader.id, :conditions => 'cancelled_on is null', :order => 'id desc')
   end
 
   def self.active_subscription_for(reader)
-    find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
-      return sub if sub.active?
-    end
-    nil
+    active.find_by_reader_id(reader.id, :order => 'id desc')
   end
 
   def self.new_with_same_attributes(old_sub)
