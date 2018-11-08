@@ -19,19 +19,27 @@
         = t('reader_extension.count_people', :count => @message.inactive_readers.count)
 
     %p
-      = radio_button_tag 'delivery', 'newsletter_and_selected_groups', false, :id => 'delivery_to_newsletter_and_selected_groups', :disabled => @message.possible_readers.empty?, :rel => 'toggle[select_groups]'
-      %label.checkbox{:for => 'delivery_to_newsletter_and_selected_groups', :class => @message.possible_readers.empty? ? 'disabled' : ''}
-        = t('reader_extension.newsletter_and_selected_groups') + " ..."
-
-    %p
       = radio_button_tag 'delivery', 'selected_groups', true, :id => 'delivery_to_selected_groups', :disabled => @message.possible_readers.empty?, :rel => 'toggle[select_groups]'
       %label.checkbox{:for => 'delivery_to_selected_groups', :class => @message.possible_readers.empty? ? 'disabled' : ''}
-        = t('reader_extension.selected_groups') + " ..."
+        = t('reader_extension.selected_groups') + "..."
+        
+    %p
+      = radio_button_tag 'delivery', 'newsletter_and_selected_groups', false, :id => 'delivery_to_newsletter_and_selected_groups', :disabled => @message.possible_readers.empty?, :rel => 'toggle[select_groups]'
+      %label.checkbox{:for => 'delivery_to_newsletter_and_selected_groups', :class => @message.possible_readers.empty? ? 'disabled' : ''}
+        = t('reader_extension.newsletter_and_selected_groups') + "..."
+    %p
+      = radio_button_tag 'delivery', 'selected_groups_full_only', false, :id => 'delivery_to_selected_groups_full_only', :disabled => @message.possible_readers.empty?, :rel => 'toggle[select_groups]'
+      %label.checkbox{:for => 'delivery_to_selected_groups_full_only', :class => @message.possible_readers.empty? ? 'disabled' : ''}
+        = t('reader_extension.selected_groups_full_only') + "..."
+    %p
+      = radio_button_tag 'delivery', 'selected_groups_casual_only', false, :id => 'delivery_to_selected_groups_casual_only', :disabled => @message.possible_readers.empty?, :rel => 'toggle[select_groups]'
+      %label.checkbox{:for => 'delivery_to_selected_groups_casual_only', :class => @message.possible_readers.empty? ? 'disabled' : ''}
+        = t('reader_extension.selected_groups_casual_only') + "..."
 
     %p
       = radio_button_tag 'delivery', 'selected_groups_wo_disallowed_renewal_mails', false, :id => 'delivery_to_selected_groups_wo_disallowed_renewal_mails', :disabled => @message.possible_readers.empty?, :rel => 'toggle[select_groups]'
       %label.checkbox{:for => 'delivery_to_selected_groups_wo_disallowed_renewal_mails', :class => @message.possible_readers.empty? ? 'disabled' : ''}
-        = t('reader_extension.selected_groups') + " without readers that have not allowed subscription renewal emails ..."
+        = t('reader_extension.selected_groups_not_disallowed') + "..."
         
     %ul#select_groups
       %li
