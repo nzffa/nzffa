@@ -1,6 +1,22 @@
 module ReaderMixin
+
+  module ClassMethods
+    def with_membership(args={})
+      active = args[:must_be_active] != false
+      type = args[:type] || 'full'
+      raise ArgumentError.new("Reader.with_membership called with type other than 'full' or 'casual'") unless ['full', 'casual'].include?(type)
+      
+      if active
+        now = lambda{Date.today}
+        find(:all, :include => [:subscriptions => :order], :conditions => ["subscriptions.membership_type = ? and subscriptions.begins_on <= ? AND subscriptions.expires_on >= ? AND subscriptions.cancelled_on IS NULL AND orders.paid_on > '2001-01-01'", type, now.call, now.call])
+      else
+        find(:all, :include => :subscriptions, :conditions => ["subscriptions.membership_type = ?", type])
+      end
+    end
+  end
+  
   def self.included(base)
-    #base.extend(ClassMethods)
+    base.extend(ClassMethods)
     base.send(:has_many, :adverts)
     base.send(:has_many, :subscriptions)
     base.send(:has_many, :orders, :through => :subscriptions)
