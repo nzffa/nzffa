@@ -17,7 +17,7 @@ set :scm, :git
 set :repository, "git@github.com:nzffa/nzffa.git"
 #set :deploy_via, :remote_cache
 set :bundle_without, [:development, :test, :cucumber]
-
+set :bundle_flags, '--deployment --quiet --full-index'
 set :whenever_command, "bundle exec whenever"
 
 namespace :deploy do
