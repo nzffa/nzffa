@@ -9,8 +9,8 @@ function instantiateCkEditor(partIndex){
 	CKEDITOR.config.disableNativeSpellChecker = false
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
-	CKEDITOR.config.entities_additional = ['#39', 'amacr', 'Amacr', 'omacr', 'Omacr'];
-	CKEDITOR.config.specialChars = CKEDITOR.config.specialChars.concat( [ '&amacr;', '&Amacr;', '&omacr;', '&Omacr;' ] );
+	CKEDITOR.config.entities_additional = ['#39', 'amacr', 'Amacr', 'emacr', 'Emacr', 'omacr', 'Omacr', 'umacr', 'Umacr'];
+	CKEDITOR.config.specialChars = CKEDITOR.config.specialChars.concat( [ '&amacr;', '&Amacr;', '&emacr;', '&Emacr;', '&umacr;', '&Umacr;', '&omacr;', '&Omacr;' ] );
 	CKEDITOR.config.toolbar =
 	[
 		['Styles','Format'],
