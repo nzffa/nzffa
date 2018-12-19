@@ -71,21 +71,6 @@ class CreateOrder
                          :particular => 'full_membership',
                          :amount => full_member_fft_marketplace_levy_amount)
       end
-
-      if subscription.contribute_to_research_fund?
-
-        particular = if subscription.research_fund_contribution_is_donation?
-                      'donation'
-                    else
-                      'payment'
-                    end
-
-        order.add_charge(:kind => 'research_fund_contribution',
-                         :particular => particular,
-                         :is_refundable => false,
-                         :amount => subscription.research_fund_contribution_amount)
-      end
-
     when 'casual'
       if subscription.receive_tree_grower_magazine?
         order.add_charge(:kind => 'casual_member_nz_tree_grower_magazine_levy',
@@ -103,7 +88,20 @@ class CreateOrder
     else
       raise 'invalid membership type'
     end
+    
+    if subscription.contribute_to_research_fund?
+      particular = if subscription.research_fund_contribution_is_donation?
+                    'donation'
+                  else
+                    'payment'
+                  end
 
+      order.add_charge(:kind => 'research_fund_contribution',
+                       :particular => particular,
+                       :is_refundable => false,
+                       :amount => subscription.research_fund_contribution_amount)
+    end
+    
     order.subscription = subscription
     order.amount = order.order_lines.map{|ol| ol.amount}.sum
     order
