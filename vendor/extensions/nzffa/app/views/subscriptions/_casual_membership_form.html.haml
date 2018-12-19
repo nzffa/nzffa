@@ -24,6 +24,19 @@
     =f.text_field :nz_tree_grower_copies
 
   = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
+  
+  %h3 Research Fund Contribution
+  %p
+    =f.check_box :contribute_to_research_fund
+    =f.label :contribute_to_research_fund, "Contribute to Research Fund"
+  #research_fund_contribution
+    #research_fund_contribution_amount
+      =f.label :research_fund_contribution_amount, 'Amount to contribute'
+      %input{:name => "subscription[research_fund_contribution_amount]", :id => "subscription_research_fund_contribution_amount", :type => 'number', :min => 0}
+
+      %p If you want your contribution treated as a donation (receipt acknowledgement will be sent) tick the below box
+      =f.check_box :research_fund_contribution_is_donation
+      =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
 
   = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
 
