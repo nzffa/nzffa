@@ -62,7 +62,7 @@
 
   %h3 Email Newsletters
 
-  %p
+  %p{:style => @reader.active_subscription.try(:belongs_to_fft) ? "display: none" : ''}
     =check_box_tag :receive_fft_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.fft_newsletter_group_id)
     =label_tag :receive_fft_newsletter, 'Receive Farm Forestry Timbers Newsletter'
 
