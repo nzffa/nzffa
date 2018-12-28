@@ -2,7 +2,8 @@
 - content_for 'page_css' do
   = css_for_readers_groups @group.readers
 
-.clear{:style => "clear: both; margin-bottom: 22px;"}
+.clear{:style => "clear: both; margin-bottom: 52px;"}
+
 %h1=t('reader_extension.group_members').titlecase
 
 .outset
@@ -15,7 +16,7 @@
         %th Phone
         %th Address
         %th Groups
-      
+
     %tbody
       - @group.readers.each do |reader|
         %tr
