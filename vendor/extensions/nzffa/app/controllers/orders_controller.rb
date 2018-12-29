@@ -27,6 +27,8 @@ class OrdersController < ReaderActionController
 
       unless @subscription.reader.orders.select{|o| !o.paid_on.nil? }.size > 1
         BackOfficeMailer.deliver_new_member_paid_registration(@subscription.reader)
+      else # has had a paid subscription before
+        BackOfficeMailer.deliver_member_renewed_online(@subscription.reader)
       end
       render :success
     else
