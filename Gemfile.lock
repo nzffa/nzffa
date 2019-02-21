@@ -265,7 +265,7 @@ DEPENDENCIES
   radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-clipped-extension (~> 1.1.2)
   radiant-conference-extension!
-  radiant-copy_move-extension (~> 2.4.3)
+  radiant-copy_move-extension (~> 2.4.8)
   radiant-find_by_id_tag-extension (~> 1.2.3)
   radiant-find_replace-extension (~> 1.0.6)
   radiant-forum-extension!
