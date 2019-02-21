@@ -25,7 +25,7 @@ gem "therubyracer"
 
 gem 'whenever', '0.9.4', :require => false
 # Default Extensions
-gem "radiant-archive-extension",             "~> 1.0.7"
+# gem "radiant-archive-extension",             "~> 1.0.7"
 # gem "radiant-debug-extension",               "~> 1.0.2"
 # gem "radiant-exporter-extension",            "~> 1.1.0"
 # gem "radiant-markdown_filter-extension",     "~> 1.0.2"
