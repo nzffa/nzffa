@@ -6,23 +6,13 @@
     If you are already registered you can 
     =link_to 'Sign in here', '/account/login'
     to manage your subscription or retrieve your password.
-  %p
-    If you would rather print a subscription form, 
-    %a{:href=>"/assets/951/NZFFA-Tree-Grower-Application-form.pdf", :target => "_blank"}
-      download this PDF
-    \. You can post this to us with a cheque.
+  - if path = Asset.find_by_id(Radiant::Config['nzffa.subscription_form_asset_id']).try(:asset).try(:url)
+    %p
+      If you would rather print a subscription form, 
+      %a{:href=> path , :target => "_blank"} download this PDF
+      \. You can post this to us with a cheque.
 %hr
 
-%p Registration with NZFFA is free. Once registered you have many choices... sign up for free e-newsletters or choose from a range of subscription options.
-%p
-  If you are already registered you can
-  %a{:href => "/membership/details/"} Sign in here
-  to manage your subscription or retrieve your password.
-%p
-  If you would rather print a subscription form,
-  %a{:href => "http://www.nzffa.org.nz/system/assets/951/NZFFA-membership-application-form.pdf", :target => "_blank"} download this PDF
-  \. You can post this to us with a cheque.
-%hr/
 .px2.floatbox
   %h3 Registration
   %p So why register? Well, you don't have to be a member to receive benefits from NZFFA. Register and you can choose to subscribe to our free monthly e-newsletter, with all the latest grower events, news, information and forest growers levy funded projects. You can also subscribe to the Farm Forestry Timbers newsletter, a regular blog and snapshot of what's happening with locally grown specialty timbers and what they offer as a natural material.

@@ -1,20 +1,25 @@
 function instantiateCkEditor(partIndex){
+	CKEDITOR.disableAutoInline = true;
+	CKEDITOR.config.allowedContent = true;
+	// ^ skips html validating altogether..
 	CKEDITOR.config.startupOutlineBlocks = true
-	CKEDITOR.config.colorButton_enableMore = false
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
-	CKEDITOR.config.extraPlugins = 'paperclipped,MediaEmbed,radiantpreview'
+	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode,pastefromword'
+	CKEDITOR.config.disableNativeSpellChecker = false
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
+	CKEDITOR.config.entities_additional = ['#39', 'amacr', 'Amacr', 'emacr', 'Emacr', 'omacr', 'Omacr', 'umacr', 'Umacr'];
+	CKEDITOR.config.specialChars = CKEDITOR.config.specialChars.concat( [ '&amacr;', '&Amacr;', '&emacr;', '&Emacr;', '&umacr;', '&Umacr;', '&omacr;', '&Omacr;' ] );
 	CKEDITOR.config.toolbar =
 	[
 		['Styles','Format'],
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-    ['RadiantPreview', 'Paste', 'RemoveFormat'],
+    ['radiantpreview', 'PasteCode', 'Paste','PasteFromWord', 'RemoveFormat'],
     ['Find','Replace'],
-    ['Image','Paperclipped', 'MediaEmbed', 'Table','HorizontalRule','SpecialChar'],
-    ['Link','Unlink','Anchor'],
+    ['Image','Paperclipped', 'Table','HorizontalRule','SpecialChar'],
+    ['Link','Unlink','Anchor'], ['TextColor', 'BGColor'],
     ['Source', '-', 'Maximize']
 	//// 	Alternative toolbar config
 	//    ['Source','-','Templates'],
@@ -54,23 +59,23 @@ function instantiateCkEditor(partIndex){
 			}
     }
 	)
-	
+
 	var usedFilter = $('part_' + partIndex +'_filter_id')
 	if(usedFilter.value == 'CKEditor'){
 		putInEditor(partIndex)
 	}
-	
-	var timer = setInterval(function() { 
+
+	var timer = setInterval(function() {
 		// Make image asset draggable
 		Asset.MakeDraggables
-		// Make asset bucket thumbnails draggable 
+		// Make asset bucket thumbnails draggable
 	  $$('div.resized').each(function(element){
 			if(!element.hasClassName("move"))
 	    	new Draggable(element, { revert: true })
 	    	element.addClassName('move')
 	  })
 	}, 5000);
-	
+
 }
 
 function toggleEditor(partIndex){
@@ -110,12 +115,6 @@ InsertIntoCk = Behavior.create({
         editor.insertHtml("<img src=\"" + href + "\" alt=\"\" />")
       else
         editor.insertHtml("<a href=\"" + href + "\">" + this.element.up(".back").down(".title").innerHTML + "</a>")
-    }
-    else{
-      var radius_tag = '<r:asset:' + tag_name;
-      if (asset_size != '') radius_tag = radius_tag + ' size="' + asset_size + '"';
-      radius_tag =  radius_tag +' id="' + asset_id + '" />';
-      Asset.InsertAtCursor(textbox, radius_tag);
     }
   }
 });

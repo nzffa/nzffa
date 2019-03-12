@@ -1,5 +1,5 @@
 # Nzffa
 
-Radiant is _so_ freaking awesome, but I made it better through this extension.
+This extension holds reader subscriptions and payments functionality, and branch admin.
 
-Created by Your Name. 
+Note: subscription.belong_to_fft? is no longer in use; use subscription.belongs_to_fft instead.

@@ -35,7 +35,12 @@ class Admin::OrdersController < Admin::ResourceController
 
   def update
     @order = Order.find params[:id]
-    @order.update_attributes(params[:order])
+    if !@order.paid? && params[:order]["paid_on"] =~ /[\d]{4}-[\d]{1,2}-[\d]{2}/
+      @order.update_attributes(params[:order])
+      BackOfficeMailer.deliver_donation_receipt_to_member(@order) if @order.needs_donation_receipt?
+    else # update_attributes repetition seems weird but is needed
+      @order.update_attributes(params[:order])
+    end
     if @order.paid?
       AppliesSubscriptionGroups.apply(@order.subscription, @order.reader)
     end
@@ -48,6 +53,7 @@ class Admin::OrdersController < Admin::ResourceController
 
     if @order.save
       if @order.paid?
+        BackOfficeMailer.deliver_donation_receipt_to_member(@order)
         AppliesSubscriptionGroups.apply(@order.subscription, @order.reader)
       end
       flash[:notice] = 'Order created'

@@ -66,33 +66,18 @@ class CreateOrder
                        :particular => 'full_membership',
                        :amount => full_member_tree_grower_magazine_levy_amount)
 
-      if subscription.belong_to_fft?
+      if subscription.belongs_to_fft
         order.add_charge(:kind => 'fft_marketplace_levy',
                          :particular => 'full_membership',
                          :amount => full_member_fft_marketplace_levy_amount)
       end
-
-      if subscription.contribute_to_research_fund?
-
-        particular = if subscription.research_fund_contribution_is_donation?
-                      'donation'
-                    else
-                      'payment'
-                    end
-
-        order.add_charge(:kind => 'research_fund_contribution',
-                         :particular => particular,
-                         :is_refundable => false,
-                         :amount => subscription.research_fund_contribution_amount)
-      end
-
     when 'casual'
       if subscription.receive_tree_grower_magazine?
         order.add_charge(:kind => 'casual_member_nz_tree_grower_magazine_levy',
                          :particular => subscription.tree_grower_delivery_location,
                          :amount => casual_nz_tree_grower_levy)
       end
-      if subscription.belong_to_fft?
+      if subscription.belongs_to_fft
         order.add_charge(:kind => 'fft_marketplace_levy',
                          :particular => 'casual_membership',
                          :amount => casual_member_fft_marketplace_levy_amount)
@@ -103,7 +88,20 @@ class CreateOrder
     else
       raise 'invalid membership type'
     end
+    
+    if subscription.contribute_to_research_fund?
+      particular = if subscription.research_fund_contribution_is_donation?
+                    'donation'
+                  else
+                    'payment'
+                  end
 
+      order.add_charge(:kind => 'research_fund_contribution',
+                       :particular => particular,
+                       :is_refundable => false,
+                       :amount => subscription.research_fund_contribution_amount)
+    end
+    
     order.subscription = subscription
     order.amount = order.order_lines.map{|ol| ol.amount}.sum
     order
@@ -140,7 +138,7 @@ class CreateOrder
        reader.is_life_member?)
       0
     else
-      subscription.length_in_years * branch.annual_levy
+      subscription.length_in_years * branch.annual_levy.to_i
     end
   end
  

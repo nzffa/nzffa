@@ -17,7 +17,7 @@ Radiant::Initializer.run do |config|
   # Only load the extensions named here, in the order given. By default all
   # extensions in vendor/extensions are loaded, in alphabetical order. :all
   # can be used as a placeholder for all extensions not explicitly named.
-  # config.extensions = [ :all ]
+  config.extensions = [ :layouts, :mailer_layouts, :nested_layouts, :reader, :forum, :marketplace, :all, :page_parts, :relations, :conference ]
   
   # Unload the extensions named here.
   # config.ignore_extensions []
@@ -41,7 +41,7 @@ Radiant::Initializer.run do |config|
   #  :metastore => "radiant:tmp/cache/meta"
   #    Sets the meta store type and storage location.  We recommend you use
   #    radiant: since this will enable manual expiration and acceleration headers.
-  #config.middleware.use ::Radiant::Cache
+  config.middleware.use ::Radiant::Cache
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
@@ -53,8 +53,7 @@ Radiant::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   config.time_zone = 'UTC'
-  config.extensions = [ :layouts, :mailer_layouts, :nested_layouts, :reader, :forum, :marketplace, :all, :conference ]
-
+  
   # Set the default field error proc
   config.action_view.field_error_proc = Proc.new do |html, instance|
     if html !~ /label/
@@ -69,11 +68,5 @@ Radiant::Initializer.run do |config|
     ActiveSupport::Inflector.inflections do |inflect|
       inflect.uncountable 'config'
     end
-  end
-end
-
-Page.class_eval do
-  def cache?
-    false
   end
 end

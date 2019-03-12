@@ -2,7 +2,7 @@ module UpdateReaderNewsletterPreferences
   protected
   def update_newsletter_preference
     # Available to everyone
-    %w(fft_newsletter small_scale_forest_grower_newsletter forest_grower_levy_payer_newsletter).each do |group_name|
+    %w(fft_newsletter small_scale_forest_grower_newsletter).each do |group_name|
       group = Group.find(NzffaSettings.send("#{group_name}_group_id"))
       
       if params["receive_#{group_name}"]

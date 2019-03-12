@@ -19,7 +19,7 @@ module PunyMCE
     },
     :nzffa => {
       :toolbar => %w(bold italic underline strike ul ol indent outdent left center right style removeformat link unlink image),
-      :plugins => %w(Paste Image Link)
+      :plugins => %w(Paste Image Link ForceBlocks)
     }
   }
 

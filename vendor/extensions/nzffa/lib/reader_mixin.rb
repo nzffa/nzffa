@@ -1,6 +1,22 @@
 module ReaderMixin
+
+  module ClassMethods
+    def with_membership(args={})
+      active = args[:must_be_active] != false
+      type = args[:type] || 'full'
+      raise ArgumentError.new("Reader.with_membership called with type other than 'full' or 'casual'") unless ['full', 'casual'].include?(type)
+      
+      if active
+        now = lambda{Date.today}
+        find(:all, :include => [:subscriptions => :order], :conditions => ["subscriptions.membership_type = ? and subscriptions.begins_on <= ? AND subscriptions.expires_on >= ? AND subscriptions.cancelled_on IS NULL AND orders.paid_on > '2001-01-01'", type, now.call, now.call])
+      else
+        find(:all, :include => :subscriptions, :conditions => ["subscriptions.membership_type = ?", type])
+      end
+    end
+  end
+  
   def self.included(base)
-    #base.extend(ClassMethods)
+    base.extend(ClassMethods)
     base.send(:has_many, :adverts)
     base.send(:has_many, :subscriptions)
     base.send(:has_many, :orders, :through => :subscriptions)
@@ -17,13 +33,13 @@ module ReaderMixin
       :receive_fft_newsletter => NzffaSettings.fft_newsletter_group_id,
       :receive_nzffa_members_newsletter => NzffaSettings.nzffa_members_newsletter_group_id,
       :receive_small_scale_forest_grower_newsletter => NzffaSettings.small_scale_forest_grower_newsletter_group_id,
-      :receive_forest_grower_levy_payer_newsletter => NzffaSettings.forest_grower_levy_payer_newsletter_group_id,
       
       :is_newsletter_editor => NzffaSettings.newsletter_editors_group_id,
       :is_councillor => NzffaSettings.councillors_group_id,
       :is_secretary => NzffaSettings.secretarys_group_id,
       :is_president => NzffaSettings.presidents_group_id,
-      :is_treasurer => NzffaSettings.treasurers_group_id }
+      :is_treasurer => NzffaSettings.treasurers_group_id,
+      :is_resigned => NzffaSettings.resigned_members_group_id }
 
     group_membership_shortcuts.each do |method_name, group_id|
       define_method(method_name) do
@@ -50,9 +66,7 @@ module ReaderMixin
   end
 
   def name
-    if self[:name]
-      self[:name]
-    elsif forename.present? and surname.present?
+    if forename.present? and surname.present?
       "#{forename} #{surname}"
     else
       nil
@@ -75,10 +89,9 @@ module ReaderMixin
   def postal_address_array
     [post_line1,
      post_line2,
-     post_city,
+     "#{post_city} #{postcode}",
      post_province,
-     post_country,
-     postcode]
+     post_country].select{|e| e.present?}
   end
 
   def postal_address_string
@@ -90,9 +103,17 @@ module ReaderMixin
   end
 
   def has_active_subscription?
-    active_subscription
+    !active_subscription.nil?
+  end
+  
+  def subscription_for_next_year
+    Subscription.next_year_subscription_for(self)
   end
 
+  def has_subscription_for_next_year?
+    !subscription_for_next_year.nil?
+  end
+  
   def main_branch
     active_subscription.main_branch if active_subscription.present?
   end
@@ -126,13 +147,13 @@ module ReaderMixin
     #NZ Tree Grower subscribers 80, 
     #Australian Tree Grower subscribers 81, 
     #Rest of World Tree Grower subscribers 82
-    (group_ids & [NzffaSettings.tree_grower_magazine_group_id, NzffaSettings.tree_grower_magazine_within_australia, NzffaSettings.tree_grower_magazine_everywhere_else]).join(' ')
+    (group_ids & [NzffaSettings.tg_magazine_new_zealand_group_id, NzffaSettings.tgm_australia_group_id, NzffaSettings.tgm_everywhere_else_group_id]).join(' ')
   end
 
   def associated_branch_group_ids_string
     if active_subscription
       group_ids = []
-      if active_subscription.belong_to_fft?
+      if active_subscription.belongs_to_fft
         group_ids << NzffaSettings.fft_marketplace_group_id 
       end
       group_ids += active_subscription.associated_branches.map(&:id)
@@ -148,22 +169,22 @@ module ReaderMixin
 
   def action_group_group_ids_string
     if active_subscription
-      group_ids = []
-      if active_subscription.belong_to_fft?
-        group_ids << NzffaSettings.fft_marketplace_group_id 
+      ids = []
+      if active_subscription.belongs_to_fft
+        ids << NzffaSettings.fft_marketplace_group_id 
       end
-      group_ids += active_subscription.action_groups.map(&:id)
-      group_ids.join(' ')
+      ids += Group.action_groups.find_all_by_id(group_ids).map(&:id)
+      ids.join(' ')
     end
   end
 
   def current_branches_from_groups
-    Group.branches.find_all_by_group_id(group_ids)
+    Group.branches.find_all_by_id(group_ids)
   end
 
   def action_group_names
     if sub = Subscription.active_subscription_for(self)
-      sub.action_groups.map(&:name)
+      sub.groups.action_groups.map(&:name)
     end
   end
 
@@ -183,7 +204,7 @@ module ReaderMixin
 
   def belongs_to_branch?
     group_ids.each do |group_id|
-      return true if NZFFA_BRANCH_GROUP_IDS.include? group_id
+      return true if Group.branches.map(&:id).include? group_id
     end
     false
   end

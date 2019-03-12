@@ -43,22 +43,21 @@ namespace :radiant do
         end
       end
       
-      desc 'Emails marketplace expiry warning emails as required'
-      task :email_warnings => :environment do
-        Advert.find(:all, :conditions =>
-                    {:expires_on => 7.days.from_now.to_date}).each do |advert|
-          ExpiryMailer.deliver_warning_email(advert)
-          puts "Emailed: #{advert.reader.email}"
+      desc 'Emails subscription expiry warning emails as required'
+      # Sent out once a year on November 14th ...
+      task :subscription_email_warnings => :environment do
+        @subscriptions = Subscription.active.expiring_on(Time.now.end_of_year.to_date)
+        @subscriptions.each do |subscription|
+          # unless if the renewal is free
+          next if !(CreateOrder.from_subscription(subscription.renew_for_year(Time.now.end_of_year + 1.year)).amount > 0)
+          # .. or if the reader already has a subscription for next year
+          next if subscription.reader.has_subscription_for_next_year?
+          # .. or if the reader is marked to disallow renewal emails
+          next if subscription.reader.disallow_renewal_mails
+          NotifySubscriber.deliver_subscription_expiring_soon(subscription)
+          puts "Emailed subscription renewal to #{subscription.reader.email}"
         end
       end
-
-      #desc 'Emails subscription expiry warning emails as required'
-      #task :subscription_email_warnings => :environment do
-        #@subscriptions = Subscription.expiring_on(30.days.from_now.to_date)
-        #@subscriptions.each do |subscription|
-          #NotifySubscriber.deliver_subscription_expiring_soon(subscription)
-        #end
-      #end
 
       #desc 'Emails subscription expiry emails, and expires subscriptions as required'
       #task :subscription_expiry => :environment do
@@ -69,9 +68,10 @@ namespace :radiant do
         #end
       #end
 
-      desc 'Reapply the subscriprion groups. Dont choose this in a guess.'
+      desc 'Reapply the subscription groups. Non-destructive; run as often as you like.'
       task :reapply_subscription_groups => :environment do
         Reader.find_each do |reader|
+          next if reader.is_resigned?
           before_ids = reader.group_ids.uniq
           AppliesSubscriptionGroups.remove(reader)
           if reader.has_active_subscription?
@@ -86,7 +86,35 @@ namespace :radiant do
           if added_ids.any?
             puts "Added #{added_ids.inspect} to reader_id: #{reader.id}"
           end
-        end 
+        end
+        # Rebuild non-renewed members groups
+        group = Group.find(NzffaSettings.non_renewed_members_group_id)
+        group.readers.clear
+        last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "full"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
+        last_year_member_ids = last_year_subscriptions.map(&:reader_id)
+        active_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'full'").map(&:reader_id)
+        non_renewed_members = Reader.find(:all, :conditions => {:id => (last_year_member_ids - active_member_ids)}).select{|r| !r.is_resigned? }
+        group.readers << non_renewed_members
+        puts "Added #{non_renewed_members.size} readers to non_renewed_members group"
+        casual_group = Group.find(NzffaSettings.non_renewed_casual_members_group_id)
+        casual_ex_fft = Group.find(NzffaSettings.non_renewed_cas_fft_members_group_id)
+        casual_group.readers.clear
+        casual_ex_fft.readers.clear
+        
+        last_year_tg_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual" and receive_tree_grower_magazine = ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year, true])
+        last_year_tg_member_ids = last_year_tg_subscriptions.map(&:reader_id)
+        active_tg_member_ids = Subscription.active.find(:all, :conditions => ["membership_type = 'casual' and receive_tree_grower_magazine = ?", true]).map(&:reader_id)
+        non_renewed_tg_members = Reader.find(:all, :conditions => {:id => (last_year_tg_member_ids - active_tg_member_ids)}).select{|r| !r.is_resigned? }
+        casual_group.readers << non_renewed_tg_members
+        
+        last_year_fft_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year]).select{|s| s.belongs_to_fft }
+        last_year_fft_member_ids = last_year_fft_subscriptions.map(&:reader_id)
+        active_fft_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'casual'").select{|s| s.belongs_to_fft }.map(&:reader_id)
+        non_renewed_fft_members = Reader.find(:all, :conditions => {:id => (last_year_fft_member_ids - active_fft_member_ids)}).select{|r| !r.is_resigned? }
+        casual_ex_fft.readers << non_renewed_fft_members
+        
+        puts "Added #{non_renewed_tg_members.size} readers to non_renewed_casual_members group"
+        puts "Added #{non_renewed_fft_members.size} readers to non_renewed_fft_members group"
       end
     end
   end

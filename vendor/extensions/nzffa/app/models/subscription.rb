@@ -1,13 +1,10 @@
 class Subscription < ActiveRecord::Base
-  # FFT_BRANCH_NAME = 'Farm Forestry Timbers'
-
   has_one :order, :dependent => :destroy
   belongs_to :reader
-  has_many :subscriptions_branches, :dependent => :destroy, :source => :group
-  has_many :branches, :through => :subscriptions_branches, :class_name => 'Group'
   belongs_to :main_branch, :class_name => 'Group'
-  has_many :action_groups_subscriptions, :dependent => :destroy, :source => :group
-  has_many :action_groups, :through => :action_groups_subscriptions, :class_name => 'Group'
+  
+  has_many :group_subscriptions, :dependent => :destroy, :source => :group
+  has_many :groups, :through => :group_subscriptions
 
   validates_inclusion_of :membership_type, :in => ['full', 'casual']
   validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
@@ -15,6 +12,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :nz_tree_grower_copies
   validates_presence_of :expires_on, :begins_on
   validates_presence_of :reader
+  validates_numericality_of :research_fund_contribution_amount, :greater_than_or_equal_to => 0
 
   validates_inclusion_of :ha_of_planted_trees,
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
@@ -33,66 +31,68 @@ class Subscription < ActiveRecord::Base
                       AND reader_id = ?',  Date.today, Date.today, reader.id ]}}
 
   named_scope :active_anytime, {:joins => :order, :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"' ]}
+  
+  named_scope :full_membership, {:conditions => "membership_type = 'full'"}
+  named_scope :casual_membership, {:conditions => "membership_type = 'casual'"}
 
   def self.expiring_before(date)
     self.active.find(:all, :conditions => ['expires_on <?', date])
   end
   
   def self.last_subscription_for(reader)
-    find(:first, :conditions => {:reader_id => reader.id}, :order => 'id desc')
+    find_by_reader_id(reader.id, :order => 'id desc')
+  end
+  
+  def self.last_paid_subscription_for(reader)
+    find_by_reader_id(reader.id,
+      :joins => :order,
+      :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"'],
+      :order => 'id desc')
   end
 
   def self.current_subscription_for(reader)
-    find(:all, :conditions => ['reader_id = :reader_id 
-                                and begins_on <= :today 
+    find_by_reader_id(reader.id, :conditions => ['begins_on <= :today 
                                 and expires_on > :today 
                                 and cancelled_on is null', 
-                                {:reader_id => reader.id, :today => Date.today}],
-                               :order => 'id desc').each do |sub|
-      return sub
-    end
-    nil
+                                {:today => Date.today}],
+                               :order => 'id desc')
   end
 
   def self.last_year_subscription_for(reader)
     first_day = 1.year.ago.at_beginning_of_year
     last_day = 1.year.ago.at_end_of_year
-    find(:all, :joins => :order,
-               :conditions => ['reader_id = :reader_id and begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"',
-                                {:reader_id => reader.id, :first_day => first_day, :last_day => last_day}],
-                               :order => 'id desc').each do |sub|
-      return sub
-    end
-    nil
+    find_by_reader_id(reader.id, :joins => :order,
+               :conditions => ['begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"',
+                                {:first_day => first_day, :last_day => last_day}],
+                               :order => 'id desc')
+  end
+  
+  def self.next_year_subscription_for(reader)
+    first_day = 1.year.from_now.at_beginning_of_year
+    last_day = 1.year.from_now.at_end_of_year
+    find_by_reader_id(reader.id,
+      :joins => :order,
+      :conditions => ['begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"', {:first_day => first_day, :last_day => last_day}],
+      :order => 'id desc')
   end
 
   def self.most_recent_subscription_for(reader)
-    find(:all, :conditions => ['reader_id = :reader_id and cancelled_on is null', {:reader_id => reader.id}],
-                               :order => 'id desc').each do |sub|
-      return sub
-    end
-    nil
+    find_by_reader_id(reader.id, :conditions => 'cancelled_on is null', :order => 'id desc')
   end
 
   def self.active_subscription_for(reader)
-    find(:all, :conditions => {:reader_id => reader.id}, :order => 'id desc').each do |sub|
-      return sub if sub.active?
-    end
-    nil
+    active.find_by_reader_id(reader.id, :order => 'id desc')
   end
 
   def self.new_with_same_attributes(old_sub)
-
     new do |sub|
       [:reader,
        :membership_type,
        :main_branch,
-       :branches,
-       :action_groups,
        :special_interest_groups,
+       :belongs_to_fft,
        :begins_on,
        :expires_on,
-       :belong_to_fft,
        :receive_tree_grower_magazine,
        :contribute_to_research_fund,
        :research_fund_contribution_amount,
@@ -102,6 +102,8 @@ class Subscription < ActiveRecord::Base
        :nz_tree_grower_copies].each do |attr|
          sub.send "#{attr}=", old_sub.send(attr)
        end
+       
+       sub.groups.concat old_sub.groups
     end
   end
 
@@ -180,48 +182,74 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def action_groups
+    # Do not use groups.action_groups here; it will make new_with_same_attributes fail
+    groups.select{|g| g.is_action_group?}
+  end
+
   def action_group_names
     action_groups.map(&:name)
   end
+  
+  def action_group_ids
+    action_groups.map(&:id)
+  end
+  
+  def action_group_ids=(ids)
+    self.groups -= Group.action_groups
+    self.groups += Group.action_groups.find(ids)
+  end
+
+  def branches
+    # Do not use groups.branches here; it will make new_with_same_attributes fail
+    groups.select{|g| g.is_branch_group?}
+  end
 
   def associated_branches
-    list = branches.all
-    list -= [main_branch] if main_branch.present?
-    list
+    branches - [ main_branch ]
   end
 
   def associated_branch_ids
-    ids = branches.map(&:id)
-    ids -= [main_branch.id] if main_branch.present?
-    ids
+    associated_branches.map(&:id)
   end
 
   def associated_branch_names
-    names = branches.map(&:name)
-    names -= [main_branch.name] if main_branch.present?
-    names
+    associated_branches.map(&:name)
   end
 
   def associated_branch_names=(branch_names)
     if main_branch.present?
       branch_names -= [main_branch.name]
     end
-    self.branches += Group.branches.find_all_by_name branch_names
+    self.groups += Group.branches.find_all_by_name branch_names
   end
 
   def main_branch_name
-    if main_branch.present?
-      self.main_branch.name
-    else
-      nil
-    end
+    main_branch.try :name
   end
 
   def main_branch_name=(name)
     self.main_branch = Group.branches.find_by_name(name)
-    self.branches << self.main_branch
+    self.groups << self.main_branch
   end
-
+  
+  def belongs_to_fft
+    self.groups.include?(Group.fft_group)
+  end
+  
+  def belongs_to_fft=(bool)
+    if bool.is_a? Integer
+      bool = bool > 0
+    elsif bool.is_a? String
+      bool = bool.to_i > 0
+    end
+    if bool
+      self.groups << Group.fft_group
+    else
+      self.groups -= [ Group.fft_group ]
+    end
+  end
+    
   def price_when_sold
     if order and order.paid?
       order.amount

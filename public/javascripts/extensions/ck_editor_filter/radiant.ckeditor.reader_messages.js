@@ -1,9 +1,11 @@
 function instantiateCkEditor(){
+	CKEDITOR.disableAutoInline = true;
+  CKEDITOR.config.allowedContent = true;
+  // ^ skips html validating altogether.. 
 	CKEDITOR.config.startupOutlineBlocks = true
-	CKEDITOR.config.colorButton_enableMore = false
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
-	CKEDITOR.config.extraPlugins = 'MediaEmbed'
+	CKEDITOR.config.extraPlugins = 'paperclipped,image2,pastecode'
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
 	CKEDITOR.config.toolbar =
@@ -11,10 +13,10 @@ function instantiateCkEditor(){
 		['Styles','Format'],
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-    ['Paste', 'RemoveFormat'],
+    ['PasteCode', 'Paste', 'RemoveFormat'],
     ['Find','Replace'],
-    ['Image', 'MediaEmbed', 'Table','HorizontalRule','SpecialChar'],
-    ['Link','Unlink','Anchor'],
+    ['Image','Paperclipped', 'Table','HorizontalRule','SpecialChar'],
+    ['Link','Unlink','Anchor'], ['TextColor', 'BGColor'],
     ['Source', '-', 'Maximize']
 	//// 	Alternative toolbar config
 	//    ['Source','-','Templates'],

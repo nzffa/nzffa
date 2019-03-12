@@ -1,9 +1,9 @@
 class MembershipController < MarketplaceController
   include UpdateReaderNewsletterPreferences
-  radiant_layout "no_layout"
   AFTER_SIGNUP_PATH = '/become-a-nzffa-member/youre-registered'
-  before_filter :require_current_reader, :only => [:details, :update]
-
+  before_filter :require_reader, :only => [:details, :update]
+  radiant_layout { |c| Radiant::Config['reader.layout'] }
+  
   def details
     @reader = current_reader
     @subscription = Subscription.active_subscription_for(@reader)
@@ -70,22 +70,4 @@ class MembershipController < MarketplaceController
 
     render :layout => false if request.xhr?
   end
-  
-  # dean wants this left in the code for a bit
-  def join_fft_button
-    @reader = current_reader
-    render :layout => false if request.xhr?
-  end
-
-  #def join_fft
-    #if @reader = current_reader
-      #@reader.groups << Group.find(ADMIN_GROUP_ID) unless @reader.groups.include? Group.find(ADMIN_GROUP_ID)
-      #@reader.groups << Group.find(FFT_GROUP_ID) unless @reader.groups.include? Group.find(FFT_GROUP_ID)
-      #flash[:notice] = 'You have joined the FFT'
-      #redirect_to FFT_MEMBERS_AREA_PATH
-    #else
-      #flash[:notice] = 'You need to register or sign in before continuing'
-      #redirect_to MEMBER_PATH
-    #end
-  #end
 end

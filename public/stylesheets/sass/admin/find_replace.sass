@@ -1,0 +1,37 @@
+#find_replace_form
+  table.index
+    margin-bottom: 90px
+    th:nth-child(1)
+      width: 2.5em
+    tr.warning
+      em
+        font-weight: bold
+      span
+        color: red
+        font-weight: bold
+  footer
+    display: flex
+    position: fixed
+    left: 0
+    right: 0
+    bottom: 0
+    background: #777777
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #555555), color-stop(33.333%, #666666), color-stop(66.667%, #777777), color-stop(100%, #777777))
+    background-image: -webkit-linear-gradient(top, #555555, #666666, #777777, #777777)
+    background-image: -moz-linear-gradient(top, #555555, #666666, #777777, #777777)
+    background-image: -o-linear-gradient(top, #555555, #666666, #777777, #777777)
+    background-image: -ms-linear-gradient(top, #555555, #666666, #777777, #777777)
+    background-image: linear-gradient(top, #555555, #666666, #777777, #777777)
+    color: #eee
+    .left, .right
+      flex: 1
+      padding: 0.5em
+  li.find, li.replace
+    label
+      display: flex
+      margin-bottom: 0.2em
+      input
+        flex: auto
+  label
+    a
+      color: #eee

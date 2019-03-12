@@ -9,14 +9,16 @@ class PxPayParty
   #end
 
   def self.payment_url_for(params)
-    reply_xml = post(API_URL, :body => generate_request_xml(params))
-    reply = Hash.from_xml(reply_xml)
-    reply['Request']['URI']
+    post(API_URL, :body => generate_request_xml(params)).parsed_response['Request']['URI']
+  end
+
+  def self.reply_xml params
+    post(API_URL, :body => generate_request_xml(params))
   end
 
   def self.payment_response(result)
-    reply_xml = post(API_URL, :body => process_response_xml(result))
-    Hash.from_xml(reply_xml)['Response']
+    reply_xml = post(API_URL, :body => process_response_xml(result)).parsed_response['Response']
+    # Hash.from_xml(reply_xml)
   end
 
   private

@@ -15,9 +15,9 @@ set :group, "www-data"
 
 set :scm, :git
 set :repository, "git@github.com:nzffa/nzffa.git"
-#set :deploy_via, :remote_cache
+set :deploy_via, :remote_cache
 set :bundle_without, [:development, :test, :cucumber]
-
+set :bundle_flags, '--deployment --full-index'
 set :whenever_command, "bundle exec whenever"
 
 namespace :deploy do
@@ -49,15 +49,14 @@ def link_from_shared_to_current(path, dest_path = path)
   run "for f in `ls #{src_path}/` ; do ln -nsf #{src_path}/$f #{dst_path}/$f ; done"
 end
 
-task :setup_env do
-  run "RACK_ENV=#{rails_env}"
-  run "RAILS_ENV=#{rails_env}"
-
-  run "echo 'RackEnv #{rails_env}' >> #{File.join(current_path, '.htaccess')}"
-  run "echo 'RailsEnv #{rails_env}' >> #{File.join(current_path, '.htaccess')}"
-end
-
-before "restart", "setup_env"
+# task :setup_env do
+#   run "RACK_ENV=#{rails_env}"
+#   run "RAILS_ENV=#{rails_env}"
+#
+#   run "echo 'RackEnv #{rails_env}' >> #{File.join(current_path, '.htaccess')}"
+#   run "echo 'RailsEnv #{rails_env}' >> #{File.join(current_path, '.htaccess')}"
+# end
+# before "restart", "setup_env"
 
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].each do |vendored_notifier|

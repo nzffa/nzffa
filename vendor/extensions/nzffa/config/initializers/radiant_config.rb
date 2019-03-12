@@ -1,6 +1,6 @@
 Radiant.config do |config|
   config.namespace('nzffa') do |nzffa|
-    %w(branches action_groups past_members newsletter_editors councillors presidents secretarys treasurers
+    %w(branches action_groups past_members non_renewed_members resigned_members past_casual_members non_renewed_cas_members newsletter_editors councillors presidents secretarys treasurers
       fft_marketplace tg_magazine_nz tgm_australia tgm_everywhere_else full_membership fft_newsletter small_scale_fg_newsletter fg_levy_payer_newsletter).each do |name|
       nzffa.define "#{name}_group_id", :select_from => lambda {Group.all.map{|l| [l.name, l.id.to_s]}}, :allow_blank => true
     end
