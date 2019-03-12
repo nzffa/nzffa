@@ -87,6 +87,9 @@ gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
 gem "radiant-linx-extension"
 
+# gem "radiant-downloads-extension", :path => 'vendor/extensions/downloads'
+gem "radiant-downloads-extension", :git => 'git://github.com/nzffa/radiant-downloads-extension.git'
+
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
 gem 'fog', '1.1.0'
 gem 'net-ssh', '2.9.4'

@@ -36,6 +36,13 @@ GIT
       vcard (~> 0.1.1)
 
 GIT
+  remote: git://github.com/nzffa/radiant-downloads-extension.git
+  revision: a4cd91bed46edce568cce9a59f065a8f3686a504
+  specs:
+    radiant-downloads-extension (0.6.0)
+      paperclip (~> 2.7.0)
+
+GIT
   remote: git://github.com/nzffa/radiant-forum-extension.git
   revision: 531c544a2500f6daba4bfdfa76d91a7abd7c90c2
   branch: wackamole
@@ -264,6 +271,7 @@ DEPENDENCIES
   radiant-clipped-extension (~> 1.1.2)
   radiant-conference-extension!
   radiant-copy_move-extension (~> 2.4.8)
+  radiant-downloads-extension!
   radiant-find_by_id_tag-extension (~> 1.2.3)
   radiant-find_replace-extension (~> 1.0.6)
   radiant-forum-extension!
