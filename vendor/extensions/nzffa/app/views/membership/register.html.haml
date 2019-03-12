@@ -1,17 +1,54 @@
 %h2 Registration
 
 -if @reader.new_record?
-  This is the first step and is free. Once registered you'll be able to select from a range of subscription options. 
+  Registration with NZFFA is free. Once registered you have many choices... sign up for free e-newsletters or choose from a range of subscription options. 
   %p
     If you are already registered you can 
     =link_to 'Sign in here', '/account/login'
-  
+    to manage your subscription or retrieve your password.
   - if path = Asset.find_by_id(Radiant::Config['nzffa.subscription_form_asset_id']).try(:asset).try(:url)
     %p
       If you would rather print a subscription form, 
       %a{:href=> path , :target => "_blank"} download this PDF
       \. You can post this to us with a cheque.
-%hr  
+%hr
+
+.px2.floatbox
+  %h3 Registration
+  %p So why register? Well, you don't have to be a member to receive benefits from NZFFA. Register and you can choose to subscribe to our free monthly e-newsletter, with all the latest grower events, news, information and forest growers levy funded projects. You can also subscribe to the Farm Forestry Timbers newsletter, a regular blog and snapshot of what's happening with locally grown specialty timbers and what they offer as a natural material.
+  %h3 Membership
+  %p
+    First register. Then, once registered you can then choose from a suite of membership options available online.
+    = succeed "." do
+      %strong Full membership starts at $85 per year
+  %h4 Full membership
+  %p The benefits of full membership include:
+  %ul
+    %li A subscription to NZ Tree Grower magazine
+    %li Access to back issues of Tree Grower magazine as pdf files on the website
+    %li Login access to restricted content on the website
+    %li
+      You can join regional
+      %a{:href => "/branches/", :target => "_blank"} Branches
+    %li
+      You can join national
+      %a{:href => "/special-interest-groups/", :target => "_blank"} Action Groups
+    %li
+      You can join
+      %a{:href => "/specialty-timber-market/"} Farm Forestry Timbers
+      and list your products and services in the marketplace
+  %p Members can also access other services provided by NZFFA, including a monthly members newsletter.
+  %h4 Casual membership
+  %p A range of casual membership options are available.
+  %p
+    %strong A New Zealand subscription to Tree Grower magazine is only $50 per year.
+    International subscriptions are also available.
+  %p
+    If you don't grow trees but are involved with wood and wood products, you can also choose to become a member of
+    %strong Farm Forestry Timbers
+    without joining NZFFA. You'll be able to list your products and services in the timber marketplace and be part of an advocacy body for locally grown specialty timbers. By Joining Farm Forestry Timbers you'll be able to participate in activities, workshops and field days to become more informed. You'll even have access to personalised help to set you in the right direction with timber species and their applications. A regular e-newsletter is packed with information and you will be part of an advocacy body for the use of locally grown timber products.
+    %strong Membership of farm forestry timbers is only $34 per year
+    \...or $15 for full NZFFA members.
 
 %p Fields marked with * are required
 
