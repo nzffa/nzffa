@@ -40,25 +40,35 @@
     =f.password_field :password_confirmation
   
   %h3 Postal Address
-  %table
-    %tr
-      %td=f.label :post_line1, 'Address', :class => :required
-      %td=f.text_field :post_line1
-    %tr
-      %td=f.label :post_line2, 'Address line 2'
-      %td=f.text_field :post_line2
-    %tr
-      %td=f.label :post_city, 'Town or City', :class => :required
-      %td=f.text_field :post_city
-    %tr
-      %td=f.label :post_province, 'Region'
-      %td=f.text_field :post_province
-    %tr
-      %td=f.label :country
-      %td=f.text_field :post_country
-    %tr
-      %td=f.label :postcode, "Postcode", :class => :required
-      %td=f.text_field :postcode
+  %p
+    =f.label :post_line1, 'Address', :class => :required
+    %br
+    =f.text_field :post_line1
+
+  %p
+    =f.label :post_line2, 'Address line 2'
+    %br
+    =f.text_field :post_line2
+    
+  %p
+    =f.label :post_city, 'Town or City', :class => :required
+    %br
+    =f.text_field :post_city
+    
+  %p
+    =f.label :post_province, 'Region'
+    %br
+    =f.text_field :post_province
+    
+  %p
+    =f.label :country
+    %br
+    =f.text_field :post_country
+    
+  %p
+    =f.label :postcode, "Postcode", :class => :required
+    %br
+    =f.text_field :postcode
 
   %h3 Email Newsletters
 
