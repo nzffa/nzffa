@@ -1,7 +1,7 @@
 %h2 Registration
 
--if @reader.new_record?
-  Registration with NZFFA is free. Once registered you have many choices... sign up for free e-newsletters or choose from a range of subscription options. 
+- unless current_reader
+  %p Registration with NZFFA is free. Once registered you have many choices... sign up for free e-newsletters or choose from a range of subscription options. 
   %p
     If you are already registered you can 
     =link_to 'Sign in here', '/account/login'
@@ -11,6 +11,12 @@
       If you would rather print a subscription form, 
       %a{:href=> path , :target => "_blank"} download this PDF
       \. You can post this to us with a cheque.
+- else
+  %p
+    You are registered and logged in. [
+    %a{:href => "/membership/details/"}>Manage your subscription
+    ]
+
 %hr
 
 .px2.floatbox67
