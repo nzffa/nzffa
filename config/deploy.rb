@@ -39,6 +39,7 @@ namespace(:custom) do
     run "ln -nfs #{shared_path}/public/images/design #{release_path}/public/images/design"
     run "ln -nfs #{release_path}/public/images/assets #{release_path}/public/images/admin/assets"
     run "ln -nfs #{shared_path}/post_attachments #{release_path}/post_attachments"
+    run "ln -nfs #{shared_path}/secure_downloads #{release_path}/secure_downloads"
     run "rm -f #{release_path}/config.ru"
   end
 end

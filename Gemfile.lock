@@ -22,7 +22,11 @@ GIT
 
 GIT
   remote: git://github.com/jomz/radiant-reader-extension.git
+<<<<<<< HEAD
   revision: 4bca76671a30d7b59929a0e23a92adc2afb80aaf
+=======
+  revision: 1b3e777f95f53520d47e646ecb8ab9d415aa5cd8
+>>>>>>> af6a90664e477bc7465482d02251acb53862ff1f
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
@@ -36,6 +40,13 @@ GIT
       vcard (~> 0.1.1)
 
 GIT
+  remote: git://github.com/nzffa/radiant-downloads-extension.git
+  revision: a4cd91bed46edce568cce9a59f065a8f3686a504
+  specs:
+    radiant-downloads-extension (0.6.0)
+      paperclip (~> 2.7.0)
+
+GIT
   remote: git://github.com/nzffa/radiant-forum-extension.git
   revision: 531c544a2500f6daba4bfdfa76d91a7abd7c90c2
   branch: wackamole
@@ -46,13 +57,13 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
-  revision: 7cbd8d640c71d09256ba6f16091dac4fb31c0fbb
+  revision: e0f6fe00a86f9f0e7c25396b768282d924ee3665
   specs:
     radiant-conference-extension (1.0.0)
 
 GIT
   remote: git://github.com/nzffa/radiant-nzffa_marketplace-extension.git
-  revision: a5d6993b06ebec68d4703187496d16b578e13371
+  revision: 97b8a7f3adcc37319b7edecd22f8ba741f6ec9fd
   specs:
     radiant-marketplace-extension (1.0.1)
       spreadsheet
@@ -181,7 +192,6 @@ GEM
       stringex (~> 1.3.0)
       tzinfo (~> 0.3.31)
       will_paginate (~> 2.3.11)
-    radiant-archive-extension (1.0.7)
     radiant-ck_editor_filter-extension (0.2.9)
     radiant-clipped-extension (1.1.2)
       acts_as_list (= 0.1.4)
@@ -200,7 +210,7 @@ GEM
     radiant-mailer-extension (1.0.6)
     radiant-mailer_layouts-extension (0.1.1)
     radiant-navigation_tags-extension (0.2.7)
-    radiant-relations-extension (1.2.3)
+    radiant-relations-extension (1.2.4)
     radiant-reorder_children-extension (1.0.10)
     radiant-search-extension (1.0.0)
     radiant-sheets-extension (1.1.0)
@@ -261,11 +271,11 @@ DEPENDENCIES
   parallel (~> 0.5.12)
   rack-cache (= 1.2)
   radiant (= 1.1.4)
-  radiant-archive-extension (~> 1.0.7)
   radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-clipped-extension (~> 1.1.2)
   radiant-conference-extension!
-  radiant-copy_move-extension (~> 2.4.3)
+  radiant-copy_move-extension (~> 2.4.8)
+  radiant-downloads-extension!
   radiant-find_by_id_tag-extension (~> 1.2.3)
   radiant-find_replace-extension (~> 1.0.6)
   radiant-forum-extension!

@@ -13,7 +13,7 @@ function instantiateCkEditor(partIndex){
 	CKEDITOR.config.specialChars = CKEDITOR.config.specialChars.concat( [ '&amacr;', '&Amacr;', '&emacr;', '&Emacr;', '&umacr;', '&Umacr;', '&omacr;', '&Omacr;' ] );
 	CKEDITOR.config.toolbar =
 	[
-		['Styles','Format'],
+		['Styles','Format'], ['Undo','Redo'],
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
     ['radiantpreview', 'PasteCode', 'Paste','PasteFromWord', 'RemoveFormat'],

@@ -25,7 +25,7 @@ gem "therubyracer"
 
 gem 'whenever', '0.9.4', :require => false
 # Default Extensions
-gem "radiant-archive-extension",             "~> 1.0.7"
+# gem "radiant-archive-extension",             "~> 1.0.7"
 # gem "radiant-debug-extension",               "~> 1.0.2"
 # gem "radiant-exporter-extension",            "~> 1.1.0"
 # gem "radiant-markdown_filter-extension",     "~> 1.0.2"
@@ -52,7 +52,7 @@ gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
 gem "radiant-search-extension"
-gem "radiant-copy_move-extension",          "~> 2.4.3"
+gem "radiant-copy_move-extension",          "~> 2.4.8"
 gem "radiant-grandchildren_tags-extension"
 gem "radiant-if_id_tags-extension"
 gem "radiant-html_tags-extension"
@@ -86,6 +86,9 @@ gem "radiant-marketplace-extension", :git => 'git://github.com/nzffa/radiant-nzf
 gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
 gem "radiant-linx-extension"
+
+# gem "radiant-downloads-extension", :path => 'vendor/extensions/downloads'
+gem "radiant-downloads-extension", :git => 'git://github.com/nzffa/radiant-downloads-extension.git'
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
 gem 'fog', '1.1.0'
