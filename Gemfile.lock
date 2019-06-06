@@ -206,7 +206,7 @@ GEM
     radiant-mailer-extension (1.0.6)
     radiant-mailer_layouts-extension (0.1.1)
     radiant-navigation_tags-extension (0.2.7)
-    radiant-relations-extension (1.2.4)
+    radiant-relations-extension (1.2.5)
     radiant-reorder_children-extension (1.0.10)
     radiant-search-extension (1.0.0)
     radiant-sheets-extension (1.1.0)
