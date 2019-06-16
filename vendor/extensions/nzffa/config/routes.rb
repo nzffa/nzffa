@@ -37,7 +37,8 @@ ActionController::Routing::Routes.draw do |map|
         :payments => :get,
         :allocations => :get,
         :members => :get,
-        :members_w_subscription_renewal_optout => :get, 
+        :members_w_subscription_renewal_optout => :get,
+        :national_newsletter_members_selection => :get,
         :deliveries => :get,
         :expiries => :get
       }

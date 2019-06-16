@@ -172,4 +172,21 @@ class Admin::ReportsController < AdminController
     headers["Content-Disposition"] = "attachment; filename=\"subscription_expiries_3_months_to_#{Date.today.to_s}\".csv"
     render :text => csv_string
   end
+
+  def national_newsletter_members_selection
+    national_newsletter_members = Group.find(211).readers
+    targetted_groups = [Group.find(232), Group.find(237), Group.find(255)]
+    targetted_readers = national_newsletter_members.select{|r| (r.groups & targetted_groups).any? }
+    fields = %w[id nzffa_membership_id forename surname email]
+
+    csv_string = READER_CSV_LIB.generate do |csv|
+      csv << fields
+      targetted_readers.each do |r|
+        csv << fields.map { |field| r.send(field) }
+      end
+    end
+    headers["Content-Type"] ||= 'text/csv'
+    headers["Content-Disposition"] = "attachment; filename=\"newsletter_readers_intersect_past_member_or_nzffa_member_or_small_scale_owner\".csv"
+    render :text => csv_string
+  end
 end
