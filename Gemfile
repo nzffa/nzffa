@@ -85,6 +85,7 @@ gem "radiant-marketplace-extension", :git => 'git://github.com/nzffa/radiant-nzf
 
 gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
+# gem 'radiant-relations-extension', :path => 'vendor/extensions/relations'
 gem "radiant-linx-extension"
 
 # gem "radiant-downloads-extension", :path => 'vendor/extensions/downloads'
