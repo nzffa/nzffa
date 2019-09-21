@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/jomz/radiant-reader-extension.git
-  revision: 183c9b78fc8c82b5666b7b1b8e9f1c3195312fdc
+  revision: 585df68872aad3f29b70453c29ec2e6a57165bfa
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
