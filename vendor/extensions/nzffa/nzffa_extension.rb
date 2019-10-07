@@ -32,6 +32,7 @@ class NzffaExtension < Radiant::Extension
     Page.send :include, Nzffa::IfDescendantOrSelfTags
     Page.send :include, Nzffa::BranchTags
     Page.send :include, Nzffa::NewsletterLinkTags
+    Page.send :include, Nzffa::ChildWithCorrespondingSlugTag
 
     admin.reader.index.add :thead, "ids_ths", :before => "title_header"
     admin.reader.index.add :tbody, "ids_tds", :before => "title_cell"
