@@ -6,6 +6,8 @@ function instantiateCkEditor(partIndex){
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
 	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode,pastefromword'
+	CKEDITOR.config.image2_alignClasses = ['image-align-left', 'image-align-center', 'image-align-right'];
+	CKEDITOR.config.contentsCss = '/css/2019-shared-with-ckeditor.css';
 	CKEDITOR.config.disableNativeSpellChecker = false
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
