@@ -1,15 +1,15 @@
 function instantiateCkEditor(){
 	CKEDITOR.disableAutoInline = true;
   CKEDITOR.config.allowedContent = true;
-  // ^ skips html validating altogether.. 
+  // ^ skips html validating altogether..
 	CKEDITOR.config.startupOutlineBlocks = true
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
 	CKEDITOR.config.extraPlugins = 'paperclipped,image2,pastecode'
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
-	CKEDITOR.config.entities_additional = ['#39', 'amacr', 'Amacr', 'emacr', 'Emacr', 'omacr', 'Omacr', 'umacr', 'Umacr'];
-	CKEDITOR.config.specialChars = CKEDITOR.config.specialChars.concat( [ '&amacr;', '&Amacr;', '&emacr;', '&Emacr;', '&umacr;', '&Umacr;', '&omacr;', '&Omacr;' ] );
+	CKEDITOR.config.entities_additional = ['#39', 'amacr', 'Amacr', 'emacr', 'Emacr', 'ecaron', 'Ecaron', 'omacr', 'Omacr', 'umacr', 'Umacr'];
+	CKEDITOR.config.specialChars = CKEDITOR.config.specialChars.concat( [ '&amacr;', '&Amacr;', '&emacr;', '&Emacr;', '&ecaron;', '&Ecaron;', '&umacr;', '&Umacr;', '&omacr;', '&Omacr;' ] );
 	CKEDITOR.config.toolbar =
 	[
 		['Styles','Format'], ['Undo','Redo'],
@@ -58,12 +58,12 @@ function instantiateCkEditor(){
 			}
     }
 	)
-	
+
 	var usedFilter = $('message_filter_id')
 	if(usedFilter.value == 'CKEditor'){
 		putInEditor()
 	}
-	
+
   // var timer = setInterval(function() {
   //   // Make image asset draggable
   //   Asset.MakeDraggables
@@ -74,7 +74,7 @@ function instantiateCkEditor(){
   //       element.addClassName('move')
   //   })
   // }, 5000);
-	
+
 }
 
 function toggleEditor(){
