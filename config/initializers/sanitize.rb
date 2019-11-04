@@ -19,7 +19,7 @@ class Sanitize
         'ins'        => ['cite', 'datetime'],
         'ol'         => ['start', 'reversed', 'type'],
         'q'          => ['cite'],
-        'table'      => ['summary', 'width'],
+        'table'      => ['summary', 'width', 'class'],
         'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width'],
         'th'         => ['abbr', 'axis', 'colspan', 'rowspan', 'scope', 'width'],
         'time'       => ['datetime', 'pubdate'],
