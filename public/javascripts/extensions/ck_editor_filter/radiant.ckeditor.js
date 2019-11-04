@@ -2,7 +2,7 @@ function instantiateCkEditor(partIndex){
 	CKEDITOR.disableAutoInline = true;
 	CKEDITOR.config.allowedContent = true;
 	// ^ skips html validating altogether..
-	CKEDITOR.config.startupOutlineBlocks = false
+	CKEDITOR.config.startupOutlineBlocks = true
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
 	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode,pastefromword,scayt'
