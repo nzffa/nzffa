@@ -2,13 +2,13 @@ function instantiateCkEditor(partIndex){
 	CKEDITOR.disableAutoInline = true;
 	CKEDITOR.config.allowedContent = true;
 	// ^ skips html validating altogether..
-	CKEDITOR.config.startupOutlineBlocks = true
+	CKEDITOR.config.startupOutlineBlocks = false
 	CKEDITOR.config.protectedSource.push( /<r:([\S]+)*>.*<\/r:\1>/g )
 	CKEDITOR.config.protectedSource.push( /<r:[^>\/]*\/>/g )
-	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode,pastefromword'
+	CKEDITOR.config.extraPlugins = 'paperclipped,radiantpreview,image2,pastecode,pastefromword,scayt'
 	CKEDITOR.config.image2_alignClasses = ['image-align-left', 'image-align-center', 'image-align-right'];
 	CKEDITOR.config.contentsCss = '/css/2019-shared-with-ckeditor.css';
-	CKEDITOR.config.disableNativeSpellChecker = false
+	CKEDITOR.config.disableNativeSpellChecker = true
 	CKEDITOR.config.forcePasteAsPlainText = true
 	CKEDITOR.config.height = 500
 	CKEDITOR.config.entities_additional = ['#39', 'amacr', 'Amacr', 'emacr', 'Emacr', 'ecaron', 'Ecaron', 'imacr', 'Imacr', 'omacr', 'Omacr', 'umacr', 'Umacr'];
@@ -19,7 +19,7 @@ function instantiateCkEditor(partIndex){
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
     ['radiantpreview', 'PasteCode', 'Paste','PasteFromWord', 'RemoveFormat'],
-    ['Find','Replace'],
+    ['Find','Replace', 'Scayt'],
     ['Image','Paperclipped', 'Table','HorizontalRule','SpecialChar'],
     ['Link','Unlink','Anchor'], ['TextColor', 'BGColor'],
     ['Source', '-', 'Maximize']
