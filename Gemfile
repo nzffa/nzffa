@@ -97,6 +97,8 @@ gem 'net-ssh', '2.9.4'
 gem 'multi_json', '1.0.4'
 gem 'parallel', '~> 0.5.12'
 
+gem 'xero_gateway'
+
 group :production, :staging do
   gem 'airbrake', '4.1.0'
 end
