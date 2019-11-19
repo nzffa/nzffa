@@ -97,10 +97,6 @@ gem 'net-ssh', '2.9.4'
 gem 'multi_json', '1.0.4'
 gem 'parallel', '~> 0.5.12'
 
-gem 'oauth', '0.4.7'
-gem 'minitest', '5.11.3'
-gem 'xeroizer'
-
 group :production, :staging do
   gem 'airbrake', '4.1.0'
 end
