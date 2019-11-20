@@ -30,3 +30,5 @@ config/backup.rb
 config/application.yml
 db/app_backup/Dropbox.yml
 post_attachments/*
+privatekey.pem
+publickey.cer
