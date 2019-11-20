@@ -33,6 +33,10 @@ end
 # Capistrano symlinks to the file in shared/config
 ymlconf = YAML.load_file("#{Rails.root}/config/application.yml")
 
+XERO_CONSUMER_KEY = ymlconf['xero']['consumer_key']
+XERO_CONSUMER_SECRET = ymlconf['xero']['consumer_secret']
+XERO_PEM_PATH = "privatekey.pem"
+
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
   :address  => ymlconf['smtp']['address'],
