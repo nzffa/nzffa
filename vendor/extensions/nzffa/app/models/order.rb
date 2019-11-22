@@ -129,7 +129,7 @@ class Order < ActiveRecord::Base
 
   def nzffa_member_id
     if reader
-      reader.nzffa_membership_id 
+      reader.nzffa_membership_id
     else
       nil
     end
@@ -144,7 +144,7 @@ class Order < ActiveRecord::Base
       old_subscription.cancel!
     end
     update_attribute(:paid_on, Date.today)
-    
+
     if needs_donation_receipt?
       # Send donation receipt
       BackOfficeMailer.deliver_donation_receipt_to_member(Order.find(id))
@@ -162,12 +162,95 @@ class Order < ActiveRecord::Base
       end
     end
   end
-  
+
   def needs_donation_receipt?
     subscription.contribute_to_research_fund &&
     subscription.research_fund_contribution_is_donation? && subscription.research_fund_contribution_amount.to_i > 0
   end
-  
+
+  def create_in_xero
+    @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
+    order = self
+    invoice = @gateway.build_invoice({
+      :invoice_type => "ACCREC",
+      :invoice_status => "AUTHORISED",
+      :date => Date.today,
+      :due_date => 1.month.from_now,
+      :invoice_number => order.id,
+      :reference => "Order via nzffa.org.nz",
+      :line_amount_types => "Inclusive" # "Inclusive", "Exclusive" or "NoTax"
+    })
+    invoice.contact.name = order.reader.name
+    invoice.contact.email = order.reader.email
+    invoice.contact.phone.number = order.reader.phone
+    invoice.contact.address.line_1 = order.reader.post_line1
+    invoice.contact.address.line_2 = order.reader.post_line2
+    invoice.contact.address.city = order.reader.post_city
+    invoice.contact.address.region = order.reader.post_province
+    invoice.contact.address.country = order.reader.post_country
+    invoice.contact.address.post_code = order.reader.postcode
+    order_lines.each do |line|
+      case line.kind
+      when "admin_levy"
+        branch = Group.find_by_name(line.particular)
+        account_code = branch.account_codes.split(",").first
+        line_item = XeroGateway::LineItem.new(
+          :description => "Admin levy",
+          :account_code => account_code,
+          :unit_amount => line.amount.to_i
+        )
+      when "branch_levy"
+        branch = Group.find_by_name(line.particular)
+        account_code = branch.account_codes.split(",").first
+        line_item = XeroGateway::LineItem.new(
+          :description => "Branch levy - #{branch.name}",
+          :account_code => account_code,
+          :unit_amount => line.amount.to_i
+        )
+      when "action_group_levy"
+        action_group = Group.find_by_name(line.particular)
+        account_code = action_group.account_codes.split(",").first
+        line_item = XeroGateway::LineItem.new(
+          :description => "Action group levy - #{branch.name}",
+          :account_code => account_code,
+          :unit_amount => line.amount.to_i
+        )
+      when "forest_size_levy"
+        next if line.particular == '0 - 10'
+        if line.particular == '11 - 40'
+          account_code = "4-1402"
+        elsif line.particular == '41+'
+          account_code = "4-1403"
+        end
+        line_item = XeroGateway::LineItem.new(
+          :description => "Area levy #{line.particular}",
+          :account_code => account_code,
+          :unit_amount => line.amount.to_i
+        )
+      when "nz_tree_grower_magazine_levy"
+        line_item = XeroGateway::LineItem.new(
+          :description => "NZ Tree Grower Magazine - full membership",
+          :account_code => "4-1500",
+          :unit_amount => line.amount.to_i
+        )
+      when "research_fund_contribution"
+        line_item = XeroGateway::LineItem.new(
+          :description => "Research fund contribution",
+          :account_code => "4-2030",
+          :unit_amount => line.amount.to_i
+        )
+      end
+      invoice.line_items << line_item unless line_item.nil?
+    end
+
+    invoice.create
+    self.update_attribute :xero_id, invoice.invoice_id
+  end
+
+  def update_from_xero
+
+  end
+
   private
   def line_amount(kind, particular = nil)
     line = order_lines.select do |l|
