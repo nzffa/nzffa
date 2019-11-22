@@ -209,9 +209,9 @@ class Order < ActiveRecord::Base
         )
       when "action_group_levy"
         action_group = Group.find_by_name(line.particular)
-        account_code = action_group.account_codes.split(",").first
+        account_code = action_group.account_codes#.split(",").first
         line_item = XeroGateway::LineItem.new(
-          :description => "Action group levy - #{branch.name}",
+          :description => "Action group levy - #{action_group.name}",
           :account_code => account_code,
           :unit_amount => line.amount.to_i
         )
