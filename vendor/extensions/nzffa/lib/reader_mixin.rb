@@ -5,7 +5,7 @@ module ReaderMixin
       active = args[:must_be_active] != false
       type = args[:type] || 'full'
       raise ArgumentError.new("Reader.with_membership called with type other than 'full' or 'casual'") unless ['full', 'casual'].include?(type)
-      
+
       if active
         now = lambda{Date.today}
         find(:all, :include => [:subscriptions => :order], :conditions => ["subscriptions.membership_type = ? and subscriptions.begins_on <= ? AND subscriptions.expires_on >= ? AND subscriptions.cancelled_on IS NULL AND orders.paid_on > '2001-01-01'", type, now.call, now.call])
@@ -14,7 +14,7 @@ module ReaderMixin
       end
     end
   end
-  
+
   def self.included(base)
     base.extend(ClassMethods)
     base.send(:has_many, :adverts)
@@ -29,11 +29,11 @@ module ReaderMixin
     base.send(:before_validation, :assign_nzffa_membership_id)
     base.send(:validates_uniqueness_of, :nzffa_membership_id)
 
-    group_membership_shortcuts = { 
+    group_membership_shortcuts = {
       :receive_fft_newsletter => NzffaSettings.fft_newsletter_group_id,
       :receive_nzffa_members_newsletter => NzffaSettings.nzffa_members_newsletter_group_id,
       :receive_small_scale_forest_grower_newsletter => NzffaSettings.small_scale_forest_grower_newsletter_group_id,
-      
+
       :is_newsletter_editor => NzffaSettings.newsletter_editors_group_id,
       :is_councillor => NzffaSettings.councillors_group_id,
       :is_secretary => NzffaSettings.secretarys_group_id,
@@ -105,7 +105,7 @@ module ReaderMixin
   def has_active_subscription?
     !active_subscription.nil?
   end
-  
+
   def subscription_for_next_year
     Subscription.next_year_subscription_for(self)
   end
@@ -113,7 +113,7 @@ module ReaderMixin
   def has_subscription_for_next_year?
     !subscription_for_next_year.nil?
   end
-  
+
   def main_branch
     active_subscription.main_branch if active_subscription.present?
   end
@@ -142,10 +142,10 @@ module ReaderMixin
   def associated_branches
     active_subscription.associated_branches if active_subscription
   end
-  
+
   def tree_grower_group_ids
-    #NZ Tree Grower subscribers 80, 
-    #Australian Tree Grower subscribers 81, 
+    #NZ Tree Grower subscribers 80,
+    #Australian Tree Grower subscribers 81,
     #Rest of World Tree Grower subscribers 82
     (group_ids & [NzffaSettings.tg_magazine_new_zealand_group_id, NzffaSettings.tgm_australia_group_id, NzffaSettings.tgm_everywhere_else_group_id]).join(' ')
   end
@@ -154,7 +154,7 @@ module ReaderMixin
     if active_subscription
       group_ids = []
       if active_subscription.belongs_to_fft
-        group_ids << NzffaSettings.fft_marketplace_group_id 
+        group_ids << NzffaSettings.fft_marketplace_group_id
       end
       group_ids += active_subscription.associated_branches.map(&:id)
       group_ids.join(' ')
@@ -171,7 +171,7 @@ module ReaderMixin
     if active_subscription
       ids = []
       if active_subscription.belongs_to_fft
-        ids << NzffaSettings.fft_marketplace_group_id 
+        ids << NzffaSettings.fft_marketplace_group_id
       end
       ids += Group.action_groups.find_all_by_id(group_ids).map(&:id)
       ids.join(' ')
@@ -259,6 +259,34 @@ module ReaderMixin
 
   def pays_base_levys?
     is_life_member? or is_branch_life_member?
+  end
+
+  def get_contact_id
+    unless xero_id.nil? or xero_id.blank?
+      xero_id
+    else
+      @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
+      all_xero_contacts = Nokogiri::XML(@gateway.get_contacts.response_xml).css("Contacts Contact")
+      matching_contact = all_xero_contacts.select{|xc| xc.css("Name").text == self.name }.first
+      if matching_contact
+        self.update_attribute :xero_id, matching_contact.css("ContactID").text
+      else
+        contact = @gateway.build_contact
+        contact.name = self.name
+        contact.email = self.email
+        contact.phone.number = self.phone
+        contact.address.line_1 = self.post_line1
+        contact.address.line_2 = self.post_line2
+        contact.address.city = self.post_city
+        contact.address.region = self.post_province
+        contact.address.country = self.post_country
+        contact.address.post_code = self.postcode
+        response = contact.save
+        if response.status == 'OK'
+          self.update_attribute :xero_id, Nokogiri::XML(response.response_xml).css("ContactID").text
+        end
+      end
+    end
   end
 
   private
