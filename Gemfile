@@ -97,7 +97,8 @@ gem 'net-ssh', '2.9.4'
 gem 'multi_json', '1.0.4'
 gem 'parallel', '~> 0.5.12'
 
-gem 'xero_gateway'
+# gem 'xero_gateway', :path => 'vendor/xero_gateway'
+gem 'xero_gateway', :git => 'git://github.com/nzffa/xero_gateway.git'
 
 group :production, :staging do
   gem 'airbrake', '4.1.0'

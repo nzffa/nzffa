@@ -77,6 +77,15 @@ GIT
   specs:
     radiant-scheduler-extension (1.0.3)
 
+GIT
+  remote: git://github.com/nzffa/xero_gateway.git
+  revision: f68b950d4e756f978f706c8e2eba22110364e175
+  specs:
+    xero_gateway (2.7.0)
+      activesupport (< 5)
+      builder (>= 3.2.2)
+      oauth (>= 0.3.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -151,7 +160,7 @@ GEM
     mime-types (1.22)
     multi_json (1.0.4)
     multi_xml (0.6.0)
-    mysql2 (0.4.6)
+    mysql2 (0.4.10)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.1.2)
@@ -246,10 +255,6 @@ GEM
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (2.3.17)
-    xero_gateway (2.7.0)
-      activesupport
-      builder (>= 3.2.2)
-      oauth (>= 0.3.6)
 
 PLATFORMS
   ruby
@@ -305,7 +310,7 @@ DEPENDENCIES
   sanitize (= 2.0.3)
   therubyracer
   whenever (= 0.9.4)
-  xero_gateway
+  xero_gateway!
 
 BUNDLED WITH
    1.17.3
