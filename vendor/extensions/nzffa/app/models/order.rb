@@ -174,8 +174,8 @@ class Order < ActiveRecord::Base
     invoice = @gateway.build_invoice({
       :invoice_type => "ACCREC",
       :invoice_status => "AUTHORISED",
-      :date => Date.today,
-      :due_date => 1.month.from_now,
+      :date => order.created_at.to_date,
+      :due_date => (order.created_at + 1.month),
       :invoice_number => order.id,
       :reference => "Order via nzffa.org.nz",
       :line_amount_types => "Inclusive" # "Inclusive", "Exclusive" or "NoTax"
@@ -224,6 +224,14 @@ class Order < ActiveRecord::Base
         end
         line_item = XeroGateway::LineItem.new(
           :description => "Area levy #{line.particular}",
+          :account_code => account_code,
+          :unit_amount => line.amount.to_i
+        )
+      when "fft_marketplace_levy"
+        fft_group = Group.fft_group
+        account_code = fft_group.account_codes.split(',').first
+        line_item = XeroGateway::LineItem.new(
+          :description => "FFT marketplace levy - #{line.particular.gsub('_',' ')}",
           :account_code => account_code,
           :unit_amount => line.amount.to_i
         )
