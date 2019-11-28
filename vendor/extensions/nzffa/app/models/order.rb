@@ -168,68 +168,107 @@ class Order < ActiveRecord::Base
     subscription.research_fund_contribution_is_donation? && subscription.research_fund_contribution_amount.to_i > 0
   end
 
-  def create_in_xero
+  def create_xero_invoice
     @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
-    order = self
     invoice = @gateway.build_invoice({
       :invoice_type => "ACCREC",
       :invoice_status => "AUTHORISED",
-      :date => order.created_at.to_date,
-      :due_date => (order.created_at + 1.month),
-      :invoice_number => order.id,
-      :reference => "Order via nzffa.org.nz",
-      :line_amount_types => "Inclusive" # "Inclusive", "Exclusive" or "NoTax"
+      :date => created_at.to_date,
+      :due_date => (created_at + 1.month),
+      :invoice_number => id,
+      :reference => "Member ID #{reader.nzffa_membership_id}",
+      :line_amount_types => "Inclusive"
     })
-    invoice.contact.name = order.reader.name
-    invoice.contact.email = order.reader.email
-    invoice.contact.phone.number = order.reader.phone
-    invoice.contact.address.line_1 = order.reader.post_line1
-    invoice.contact.address.line_2 = order.reader.post_line2
-    invoice.contact.address.city = order.reader.post_city
-    invoice.contact.address.region = order.reader.post_province
-    invoice.contact.address.country = order.reader.post_country
-    invoice.contact.address.post_code = order.reader.postcode
+    invoice.contact.name = reader.name
+    invoice.contact.email = reader.email
+    invoice.contact.phone.number = reader.phone
+    invoice.contact.address.line_1 = reader.post_line1
+    invoice.contact.address.line_2 = reader.post_line2
+    invoice.contact.address.city = reader.post_city
+    invoice.contact.address.region = reader.post_province
+    invoice.contact.address.country = reader.post_country
+    invoice.contact.address.post_code = reader.postcode
+    advance_payment = subscription.expires_on > Date.today.end_of_year
+    # split_order_lines = advance_payment && (subscription.begins_on < Date.today.end_of_year)
     order_lines.each do |line|
       case line.kind
       when "admin_levy"
         branch = Group.find_by_name(line.particular)
-        account_code = branch.account_codes.split(",").first
+        # subscription, subscription in advance, or refund?
+        if line.amount < 0
+          index = 2
+        elsif advance_payment
+          index = 1
+        else
+          index = 0
+        end
+        account_code = branch.account_codes.split(",")[index]
         line_item = XeroGateway::LineItem.new(
           :description => "Admin levy",
           :account_code => account_code,
           :unit_amount => line.amount.to_i
         )
+        line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
       when "branch_levy"
         branch = Group.find_by_name(line.particular)
-        account_code = branch.account_codes.split(",").first
+        # subscription, subscription in advance, or refund?
+        if line.amount < 0
+          index = 2
+        elsif advance_payment
+          index = 1
+        else
+          index = 0
+        end
+        account_code = branch.account_codes.split(",")[index]
         line_item = XeroGateway::LineItem.new(
           :description => "Branch levy - #{branch.name}",
           :account_code => account_code,
           :unit_amount => line.amount.to_i
         )
+        line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
       when "action_group_levy"
         action_group = Group.find_by_name(line.particular)
-        account_code = action_group.account_codes#.split(",").first
+        # No 'in advance' accounts for action groups.
+        # Using first and last methods also does not err when only one account code (other sales) is present
+        if line.amount < 0
+          account_code = action_group.account_codes.split(",").last
+        else
+          account_code = action_group.account_codes.split(",").first
+        end
         line_item = XeroGateway::LineItem.new(
           :description => "Action group levy - #{action_group.name}",
           :account_code => account_code,
           :unit_amount => line.amount.to_i
         )
+        line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Sub Group', :options => line.particular)
       when "forest_size_levy"
-        next if line.particular == '0 - 10'
-        if line.particular == '11 - 40'
-          account_code = "4-1402"
-        elsif line.particular == '41+'
-          account_code = "4-1403"
+        unless line.particular == '0 - 10'
+          if advance_payment
+            account_code = "2-3350" # Advance forest sive levies all go on one account
+          else
+            if line.particular == '11 - 40'
+              account_code = "4-1402"
+            elsif line.particular == '41+'
+              account_code = "4-1403"
+            end
+          end
+          line_item = XeroGateway::LineItem.new(
+            :description => "Area levy #{line.particular}",
+            :account_code => account_code,
+            :unit_amount => line.amount.to_i
+          )
         end
-        line_item = XeroGateway::LineItem.new(
-          :description => "Area levy #{line.particular}",
-          :account_code => account_code,
-          :unit_amount => line.amount.to_i
-        )
       when "fft_marketplace_levy"
         fft_group = Group.fft_group
-        account_code = fft_group.account_codes.split(',').first
+        # subscription, subscription in advance, or refund?
+        if line.amount < 0
+          index = 2
+        elsif advance_payment
+          index = 1
+        else
+          index = 0
+        end
+        account_code = fft_group.account_codes.split(',')[index]
         line_item = XeroGateway::LineItem.new(
           :description => "FFT marketplace levy - #{line.particular.gsub('_',' ')}",
           :account_code => account_code,
@@ -237,7 +276,7 @@ class Order < ActiveRecord::Base
         )
       when "nz_tree_grower_magazine_levy"
         line_item = XeroGateway::LineItem.new(
-          :description => "NZ Tree Grower Magazine - full membership",
+          :description => "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
           :account_code => "4-1500",
           :unit_amount => line.amount.to_i
         )
