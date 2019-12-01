@@ -194,10 +194,7 @@ class Order < ActiveRecord::Base
       case line.kind
       when "admin_levy"
         branch = Group.find_by_name(line.particular)
-        # subscription, subscription in advance, or refund?
-        if line.amount < 0
-          index = 2
-        elsif advance_payment
+        if advance_payment
           index = 1
         else
           index = 0
@@ -211,10 +208,7 @@ class Order < ActiveRecord::Base
         line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
       when "branch_levy"
         branch = Group.find_by_name(line.particular)
-        # subscription, subscription in advance, or refund?
-        if line.amount < 0
-          index = 2
-        elsif advance_payment
+        if advance_payment
           index = 1
         else
           index = 0
@@ -228,13 +222,7 @@ class Order < ActiveRecord::Base
         line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
       when "action_group_levy"
         action_group = Group.find_by_name(line.particular)
-        # No 'in advance' accounts for action groups.
-        # Using first and last methods also does not err when only one account code (other sales) is present
-        if line.amount < 0
-          account_code = action_group.account_codes.split(",").last
-        else
-          account_code = action_group.account_codes.split(",").first
-        end
+        account_code = action_group.account_codes
         line_item = XeroGateway::LineItem.new(
           :description => "Action group levy - #{action_group.name}",
           :account_code => account_code,
