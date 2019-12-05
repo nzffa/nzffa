@@ -14,7 +14,7 @@ class XeroSync < ActiveRecord::Base
       next unless order = Order.find_by_xero_id(xid)
       Rails.logger.warn("Synchronizing Xero invoice #{xid} to order #{order.id}")
       xero_order_syncs.create(:order => order, :xero_payment_id => payment.payment_id, :xero_invoice_id => xid)
-      sleep(2.seconds)
+      # sleep(2.seconds) # < throws TypeError in Ruby 1.8 :/
     end
     update_attribute :completed_at, Time.now
   end
@@ -23,14 +23,3 @@ class XeroSync < ActiveRecord::Base
     @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
   end
 end
-#
-# xs=XeroSync.first
-# last_sync=1.week.ago
-# gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
-# payment = gateway.get_payments(:modified_since => last_sync).payments.each do |payment|
-#   xid = payment.invoice_id
-#   next unless order = Order.find_by_xero_id(xid)
-#   xs.xero_order_syncs.create(:order => order, :xero_payment_id => payment.payment_id, :xero_invoice_id => xid)
-#   sleep(3.seconds)
-# end
-# xero_invoice = gateway.get_invoice(xid)

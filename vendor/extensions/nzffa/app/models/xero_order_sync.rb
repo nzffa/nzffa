@@ -2,7 +2,6 @@ class XeroOrderSync < ActiveRecord::Base
   belongs_to :xero_sync, :counter_cache => true
 
   belongs_to :order
-  # add xpid and xiid columns (goinasleepnow..)
   after_create :update_order
 
   def update_order
