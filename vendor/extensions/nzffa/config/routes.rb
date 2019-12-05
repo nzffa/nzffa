@@ -56,5 +56,6 @@ ActionController::Routing::Routes.draw do |map|
      readers.resources :orders, :only => :index
      readers.resources :subscriptions, :member => { :cancel => :post }
     end
+    admin.resources :xero_syncs
   end
 end

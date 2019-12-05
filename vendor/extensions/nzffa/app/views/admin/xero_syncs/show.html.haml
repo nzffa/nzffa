@@ -1,0 +1,33 @@
+- body_classes << "reversed"
+
+%h1 Xero synchronisation
+
+%p
+  Started on
+  = @xero_sync.created_at.strftime("%d %b %Y at %H:%M\"%S")
+%p
+  Completed on:
+  = @xero_sync.completed_at.strftime("%d %b %Y at %H:%M\"%S")
+
+%h1{:style => "margin-top: 1em"}
+  Orders marked as paid:
+.outset
+  %table.index#orders{:summary=>'Orders updated by this sync', :style => " background-color: white; color: black"}
+    %thead
+      %tr
+        %th ID
+        %th reader
+        %th amount
+        %th created on
+        %th Xero invoice ID
+        %th Xero payment ID
+
+    %tbody
+      -@xero_sync.xero_order_syncs.each do |sync|
+        %tr
+          %td=link_to sync.order.id, admin_order_path(sync.order)
+          %td=sync.order.reader.name
+          %td=sync.order.calculate_amount
+          %td=sync.order.created_at.to_date
+          %td=link_to sync.xero_invoice_id, "https://go.xero.com/AccountsReceivable/View.aspx?InvoiceID=#{sync.xero_invoice_id}"
+          %td=link_to sync.xero_payment_id, "https://go.xero.com/Bank/ViewTransaction.aspx?bankTransactionID=#{sync.xero_payment_id}"

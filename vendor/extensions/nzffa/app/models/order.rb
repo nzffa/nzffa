@@ -135,7 +135,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def paid!(method)
+  def paid!(method, date = Date.today)
     self.payment_method = method
     unless payment_method.present?
       raise 'Payment method required'
@@ -143,7 +143,7 @@ class Order < ActiveRecord::Base
     if old_subscription.present?
       old_subscription.cancel!
     end
-    update_attribute(:paid_on, Date.today)
+    update_attribute(:paid_on, date)
 
     if needs_donation_receipt?
       # Send donation receipt
@@ -248,10 +248,7 @@ class Order < ActiveRecord::Base
         end
       when "fft_marketplace_levy"
         fft_group = Group.fft_group
-        # subscription, subscription in advance, or refund?
-        if line.amount < 0
-          index = 2
-        elsif advance_payment
+        if advance_payment
           index = 1
         else
           index = 0
@@ -280,10 +277,6 @@ class Order < ActiveRecord::Base
 
     invoice.create
     self.update_attribute :xero_id, invoice.invoice_id
-  end
-
-  def update_from_xero
-
   end
 
   private

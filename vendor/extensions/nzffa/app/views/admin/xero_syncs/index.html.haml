@@ -1,0 +1,23 @@
+.outset
+  %table.index#xero_syncs{:summary=>'Xero synchronisations', :style => " background-color: white; color: black"}
+    %thead
+      %tr
+        %th ID
+        %th Started
+        %th Completed
+        %th Number of orders marked as paid
+
+    %tbody
+      - @xero_syncs.each do |xero_sync|
+        %tr
+          %td.name= link_to(xero_sync.id, admin_xero_sync_path(xero_sync))
+          %td= xero_sync.created_at.strftime("%d %b %Y at %H:%M\"%S")
+          %td= xero_sync.completed_at.try(:strftime, "%d %b %Y at %H:%M\"%S")
+          %td= xero_sync.xero_order_syncs.count
+      - if @xero_syncs.empty?
+        %tr
+          %td{:colspan => 9}= "No syncs yet..."
+  #actions
+    = pagination_for(@xero_syncs)
+    %ul
+      %li= link_to image('plus') + " New synchronisation", new_admin_xero_sync_url, :class => 'action_button'

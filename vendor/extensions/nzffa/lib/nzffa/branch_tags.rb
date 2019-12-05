@@ -1,13 +1,13 @@
 module Nzffa::BranchTags
   include Radiant::Taggable
-  
+
   class TagError < StandardError; end
 
   tag "branches" do |tag|
     tag.locals.branches = Group.branches
     tag.expand
   end
-  
+
   desc %{
     Iterates over all the branches
 
@@ -22,7 +22,7 @@ module Nzffa::BranchTags
     end
     result.join ''
   end
-  
+
   desc %{
     Sets the branch scope the branch with the id specified in the id attribute.
 
@@ -35,14 +35,14 @@ module Nzffa::BranchTags
       tag.expand if tag.locals.branch
     end
   end
-  
+
   desc %{
     Sets the group scope to the current branch.
 
     <pre><code><r:branch id="1"><r:group>...</r:group></r:branch></code></pre>
-    
+
     or
-    
+
     <pre><code><r:branches:each:group>...</r:branches:each:group></code></pre>
   }
   tag "branches:each:group" do |tag|
@@ -53,7 +53,7 @@ module Nzffa::BranchTags
     tag.locals.group = tag.locals.branch
     tag.expand
   end
-  
+
   %w(secretary president treasurer councillor newsletter_editor).each do |role|
     desc %{
       Sets the reader scope to the current group's #{role}.
@@ -68,9 +68,9 @@ module Nzffa::BranchTags
       tag.locals.reader = tag.locals.send(role)
       tag.expand
     end
-  
+
   end
-  
+
   desc %{
     Renders a link to the branch_admin page of the current group if it is a branch.
     You can set your own link text by using this as a double tag
@@ -90,7 +90,7 @@ module Nzffa::BranchTags
   def group_find_options tag
     attr = tag.attr.symbolize_keys
     options = {}
-    
+
     by = (attr[:by] || 'name').strip
     order = (attr[:order] || 'asc').strip
     order_string = ''
