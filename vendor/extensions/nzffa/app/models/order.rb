@@ -265,6 +265,12 @@ class Order < ActiveRecord::Base
           :account_code => "4-1500",
           :unit_amount => line.amount.to_i
         )
+      when "casual_member_nz_tree_grower_magazine_levy"
+        line_item = XeroGateway::LineItem.new(
+          :description => "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
+          :account_code => "4-1500",
+          :unit_amount => line.amount.to_i
+        )
       when "research_fund_contribution"
         line_item = XeroGateway::LineItem.new(
           :description => "Research fund contribution",
