@@ -288,9 +288,10 @@ class Order < ActiveRecord::Base
       end
       invoice.line_items << line_item unless line_item.nil?
     end
-
-    invoice.create
-    self.update_attribute :xero_id, invoice.invoice_id
+    if invoice.line_items.any?
+      invoice.create
+      self.update_attribute :xero_id, invoice.invoice_id
+    end
   end
 
   private
