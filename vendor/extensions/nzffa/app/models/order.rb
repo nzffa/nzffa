@@ -173,10 +173,10 @@ class Order < ActiveRecord::Base
     invoice = @gateway.build_invoice({
       :invoice_type => "ACCREC",
       :invoice_status => "AUTHORISED",
-      :date => created_at.to_date,
-      :due_date => (created_at + 1.month),
-      :invoice_number => id,
-      :reference => "Member ID #{reader.nzffa_membership_id}",
+      :date => o.created_at.to_date,
+      :due_date => (o.created_at + 1.month),
+      :invoice_number => o.id,
+      :reference => "Member ID #{o.reader.nzffa_membership_id}",
       :line_amount_types => "Inclusive"
     })
     invoice.contact.name = reader.name
@@ -283,6 +283,12 @@ class Order < ActiveRecord::Base
         line_item = XeroGateway::LineItem.new(
           :description => "Research fund contribution",
           :account_code => "4-2030",
+          :unit_amount => line.amount.to_i
+        )
+      when "extra"
+        line_item = XeroGateway::LineItem.new(
+          :description => "Extra",
+          :account_code => "4-3580",
           :unit_amount => line.amount.to_i
         )
       end
