@@ -193,19 +193,27 @@ class Order < ActiveRecord::Base
     order_lines.each do |line|
       case line.kind
       when "admin_levy"
-        branch = Group.find_by_name(line.particular)
         if advance_payment
           index = 1
         else
           index = 0
         end
-        account_code = branch.account_codes.split(",")[index]
-        line_item = XeroGateway::LineItem.new(
-          :description => "Admin levy",
-          :account_code => account_code,
-          :unit_amount => line.amount.to_i
-        )
-        line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
+        if branch = Group.find_by_name(line.particular)
+          account_code = branch.account_codes.split(",")[index]
+          line_item = XeroGateway::LineItem.new(
+            :description => "Admin levy",
+            :account_code => account_code,
+            :unit_amount => line.amount.to_i
+          )
+          line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
+        elsif line.particular == 'fft_marketplace' # FFT admin levy for casual membership
+          account_code = Group.fft_group.account_codes.split(",")[index]
+          line_item = XeroGateway::LineItem.new(
+            :description => "FFT Admin levy",
+            :account_code => account_code,
+            :unit_amount => line.amount.to_i
+          )
+        end
       when "branch_levy"
         branch = Group.find_by_name(line.particular)
         if advance_payment
