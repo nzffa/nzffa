@@ -79,7 +79,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/xero_gateway.git
-  revision: 2af2b50dde65e2a15e2eacce0b8d183bf5cf27c4
+  revision: 62480a93c07d340bef1e8e967cb7b4bcff08b0b0
   specs:
     xero_gateway (2.7.0)
       activesupport (< 5)
@@ -274,6 +274,7 @@ DEPENDENCIES
   multi_json (= 1.0.4)
   mysql2
   net-ssh (= 2.9.4)
+  oauth (= 0.5.1)
   parallel (~> 0.5.12)
   rack-cache (= 1.2)
   radiant (= 1.1.4)
