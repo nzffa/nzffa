@@ -19,6 +19,7 @@ class Order < ActiveRecord::Base
   delegate :nzffa_member_id, :to => :reader
 
   after_save :check_if_paid
+  after_create :create_xero_invoice
 
   def combined_full_member_levy
     # assume full member
@@ -170,11 +171,13 @@ class Order < ActiveRecord::Base
 
   def create_xero_invoice
     @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
+    advance_payment = subscription.expires_on > Date.today.end_of_year
+    due_date = advance_payment ? (Date.today.end_of_year + 1.day) : (created_at + 1.month)
     invoice = @gateway.build_invoice({
       :invoice_type => "ACCREC",
       :invoice_status => "AUTHORISED",
       :date => created_at.to_date,
-      :due_date => (created_at + 1.month),
+      :due_date => due_date,
       :invoice_number => id,
       :reference => "Member ID #{reader.nzffa_membership_id}",
       :line_amount_types => "Inclusive"
@@ -188,7 +191,6 @@ class Order < ActiveRecord::Base
     invoice.contact.address.region = reader.post_province
     invoice.contact.address.country = reader.post_country
     invoice.contact.address.post_code = reader.postcode
-    advance_payment = subscription.expires_on > Date.today.end_of_year
     # split_order_lines = advance_payment && (subscription.begins_on < Date.today.end_of_year)
     order_lines.each do |line|
       case line.kind
