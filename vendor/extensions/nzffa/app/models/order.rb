@@ -172,12 +172,12 @@ class Order < ActiveRecord::Base
   def create_xero_invoice
     @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
     advance_payment = subscription.expires_on > Date.today.end_of_year
-    due_date = advance_payment ? (Date.today.end_of_year + 1.day) : (created_at + 1.month)
+    creation_date = advance_payment ? (Date.today.end_of_year + 1.day) : created_at
     invoice = @gateway.build_invoice({
       :invoice_type => "ACCREC",
       :invoice_status => "AUTHORISED",
-      :date => created_at.to_date,
-      :due_date => due_date,
+      :date => creation_date,
+      :due_date => (creation_date + 1.month),
       :invoice_number => id,
       :reference => "Member ID #{reader.nzffa_membership_id}",
       :line_amount_types => "Inclusive"
