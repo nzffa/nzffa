@@ -1,5 +1,9 @@
 .section
-  %h3 Subscription Renewal / Tax Invoice - #{@subscription.begins_on.strftime('%B %Y')} - #{@subscription.expires_on.strftime('%B %Y')}
+  %h3
+    - if params[:action] == 'print_renewal'
+      Subscription Renewal - #{@subscription.begins_on.strftime('%B %Y')} - #{@subscription.expires_on.strftime('%B %Y')}
+    - else
+      Tax Invoice - #{@subscription.begins_on.strftime('%B %Y')} - #{@subscription.expires_on.strftime('%B %Y')}
   %table{:style => 'width: 100%'}
     %tr
       %td{:style => 'width: 70%'}
@@ -44,36 +48,39 @@
     Last year #{number_to_currency(@subscription.research_fund_contribution_amount)}
   Tick if you want your Research Contribution treated as a donation - receipt will be sent
 
-.section
-  %table{:width => '70%'}
-    %tr
-      %td
-        %b Other Products
-      %td.price
-        %b Price each
-      %td.price
-        %b Quantity
-    %tr
-      %td Wardle's Native Trees of New Zealand and Their Story
-      %td.price $95.00
-      %td.quantity
-        -if @subscription.tree_grower_delivery_location != 'new_zealand'
-          plus overseas postage
-    %tr
-      %td Wardle's 'Woodside - A small forest managed on multiple use principles'
-      %td.price $35.00
-      %td.quantity
-        -if @subscription.tree_grower_delivery_location != 'new_zealand'
-          plus overseas postage
-    %tr
-      %td Neil Barr Book - Eucalypt Trees for Milling
-      %td.price $15.00
-      %td.quantity
-        -if @subscription.tree_grower_delivery_location != 'new_zealand'
-          plus overseas postage
+- if params[:action] == 'print_renewal'
+  .section
+    %table{:width => '70%'}
+      %tr
+        %td
+          %b Other Products
+        %td.price
+          %b Price each
+        %td.price
+          %b Quantity
+      %tr
+        %td Wardle's Native Trees of New Zealand and Their Story
+        %td.price $95.00
+        %td.quantity
+          -if @subscription.tree_grower_delivery_location != 'new_zealand'
+            plus overseas postage
+      %tr
+        %td Wardle's 'Woodside - A small forest managed on multiple use principles'
+        %td.price $35.00
+        %td.quantity
+          -if @subscription.tree_grower_delivery_location != 'new_zealand'
+            plus overseas postage
+      %tr
+        %td Neil Barr Book - Eucalypt Trees for Milling
+        %td.price $15.00
+        %td.quantity
+          -if @subscription.tree_grower_delivery_location != 'new_zealand'
+            plus overseas postage
 
 %h3.gst-total
   -if @subscription.receive_tree_grower_magazine? and @subscription.tree_grower_delivery_location != 'new_zealand'
     NZ Dollar Total
   -else
     GST Inclusive Total
+  - if params[:action] == 'print'
+    = ": #{number_to_currency(@order.amount)}"

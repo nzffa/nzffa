@@ -8,12 +8,13 @@
   %table{:style => 'width: 100%'}
     %tr
       %td{:style => 'width: 70%'}
-        Please amend anything that has changed and write the total in the total column.
-        %br
-        -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
-        -base_levy = @order.admin_levy + @order.full_member_tree_grower_levy + @order.main_branch_levy
-        -areas = keys.sort.map{ |size| "#{size} ha ($#{(NzffaSettings.forest_size_levys[size] + base_levy).to_i})" }
-        Your main branch and forest area levy for other forest size options: #{areas.join(' and ')}
+        - if params[:action] == 'print_renewal'
+          Please amend anything that has changed and write the total in the total column.
+          %br
+          -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
+          -base_levy = @order.admin_levy + @order.full_member_tree_grower_levy + @order.main_branch_levy
+          -areas = keys.sort.map{ |size| "#{size} ha ($#{(NzffaSettings.forest_size_levys[size] + base_levy).to_i})" }
+          Your main branch and forest area levy for other forest size options: #{areas.join(' and ')}
       %td.price{:style => 'width: 15%'}
         Rate
       %td.price{:style => 'width: 15%'}
@@ -50,10 +51,11 @@
         %b Voluntary Research Contribution:
       %td.price
         = number_to_currency(@subscription.research_fund_contribution_amount)
-    %tr
-      %td
-        = check_box_tag :box
-        Tick if you want your Research Contribution treated as a donation - receipt will be sent
+    - if params[:action] == 'print_renewal'
+      %tr
+        %td
+          = check_box_tag :box
+          Tick if you want your Research Contribution treated as a donation - receipt will be sent
     %tr
       %td.subtotal
         %b Subtotal:
@@ -89,60 +91,62 @@
       %td
       %td
 
+- if params[:action] == 'print_renewal'
+  .section
+    %h4 Associate Branches
+    %table
+      -branches = Group.branches.all(:order => 'name') - @subscription.branches
+      -branches.in_groups_of(4) do |group|
+        %tr
+          -group.compact.each do |b|
+            %td=check_box_tag b.id
+            %td #{b.name} ($#{b.annual_levy.to_i})
 
-.section
-  %h4 Associate Branches
-  %table
-    -branches = Group.branches.all(:order => 'name') - @subscription.branches
-    -branches.in_groups_of(4) do |group|
+  .section
+    %h4 Special Interest Groups
+    %table
+      -action_groups = Group.action_groups.all(:order => 'name') - @subscription.action_groups
+      -action_groups << Group.find(NzffaSettings.fft_marketplace_group_id)
+      -action_groups.reverse.in_groups_of(3) do |group|
+        %tr
+          -group.compact.each do |b|
+            %td=check_box_tag b.id
+            %td #{b.name} ($#{b.annual_levy.to_i})
+
+  .section
+    %table{:width => '70%'}
       %tr
-        -group.compact.each do |b|
-          %td=check_box_tag b.id
-          %td #{b.name} ($#{b.annual_levy.to_i})
-
-.section
-  %h4 Special Interest Groups
-  %table
-    -action_groups = Group.action_groups.all(:order => 'name') - @subscription.action_groups
-    -action_groups << Group.find(NzffaSettings.fft_marketplace_group_id)
-    -action_groups.reverse.in_groups_of(3) do |group|
+        %td
+          %b Other Products
+        %td.price
+          %b Price each
+        %td.price
+          %b Quantity
       %tr
-        -group.compact.each do |b|
-          %td=check_box_tag b.id
-          %td #{b.name} ($#{b.annual_levy.to_i})
-
-.section
-  %table{:width => '70%'}
-    %tr
-      %td
-        %b Other Products
-      %td.price
-        %b Price each
-      %td.price
-        %b Quantity
-    %tr
-      %td Wardle's Native Trees of New Zealand and Their Story
-      %td.price $50.00
-      %td.quantity
-    %tr
-      %td Wardle's 'Woodside - A small forest managed on multiple use principles'
-      %td.price $35.00
-      %td.quantity
-    %tr
-      %td Neil Barr Book - Eucalypt Trees for Milling
-      %td.price $15.00
-      %td.quantity
-    %tr
-      %td NZFFA Gate Sign, Jersey Badge and Lapel Pin Pack
-      %td.price $15.00
-      %td.quantity
-    %tr
-      %td NZFFA Insignia Cap
-      %td.price $25.00
-      %td.quantity
+        %td Wardle's Native Trees of New Zealand and Their Story
+        %td.price $50.00
+        %td.quantity
+      %tr
+        %td Wardle's 'Woodside - A small forest managed on multiple use principles'
+        %td.price $35.00
+        %td.quantity
+      %tr
+        %td Neil Barr Book - Eucalypt Trees for Milling
+        %td.price $15.00
+        %td.quantity
+      %tr
+        %td NZFFA Gate Sign, Jersey Badge and Lapel Pin Pack
+        %td.price $15.00
+        %td.quantity
+      %tr
+        %td NZFFA Insignia Cap
+        %td.price $25.00
+        %td.quantity
 
 %h3.gst-total
   -if @subscription.receive_tree_grower_magazine? and @subscription.tree_grower_delivery_location != 'new_zealand'
     NZ Dollar Total
   -else
     GST Inclusive Total
+  - if params[:action] == 'print'
+    = ": #{number_to_currency(@order.amount)}"
