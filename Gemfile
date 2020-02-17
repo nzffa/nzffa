@@ -16,7 +16,8 @@ gem 'httparty', '0.10.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
 
-gem "mysql2"
+gem "mysql2", "0.4.6" # Have had to pin this version on my own machine as 0.4.10 was throwing
+                      # script/server: symbol lookup error: [snip]mysql2-0.4.10/lib/mysql2/mysql2.so: undefined symbol: rb_thread_blocking_region_begin
 gem "activerecord-mysql2-adapter"
 gem "rack-cache", "1.2"
 gem "execjs", "2.0.0"
