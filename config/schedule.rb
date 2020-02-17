@@ -8,3 +8,6 @@ end
 every '42 0 14 11 *' do
   rake 'radiant:extensions:nzffa:subscription_email_warnings'
 end
+every '2 7 * * 0' do
+  rake 'radiant:extensions:nzffa:synchronize_xero_payments'
+end
