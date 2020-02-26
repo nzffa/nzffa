@@ -10,8 +10,8 @@ set :stages, %w(production staging)
 set :default_stage, "staging"
 
 set :application, "nzffa"
-set :user, "nzffa"
-set :group, "www-data"
+set :user, "nzffa-app"
+# set :group, "www-data"
 
 set :scm, :git
 set :repository, "git@github.com:nzffa/nzffa.git"
@@ -43,6 +43,7 @@ namespace(:custom) do
     run "ln -nfs #{shared_path}/privatekey.pem #{release_path}"
     run "rm -f #{release_path}/config.ru"
   end
+
 end
 
 def link_from_shared_to_current(path, dest_path = path)
