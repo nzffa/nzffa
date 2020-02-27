@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-downloads-extension.git
-  revision: a4cd91bed46edce568cce9a59f065a8f3686a504
+  revision: 5d54ae6eef40da25bd044fd848cedb4a942604ec
   specs:
     radiant-downloads-extension (0.6.0)
       paperclip (~> 2.7.0)
