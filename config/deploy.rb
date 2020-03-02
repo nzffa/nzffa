@@ -41,7 +41,6 @@ namespace(:custom) do
     run "ln -nfs #{shared_path}/post_attachments #{release_path}/post_attachments"
     run "ln -nfs #{shared_path}/secure_downloads #{release_path}/secure_downloads"
     run "ln -nfs #{shared_path}/privatekey.pem #{release_path}"
-    run "rm -f #{release_path}/config.ru"
   end
 
 end
