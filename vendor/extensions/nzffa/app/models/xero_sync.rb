@@ -14,7 +14,7 @@ class XeroSync < ActiveRecord::Base
       next unless order = Order.find_by_xero_id(xid)
       Rails.logger.warn("Synchronizing Xero invoice #{xid} to order #{order.id}")
       xero_order_syncs.create(:order => order, :xero_payment_id => payment.payment_id, :xero_invoice_id => xid)
-      # sleep(2.seconds) # < throws TypeError in Ruby 1.8 :/
+      sleep(2.seconds) # < throws TypeError in Ruby 1.8 :/
     end
     update_attribute :completed_at, Time.now
   end
