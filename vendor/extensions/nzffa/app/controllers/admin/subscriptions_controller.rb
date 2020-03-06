@@ -26,8 +26,6 @@ class Admin::SubscriptionsController < AdminController
     render :layout => false
   end
 
-
-
   def index
     @subscriptions = Subscription.paginate(:page => params[:page], :order => 'id desc')
   end
@@ -122,6 +120,57 @@ class Admin::SubscriptionsController < AdminController
     end
 
     redirect_to :back
+  end
+
+  def reapply_subscription_groups
+    render :text => proc { |response, output|
+      Reader.find_each do |reader|
+        next if reader.is_resigned?
+        before_ids = reader.group_ids.uniq
+        AppliesSubscriptionGroups.remove(reader)
+        if reader.has_active_subscription?
+          AppliesSubscriptionGroups.apply(reader.active_subscription, reader)
+        end
+        after_ids = reader.group_ids.uniq
+        removed_ids = before_ids - after_ids
+        added_ids = after_ids - before_ids
+        unless removed_ids.empty?
+          output.write "Removed #{removed_ids.inspect} from reader_id: #{reader.id}\n"
+        end
+        if added_ids.any?
+          output.write "Added #{added_ids.inspect} to reader_id: #{reader.id}\n"
+        end
+      end
+
+      output.write "Rebuilding non-renewed members groups ...\n"
+      group = Group.find(NzffaSettings.non_renewed_members_group_id)
+      group.readers.clear
+      last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "full"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
+      last_year_member_ids = last_year_subscriptions.map(&:reader_id)
+      active_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'full'").map(&:reader_id)
+      non_renewed_members = Reader.find(:all, :conditions => {:id => (last_year_member_ids - active_member_ids)}).select{|r| !r.is_resigned? }
+      group.readers << non_renewed_members
+      output.write "Added #{non_renewed_members.size} readers to non_renewed_members group\n"
+
+      casual_group = Group.find(NzffaSettings.non_renewed_casual_members_group_id)
+      casual_ex_fft = Group.find(NzffaSettings.non_renewed_cas_fft_members_group_id)
+      casual_group.readers.clear
+      casual_ex_fft.readers.clear
+
+      last_year_tg_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual" and receive_tree_grower_magazine = ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year, true])
+      last_year_tg_member_ids = last_year_tg_subscriptions.map(&:reader_id)
+      active_tg_member_ids = Subscription.active.find(:all, :conditions => ["membership_type = 'casual' and receive_tree_grower_magazine = ?", true]).map(&:reader_id)
+      non_renewed_tg_members = Reader.find(:all, :conditions => {:id => (last_year_tg_member_ids - active_tg_member_ids)}).select{|r| !r.is_resigned? }
+      casual_group.readers << non_renewed_tg_members
+      output.write "Added #{non_renewed_tg_members.size} readers to non_renewed_casual_members group\n"
+
+      last_year_fft_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year]).select{|s| s.belongs_to_fft }
+      last_year_fft_member_ids = last_year_fft_subscriptions.map(&:reader_id)
+      active_fft_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'casual'").select{|s| s.belongs_to_fft }.map(&:reader_id)
+      non_renewed_fft_members = Reader.find(:all, :conditions => {:id => (last_year_fft_member_ids - active_fft_member_ids)}).select{|r| !r.is_resigned? }
+      casual_ex_fft.readers << non_renewed_fft_members
+      output.write "Added #{non_renewed_fft_members.size} readers to non_renewed_fft_members group\n"
+    }, :content_type => 'text/plain'
   end
 
   private

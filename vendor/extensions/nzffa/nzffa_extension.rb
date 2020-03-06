@@ -38,6 +38,7 @@ class NzffaExtension < Radiant::Extension
     admin.reader.index.add :tbody, "ids_tds", :before => "title_cell"
     admin.reader.edit.add :form, 'form_additions', :after => "edit_notes"
     admin.reader.edit.form_bottom.unshift 'form_bottom_additions'
+    admin.reader_configuration.edit.add :main, 'form_addition', :after => 'edit_form'
     admin.group.edit.add :form, "group_levy", :after => "edit_group"
     admin.group.show.main.delete 'members'
     admin.group.show.main.delete 'pages'

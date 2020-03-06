@@ -1,0 +1,9 @@
+%fieldset
+  %h3
+    Remove expired subscriptions
+  %p
+    When the subscription for a reader expires, the reader is not immediately removed from the groups that the subscription gave him access to. Clicking this button will remove readers from the groups that they no longer should have access to, and will re-build the 'members that have not renewed' groups.
+  %p
+    This task may take up to a few minutes to complete.
+
+  = button_to "Re-apply subscription groups", reapply_subscription_groups_admin_subscriptions_url, {:method => :post, :style => 'background-color: red; color: white; padding: 5px 15px; font-size: 110%; font-weight: bold'}

@@ -72,55 +72,6 @@ namespace :radiant do
           #NotifySubscriber.deliver_subscription_expired_email(subscription)
         #end
       #end
-
-      desc 'Reapply the subscription groups. Non-destructive; run as often as you like.'
-      task :reapply_subscription_groups => :environment do
-        Reader.find_each do |reader|
-          next if reader.is_resigned?
-          before_ids = reader.group_ids.uniq
-          AppliesSubscriptionGroups.remove(reader)
-          if reader.has_active_subscription?
-            AppliesSubscriptionGroups.apply(reader.active_subscription, reader)
-          end
-          after_ids = reader.group_ids.uniq
-          removed_ids = before_ids - after_ids
-          added_ids = after_ids - before_ids
-          unless removed_ids.empty?
-            puts "Removed #{removed_ids.inspect} from reader_id: #{reader.id}"
-          end
-          if added_ids.any?
-            puts "Added #{added_ids.inspect} to reader_id: #{reader.id}"
-          end
-        end
-        # Rebuild non-renewed members groups
-        group = Group.find(NzffaSettings.non_renewed_members_group_id)
-        group.readers.clear
-        last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "full"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
-        last_year_member_ids = last_year_subscriptions.map(&:reader_id)
-        active_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'full'").map(&:reader_id)
-        non_renewed_members = Reader.find(:all, :conditions => {:id => (last_year_member_ids - active_member_ids)}).select{|r| !r.is_resigned? }
-        group.readers << non_renewed_members
-        puts "Added #{non_renewed_members.size} readers to non_renewed_members group"
-        casual_group = Group.find(NzffaSettings.non_renewed_casual_members_group_id)
-        casual_ex_fft = Group.find(NzffaSettings.non_renewed_cas_fft_members_group_id)
-        casual_group.readers.clear
-        casual_ex_fft.readers.clear
-
-        last_year_tg_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual" and receive_tree_grower_magazine = ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year, true])
-        last_year_tg_member_ids = last_year_tg_subscriptions.map(&:reader_id)
-        active_tg_member_ids = Subscription.active.find(:all, :conditions => ["membership_type = 'casual' and receive_tree_grower_magazine = ?", true]).map(&:reader_id)
-        non_renewed_tg_members = Reader.find(:all, :conditions => {:id => (last_year_tg_member_ids - active_tg_member_ids)}).select{|r| !r.is_resigned? }
-        casual_group.readers << non_renewed_tg_members
-
-        last_year_fft_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year]).select{|s| s.belongs_to_fft }
-        last_year_fft_member_ids = last_year_fft_subscriptions.map(&:reader_id)
-        active_fft_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'casual'").select{|s| s.belongs_to_fft }.map(&:reader_id)
-        non_renewed_fft_members = Reader.find(:all, :conditions => {:id => (last_year_fft_member_ids - active_fft_member_ids)}).select{|r| !r.is_resigned? }
-        casual_ex_fft.readers << non_renewed_fft_members
-
-        puts "Added #{non_renewed_tg_members.size} readers to non_renewed_casual_members group"
-        puts "Added #{non_renewed_fft_members.size} readers to non_renewed_fft_members group"
-      end
     end
   end
 end

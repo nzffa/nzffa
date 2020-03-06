@@ -47,7 +47,8 @@ ActionController::Routing::Routes.draw do |map|
                        :print_renewal => :get,
                        :renew => :get },
       :collection => { :batches_to_print => :get,
-                       :print_batch => :get}
+                       :print_batch => :get,
+                       :reapply_subscription_groups => :post }
     admin.resources :readers_plus,
       :except => [:new, :create],
       :member => [:create_user]
