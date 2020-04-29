@@ -3,7 +3,7 @@ class MembershipController < MarketplaceController
   AFTER_SIGNUP_PATH = '/become-a-nzffa-member/youre-registered'
   before_filter :require_reader, :only => [:details, :update]
   radiant_layout { |c| Radiant::Config['reader.layout'] }
-  
+
   def details
     @reader = current_reader
     @subscription = Subscription.active_subscription_for(@reader)
@@ -11,7 +11,7 @@ class MembershipController < MarketplaceController
   end
 
   def dashboard
-    # if they are an FFT member take them to 
+    # if they are an FFT member take them to
     if @reader.group_ids.include? NzffaSettings.fft_marketplace_group_id
       redirect_to FFT_MEMBERS_AREA_PATH
     else
@@ -25,10 +25,11 @@ class MembershipController < MarketplaceController
       if !current_reader
         # new member
         @reader = Reader.new(params[:reader])
+
         if @reader.save
-          @reader.update_attribute(:activated_at, DateTime.now)
           update_newsletter_preference
-          MembershipMailer.deliver_registration_email(params[:reader])
+          # MembershipMailer.deliver_registration_email(params[:reader])
+          @reader.send_activation_message
           flash[:notice] = "Thanks for registering with the NZFFA. #{@newsletter_alert} #{@fft_alert}"
           redirect_to '/membership/details/'
         end
@@ -55,10 +56,10 @@ class MembershipController < MarketplaceController
 
     render :layout => false if request.xhr?
   end
-  
+
   def update
     @reader = current_reader
-    
+
     if params[:reader]
       # form has been submitted
       @reader.update_attributes(params[:reader])
