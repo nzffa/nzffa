@@ -201,7 +201,7 @@ class Order < ActiveRecord::Base
           index = 0
         end
         if branch = Group.find_by_name(line.particular)
-          account_code = branch.account_codes.split(",")[index]
+          account_code = branch.account_codes.split(",").last # admin levies always go to the '4 accounts..'
           line_item = XeroGateway::LineItem.new(
             :description => "Admin levy",
             :account_code => account_code,

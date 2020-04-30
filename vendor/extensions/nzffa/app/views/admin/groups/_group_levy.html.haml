@@ -6,4 +6,6 @@
     = label_tag :group_account_codes, "Xero account codes"
     = text_field :group, :account_codes, :class => "textbox", :value => @group.account_codes
     %span.note
-      Separated by commas, in this order: subscriptions, advance subscriptions, refunds
+      Separated by commas, in this order: refund account, advance subscription account, subscription account
+      %br
+      E.g. "2-1010,2-3010,4-1010"
