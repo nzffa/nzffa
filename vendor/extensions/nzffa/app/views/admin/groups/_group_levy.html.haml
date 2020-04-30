@@ -3,7 +3,7 @@
     = label_tag :group_annual_levy, "Levy"
     = text_field :group, :annual_levy, :maxlength => 100, :class => "textbox", :value => @group.annual_levy
   %p.account_codes
-    = label_tag :group_account_codes, "Xero account code"
+    = label_tag :group_account_codes, "Xero account codes"
     = text_field :group, :account_codes, :class => "textbox", :value => @group.account_codes
     %span.note
-      For groups with 'in advance' accounts, use a comma and put the advance subscription account code last
+      Separated by commas, in this order: subscriptions, advance subscriptions, refunds
