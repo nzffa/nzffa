@@ -25,7 +25,8 @@
   %p
     =f.label :email, "Email", :class => :required
     %br
-    =f.text_field :email
+    =f.text_field :email, :class => :innocuous
+    %input.textbox#pdnlb{:name => "reader[pdnlb]", :type => "text", :size => 30}
 
   -unless @reader.new_record?
     %p Leave password fields blank unless you want to change your password.
@@ -38,7 +39,7 @@
     =f.label :password_confirmation
     %br
     =f.password_field :password_confirmation
-  
+
   %h3 Postal Address
   %p
     =f.label :post_line1, 'Address', :class => :required
@@ -49,22 +50,22 @@
     =f.label :post_line2, 'Address line 2'
     %br
     =f.text_field :post_line2
-    
+
   %p
     =f.label :post_city, 'Town or City', :class => :required
     %br
     =f.text_field :post_city
-    
+
   %p
     =f.label :post_province, 'Region'
     %br
     =f.text_field :post_province
-    
+
   %p
     =f.label :country
     %br
     =f.text_field :post_country
-    
+
   %p
     =f.label :postcode, "Postcode", :class => :required
     %br
@@ -79,7 +80,7 @@
   %p{:style => @reader.new_record? ? "display: none" : ''}
     =check_box_tag :receive_nzffa_members_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.nzffa_members_newsletter_group_id)
     =label_tag :receive_nzffa_members_newsletter, 'Receive NZFFA newsletters via email'
-  
+
   %p
     =check_box_tag :receive_small_scale_forest_grower_newsletter, "1", @reader.new_record? ? true : @reader.group_ids.include?(NzffaSettings.small_scale_forest_grower_newsletter_group_id)
     =label_tag :receive_small_scale_forest_grower_newsletter, 'Receive Small Scale Forest Grower Newsletter'

@@ -22,6 +22,12 @@ class MembershipController < MarketplaceController
   def register
     if params[:reader]
       # form has been submitted
+      if !params[:reader][:email].blank?
+        # Honeypot field has been filled in, abort and redirect back
+        redirect_to REGISTER_PATH and return
+      else
+        params[:reader][:email] = params[:reader].delete(:pdnlb)
+      end
       if !current_reader
         # new member
         @reader = Reader.new(params[:reader])
