@@ -68,6 +68,13 @@ class MembershipController < MarketplaceController
 
     if params[:reader]
       # form has been submitted
+      if !params[:reader][:email].blank?
+        # Honeypot field has been filled in, abort and redirect back
+        redirect_to REGISTER_PATH and return
+      else
+        params[:reader][:email] = params[:reader].delete(:pdnlb)
+      end
+      
       @reader.update_attributes(params[:reader])
       if @reader.save
         update_newsletter_preference
