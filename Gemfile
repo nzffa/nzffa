@@ -1,10 +1,19 @@
 source 'https://rubygems.org'
 
-# If you make any changes in this file, please run `bundle install`.
-# If new versions of your installed gems are available, run `bundle update`
+git 'https://github.com/makandra/rails.git', :branch => '2-3-lts' do
+  gem 'rails', '~>2.3.18'
+  gem 'actionmailer',     :require => false
+  gem 'actionpack',       :require => false
+  gem 'activerecord',     :require => false
+  gem 'activeresource',   :require => false
+  gem 'activesupport',    :require => false
+  gem 'railties',         :require => false
+  gem 'railslts-version', :require => false
+end
 
 # this breaks specs.. but is necessary for attachements i think
-gem "radiant", '1.1.4'
+# gem "radiant", '1.1.4'
+gem "radiant", :path => 'vendor/radiant'
 gem "rdoc", "4.2.0"
 gem "rake", "10.4.2"
 
@@ -12,12 +21,12 @@ gem "RedCloth", "~> 4.2.9"
 
 gem 'hpricot'
 gem 'fastercsv'
-gem 'httparty', '0.10.0'
+gem 'httparty', '0.13.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
 
-gem "mysql2", "0.4.10"
-gem "activerecord-mysql2-adapter"
+gem "mysql2", "0.4.9"
+# gem "activerecord-mysql2-adapter"
 gem "rack-cache", "1.2"
 gem "execjs", "2.0.0"
 gem "ref", "1.0.5"
@@ -30,7 +39,7 @@ gem 'whenever', '0.9.4', :require => false
 # gem "radiant-debug-extension",               "~> 1.0.2"
 # gem "radiant-exporter-extension",            "~> 1.1.0"
 # gem "radiant-markdown_filter-extension",     "~> 1.0.2"
-gem "radiant-sheets-extension",              "~> 1.1.0"
+# gem "radiant-sheets-extension",              "~> 1.1.0"
 gem "radiant-snippets-extension",            "~> 1.1.3"
 # gem "radiant-site_templates-extension",      "~> 1.0.6"
 # gem "radiant-smarty_pants_filter-extension", "~> 1.0.2"
@@ -93,14 +102,15 @@ gem "radiant-linx-extension"
 gem "radiant-downloads-extension", :git => 'git://github.com/nzffa/radiant-downloads-extension.git'
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
-gem 'fog', '1.1.0'
+# gem 'fog', '1.24.0'
 gem 'net-ssh', '2.9.4'
-gem 'multi_json', '1.0.4'
-gem 'parallel', '~> 0.5.12'
+# gem 'multi_json', '1.0.4'
+# gem 'parallel', '~> 0.5.12'
 
 # gem 'xero_gateway', :path => 'vendor/xero_gateway'
 gem 'oauth', '0.5.1'
-gem 'xero_gateway', :git => 'git://github.com/nzffa/xero_gateway.git'
+# gem 'xero_gateway', :git => 'git://github.com/nzffa/xero_gateway.git'
+# gem 'xeroizer', :path => 'vendor/xeroizer'
 
 group :production, :staging do
   gem 'airbrake', '4.1.0'

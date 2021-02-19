@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-downloads-extension.git
-  revision: 5d54ae6eef40da25bd044fd848cedb4a942604ec
+  revision: 9a5bb38b1dd9d786f2f92e9901cab1b809a409ce
   specs:
     radiant-downloads-extension (0.6.0)
       paperclip (~> 2.7.0)
@@ -78,30 +78,58 @@ GIT
     radiant-scheduler-extension (1.0.3)
 
 GIT
-  remote: git://github.com/nzffa/xero_gateway.git
-  revision: 62480a93c07d340bef1e8e967cb7b4bcff08b0b0
+  remote: https://github.com/makandra/rails.git
+  revision: c6c5ad39cc168db60bf7e33dad484ba8cff33dd3
+  branch: 2-3-lts
   specs:
-    xero_gateway (2.7.0)
-      activesupport (< 5)
-      builder (>= 3.2.2)
-      oauth (>= 0.3.6)
+    actionmailer (2.3.18.36)
+      actionpack (= 2.3.18.36)
+    actionpack (2.3.18.36)
+      activesupport (= 2.3.18.36)
+      rack (< 1.5)
+    activerecord (2.3.18.36)
+      activesupport (= 2.3.18.36)
+    activeresource (2.3.18.36)
+      activesupport (= 2.3.18.36)
+    activesupport (2.3.18.36)
+    rails (2.3.18.36)
+      actionmailer (= 2.3.18.36)
+      actionpack (= 2.3.18.36)
+      activerecord (= 2.3.18.36)
+      activeresource (= 2.3.18.36)
+      activesupport (= 2.3.18.36)
+      railslts-version (= 2.3.18.36)
+      railties (= 2.3.18.36)
+    railslts-version (2.3.18.36)
+    railties (2.3.18.36)
+      actionpack (= 2.3.18.36)
+      activesupport (= 2.3.18.36)
+      rake (>= 0.8.3, < 11)
+
+PATH
+  remote: vendor/radiant
+  specs:
+    radiant (1.1.4)
+      RedCloth (~> 4.2.0)
+      acts_as_tree (~> 0.1.1)
+      bundler (>= 1.0.0)
+      delocalize (~> 0.2.3)
+      haml (~> 3.1.1)
+      highline (~> 1.6.10)
+      rack (~> 1.2.0)
+      rack-cache (~> 1.2)
+      radius (~> 0.7.3)
+      rails (~> 2.3.18)
+      rake (>= 0.8.7)
+      rdoc (>= 3.9.2)
+      stringex (~> 1.3.0)
+      tzinfo (~> 0.3.31)
+      will_paginate (~> 2.3.11)
 
 GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
-    actionmailer (2.3.18)
-      actionpack (= 2.3.18)
-    actionpack (2.3.18)
-      activesupport (= 2.3.18)
-      rack (~> 1.1.0)
-    activerecord (2.3.18)
-      activesupport (= 2.3.18)
-    activerecord-mysql2-adapter (0.0.3)
-      mysql2
-    activeresource (2.3.18)
-      activesupport (= 2.3.18)
-    activesupport (2.3.18)
     acts_as_list (0.1.4)
     acts_as_tree (0.1.1)
     airbrake (4.1.0)
@@ -112,7 +140,7 @@ GEM
     authlogic (2.1.11)
       activerecord (~> 2.3.0)
       activesupport (~> 2.3.0)
-    builder (3.2.3)
+    builder (3.2.4)
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
@@ -120,49 +148,25 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     chronic (0.10.2)
-    chunky_png (1.3.8)
     cocaine (0.3.2)
-    coffee-script (2.2.0)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     color (1.8)
-    compass (0.12.7)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.2.19)
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
     delocalize (0.2.6)
-    excon (0.7.12)
     execjs (2.0.0)
     fastercsv (1.5.5)
-    fog (1.1.0)
-      builder
-      excon (~> 0.7.4)
-      formatador (~> 0.2.0)
-      mime-types
-      multi_json (~> 1.0.3)
-      net-scp (~> 1.0.4)
-      net-ssh (>= 2.2.1)
-      nokogiri (~> 1.5.0)
-      ruby-hmac
-    formatador (0.2.5)
-    fssm (0.2.10)
     haml (3.1.8)
     highline (1.6.21)
     hpricot (0.8.6)
-    httparty (0.10.0)
-      multi_json (~> 1.0)
-      multi_xml
+    httparty (0.13.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     json (1.8.6)
     libv8 (3.16.14.19)
     mime-types (1.22)
-    multi_json (1.0.4)
+    multi_json (1.15.0)
     multi_xml (0.6.0)
-    mysql2 (0.4.10)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
+    mysql2 (0.4.9)
+    net-scp (3.0.0)
+      net-ssh (>= 2.6.5, < 7.0.0)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.4)
@@ -176,28 +180,9 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (~> 0.3.0)
       mime-types
-    parallel (0.5.21)
-    rack (1.1.6)
+    rack (1.2.8)
     rack-cache (1.2)
       rack (>= 0.4)
-    radiant (1.1.4)
-      RedCloth (~> 4.2.0)
-      acts_as_tree (~> 0.1.1)
-      bundler (>= 1.0.0)
-      compass (~> 0.12.2)
-      compass-rails (~> 1.0.3)
-      delocalize (~> 0.2.3)
-      haml (~> 3.1.1)
-      highline (~> 1.6.10)
-      rack (~> 1.1.6)
-      rack-cache (~> 1.2)
-      radius (~> 0.7.3)
-      rails (~> 2.3.18)
-      rake (>= 0.8.7)
-      rdoc (>= 3.9.2)
-      stringex (~> 1.3.0)
-      tzinfo (~> 0.3.31)
-      will_paginate (~> 2.3.11)
     radiant-ck_editor_filter-extension (0.2.9)
     radiant-clipped-extension (1.1.2)
       acts_as_list (= 0.1.4)
@@ -219,37 +204,25 @@ GEM
     radiant-relations-extension (1.2.8)
     radiant-reorder_children-extension (1.0.10)
     radiant-search-extension (1.0.0)
-    radiant-sheets-extension (1.1.0)
-      coffee-script (~> 2.2.0)
-      sass (~> 3.2.1)
     radiant-snippets-extension (1.1.3)
-    radius (0.7.4)
-    rails (2.3.18)
-      actionmailer (= 2.3.18)
-      actionpack (= 2.3.18)
-      activerecord (= 2.3.18)
-      activeresource (= 2.3.18)
-      activesupport (= 2.3.18)
-      rake (>= 0.8.3)
+    radius (0.7.5)
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
     ref (1.0.5)
-    rr (1.2.0)
-    ruby-hmac (0.4.0)
-    ruby-ole (1.2.12.1)
+    rr (1.2.1)
+    ruby-ole (1.2.12.2)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
-    sass (3.2.19)
     snail (0.5.7)
-    spreadsheet (1.1.7)
-      ruby-ole (>= 1.0)
+    spreadsheet (1.2.7)
+      ruby-ole
     stringex (1.3.3)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
     thor (0.14.6)
-    tzinfo (0.3.53)
+    tzinfo (0.3.60)
     uuidtools (2.1.5)
     vcard (0.1.1)
     whenever (0.9.4)
@@ -261,23 +234,24 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (~> 4.2.9)
-  activerecord-mysql2-adapter
+  actionmailer!
+  actionpack!
+  activerecord!
+  activeresource!
+  activesupport!
   airbrake (= 4.1.0)
   backup!
   capistrano (~> 2.14.1)
   execjs (= 2.0.0)
   fastercsv
-  fog (= 1.1.0)
   hpricot
-  httparty (= 0.10.0)
+  httparty (= 0.13.0)
   mime-types (= 1.22)
-  multi_json (= 1.0.4)
-  mysql2 (= 0.4.10)
+  mysql2 (= 0.4.9)
   net-ssh (= 2.9.4)
   oauth (= 0.5.1)
-  parallel (~> 0.5.12)
   rack-cache (= 1.2)
-  radiant (= 1.1.4)
+  radiant!
   radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-clipped-extension (~> 1.1.2)
   radiant-conference-extension!
@@ -302,8 +276,10 @@ DEPENDENCIES
   radiant-scheduler-extension!
   radiant-search-extension
   radiant-settings-extension (~> 1.1.1)!
-  radiant-sheets-extension (~> 1.1.0)
   radiant-snippets-extension (~> 1.1.3)
+  rails (~> 2.3.18)!
+  railslts-version!
+  railties!
   rake (= 10.4.2)
   rdoc (= 4.2.0)
   ref (= 1.0.5)
@@ -311,7 +287,6 @@ DEPENDENCIES
   sanitize (= 2.0.3)
   therubyracer
   whenever (= 0.9.4)
-  xero_gateway!
 
 BUNDLED WITH
    1.17.3
