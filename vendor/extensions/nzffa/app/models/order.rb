@@ -201,7 +201,7 @@ class Order < ActiveRecord::Base
           line_item = XeroGateway::LineItem.new(
             :description => "Admin levy",
             :account_code => account_code,
-            :unit_amount => line.amount.to_i
+            :unit_amount => line.amount
           )
           line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
         elsif line.particular == 'fft_marketplace' # FFT admin levy for casual membership
@@ -209,7 +209,7 @@ class Order < ActiveRecord::Base
           line_item = XeroGateway::LineItem.new(
             :description => "FFT Admin levy",
             :account_code => account_code,
-            :unit_amount => line.amount.to_i
+            :unit_amount => line.amount
           )
         end
       when "branch_levy"
@@ -223,7 +223,7 @@ class Order < ActiveRecord::Base
         line_item = XeroGateway::LineItem.new(
           :description => "Branch levy - #{branch.name}",
           :account_code => account_code,
-          :unit_amount => line.amount.to_i
+          :unit_amount => line.amount
         )
         line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Branch', :options => line.particular)
       when "action_group_levy"
@@ -232,7 +232,7 @@ class Order < ActiveRecord::Base
         line_item = XeroGateway::LineItem.new(
           :description => "Action group levy - #{action_group.name}",
           :account_code => account_code,
-          :unit_amount => line.amount.to_i
+          :unit_amount => line.amount
         )
         line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Sub Group', :options => line.particular)
       when "forest_size_levy"
@@ -249,7 +249,7 @@ class Order < ActiveRecord::Base
           line_item = XeroGateway::LineItem.new(
             :description => "Area levy #{line.particular}",
             :account_code => account_code,
-            :unit_amount => line.amount.to_i
+            :unit_amount => line.amount
           )
         end
       when "fft_marketplace_levy"
@@ -263,31 +263,31 @@ class Order < ActiveRecord::Base
         line_item = XeroGateway::LineItem.new(
           :description => "FFT marketplace levy - #{line.particular.gsub('_',' ')}",
           :account_code => account_code,
-          :unit_amount => line.amount.to_i
+          :unit_amount => line.amount
         )
       when "nz_tree_grower_magazine_levy"
         line_item = XeroGateway::LineItem.new(
           :description => "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
           :account_code => "4-1500",
-          :unit_amount => line.amount.to_i
+          :unit_amount => line.amount
         )
       when "casual_member_nz_tree_grower_magazine_levy"
         line_item = XeroGateway::LineItem.new(
           :description => "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
           :account_code => "4-3500",
-          :unit_amount => line.amount.to_i
+          :unit_amount => line.amount
         )
       when "research_fund_contribution"
         line_item = XeroGateway::LineItem.new(
           :description => "Research fund contribution",
           :account_code => "4-2030",
-          :unit_amount => line.amount.to_i
+          :unit_amount => line.amount
         )
       when "extra"
         line_item = XeroGateway::LineItem.new(
           :description => "Extra",
           :account_code => "4-3580",
-          :unit_amount => line.amount.to_i
+          :unit_amount => line.amount
         )
       end
       invoice.line_items << line_item unless line_item.nil?
