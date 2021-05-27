@@ -99,7 +99,7 @@ gem 'multi_json', '1.0.4'
 gem 'parallel', '~> 0.5.12'
 
 # gem 'xero_gateway', :path => 'vendor/xero_gateway'
-gem 'oauth', '0.5.1'
+gem 'oauth', '0.5.6'
 gem 'xero_gateway', :git => 'git://github.com/nzffa/xero_gateway.git'
 
 group :production, :staging do
