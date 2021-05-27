@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  # Leaving 'Cheque' in there for now, so as not to invalidate previous orders
   PAYMENT_METHODS = ['Direct Debit', 'Direct Credit', 'Credit Card', 'Cheque', 'Cash', 'Online', 'NoCharge']
   belongs_to :subscription, :dependent => :destroy
   belongs_to :old_subscription, :class_name => 'Subscription'
