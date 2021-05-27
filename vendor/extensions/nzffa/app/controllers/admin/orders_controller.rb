@@ -10,7 +10,7 @@ class Admin::OrdersController < Admin::ResourceController
     else
       @orders = paginated? ? Order.paginate(pagination_parameters) : Order.all
     end
-    
+
   end
 
   def new
@@ -21,7 +21,7 @@ class Admin::OrdersController < Admin::ResourceController
 
   def edit
     @order = Order.find(params[:id])
-    @order.paid_on ||= Date.today
+    # @order.paid_on ||= Date.today
     @order.order_lines.build
     @order.order_lines.build
     @order.order_lines.build
