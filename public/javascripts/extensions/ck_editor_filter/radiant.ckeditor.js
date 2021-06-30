@@ -17,6 +17,7 @@ function instantiateCkEditor(partIndex){
 	[
 		['Styles','Format'], ['Undo','Redo'],
     ['Bold','Italic','Strike','-','Subscript','Superscript'],
+    ['JustifyLeft','JustifyCenter','JustifyRight'],
     ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
     ['radiantpreview', 'PasteCode', 'Paste','PasteFromWord', 'RemoveFormat'],
     ['Find','Replace', 'Scayt'],
