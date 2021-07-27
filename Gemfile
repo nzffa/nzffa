@@ -3,22 +3,38 @@ source 'https://rubygems.org'
 # If you make any changes in this file, please run `bundle install`.
 # If new versions of your installed gems are available, run `bundle update`
 
+# Because LTS
+git 'https://github.com/makandra/rails.git', branch: '2-3-lts' do
+  gem 'rails', '~>2.3.18'
+  gem 'actionmailer',     require: false
+  gem 'actionpack',       require: false
+  gem 'activerecord',     require: false
+  gem 'activeresource',   require: false
+  gem 'activesupport',    require: false
+  gem 'railties',         require: false
+  gem 'railslts-version', require: false
+end
+gem "rspec", "=1.3.2", git: 'https://github.com/makandra/rspec.git', branch: '1-3-lts'
+gem 'rspec-rails', git: 'https://github.com/makandra/rspec-rails.git', branch: '1-3-lts'
+gem 'irb', require: false
+
 # this breaks specs.. but is necessary for attachements i think
-gem "radiant", '1.1.4'
+gem "radiant", git: "git://github.com/nzffa/radiant", branch: 'with_rails_lts'
+# gem "radiant", :path => "../radiant"
+
 gem "rdoc", "4.2.0"
 gem "rake", "10.4.2"
 
 gem "RedCloth", "~> 4.2.9"
 
 gem 'hpricot'
-gem 'fastercsv'
 gem 'httparty', '0.10.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
 
-gem "mysql2", "0.4.10"
+gem "mysql2", "~> 0.5.3"
 gem "activerecord-mysql2-adapter"
-gem "rack-cache", "1.2"
+# gem "rack-cache", "1.2"
 gem "execjs", "2.0.0"
 gem "ref", "1.0.5"
 gem "therubyracer"
@@ -43,32 +59,11 @@ gem "radiant-snippets-extension",            "~> 1.1.3"
 # gem "radiant-japanese_language_pack-extension", "~> 1.0.0"
 # gem "radiant-russian_language_pack-extension",  "~> 1.0.0"
 
-gem "radiant-clipped-extension", "~> 1.1.2"
-# gem "radiant-clipped-extension", :git => "git://github.com/radiant/radiant-clipped-extension"
-
-gem "radiant-scheduler-extension", :git => "git://github.com/nzffa/radiant-scheduler-extension"
-# gem "radiant-scheduler-extension", :path => "vendor/extensions/scheduler"
-gem "radiant-navigation_tags-extension", "~> 0.2.7"
-gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
-gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
-gem 'radiant-mailer-extension'
-gem "radiant-search-extension"
-gem "radiant-copy_move-extension",          "~> 2.4.9"
-gem "radiant-grandchildren_tags-extension"
-gem "radiant-if_id_tags-extension"
-gem "radiant-html_tags-extension"
-gem "radiant-find_by_id_tag-extension", "~> 1.2.3"
-# gem 'radiant-find_by_id_tag-extension', :path => 'vendor/extensions/find_by_id_tag'
-gem "radiant-find_replace-extension", "~> 1.0.6"
-# gem "radiant-find_replace-extension", :path => 'vendor/extensions/find_replace'
-gem "radiant-if_date_tags-extension", "~> 1.0.0"
-
-gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
-# The above gem uses rr for mocking
-gem 'rr', :group => :test
+gem "radiant-clipped-extension", :git => 'git://github.com/radiant/radiant-clipped-extension.git', :branch => :with_rails_lts
+# gem "radiant-clipped-extension", :path => "vendor/extensions/clipped"
 
 # This depends on radiant-layouts-extension
-gem 'radiant-reader-extension', :git => 'git://github.com/jomz/radiant-reader-extension.git'
+gem 'radiant-reader-extension', :git => 'git://github.com/jomz/radiant-reader-extension.git', :branch => :with_rails_lts
 # gem 'radiant-reader-extension', :path => 'vendor/extensions/reader'
 
 gem "radiant-forum-extension", :git => 'git://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
@@ -91,16 +86,39 @@ gem "radiant-linx-extension"
 
 # gem "radiant-downloads-extension", :path => 'vendor/extensions/downloads'
 gem "radiant-downloads-extension", :git => 'git://github.com/nzffa/radiant-downloads-extension.git'
+gem "radiant-scheduler-extension", :git => "git://github.com/nzffa/radiant-scheduler-extension", :branch => :with_rails_lts
+# gem "radiant-scheduler-extension", :path => "vendor/extensions/scheduler"
+gem "radiant-navigation_tags-extension", "~> 0.2.7"
+gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
+gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
+gem 'radiant-mailer-extension'
+gem "radiant-search-extension"
+gem "radiant-copy_move-extension",          "~> 2.4.8"
+gem "radiant-grandchildren_tags-extension"
+gem "radiant-if_id_tags-extension"
+gem "radiant-html_tags-extension"
+gem "radiant-find_by_id_tag-extension", "~> 1.2.3"
+# gem 'radiant-find_by_id_tag-extension', :path => 'vendor/extensions/find_by_id_tag'
+gem "radiant-find_replace-extension", "~> 1.0.6"
+# gem "radiant-find_replace-extension", :path => 'vendor/extensions/find_replace'
+gem "radiant-if_date_tags-extension", "~> 1.0.0"
+
+gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
+# The above gem uses rr for mocking
+gem 'rr', :group => :test
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
-gem 'fog', '1.1.0'
+# gem 'fog', '1.1.0'
 gem 'net-ssh', '4.2.0'
-gem 'multi_json', '1.0.4'
+gem 'multi_json', '~> 1.3.0'
 gem 'parallel', '~> 0.5.12'
 
 # gem 'xero_gateway', :path => 'vendor/xero_gateway'
-gem 'oauth', '0.5.1'
+gem 'oauth', '0.5.5'
+gem 'oauth2', '1.4.7'
 gem 'xero_gateway', :git => 'git://github.com/nzffa/xero_gateway.git'
+# gem 'xeroizer', :git => 'git@github.com:waynerobinson/xeroizer.git'
+# gem 'xeroizer', :path => 'vendor/xeroizer'
 
 group :production, :staging do
   gem 'airbrake', '4.1.0'
