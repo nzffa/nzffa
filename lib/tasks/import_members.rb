@@ -1,5 +1,3 @@
-require 'fastercsv'
-
 COLS =  {
   "CustomerID"         => 0,
   "CardRecordID"       => 1,
@@ -83,7 +81,7 @@ def assign_groups(reader, row)
   #add letter code groups from column G
   #add group from column Q (if it exists)
   #ensure they only belong to each group once
-  
+
   if branch = Group.find_by_id(row[COLS['Branch']].to_i)
     reader.groups << branch
   end
@@ -113,7 +111,7 @@ def assign_groups(reader, row)
   reader.groups = reader.groups.uniq
 end
 
-FasterCSV.foreach('membersdata-rev3.csv') do |row|
+CSV.foreach('membersdata-rev3.csv') do |row|
   attrs = attrs_from_row(row)
   unless reader = Reader.find_by_nzffa_membership_id(attrs[:nzffa_membership_id])
     reader = Reader.new(attrs)
@@ -148,7 +146,7 @@ end
   #else
     #insert new record
     #and update groups
-  
+
   #if they belong to a branch they get added to
     #NZFFA Admin Levy group (100)
     #FFR Access group (231)

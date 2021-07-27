@@ -10,6 +10,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 require 'radius'
 
 Radiant::Initializer.run do |config|
+  config.rails_lts_options = { :default => :compatible }
   # Skip frameworks you're not going to use (only works if using vendor/rails).
   # To use Rails without a database, you must remove the Active Record framework
   # config.frameworks -= [ :action_mailer ]
@@ -18,7 +19,7 @@ Radiant::Initializer.run do |config|
   # extensions in vendor/extensions are loaded, in alphabetical order. :all
   # can be used as a placeholder for all extensions not explicitly named.
   config.extensions = [ :layouts, :mailer_layouts, :nested_layouts, :reader, :forum, :marketplace, :all, :page_parts, :relations, :conference ]
-  
+
   # Unload the extensions named here.
   # config.ignore_extensions []
   #
@@ -53,7 +54,7 @@ Radiant::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   config.time_zone = 'UTC'
-  
+
   # Set the default field error proc
   config.action_view.field_error_proc = Proc.new do |html, instance|
     if html !~ /label/
