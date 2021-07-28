@@ -32,7 +32,7 @@ gem 'httparty', '0.10.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
 
-gem "mysql2", "~> 0.5.3"
+gem "mysql2", "~> 0.4.10"
 gem "activerecord-mysql2-adapter"
 # gem "rack-cache", "1.2"
 gem "execjs", "2.0.0"
