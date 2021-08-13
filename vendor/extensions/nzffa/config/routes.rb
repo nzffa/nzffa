@@ -58,5 +58,7 @@ ActionController::Routing::Routes.draw do |map|
      readers.resources :subscriptions, :member => { :cancel => :post }
     end
     admin.resources :xero_syncs
+    admin.xero_session_status "/xero_session", :controller => 'xero_session', :action => :index
+    admin.xero_session_callback "/xero_session/oauth2callback", :controller => 'xero_session', :action => :oauth2callback
   end
 end
