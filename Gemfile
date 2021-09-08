@@ -94,7 +94,7 @@ gem "radiant-downloads-extension", :git => 'git://github.com/nzffa/radiant-downl
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
 gem 'fog', '1.1.0'
-gem 'net-ssh', '2.9.4'
+gem 'net-ssh', '4.2.0'
 gem 'multi_json', '1.0.4'
 gem 'parallel', '~> 0.5.12'
 
