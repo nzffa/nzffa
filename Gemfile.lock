@@ -204,7 +204,7 @@ GEM
       cocaine (~> 0.3.2)
       paperclip (~> 2.7.0)
       uuidtools (~> 2.1.2)
-    radiant-copy_move-extension (2.4.8)
+    radiant-copy_move-extension (2.4.9)
       radiant (>= 1.0.0.rc2)
     radiant-find_by_id_tag-extension (1.2.3)
     radiant-find_replace-extension (1.0.6)
@@ -281,7 +281,7 @@ DEPENDENCIES
   radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-clipped-extension (~> 1.1.2)
   radiant-conference-extension!
-  radiant-copy_move-extension (~> 2.4.8)
+  radiant-copy_move-extension (~> 2.4.9)
   radiant-downloads-extension!
   radiant-find_by_id_tag-extension (~> 1.2.3)
   radiant-find_replace-extension (~> 1.0.6)

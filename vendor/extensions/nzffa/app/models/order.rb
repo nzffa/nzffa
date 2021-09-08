@@ -236,22 +236,30 @@ class Order < ActiveRecord::Base
         )
         line_item.tracking << XeroGateway::TrackingCategory.new(:name => 'Sub Group', :options => line.particular)
       when "forest_size_levy"
-        unless line.particular == '0 - 10'
-          if advance_payment
-            account_code = "2-3350" # Advance forest sive levies all go on one account
-          else
-            if line.particular == '11 - 40'
-              account_code = "4-1402"
-            elsif line.particular == '41+'
-              account_code = "4-1403"
-            end
+        if advance_payment
+          account_code = "2-3350" # Advance forest sive levies all go on one account
+        else
+          if line.particular == '0 - 10'
+            account_code = "4-1400"
+          elsif line.particular == '11 - 40'
+            account_code = "4-1402"
+          elsif line.particular == '41+'
+            account_code = "4-1403"
           end
+<<<<<<< HEAD
           line_item = XeroGateway::LineItem.new(
             :description => "Area levy #{line.particular}",
             :account_code => account_code,
             :unit_amount => line.amount
           )
+=======
+>>>>>>> master
         end
+        line_item = XeroGateway::LineItem.new(
+          :description => "Area levy #{line.particular}",
+          :account_code => account_code,
+          :unit_amount => line.amount
+        )
       when "fft_marketplace_levy"
         fft_group = Group.fft_group
         if advance_payment

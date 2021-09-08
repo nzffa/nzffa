@@ -144,7 +144,7 @@ class Admin::ReportsController < AdminController
   end
 
   def expiries
-    all_subscriptions = Subscription.find(:all, :conditions => ['expires_on < ? and expires_on > ?', Date.today, 3.months.ago])
+    all_subscriptions = Subscription.find(:all, :conditions => ['expires_on < ? and expires_on > ?', Date.today, 1.year.ago])
 
     @subscriptions = all_subscriptions.select do |s|
       s.reader.present? and Subscription.active_subscription_for(s.reader).blank?
