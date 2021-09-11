@@ -246,14 +246,6 @@ class Order < ActiveRecord::Base
           elsif line.particular == '41+'
             account_code = "4-1403"
           end
-<<<<<<< HEAD
-          line_item = XeroGateway::LineItem.new(
-            :description => "Area levy #{line.particular}",
-            :account_code => account_code,
-            :unit_amount => line.amount
-          )
-=======
->>>>>>> master
         end
         line_item = XeroGateway::LineItem.new(
           :description => "Area levy #{line.particular}",
