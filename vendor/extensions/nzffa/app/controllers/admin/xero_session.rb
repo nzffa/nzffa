@@ -6,17 +6,19 @@ class Admin::XeroSessionController < ApplicationController
 
   def index
     unless XeroAuth.still_active?
-      flash[:notice] = 'The connection to the Xero API needs to be re-authorized.'
-      @redirect_url = XeroAuth.authorize_url
-    else
-      flash[:notice] = 'There is an active connection with the Xero API. "All systems are go!"'
+      # Try refresh_token
+      XeroAuth.reconnect_from_refresh_token
+      unless XeroAuth.still_active? # refresh token failed as well..
+        flash[:notice] = 'The connection to the Xero API needs to be re-authorized.'
+        @auth_url = XeroAuth.authorize_url
+      end
     end
   end
 
   def oauth2callback
     if params[:code]
-      XeroAuth.get_token_from_auth_code(params[:code])
-      redirect_to index
+      XeroAuth.get_tokens_from_auth_code(params[:code])
+      redirect_to admin_xero_session_status_path
     end
   end
 
