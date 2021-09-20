@@ -1,5 +1,7 @@
-- if @redirect_url
+- if @auth_url
   %p
     Please
-    = link_to 're-authorise the MMS', @redirect_url
-    to allow Xero API access.
+    = link_to 're-authorize the MMS', @auth_url
+    to restore the connection to the Xero API.
+- else
+  %p There is an active connection with the Xero API. "All systems are go!"

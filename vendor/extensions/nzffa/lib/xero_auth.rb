@@ -7,8 +7,8 @@ class XeroAuth
     end
 
     def client
-      get_token_from_ymlconf if self.token.nil?
-      @client ||= Xeroizer::OAuth2Application.new(
+      get_tokens_from_ymlconf if self.token.nil?
+      @@client ||= Xeroizer::OAuth2Application.new(
         XERO_CONSUMER_KEY,
         XERO_CONSUMER_SECRET,
 	      access_token: self.token[:access_token],
@@ -18,16 +18,18 @@ class XeroAuth
     end
 
     def reconnect_from_refresh_token
-      client.renew_access_token
-      self.write_tokens
+      if self.token && self.token[:refresh_token]
+        client.renew_access_token
+        self.write_tokens
+      end
     end
 
-    def get_token_from_auth_code(code)
+    def get_tokens_from_auth_code(code)
       self.token = client.authorize_from_code(code, redirect_uri: XERO_CALLBACK_URL).to_hash
       self.write_tokens if self.still_active?
     end
 
-    def get_token_from_ymlconf
+    def get_tokens_from_ymlconf
       self.token = {}
       self.token[:access_token] = ymlconf['xero']['access_token']
       self.token[:refresh_token] = ymlconf['xero']['refresh_token']
