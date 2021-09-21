@@ -10,7 +10,7 @@
     %tbody
       - @xero_syncs.each do |xero_sync|
         %tr
-          %td.name= link_to(xero_sync.id, admin_xero_sync_path(xero_sync))
+          %td.name= link_to(xero_sync.id, admin_xero_payment_path(xero_sync))
           %td= xero_sync.created_at.strftime("%d %b %Y at %H:%M\"%S")
           %td= xero_sync.completed_at.try(:strftime, "%d %b %Y at %H:%M\"%S")
           %td= xero_sync.xero_order_syncs.count
@@ -20,4 +20,4 @@
   #actions
     = pagination_for(@xero_syncs)
     %ul
-      %li= link_to image('plus') + " New synchronisation", new_admin_xero_sync_url, :class => 'action_button'
+      %li= link_to image('plus') + " New synchronisation", new_admin_xero_payment_url, :class => 'action_button'

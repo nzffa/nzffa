@@ -1,4 +1,4 @@
-class XeroAuth
+class XeroConnection
   class_attribute :token
 
   class << self
@@ -17,13 +17,6 @@ class XeroAuth
       )
     end
 
-    def reconnect_from_refresh_token
-      if self.token && self.token[:refresh_token]
-        client.renew_access_token
-        self.write_tokens
-      end
-    end
-
     def get_tokens_from_auth_code(code)
       self.token = client.authorize_from_code(code, redirect_uri: XERO_CALLBACK_URL).to_hash
       self.write_tokens if self.still_active?
@@ -35,10 +28,24 @@ class XeroAuth
       self.token[:refresh_token] = ymlconf['xero']['refresh_token']
     end
 
+    def reconnect_from_refresh_token
+      if self.token && self.token[:refresh_token]
+        client.renew_access_token
+        self.write_tokens
+      end
+    end
+
     def still_active?
       !self.client.client.access_token.nil? &&
       !self.client.client.access_token.expires_at.nil? &&
       self.client.client.access_token.expires_at > Time.now.to_i
+    end
+
+    def verify
+      if !still_active?
+        reconnect_from_refresh_token
+        raise(XeroizerError, "No active connection to Xero API.") if !still_active?
+      end
     end
 
     def write_tokens
@@ -48,7 +55,7 @@ class XeroAuth
     end
 
     def ymlconf
-      @ymlconf ||= YAML.load_file("#{Rails.root}/config/application.yml")
+      @@ymlconf ||= YAML.load_file("#{Rails.root}/config/application.yml")
     end
 
   end

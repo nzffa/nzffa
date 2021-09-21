@@ -35,7 +35,7 @@ ymlconf = YAML.load_file("#{Rails.root}/config/application.yml")
 
 XERO_CONSUMER_KEY = ymlconf['xero']['consumer_key']
 XERO_CONSUMER_SECRET = ymlconf['xero']['consumer_secret']
-XERO_PEM_PATH = "privatekey.pem"
+XERO_CALLBACK_URL = ymlconf['xero']['callback_url']
 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
