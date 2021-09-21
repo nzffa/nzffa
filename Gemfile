@@ -32,7 +32,7 @@ gem 'httparty', '0.10.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
 
-gem "mysql2", "~> 0.4.10"
+gem "mysql2", "~> 0.5.3"
 gem "activerecord-mysql2-adapter"
 # gem "rack-cache", "1.2"
 gem "execjs", "2.0.0"
@@ -93,7 +93,8 @@ gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
 gem "radiant-search-extension"
-gem "radiant-copy_move-extension",          "~> 2.4.8"
+gem "radiant-copy_move-extension",          "~> 2.4.9"
+# gem "radiant-copy_move-extension", :path => 'vendor/extensions/copy_move'
 gem "radiant-grandchildren_tags-extension"
 gem "radiant-if_id_tags-extension"
 gem "radiant-html_tags-extension"
@@ -109,15 +110,14 @@ gem 'rr', :group => :test
 
 gem 'backup', :git => 'git://github.com/jdutil/backup.git'
 # gem 'fog', '1.1.0'
-gem 'net-ssh', '2.9.4'
+gem 'net-ssh', '4.2.0'
 gem 'multi_json', '~> 1.3.0'
 gem 'parallel', '~> 0.5.12'
 
 # gem 'xero_gateway', :path => 'vendor/xero_gateway'
 gem 'oauth', '0.5.5'
 gem 'oauth2', '1.4.7'
-gem 'xero_gateway', :git => 'git://github.com/nzffa/xero_gateway.git'
-# gem 'xeroizer', :git => 'git@github.com:waynerobinson/xeroizer.git'
+gem 'xeroizer', :git => 'git@github.com:nzffa/xeroizer.git', :branch => :rails_2_lts
 # gem 'xeroizer', :path => 'vendor/xeroizer'
 
 group :production, :staging do

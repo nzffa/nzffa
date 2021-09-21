@@ -1,7 +1,9 @@
 - if @auth_url
   %p
+    The access token has timed out and could not be restored from the refresh token.
+    %br
     Please
     = link_to 're-authorize the MMS', @auth_url
-    to restore the connection to the Xero API.
+    to re-establish the connection to the Xero API.
 - else
   %p There is an active connection with the Xero API. "All systems are go!"

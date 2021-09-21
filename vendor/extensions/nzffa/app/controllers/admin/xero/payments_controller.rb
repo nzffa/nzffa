@@ -1,4 +1,8 @@
-class Admin::XeroSyncsController < Admin::ResourceController
+class Admin::Xero::PaymentsController < Admin::ResourceController
+  def model_class
+    XeroSync
+  end
+
   def new
     XeroSync.create
     redirect_to :action => :index

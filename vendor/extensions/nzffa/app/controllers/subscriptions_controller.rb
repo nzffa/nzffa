@@ -22,7 +22,7 @@ class SubscriptionsController < ReaderActionController
   def modify
     @action_path = upgrade_subscriptions_path
     @subscription = Subscription.active_subscription_for(current_reader)
-    @subscription.contribute_to_research_fund = false
+    @subscription.contribute_to_research_fund = false # errors when @subscription is nil (no active subscription for current reader)
     @subscription.begins_on = Date.today
   end
 
@@ -40,9 +40,9 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'No previous subscription found'
       redirect_to(:action => :index) and return
     end
-    
+
   end
-  
+
   def print
     @subscription = Subscription.last_paid_subscription_for(current_reader)
     if @subscription.nil?
@@ -62,7 +62,7 @@ class SubscriptionsController < ReaderActionController
     else
       redirect_to :back
     end
-    
+
     @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
     @order = CreateOrder.from_subscription(@subscription)
     render 'print', :layout => false
@@ -82,7 +82,7 @@ class SubscriptionsController < ReaderActionController
     subscription = Subscription.new(params[:subscription])
     order = CreateOrder.from_subscription(subscription)
 
-    render :json => {:price => "#{number_to_currency(order.amount)}", 
+    render :json => {:price => "#{number_to_currency(order.amount)}",
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
                      :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end

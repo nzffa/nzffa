@@ -105,17 +105,8 @@ GIT
     radiant-scheduler-extension (1.0.3)
 
 GIT
-  remote: git://github.com/nzffa/xero_gateway.git
-  revision: 62480a93c07d340bef1e8e967cb7b4bcff08b0b0
-  specs:
-    xero_gateway (2.7.0)
-      activesupport
-      builder (>= 3.2.2)
-      oauth (>= 0.3.6)
-
-GIT
   remote: git://github.com/radiant/radiant-clipped-extension.git
-  revision: f3417af074b4f72fdafe52ca8537b36caf85b85d
+  revision: f629879c9621b3388c2e2c47b1b182bf6935fd93
   branch: with_rails_lts
   specs:
     radiant-clipped-extension (1.1.3)
@@ -123,9 +114,23 @@ GIT
       cocaine (~> 0.3.2)
       fog (= 1.24.0)
       fog-core (= 1.24.0)
-      net-ssh (~> 2.9.0)
+      net-ssh (~> 4.2.0)
       paperclip (~> 2.7.0)
       uuidtools (~> 2.1.2)
+
+GIT
+  remote: git@github.com:nzffa/xeroizer.git
+  revision: 93417c66b0d496e725e203614159d8bde7709b11
+  branch: rails_2_lts
+  specs:
+    xeroizer (3.0.0.pre.beta)
+      activesupport
+      builder (>= 2.1.2)
+      i18n
+      nokogiri
+      oauth (>= 0.4.5)
+      oauth2 (>= 1.4.0)
+      tzinfo
 
 GIT
   remote: https://github.com/makandra/rails.git
@@ -210,6 +215,7 @@ GEM
       sass (~> 3.2.19)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    concurrent-ruby (1.1.9)
     delocalize (0.2.6)
     dry-inflector (0.2.1)
     excon (0.85.0)
@@ -276,6 +282,8 @@ GEM
     httparty (0.10.0)
       multi_json (~> 1.0)
       multi_xml
+    i18n (1.8.10)
+      concurrent-ruby (~> 1.0)
     io-console (0.5.9)
     ipaddress (0.8.3)
     irb (1.3.6)
@@ -287,14 +295,14 @@ GEM
     multi_json (1.3.7)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    mysql2 (0.4.10)
+    mysql2 (0.5.3)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.4)
-    net-ssh-gateway (1.3.0)
-      net-ssh (>= 2.6.5)
+    net-ssh (4.2.0)
+    net-ssh-gateway (2.0.0)
+      net-ssh (>= 4.0.0)
     nokogiri (1.5.11)
     oauth (0.5.5)
     oauth2 (1.4.7)
@@ -314,7 +322,7 @@ GEM
     rack-cache (1.3.1)
       rack (>= 0.4)
     radiant-ck_editor_filter-extension (0.2.9)
-    radiant-copy_move-extension (2.4.8)
+    radiant-copy_move-extension (2.4.9)
       radiant (>= 1.0.0.rc2)
     radiant-find_by_id_tag-extension (1.2.3)
     radiant-find_replace-extension (1.0.6)
@@ -381,8 +389,8 @@ DEPENDENCIES
   irb
   mime-types (= 1.22)
   multi_json (~> 1.3.0)
-  mysql2 (~> 0.4.10)
-  net-ssh (= 2.9.4)
+  mysql2 (~> 0.5.3)
+  net-ssh (= 4.2.0)
   oauth (= 0.5.5)
   oauth2 (= 1.4.7)
   parallel (~> 0.5.12)
@@ -390,7 +398,7 @@ DEPENDENCIES
   radiant-ck_editor_filter-extension (~> 0.2.5)
   radiant-clipped-extension!
   radiant-conference-extension!
-  radiant-copy_move-extension (~> 2.4.8)
+  radiant-copy_move-extension (~> 2.4.9)
   radiant-downloads-extension!
   radiant-find_by_id_tag-extension (~> 1.2.3)
   radiant-find_replace-extension (~> 1.0.6)
@@ -425,7 +433,7 @@ DEPENDENCIES
   sanitize (= 2.0.3)
   therubyracer
   whenever (= 0.9.4)
-  xero_gateway!
+  xeroizer!
 
 BUNDLED WITH
    1.17.3
