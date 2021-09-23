@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.xero_session_callback "/xero/oauth2callback", :controller => 'xero', :action => :oauth2callback
     admin.namespace :xero do |xero|
       xero.resources :payments, only: [:index, :show, :new]
-      xero.resources :orders, only: [:index, :show, :new]
+      xero.resources :orders, only: [:index, :show, :new], collection: { sync: :get }
     end
   end
 end

@@ -15,6 +15,9 @@ class Order < ActiveRecord::Base
 
   default_scope :order => "created_at DESC"
 
+  named_scope :synced_to_xero, conditions: "xero_id IS NOT NULL"
+  named_scope :not_synced_to_xero, conditions: "xero_id IS NULL"
+
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
 
@@ -300,7 +303,7 @@ class Order < ActiveRecord::Base
           )
         end
       end
-      
+
       if invoice.line_items.any?
         invoice.save
         self.update_attribute :xero_id, invoice.id
