@@ -16,6 +16,9 @@ class Order < ActiveRecord::Base
 
   default_scope :order => "created_at DESC"
 
+  named_scope :synced_to_xero, conditions: "xero_id IS NOT NULL"
+  named_scope :not_synced_to_xero, conditions: "xero_id IS NULL"
+
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
 
