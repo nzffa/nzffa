@@ -30,8 +30,17 @@ class XeroConnection
 
     def reconnect_from_refresh_token
       if self.token && self.token[:refresh_token]
-        client.renew_access_token
-        self.write_tokens
+        begin
+          client.renew_access_token
+          self.write_tokens
+        rescue NoMethodError
+          # Sometimes fails causing ApplicationError, but I don't understand why
+          # Fail silently to avoid ApplicationError and let user re-authorize
+# 3: from /home/jomz/Development/nzffa/vendor/extensions/nzffa/lib/xero_connection.rb:33:in `reconnect_from_refresh_token'
+# 2: from /usr/lib/ruby/2.7.0/forwardable.rb:235:in `renew_access_token'
+# 1: from /home/jomz/Development/nzffa/vendor/bundle/ruby/2.7.0/bundler/gems/xeroizer-93417c66b0d4/lib/xeroizer/oauth2.rb:29:in `renew_access_token'
+# /home/jomz/Development/nzffa/vendor/bundle/ruby/2.7.0/gems/oauth2-1.4.7/lib/oauth2/access_token.rb:89:in `refresh!': undefined method `options=' for nil:NilClass (NoMethodError)
+        end
       end
     end
 
@@ -44,7 +53,7 @@ class XeroConnection
     def verify
       if !still_active?
         reconnect_from_refresh_token
-        raise(XeroizerError, "No active connection to Xero API.") if !still_active?
+        # raise(Xeroizer::XeroizerError, "No active connection to Xero API.") if !still_active?
       end
     end
 
