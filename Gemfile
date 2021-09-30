@@ -22,8 +22,8 @@ gem 'irb', require: false
 gem "radiant", git: "git://github.com/nzffa/radiant", branch: 'with_rails_lts'
 # gem "radiant", :path => "../radiant"
 
-gem "rdoc", "4.2.0"
-gem "rake", "10.4.2"
+gem "rdoc", "6.3.2"
+gem "rake", "10.5.0"
 
 gem "RedCloth", "~> 4.2.9"
 
