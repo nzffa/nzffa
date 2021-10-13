@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/jomz/radiant-reader-extension.git
-  revision: 089e1ee730fc4f8d062a999efdecd12c22e431bf
+  revision: 2558b51712565dbcd3e61f96f820cc99bd233986
   branch: with_rails_lts
   specs:
     radiant-reader-extension (3.0.38)
@@ -286,8 +286,8 @@ GEM
       concurrent-ruby (~> 1.0)
     io-console (0.5.9)
     ipaddress (0.8.3)
-    irb (1.3.6)
-      reline (>= 0.2.5)
+    irb (1.3.7)
+      reline (>= 0.2.7)
     jwt (2.2.3)
     libv8 (3.16.14.19)
     mime-types (1.22)
@@ -344,7 +344,7 @@ GEM
     rake (10.5.0)
     rdoc (6.3.2)
     ref (1.0.5)
-    reline (0.2.6)
+    reline (0.2.7)
       io-console (~> 0.5)
     rr (3.0.5)
     ruby-ole (1.2.12.2)
