@@ -48,7 +48,7 @@ ActionMailer::Base.smtp_settings = {
   # :ssl => true
 }
 
-ActionMailer::Base.perform_deliveries = false
+ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.default_charset = "iso-8859-1"
 ActionMailer::Base.default_url_options[:host] = "nzffa.org.nz"
