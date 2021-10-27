@@ -1,3 +1,4 @@
+require 'csv'
 class Admin::ReportsController < AdminController
   only_allow_access_to :index, :new, :edit, :create, :update, :remove, :destroy,
     :when => [:admin, :designer]
