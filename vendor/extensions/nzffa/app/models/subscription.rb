@@ -2,7 +2,7 @@ class Subscription < ActiveRecord::Base
   has_one :order, :dependent => :destroy
   belongs_to :reader
   belongs_to :main_branch, :class_name => 'Group'
-  
+
   has_many :group_subscriptions, :dependent => :destroy, :source => :group
   has_many :groups, :through => :group_subscriptions
 
@@ -17,32 +17,32 @@ class Subscription < ActiveRecord::Base
   validates_inclusion_of :ha_of_planted_trees,
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
 
-  named_scope :expiring_on, lambda {|expiry_date| 
+  named_scope :expiring_on, lambda {|expiry_date|
     {:conditions => {:expires_on => expiry_date, :cancelled_on => nil}}}
 
-  named_scope :active, lambda { 
+  named_scope :active, lambda {
     {:joins => :order,
      :conditions => ['begins_on <= ? AND expires_on >= ? AND cancelled_on IS NULL AND orders.paid_on > "2001-01-01"',  Date.today, Date.today, ]}}
 
-  named_scope :active_for_reader, lambda { |reader| 
+  named_scope :active_for_reader, lambda { |reader|
     {:joins => :order,
-     :conditions => ['begins_on <= ? AND expires_on >= ? AND 
+     :conditions => ['begins_on <= ? AND expires_on >= ? AND
                       cancelled_on IS NULL AND orders.paid_on > "2001-01-01"
                       AND reader_id = ?',  Date.today, Date.today, reader.id ]}}
 
   named_scope :active_anytime, {:joins => :order, :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"' ]}
-  
+
   named_scope :full_membership, {:conditions => "membership_type = 'full'"}
   named_scope :casual_membership, {:conditions => "membership_type = 'casual'"}
 
   def self.expiring_before(date)
     self.active.find(:all, :conditions => ['expires_on <?', date])
   end
-  
+
   def self.last_subscription_for(reader)
     find_by_reader_id(reader.id, :order => 'id desc')
   end
-  
+
   def self.last_paid_subscription_for(reader)
     find_by_reader_id(reader.id,
       :joins => :order,
@@ -51,9 +51,9 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.current_subscription_for(reader)
-    find_by_reader_id(reader.id, :conditions => ['begins_on <= :today 
-                                and expires_on > :today 
-                                and cancelled_on is null', 
+    find_by_reader_id(reader.id, :conditions => ['begins_on <= :today
+                                and expires_on > :today
+                                and cancelled_on is null',
                                 {:today => Date.today}],
                                :order => 'id desc')
   end
@@ -62,17 +62,23 @@ class Subscription < ActiveRecord::Base
     first_day = 1.year.ago.at_beginning_of_year
     last_day = 1.year.ago.at_end_of_year
     find_by_reader_id(reader.id, :joins => :order,
-               :conditions => ['begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"',
-                                {:first_day => first_day, :last_day => last_day}],
-                               :order => 'id desc')
+               :conditions => ['begins_on >= :first_day
+                 and expires_on <= :last_day
+                 and cancelled_on is null
+                 and orders.paid_on > "2001-01-01"',
+                {:first_day => first_day, :last_day => last_day}],
+                :order => 'id desc')
   end
-  
+
   def self.next_year_subscription_for(reader)
     first_day = 1.year.from_now.at_beginning_of_year
     last_day = 1.year.from_now.at_end_of_year
     find_by_reader_id(reader.id,
       :joins => :order,
-      :conditions => ['begins_on >= :first_day and expires_on <= :last_day and cancelled_on is null and orders.paid_on > "2001-01-01"', {:first_day => first_day, :last_day => last_day}],
+      :conditions => ['begins_on >= :first_day
+        and expires_on >= :last_day
+        and cancelled_on is null
+        and orders.paid_on > "2001-01-01"', {:first_day => first_day, :last_day => last_day}],
       :order => 'id desc')
   end
 
@@ -102,7 +108,7 @@ class Subscription < ActiveRecord::Base
        :nz_tree_grower_copies].each do |attr|
          sub.send "#{attr}=", old_sub.send(attr)
        end
-       
+
        sub.groups.concat old_sub.groups
     end
   end
@@ -167,7 +173,7 @@ class Subscription < ActiveRecord::Base
     self.ha_of_planted_trees ||= '0 - 10'
     self.research_fund_contribution_amount ||= 0.0
   end
-  
+
   def before_save
     if membership_type == 'full'
       self.receive_tree_grower_magazine = true
@@ -190,11 +196,11 @@ class Subscription < ActiveRecord::Base
   def action_group_names
     action_groups.map(&:name)
   end
-  
+
   def action_group_ids
     action_groups.map(&:id)
   end
-  
+
   def action_group_ids=(ids)
     self.groups -= Group.action_groups
     self.groups += Group.action_groups.find(ids)
@@ -232,11 +238,11 @@ class Subscription < ActiveRecord::Base
     self.main_branch = Group.branches.find_by_name(name)
     self.groups << self.main_branch
   end
-  
+
   def belongs_to_fft
     self.groups.include?(Group.fft_group)
   end
-  
+
   def belongs_to_fft=(bool)
     if bool.is_a? Integer
       bool = bool > 0
@@ -249,7 +255,7 @@ class Subscription < ActiveRecord::Base
       self.groups -= [ Group.fft_group ]
     end
   end
-    
+
   def price_when_sold
     if order and order.paid?
       order.amount
@@ -270,8 +276,8 @@ class Subscription < ActiveRecord::Base
     if price_when_sold == nil
       0
     else
-      price_when_sold - 
-        (price_when_sold * 
+      price_when_sold -
+        (price_when_sold *
          CalculatesSubscriptionLevy.fraction_used(begins_on, expires_on))
     end
   end
