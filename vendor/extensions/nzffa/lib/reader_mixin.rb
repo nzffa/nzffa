@@ -107,6 +107,7 @@ module ReaderMixin
   end
 
   def subscription_for_next_year
+    # returns only subscriptions that are paid
     Subscription.next_year_subscription_for(self)
   end
 
@@ -234,6 +235,13 @@ module ReaderMixin
   end
 
   def is_options_only?
+    # used only in _print_account_full_member.html.haml;
+    # -if @reader.is_options_only?
+    #   .section.options-only
+    #     %h3 ADDITIONAL SUBSCRIPTION OPTIONS
+    #     %p.additional-options Select with a tick and write total amount in Total Column
+    # -else
+    #   .section
     special_cases_include? 900
   end
 

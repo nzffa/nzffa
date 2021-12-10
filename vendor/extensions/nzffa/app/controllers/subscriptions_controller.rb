@@ -40,7 +40,6 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'No previous subscription found'
       redirect_to(:action => :index) and return
     end
-
   end
 
   def print

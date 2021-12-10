@@ -6,7 +6,7 @@ module Nzffa::MessagesControllerExtension
         if params['delivery'] == 'selected_groups_wo_disallowed_renewal_mails'
           load_selected_groups
           load_readers_for_groups
-          @readers = @readers.reject{|r| r.disallow_renewal_mails }
+          @readers = @readers.reject{|r| r.disallow_renewal_mails || r.has_subscription_for_next_year? }
           deliver_and_redirect
         elsif params['delivery'] == 'selected_groups_full_only'
           load_selected_groups
