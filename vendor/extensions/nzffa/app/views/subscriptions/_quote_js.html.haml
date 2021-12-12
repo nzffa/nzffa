@@ -3,6 +3,7 @@
     $new_form.change(function(){
       $.post('/subscriptions/quote_new', $new_form.toJSON(), function(response){
         $('span#price').text(response.price)
+        $('span#credit_card_fee').text(response.credit_card_fee)
         $('span#begins_on').text(response.begins_on)
         $('span#expires_on').text(response.expires_on)
       })
@@ -13,6 +14,7 @@
     $upgrade_form.change(function(){
       $.post('/subscriptions/quote_upgrade', $upgrade_form.toJSON(), function(response){
         $('span#price').text(response.price)
+        $('span#credit_card_fee').text(response.credit_card_fee)
         $('span#credit').text(response.credit)
         $('span#upgrade_price').text(response.upgrade_price)
         $('span#begins_on').text(response.begins_on)

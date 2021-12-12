@@ -298,7 +298,7 @@ class Order < ActiveRecord::Base
           )
         when "extra"
           invoice.add_line_item(
-            description: "Extra",
+            description: "Extra #{line.particular}",
             account_code: "4-3580",
             unit_amount: line.amount
           )
