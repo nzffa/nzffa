@@ -82,7 +82,7 @@ class SubscriptionsController < ReaderActionController
     order = CreateOrder.from_subscription(subscription)
 
     render :json => {:price => "#{number_to_currency(order.amount)}",
-                     :credit_card_fee => "#{number_to_currency(order.amount * 0.03)}",
+                     :credit_card_fee => "#{number_to_currency(order.amount * 0.023)}",
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
                      :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end
@@ -99,7 +99,7 @@ class SubscriptionsController < ReaderActionController
     upgrade_price = CalculatesSubscriptionLevy.upgrade_price(current_sub, new_sub)
 
     render :json => {:price => "#{number_to_currency(normal_price)}",
-                     :credit_card_fee => "#{number_to_currency(order.amount * 0.03)}",
+                     :credit_card_fee => "#{number_to_currency(order.amount * 0.023)}",
                      :credit => "#{number_to_currency(credit)}",
                      :upgrade_price => "#{number_to_currency(upgrade_price)}",
                      :expires_on => new_sub.expires_on.strftime('%e %B %Y').strip,
@@ -117,7 +117,7 @@ class SubscriptionsController < ReaderActionController
     @subscription.reader = current_reader
     if @subscription.valid?
       @order = CreateOrder.from_subscription(@subscription)
-      @order.order_lines.build(kind: 'extra', particular: "Creditcard processing fee offset", amount: (@order.amount * 0.03))
+      @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: (@order.amount * 0.023))
       @order.save
       redirect_to make_payment_order_path(@order)
     else

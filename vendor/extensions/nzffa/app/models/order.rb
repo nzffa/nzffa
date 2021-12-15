@@ -297,11 +297,19 @@ class Order < ActiveRecord::Base
             unit_amount: line.amount
           )
         when "extra"
-          invoice.add_line_item(
-            description: "Extra #{line.particular}",
-            account_code: "4-3580",
-            unit_amount: line.amount
-          )
+          if line.particular == 'Credit Card Surcharge'
+            invoice.add_line_item(
+              description: line.particular,
+              account_code: "6-1180",
+              unit_amount: line.amount
+            )
+          else
+            invoice.add_line_item(
+              description: "Extra #{line.particular}",
+              account_code: "4-3580",
+              unit_amount: line.amount
+            )
+          end
         end
       end
 
