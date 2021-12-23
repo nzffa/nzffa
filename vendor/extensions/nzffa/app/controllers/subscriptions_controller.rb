@@ -117,7 +117,7 @@ class SubscriptionsController < ReaderActionController
     @subscription.reader = current_reader
     if @subscription.valid?
       @order = CreateOrder.from_subscription(@subscription)
-      @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: (@order.amount * 0.023))
+      @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
       @order.save
       redirect_to make_payment_order_path(@order)
     else
