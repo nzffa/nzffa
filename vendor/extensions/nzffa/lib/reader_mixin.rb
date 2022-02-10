@@ -273,25 +273,28 @@ module ReaderMixin
     unless xero_id.nil? or xero_id.blank?
       xero_id
     else
-      @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
-      all_xero_contacts = Nokogiri::XML(@gateway.get_contacts.response_xml).css("Contacts Contact")
-      matching_contact = all_xero_contacts.select{|xc| xc.css("Name").text == self.name }.first
+      XeroConnection.verify
+      matching_contact = XeroConnection.client.Contact.all(:where => "Name==\"#{self.name}\"").first
       if matching_contact
-        self.update_attribute :xero_id, matching_contact.css("ContactID").text
+        self.update_attribute :xero_id, matching_contact.contact_id
       else
-        contact = @gateway.build_contact
-        contact.name = self.name
-        contact.email = self.email
-        contact.phone.number = self.phone
-        contact.address.line_1 = self.post_line1
-        contact.address.line_2 = self.post_line2
-        contact.address.city = self.post_city
-        contact.address.region = self.post_province
-        contact.address.country = self.post_country
-        contact.address.post_code = self.postcode
-        response = contact.save
-        if response.status == 'OK'
-          self.update_attribute :xero_id, Nokogiri::XML(response.response_xml).css("ContactID").text
+        contact = XeroConnection.client.Contact.build(
+          name: self.name,
+          email_address: self.email
+        )
+        contact.add_phone(number: self.phone)
+        contact.add_address(
+          type: 'STREET',
+          line1:     self.post_line1,
+          line2:     self.post_line2,
+          city:      self.post_city,
+          region:    self.post_province,
+          country:   self.post_country,
+          postal_code: self.postcode
+        )
+        valid = contact.save
+        if valid
+          self.update_attribute :xero_id, contact.contact_id
         end
       end
     end
