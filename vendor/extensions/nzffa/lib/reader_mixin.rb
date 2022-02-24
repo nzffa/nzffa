@@ -297,6 +297,21 @@ module ReaderMixin
           self.update_attribute :xero_id, contact.contact_id
         end
       end
+      xero_id
+    end
+  end
+
+  def threatening_duplicate_subscription
+    # Due to how subscriptions_controller#new and #create work, aborting the
+    # payment process and then recommencing would create a new subscription and
+    # new order in the database each time. This had become a serious issue since
+    # orders are being created in Xero as well.
+    # This method helps us to re-use the 'abandoned' subscription if it exists.
+    if subscription = Subscription.most_recent_subscription_for(self)
+      # most_recent_subscription_for also checks that cancelled_on is null
+      subscription.paid? ? nil : subscription
+    else
+      nil
     end
   end
 

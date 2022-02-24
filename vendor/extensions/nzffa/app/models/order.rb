@@ -16,8 +16,8 @@ class Order < ActiveRecord::Base
 
   default_scope :order => "created_at DESC"
 
-  named_scope :synced_to_xero, conditions: "xero_id IS NOT NULL"
-  named_scope :not_synced_to_xero, conditions: "xero_id IS NULL"
+  named_scope :synced_to_xero, conditions: "xero_id IS NOT NULL AND needs_xero_update IS FALSE"
+  named_scope :not_synced_to_xero, conditions: "xero_id IS NULL OR needs_xero_update IS TRUE"
 
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
@@ -173,11 +173,124 @@ class Order < ActiveRecord::Base
     subscription.research_fund_contribution_is_donation? && subscription.research_fund_contribution_amount.to_i > 0
   end
 
+  def advance_payment?
+    subscription.expires_on > Date.today.end_of_year
+  end
+
+  def add_order_lines_to_invoice(invoice)
+    order_lines.each do |line|
+      case line.kind
+      when "admin_levy"
+        if branch = Group.find_by_name(line.particular)
+          account_code = branch.account_codes.split(",").last # admin levies always go to the '4 accounts..'
+          li = invoice.add_line_item(
+            description: "Admin levy",
+            account_code: account_code,
+            unit_amount: line.amount
+          )
+          li.add_tracking(name: 'Branch', option: line.particular)
+        elsif line.particular == 'fft_marketplace' # FFT admin levy for casual membership
+          account_code = Group.fft_group.account_codes.split(",").last
+          invoice.add_line_item(
+            description: "FFT Admin levy",
+            account_code: account_code,
+            unit_amount: line.amount
+          )
+        end
+      when "branch_levy"
+        branch = Group.find_by_name(line.particular)
+        if advance_payment?
+          index = 1
+        else
+          index = 0
+        end
+        account_code = branch.account_codes.split(",")[index]
+        li = invoice.add_line_item(
+          description: "Branch levy - #{branch.name}",
+          account_code: account_code,
+          unit_amount: line.amount
+        )
+        li.add_tracking(name: 'Branch', option: line.particular)
+      when "action_group_levy"
+        action_group = Group.find_by_name(line.particular)
+        account_code = action_group.account_codes
+        li = invoice.add_line_item(
+          description: "Action group levy - #{action_group.name}",
+          account_code: account_code,
+          unit_amount: line.amount
+        )
+        li.add_tracking(name: 'Sub Group', option: line.particular)
+      when "forest_size_levy"
+        if advance_payment?
+          account_code = "2-3350" # Advance forest size levies all go on one account
+        else
+          if line.particular == '0 - 10'
+            account_code = "4-1400"
+          elsif line.particular == '11 - 40'
+            account_code = "4-1402"
+          elsif line.particular == '41+'
+            account_code = "4-1403"
+          end
+        end
+        invoice.add_line_item(
+          description: "Area levy #{line.particular}",
+          account_code: account_code,
+          unit_amount: line.amount
+        )
+      when "fft_marketplace_levy"
+        fft_group = Group.fft_group
+        if advance_payment?
+          index = 1
+        else
+          index = 0
+        end
+        account_code = fft_group.account_codes.split(',')[index]
+        invoice.add_line_item(
+          description: "FFT marketplace levy - #{line.particular.gsub('_',' ')}",
+          account_code: account_code,
+          unit_amount: line.amount
+        )
+      when "nz_tree_grower_magazine_levy"
+        invoice.add_line_item(
+          description: "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
+          account_code: "4-1500",
+          unit_amount: line.amount
+        )
+      when "casual_member_nz_tree_grower_magazine_levy"
+        invoice.add_line_item(
+          description: "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
+          account_code: "4-3500",
+          unit_amount: line.amount
+        )
+      when "research_fund_contribution"
+        invoice.add_line_item(
+          description: "Research fund contribution",
+          account_code: "4-2030",
+          unit_amount: line.amount
+        )
+      when "extra"
+        if line.particular == 'Credit Card Surcharge'
+          invoice.add_line_item(
+            description: line.particular,
+            account_code: "6-1180",
+            unit_amount: line.amount
+          )
+        else
+          invoice.add_line_item(
+            description: "Extra #{line.particular}",
+            account_code: "4-3580",
+            unit_amount: line.amount
+          )
+        end
+      end
+    end
+  end
+
   def create_xero_invoice
     begin
       XeroConnection.verify
-      advance_payment = subscription.expires_on > Date.today.end_of_year
-      creation_date = advance_payment ? (Date.today.end_of_year + 1.day) : created_at
+      creation_date = advance_payment? ? (Date.today.end_of_year + 1.day) : created_at
+      contact = XeroConnection.client.Contact.find(reader.get_contact_id)
       invoice = XeroConnection.client.Invoice.build(
         type: "ACCREC",
         status: "AUTHORISED",
@@ -185,140 +298,33 @@ class Order < ActiveRecord::Base
         due_date: (creation_date + 1.month),
         invoice_number: id,
         reference: "Member ID #{reader.nzffa_membership_id}",
-        line_amount_types: "Inclusive"
+        line_amount_types: "Inclusive",
+        contact: contact
       )
-      contact = invoice.build_contact(
-        name: reader.name,
-        email_address: reader.email
-      )
-      contact.add_phone(
-        number: reader.phone,
-        type: "DEFAULT"
-      )
-      contact.add_address(
-        line1: reader.post_line1,
-        line2: reader.post_line2,
-        city: reader.post_city,
-        region: reader.post_province,
-        country: reader.post_country,
-        postal_code: reader.postcode,
-        type: "STREET"
-      )
-
-      # split_order_lines = advance_payment && (subscription.begins_on < Date.today.end_of_year)
-      order_lines.each do |line|
-        case line.kind
-        when "admin_levy"
-          if branch = Group.find_by_name(line.particular)
-            account_code = branch.account_codes.split(",").last # admin levies always go to the '4 accounts..'
-            li = invoice.add_line_item(
-              description: "Admin levy",
-              account_code: account_code,
-              unit_amount: line.amount
-            )
-            li.add_tracking(name: 'Branch', option: line.particular)
-          elsif line.particular == 'fft_marketplace' # FFT admin levy for casual membership
-            account_code = Group.fft_group.account_codes.split(",").last
-            invoice.add_line_item(
-              description: "FFT Admin levy",
-              account_code: account_code,
-              unit_amount: line.amount
-            )
-          end
-        when "branch_levy"
-          branch = Group.find_by_name(line.particular)
-          if advance_payment
-            index = 1
-          else
-            index = 0
-          end
-          account_code = branch.account_codes.split(",")[index]
-          li = invoice.add_line_item(
-            description: "Branch levy - #{branch.name}",
-            account_code: account_code,
-            unit_amount: line.amount
-          )
-          li.add_tracking(name: 'Branch', option: line.particular)
-        when "action_group_levy"
-          action_group = Group.find_by_name(line.particular)
-          account_code = action_group.account_codes
-          li = invoice.add_line_item(
-            description: "Action group levy - #{action_group.name}",
-            account_code: account_code,
-            unit_amount: line.amount
-          )
-          li.add_tracking(name: 'Sub Group', option: line.particular)
-        when "forest_size_levy"
-          if advance_payment
-            account_code = "2-3350" # Advance forest size levies all go on one account
-          else
-            if line.particular == '0 - 10'
-              account_code = "4-1400"
-            elsif line.particular == '11 - 40'
-              account_code = "4-1402"
-            elsif line.particular == '41+'
-              account_code = "4-1403"
-            end
-          end
-          invoice.add_line_item(
-            description: "Area levy #{line.particular}",
-            account_code: account_code,
-            unit_amount: line.amount
-          )
-        when "fft_marketplace_levy"
-          fft_group = Group.fft_group
-          if advance_payment
-            index = 1
-          else
-            index = 0
-          end
-          account_code = fft_group.account_codes.split(',')[index]
-          invoice.add_line_item(
-            description: "FFT marketplace levy - #{line.particular.gsub('_',' ')}",
-            account_code: account_code,
-            unit_amount: line.amount
-          )
-        when "nz_tree_grower_magazine_levy"
-          invoice.add_line_item(
-            description: "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
-            account_code: "4-1500",
-            unit_amount: line.amount
-          )
-        when "casual_member_nz_tree_grower_magazine_levy"
-          invoice.add_line_item(
-            description: "NZ Tree Grower Magazine - #{line.particular.gsub('_',' ')}",
-            account_code: "4-3500",
-            unit_amount: line.amount
-          )
-        when "research_fund_contribution"
-          invoice.add_line_item(
-            description: "Research fund contribution",
-            account_code: "4-2030",
-            unit_amount: line.amount
-          )
-        when "extra"
-          if line.particular == 'Credit Card Surcharge'
-            invoice.add_line_item(
-              description: line.particular,
-              account_code: "6-1180",
-              unit_amount: line.amount
-            )
-          else
-            invoice.add_line_item(
-              description: "Extra #{line.particular}",
-              account_code: "4-3580",
-              unit_amount: line.amount
-            )
-          end
-        end
-      end
-
+      add_order_lines_to_invoice(invoice)
       if invoice.line_items.any?
         invoice.save
         self.update_attribute :xero_id, invoice.id
       end
-    rescue XeroizerError
+    rescue Xeroizer::XeroizerError
       # fail silently, invoice can always be created on Xero later..
+    end
+  end
+
+  def update_xero_invoice
+    begin
+      XeroConnection.verify
+      creation_date = advance_payment? ? (Date.today.end_of_year + 1.day) : updated_at
+      invoice = XeroConnection.client.Invoice.find(xero_id)
+      invoice.due_date = (creation_date + 1.month)
+      invoice.line_items.clear
+      add_order_lines_to_invoice(invoice)
+      if invoice.line_items.any?
+        invoice.save
+      end
+    rescue Xeroizer::XeroizerError
+      # mark order as needing an update in xero, else we'd miss these on next sync
+      self.update_attribute :needs_xero_update, true
     end
   end
 
