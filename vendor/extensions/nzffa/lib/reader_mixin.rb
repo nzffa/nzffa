@@ -67,7 +67,7 @@ module ReaderMixin
 
   def name
     if forename.present? and surname.present?
-      "#{forename} #{surname}"
+      "#{forename.strip} #{surname.strip}"
     else
       nil
     end
