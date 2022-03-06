@@ -18,6 +18,7 @@ class Order < ActiveRecord::Base
 
   named_scope :synced_to_xero, conditions: "xero_id IS NOT NULL AND needs_xero_update IS FALSE"
   named_scope :not_synced_to_xero, conditions: "xero_id IS NULL OR needs_xero_update IS TRUE"
+  named_scope :with_not_zero_amount, conditions: "amount > 0 OR amount < 0"
 
   delegate :reader, :to => :subscription
   delegate :nzffa_member_id, :to => :reader
