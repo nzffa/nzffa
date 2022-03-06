@@ -21,4 +21,14 @@ class Admin::XeroController < ApplicationController
       redirect_to admin_xero_session_status_path
     end
   end
+
+  def get_xero_id_for_reader
+    # Should really be in Admin::ReadersController, but this 'll do..
+    if XeroConnection.verify
+      Reader.find(params[:id]).get_contact_id
+      redirect_to :back
+    else
+      redirect_to admin_xero_session_status_path
+    end
+  end
 end
