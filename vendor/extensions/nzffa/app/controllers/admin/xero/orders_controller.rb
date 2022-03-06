@@ -7,7 +7,11 @@ class Admin::Xero::OrdersController < Admin::ResourceController
   def sync
     unsynced_orders = Order.not_synced_to_xero.all(conditions: ["created_at >= ?", Time.new('2020')])
     unsynced_orders.each do |order|
-      order.create_xero_invoice
+      if order.xero_id
+        order.update_xero_invoice
+      else
+        order.create_xero_invoice
+      end
     end
     err_count = Order.not_synced_to_xero.all(conditions: ["created_at >= ?", Time.new('2020')]).count
     if err_count > 0
