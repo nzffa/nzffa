@@ -51,10 +51,8 @@ class XeroConnection
     end
 
     def verify
-      if !still_active?
-        reconnect_from_refresh_token
-        # raise(Xeroizer::XeroizerError, "No active connection to Xero API.") if !still_active?
-      end
+      reconnect_from_refresh_token unless still_active?
+      still_active?
     end
 
     def write_tokens
