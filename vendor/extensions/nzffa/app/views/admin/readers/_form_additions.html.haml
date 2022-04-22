@@ -13,5 +13,5 @@
 %p
   = f.label :xero_id, "Xero Contact ID"
   = f.text_field :xero_id, {:disabled => true}
-  - if @reader.xero_id.blank?
+  - if @reader.xero_id.blank? && @reader.id # does not have a Xero id but also is not a new record
     = link_to "Fetch from Xero..", admin_reader_get_xero_id_path(id: @reader.id)
