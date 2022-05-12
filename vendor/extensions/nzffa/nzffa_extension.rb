@@ -27,7 +27,11 @@ class NzffaExtension < Radiant::Extension
       add_item "Reports", "/admin/reports"
       add_item "Print Subscriptions", "/admin/subscriptions/batches_to_print"
     end
-
+    tab("Xero") do
+      add_item("Payment synchronisation", "/admin/xero/payments")
+      add_item("Order synchronisation", "/admin/xero/orders")
+      add_item("Connection status", "/admin/xero")
+    end
     Page.send :include, Nzffa::MessageSubscriptionTags
     Page.send :include, Nzffa::IfDescendantOrSelfTags
     Page.send :include, Nzffa::BranchTags

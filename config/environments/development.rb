@@ -21,3 +21,7 @@ config.action_mailer.raise_delivery_errors = false
 ActionMailer::Base.default_charset = "iso-8859-1"
 ActionMailer::Base.default_url_options[:host] = "localhost:3000"
 
+ymlconf = YAML.load_file("#{Rails.root}/config/application.yml")
+XERO_CONSUMER_KEY = ymlconf['xero']['consumer_key']
+XERO_CONSUMER_SECRET = ymlconf['xero']['consumer_secret']
+XERO_CALLBACK_URL = ymlconf['xero']['callback_url']

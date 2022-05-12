@@ -5,15 +5,13 @@ class XeroOrderSync < ActiveRecord::Base
   after_create :update_order
 
   def update_order
-    xero_invoice = gateway.get_invoice(xero_invoice_id).invoice
-    if xero_invoice.fully_paid_on
+    xero_invoice = XeroConnection.client.Invoice.find(xero_invoice_id)
+    if xero_invoice.fully_paid_on_date
       # xero_payment exposes limited information; not account paid to, for one
-      payment = gateway.get_payment(xero_payment_id)
-      # need to parse response_xml here as xero_gateway does not set @payment_code
-      payment_account_code = Nokogiri::XML(payment.response_xml).css("Code").text
+      payment = XeroConnection.client.Payment.find(xero_payment_id)
       # Allowed payment methods in Order model:
       # ['Direct Debit', 'Direct Credit', 'Credit Card', 'Cheque', 'Cash', 'Online', 'NoCharge']
-      payment_method = case payment_account_code
+      payment_method = case payment.account.code
       when '1-1000' # ANZ bank account; Direct Debit?
         'Direct Debit'
       when '1-1180'
@@ -21,11 +19,7 @@ class XeroOrderSync < ActiveRecord::Base
       else
         'Credit Card' # Make all the rest Credit Card for now..
       end
-      order.paid!(payment_method, xero_invoice.fully_paid_on)
+      order.paid!(payment_method, xero_invoice.fully_paid_on_date)
     end
-  end
-
-  def gateway
-    @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
   end
 end

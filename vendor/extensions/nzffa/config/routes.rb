@@ -57,6 +57,13 @@ ActionController::Routing::Routes.draw do |map|
      readers.resources :orders, :only => :index
      readers.resources :subscriptions, :member => { :cancel => :post }
     end
-    admin.resources :xero_syncs
+
+    admin.xero_session_status "/xero", :controller => 'xero', :action => :index
+    admin.xero_session_callback "/xero/oauth2callback", :controller => 'xero', :action => :oauth2callback
+    admin.reader_get_xero_id "/readers/:id/get_xero_id", controller: 'xero', action: :get_xero_id_for_reader
+    admin.namespace :xero do |xero|
+      xero.resources :payments, only: [:index, :show, :new]
+      xero.resources :orders, only: [:index, :show, :new], collection: { sync: :get }
+    end
   end
 end

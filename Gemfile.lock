@@ -22,18 +22,44 @@ GIT
 
 GIT
   remote: git://github.com/jomz/radiant-reader-extension.git
-  revision: 5617d3109137c631b1590099d78da282eba9ed8a
+  revision: 2558b51712565dbcd3e61f96f820cc99bd233986
+  branch: with_rails_lts
   specs:
     radiant-reader-extension (3.0.38)
       ancestry (~> 1.2.4)
       authlogic (~> 2.1.6)
       color (>= 1.4.1)
-      fastercsv (~> 1.5.4)
       radiant-layouts-extension (~> 1.1.3)
       radiant-mailer_layouts-extension (~> 0.1.1)
       sanitize (~> 2.0.1)
       snail (~> 0.5.5)
-      vcard (~> 0.1.1)
+      vcard (~> 0.2.0)
+
+GIT
+  remote: git://github.com/nzffa/radiant
+  revision: d7e574a34a1d75e80abb01abb1650fb3356d058f
+  branch: with_rails_lts
+  specs:
+    radiant (1.1.4)
+      RedCloth (~> 4.2.0)
+      acts_as_tree (~> 0.1.1)
+      bigdecimal
+      bundler (>= 1.0.0)
+      compass (~> 0.12.2)
+      compass-rails (~> 1.0.3)
+      delocalize (~> 0.2.3)
+      haml (~> 3.1.1)
+      highline (~> 1.6.10)
+      irb
+      rack (~> 1.2)
+      rack-cache (~> 1.3.1)
+      radius (~> 0.7.3)
+      rails (~> 2.3.18)
+      rake (>= 0.8.7)
+      rdoc (>= 3.9.2)
+      stringex (~> 1.3.0)
+      tzinfo (~> 0.3.31)
+      will_paginate (~> 2.3.11)
 
 GIT
   remote: git://github.com/nzffa/radiant-downloads-extension.git
@@ -73,63 +99,90 @@ GIT
 
 GIT
   remote: git://github.com/nzffa/radiant-scheduler-extension
-  revision: 858f287455f10afba21e6a9a6f09df3e2b1ad887
+  revision: 5045d68d8a11df1fb6f95db8c1b741ee96782971
+  branch: with_rails_lts
   specs:
     radiant-scheduler-extension (1.0.3)
 
 GIT
+  remote: git://github.com/radiant/radiant-clipped-extension.git
+  revision: f629879c9621b3388c2e2c47b1b182bf6935fd93
+  branch: with_rails_lts
+  specs:
+    radiant-clipped-extension (1.1.3)
+      acts_as_list (= 0.1.4)
+      cocaine (~> 0.3.2)
+      fog (= 1.24.0)
+      fog-core (= 1.24.0)
+      net-ssh (~> 4.2.0)
+      paperclip (~> 2.7.0)
+      uuidtools (~> 2.1.2)
+
+GIT
+  remote: git@github.com:nzffa/xeroizer.git
+  revision: 93417c66b0d496e725e203614159d8bde7709b11
+  branch: rails_2_lts
+  specs:
+    xeroizer (3.0.0.pre.beta)
+      activesupport
+      builder (>= 2.1.2)
+      i18n
+      nokogiri
+      oauth (>= 0.4.5)
+      oauth2 (>= 1.4.0)
+      tzinfo
+
+GIT
   remote: https://github.com/makandra/rails.git
-  revision: c6c5ad39cc168db60bf7e33dad484ba8cff33dd3
+  revision: e53a9789b87375c15f494dc714d3c330f7a28021
   branch: 2-3-lts
   specs:
-    actionmailer (2.3.18.36)
-      actionpack (= 2.3.18.36)
-    actionpack (2.3.18.36)
-      activesupport (= 2.3.18.36)
+    actionmailer (2.3.18.37)
+      actionpack (= 2.3.18.37)
+    actionpack (2.3.18.37)
+      activesupport (= 2.3.18.37)
       rack (< 1.5)
-    activerecord (2.3.18.36)
-      activesupport (= 2.3.18.36)
-    activeresource (2.3.18.36)
-      activesupport (= 2.3.18.36)
-    activesupport (2.3.18.36)
-    rails (2.3.18.36)
-      actionmailer (= 2.3.18.36)
-      actionpack (= 2.3.18.36)
-      activerecord (= 2.3.18.36)
-      activeresource (= 2.3.18.36)
-      activesupport (= 2.3.18.36)
-      railslts-version (= 2.3.18.36)
-      railties (= 2.3.18.36)
-    railslts-version (2.3.18.36)
-    railties (2.3.18.36)
-      actionpack (= 2.3.18.36)
-      activesupport (= 2.3.18.36)
+    activerecord (2.3.18.37)
+      activesupport (= 2.3.18.37)
+    activeresource (2.3.18.37)
+      activesupport (= 2.3.18.37)
+    activesupport (2.3.18.37)
+    rails (2.3.18.37)
+      actionmailer (= 2.3.18.37)
+      actionpack (= 2.3.18.37)
+      activerecord (= 2.3.18.37)
+      activeresource (= 2.3.18.37)
+      activesupport (= 2.3.18.37)
+      railslts-version (= 2.3.18.37)
+      railties (= 2.3.18.37)
+    railslts-version (2.3.18.37)
+    railties (2.3.18.37)
+      actionpack (= 2.3.18.37)
+      activesupport (= 2.3.18.37)
       rake (>= 0.8.3, < 11)
 
-PATH
-  remote: vendor/radiant
+GIT
+  remote: https://github.com/makandra/rspec-rails.git
+  revision: 8bc8d0aa96308365abaeb3f6effa39f4da8a810f
+  branch: 1-3-lts
   specs:
-    radiant (1.1.4)
-      RedCloth (~> 4.2.0)
-      acts_as_tree (~> 0.1.1)
-      bundler (>= 1.0.0)
-      delocalize (~> 0.2.3)
-      haml (~> 3.1.1)
-      highline (~> 1.6.10)
-      rack (~> 1.2.0)
-      rack-cache (~> 1.2)
-      radius (~> 0.7.3)
-      rails (~> 2.3.18)
-      rake (>= 0.8.7)
-      rdoc (>= 3.9.2)
-      stringex (~> 1.3.0)
-      tzinfo (~> 0.3.31)
-      will_paginate (~> 2.3.11)
+    rspec-rails (1.3.4)
+      rack (>= 1.0.0)
+      rspec (~> 1.3.1)
+
+GIT
+  remote: https://github.com/makandra/rspec.git
+  revision: 692ab8326bb60b6784c4e0cc230bf87edcbafa43
+  branch: 1-3-lts
+  specs:
+    rspec (1.3.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
+    activerecord-mysql2-adapter (0.0.3)
+      mysql2
     acts_as_list (0.1.4)
     acts_as_tree (0.1.1)
     airbrake (4.1.0)
@@ -140,6 +193,7 @@ GEM
     authlogic (2.1.11)
       activerecord (~> 2.3.0)
       activesupport (~> 2.3.0)
+    bigdecimal (3.0.2)
     builder (3.2.4)
     capistrano (2.14.2)
       highline
@@ -148,48 +202,124 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     chronic (0.10.2)
+    chunky_png (1.4.0)
     cocaine (0.3.2)
     color (1.8)
+    compass (0.12.7)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.2.19)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
+    concurrent-ruby (1.1.9)
     delocalize (0.2.6)
+    dry-inflector (0.2.1)
+    excon (0.85.0)
     execjs (2.0.0)
-    fastercsv (1.5.5)
+    faraday (1.5.1)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    fog (1.24.0)
+      fog-brightbox
+      fog-core (~> 1.23)
+      fog-json
+      fog-radosgw (>= 0.0.2)
+      fog-sakuracloud (>= 0.0.4)
+      fog-softlayer
+      ipaddress (~> 0.5)
+      nokogiri (~> 1.5, >= 1.5.11)
+    fog-brightbox (0.16.1)
+      dry-inflector
+      fog-core
+      fog-json
+      mime-types
+    fog-core (1.24.0)
+      builder
+      excon (~> 0.38)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-json (1.0.1)
+      fog-core (~> 1.0)
+      multi_json (~> 1.0)
+    fog-radosgw (0.0.5)
+      fog-core (>= 1.21.0)
+      fog-json
+      fog-xml (>= 0.0.1)
+    fog-sakuracloud (1.7.5)
+      fog-core
+      fog-json
+    fog-softlayer (1.1.4)
+      fog-core
+      fog-json
+    fog-xml (0.1.3)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
+    formatador (0.3.0)
+    fssm (0.2.10)
     haml (3.1.8)
     highline (1.6.21)
     hpricot (0.8.6)
-    httparty (0.13.0)
-      json (~> 1.8)
+    httparty (0.20.0)
+      mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
-    json (1.8.6)
+    i18n (1.8.10)
+      concurrent-ruby (~> 1.0)
+    io-console (0.5.9)
+    ipaddress (0.8.3)
+    irb (1.3.7)
+      reline (>= 0.2.7)
+    jwt (2.2.3)
     libv8 (3.16.14.19)
-    mime-types (1.22)
-    multi_json (1.15.0)
+    mime-types (3.0)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2021.1115)
+    multi_json (1.3.7)
     multi_xml (0.6.0)
-    mysql2 (0.4.9)
-    net-scp (3.0.0)
-      net-ssh (>= 2.6.5, < 7.0.0)
+    multipart-post (2.1.1)
+    mysql2 (0.5.3)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.4)
-    net-ssh-gateway (1.3.0)
-      net-ssh (>= 2.6.5)
+    net-ssh (4.2.0)
+    net-ssh-gateway (2.0.0)
+      net-ssh (>= 4.0.0)
     nokogiri (1.5.11)
-    oauth (0.5.1)
+    oauth (0.5.5)
+    oauth2 (1.4.7)
+      faraday (>= 0.8, < 2.0)
+      jwt (>= 1.0, < 3.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
     open4 (1.3.4)
     paperclip (2.7.5)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (~> 0.3.0)
       mime-types
-    rack (1.2.8)
-    rack-cache (1.2)
+    parallel (0.5.21)
+    rack (1.4.7)
+    rack-cache (1.3.1)
       rack (>= 0.4)
     radiant-ck_editor_filter-extension (0.2.9)
-    radiant-clipped-extension (1.1.2)
-      acts_as_list (= 0.1.4)
-      cocaine (~> 0.3.2)
-      paperclip (~> 2.7.0)
-      uuidtools (~> 2.1.2)
-    radiant-copy_move-extension (2.4.8)
+    radiant-copy_move-extension (2.4.9)
       radiant (>= 1.0.0.rc2)
     radiant-find_by_id_tag-extension (1.2.3)
     radiant-find_replace-extension (1.0.6)
@@ -206,16 +336,18 @@ GEM
     radiant-search-extension (1.0.0)
     radiant-snippets-extension (1.1.3)
     radius (0.7.5)
-    rake (10.4.2)
-    rdoc (4.2.0)
-      json (~> 1.4)
+    rake (10.5.0)
+    rdoc (6.3.2)
     ref (1.0.5)
-    rr (1.2.1)
+    reline (0.2.7)
+      io-console (~> 0.5)
+    rr (3.0.5)
     ruby-ole (1.2.12.2)
+    ruby2_keywords (0.0.5)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     snail (0.5.7)
-    spreadsheet (1.2.7)
+    spreadsheet (1.2.9)
       ruby-ole
     stringex (1.3.3)
     therubyracer (0.12.3)
@@ -224,7 +356,7 @@ GEM
     thor (0.14.6)
     tzinfo (0.3.60)
     uuidtools (2.1.5)
-    vcard (0.1.1)
+    vcard (0.2.16)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (2.3.17)
@@ -237,25 +369,28 @@ DEPENDENCIES
   actionmailer!
   actionpack!
   activerecord!
+  activerecord-mysql2-adapter
   activeresource!
   activesupport!
   airbrake (= 4.1.0)
   backup!
   capistrano (~> 2.14.1)
   execjs (= 2.0.0)
-  fastercsv
   hpricot
-  httparty (= 0.13.0)
-  mime-types (= 1.22)
-  mysql2 (= 0.4.9)
-  net-ssh (= 2.9.4)
-  oauth (= 0.5.1)
-  rack-cache (= 1.2)
+  httparty (= 0.20.0)
+  irb
+  mime-types (= 3.0)
+  multi_json (~> 1.3.0)
+  mysql2 (~> 0.5.3)
+  net-ssh (= 4.2.0)
+  oauth (= 0.5.5)
+  oauth2 (= 1.4.7)
+  parallel (~> 0.5.12)
   radiant!
   radiant-ck_editor_filter-extension (~> 0.2.5)
-  radiant-clipped-extension (~> 1.1.2)
+  radiant-clipped-extension!
   radiant-conference-extension!
-  radiant-copy_move-extension (~> 2.4.8)
+  radiant-copy_move-extension (~> 2.4.9)
   radiant-downloads-extension!
   radiant-find_by_id_tag-extension (~> 1.2.3)
   radiant-find_replace-extension (~> 1.0.6)
@@ -280,13 +415,16 @@ DEPENDENCIES
   rails (~> 2.3.18)!
   railslts-version!
   railties!
-  rake (= 10.4.2)
-  rdoc (= 4.2.0)
+  rake (= 10.5.0)
+  rdoc (= 6.3.2)
   ref (= 1.0.5)
   rr
+  rspec (= 1.3.2)!
+  rspec-rails!
   sanitize (= 2.0.3)
   therubyracer
   whenever (= 0.9.4)
+  xeroizer!
 
 BUNDLED WITH
    1.17.3

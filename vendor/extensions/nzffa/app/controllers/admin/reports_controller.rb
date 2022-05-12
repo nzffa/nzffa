@@ -1,3 +1,4 @@
+require 'csv'
 class Admin::ReportsController < AdminController
   only_allow_access_to :index, :new, :edit, :create, :update, :remove, :destroy,
     :when => [:admin, :designer]
@@ -15,7 +16,7 @@ class Admin::ReportsController < AdminController
     #ActionGroup.all.map(&:group_id)
     #subscription_group_ids = [229, 80, 232, 230, 211]
     subscription_group_ids = [11, 12, 13, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 80, 201, 209, 211, 217, 221, 225, 229, 230, 232]
-    csv_string = READER_CSV_LIB.generate do |csv|
+    csv_string = CSV.generate do |csv|
       csv << %w[id nzffa_membership_id name email expired_on group_ids]
       @readers = Reader.all.select do |r|
         if !r.active_subscription and r.group_ids.any?{|id| subscription_group_ids.include?(id) }
@@ -39,7 +40,7 @@ class Admin::ReportsController < AdminController
   def payments
     @orders = Order.find(:all, :conditions => 'paid_on IS NOT NULL', :order => 'id asc')
     fields = ['nzffa_member_id', 'subscription_id', 'order_id', 'amount', 'paid_on', 'payment_method']
-    csv_string = READER_CSV_LIB.generate do |csv|
+    csv_string = CSV.generate do |csv|
       csv << fields
       @orders.each {|order| csv << fields.map{|f| order.send(f) } }
     end
@@ -53,7 +54,7 @@ class Admin::ReportsController < AdminController
     fields = ['nzffa_member_id', 'subscription_id', 'order_id',
               'order_line_id', 'kind', 'particular', 'amount',
               'paid_on', 'payment_method', 'subscription_begins_on', 'subscription_begins_on', 'subscription_expires_on']
-    csv_string = READER_CSV_LIB.generate do |csv|
+    csv_string = CSV.generate do |csv|
       csv << fields
       @orders.each do |order|
         order.order_lines.each do |line|
@@ -72,7 +73,7 @@ class Admin::ReportsController < AdminController
     post_city post_province post_country postcode full_nzffa_member? main_branch_group_id
     associated_branch_group_ids_string action_group_group_ids_string special_cases identifiers
     bank_account_number tree_grower_group_ids disallow_renewal_mails]
-    csv_string = READER_CSV_LIB.generate(:col_sep => "\t") do |csv|
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
       csv << fields
       @readers.each do |reader|
         csv << fields.map do |field|
@@ -99,7 +100,7 @@ class Admin::ReportsController < AdminController
     post_city post_province post_country postcode full_nzffa_member? main_branch_group_id
     associated_branch_group_ids_string action_group_group_ids_string special_cases identifiers
     bank_account_number tree_grower_group_ids]
-    csv_string = READER_CSV_LIB.generate(:col_sep => "\t") do |csv|
+    csv_string = CSV.generate(:col_sep => "\t") do |csv|
       csv << fields
       @readers.each do |reader|
         csv << fields.map do |field|
@@ -124,7 +125,7 @@ class Admin::ReportsController < AdminController
     @subscriptions = Subscription.active.find(:all, :conditions => {'receive_tree_grower_magazine' => true})
     fields = %w[id nzffa_membership_id forename surname postal_address post_line1 post_line2 post_city
     post_province post_country postcode num_copies indigenous_group_member]
-    csv_string = READER_CSV_LIB.generate do |csv|
+    csv_string = CSV.generate do |csv|
       csv << fields
       @subscriptions.each do |sub|
         r = sub.reader
@@ -144,7 +145,7 @@ class Admin::ReportsController < AdminController
   end
 
   def expiries
-    all_subscriptions = Subscription.find(:all, :conditions => ['expires_on < ? and expires_on > ?', Date.today, 3.months.ago])
+    all_subscriptions = Subscription.find(:all, :conditions => ['expires_on < ? and expires_on > ?', Date.today, 1.year.ago])
 
     @subscriptions = all_subscriptions.select do |s|
       s.reader.present? and Subscription.active_subscription_for(s.reader).blank?
@@ -153,7 +154,7 @@ class Admin::ReportsController < AdminController
     fields = %w[id nzffa_membership_id expired_on forename surname postal_address post_line1 post_line2 post_city
     post_province post_country postcode phone mobile num_copies indigenous_group_member]
 
-    csv_string = READER_CSV_LIB.generate do |csv|
+    csv_string = CSV.generate do |csv|
       csv << fields
       @subscriptions.each do |sub|
         r = sub.reader
@@ -179,7 +180,7 @@ class Admin::ReportsController < AdminController
     targetted_readers = national_newsletter_members.select{|r| (r.groups & targetted_groups).any? }
     fields = %w[id nzffa_membership_id forename surname email]
 
-    csv_string = READER_CSV_LIB.generate do |csv|
+    csv_string = CSV.generate do |csv|
       csv << fields
       targetted_readers.each do |r|
         csv << fields.map { |field| r.send(field) }

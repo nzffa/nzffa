@@ -34,6 +34,11 @@
           per issue
         %td.price
           =number_to_currency(@order.casual_nz_tree_grower_levy)
+    - @order.order_lines.select{|ol| ol.kind == 'extra'}.each do |ol|
+      %tr
+        %td
+          %h4= ol.particular
+        %td.price= number_to_currency(ol.amount)
     %tr
       %td
         %h4 Subtotal

@@ -67,7 +67,7 @@ module ReaderMixin
 
   def name
     if forename.present? and surname.present?
-      "#{forename} #{surname}"
+      "#{forename.strip} #{surname.strip}"
     else
       nil
     end
@@ -107,6 +107,7 @@ module ReaderMixin
   end
 
   def subscription_for_next_year
+    # returns only subscriptions that are paid
     Subscription.next_year_subscription_for(self)
   end
 
@@ -234,6 +235,13 @@ module ReaderMixin
   end
 
   def is_options_only?
+    # used only in _print_account_full_member.html.haml;
+    # -if @reader.is_options_only?
+    #   .section.options-only
+    #     %h3 ADDITIONAL SUBSCRIPTION OPTIONS
+    #     %p.additional-options Select with a tick and write total amount in Total Column
+    # -else
+    #   .section
     special_cases_include? 900
   end
 
@@ -265,27 +273,45 @@ module ReaderMixin
     unless xero_id.nil? or xero_id.blank?
       xero_id
     else
-      @gateway ||= XeroGateway::PrivateApp.new(XERO_CONSUMER_KEY, XERO_CONSUMER_SECRET, XERO_PEM_PATH)
-      all_xero_contacts = Nokogiri::XML(@gateway.get_contacts.response_xml).css("Contacts Contact")
-      matching_contact = all_xero_contacts.select{|xc| xc.css("Name").text == self.name }.first
+      XeroConnection.verify
+      matching_contact = XeroConnection.client.Contact.all(:where => "Name==\"#{self.name}\"").first
       if matching_contact
-        self.update_attribute :xero_id, matching_contact.css("ContactID").text
+        self.update_attribute :xero_id, matching_contact.contact_id
       else
-        contact = @gateway.build_contact
-        contact.name = self.name
-        contact.email = self.email
-        contact.phone.number = self.phone
-        contact.address.line_1 = self.post_line1
-        contact.address.line_2 = self.post_line2
-        contact.address.city = self.post_city
-        contact.address.region = self.post_province
-        contact.address.country = self.post_country
-        contact.address.post_code = self.postcode
-        response = contact.save
-        if response.status == 'OK'
-          self.update_attribute :xero_id, Nokogiri::XML(response.response_xml).css("ContactID").text
+        contact = XeroConnection.client.Contact.build(
+          name: self.name,
+          email_address: self.email
+        )
+        contact.add_phone(number: self.phone)
+        contact.add_address(
+          type: 'STREET',
+          line1:     self.post_line1,
+          line2:     self.post_line2,
+          city:      self.post_city,
+          region:    self.post_province,
+          country:   self.post_country,
+          postal_code: self.postcode
+        )
+        valid = contact.save
+        if valid
+          self.update_attribute :xero_id, contact.contact_id
         end
       end
+      xero_id
+    end
+  end
+
+  def threatening_duplicate_subscription
+    # Due to how subscriptions_controller#new and #create work, aborting the
+    # payment process and then recommencing would create a new subscription and
+    # new order in the database each time. This had become a serious issue since
+    # orders are being created in Xero as well.
+    # This method helps us to re-use the 'abandoned' subscription if it exists.
+    if subscription = Subscription.most_recent_subscription_for(self)
+      # most_recent_subscription_for also checks that cancelled_on is null
+      subscription.paid? ? nil : subscription
+    else
+      nil
     end
   end
 

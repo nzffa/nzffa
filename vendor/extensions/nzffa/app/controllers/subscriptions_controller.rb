@@ -22,7 +22,7 @@ class SubscriptionsController < ReaderActionController
   def modify
     @action_path = upgrade_subscriptions_path
     @subscription = Subscription.active_subscription_for(current_reader)
-    @subscription.contribute_to_research_fund = false
+    @subscription.contribute_to_research_fund = false # errors when @subscription is nil (no active subscription for current reader)
     @subscription.begins_on = Date.today
   end
 
@@ -40,9 +40,8 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'No previous subscription found'
       redirect_to(:action => :index) and return
     end
-    
   end
-  
+
   def print
     @subscription = Subscription.last_paid_subscription_for(current_reader)
     if @subscription.nil?
@@ -62,7 +61,7 @@ class SubscriptionsController < ReaderActionController
     else
       redirect_to :back
     end
-    
+
     @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
     @order = CreateOrder.from_subscription(@subscription)
     render 'print', :layout => false
@@ -73,16 +72,16 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'You cannot create a new subscription if you currently have a subscription.'
       redirect_to subscriptions_path and return
     end
+    @subscription = current_reader.subscriptions.new(params[:subscription])
     @action_path = subscriptions_path
-    @subscription = Subscription.new(params[:subscription])
-    @subscription.reader = current_reader
   end
 
   def quote_new
     subscription = Subscription.new(params[:subscription])
     order = CreateOrder.from_subscription(subscription)
 
-    render :json => {:price => "#{number_to_currency(order.amount)}", 
+    render :json => {:price => "#{number_to_currency(order.amount)}",
+                     :credit_card_fee => "#{number_to_currency(order.amount * 0.023)}",
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
                      :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end
@@ -99,6 +98,7 @@ class SubscriptionsController < ReaderActionController
     upgrade_price = CalculatesSubscriptionLevy.upgrade_price(current_sub, new_sub)
 
     render :json => {:price => "#{number_to_currency(normal_price)}",
+                     :credit_card_fee => "#{number_to_currency(normal_price * 0.023)}",
                      :credit => "#{number_to_currency(credit)}",
                      :upgrade_price => "#{number_to_currency(upgrade_price)}",
                      :expires_on => new_sub.expires_on.strftime('%e %B %Y').strip,
@@ -106,20 +106,51 @@ class SubscriptionsController < ReaderActionController
   end
 
   def create
-    @subscription = Subscription.new(params[:subscription])
+    # In order to prevent the duplicate subscriptions and orders, and thereby
+    # duplicate invoices in Xero, we are deviating from 'the rails way' here.
+    # Rather than opening :edit and :update routes, add controller actions,
+    # edit forms etc., we check for and re-use any existing 'abandoned'
+    # subscription here, and update the invoice in Xero
+    if @subscription = current_reader.threatening_duplicate_subscription
+      # An 'abandoned' subscription exists so do not create a new one
+      @subscription.group_subscriptions.clear
+      @subscription.update_attributes(params[:subscription])
 
-    if Subscription.active_anytime.find(:all, :conditions => ['reader_id = ? AND begins_on <= ? AND expires_on >= ?', current_reader.id, @subscription.begins_on, @subscription.expires_on]).size > 0
-      flash[:error] = 'You already have an active subscription for this time'
-      redirect_to subscriptions_path and return
-    end
+      if Subscription.active_anytime.find(:all, :conditions => ['reader_id = ? AND begins_on <= ? AND expires_on >= ?', current_reader.id, @subscription.begins_on, @subscription.expires_on]).size > 0
+        flash[:error] = 'You already have an active subscription for this time'
+        redirect_to subscriptions_path and return
+      end
 
-    @subscription.reader = current_reader
-    if @subscription.valid?
-      @order = CreateOrder.from_subscription(@subscription)
-      @order.save
-      redirect_to make_payment_order_path(@order)
+      if @subscription.valid?
+        new_order = CreateOrder.from_subscription(@subscription)
+        new_order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
+        new_order.amount = new_order.calculate_amount
+        @order = @subscription.order
+        @order.order_lines = new_order.order_lines
+        @order.update_attribute(:amount, new_order.amount) # all other attrs should not change
+        @order.update_xero_invoice
+        redirect_to make_payment_order_path(@order)
+      else
+        render :new
+      end
     else
-      render :new
+      # Act as before (create a new subscription and order)
+      @subscription = current_reader.subscriptions.new(params[:subscription])
+
+      if Subscription.active_anytime.find(:all, :conditions => ['reader_id = ? AND begins_on <= ? AND expires_on >= ?', current_reader.id, @subscription.begins_on, @subscription.expires_on]).size > 0
+        flash[:error] = 'You already have an active subscription for this time'
+        redirect_to subscriptions_path and return
+      end
+
+      if @subscription.valid?
+        @order = CreateOrder.from_subscription(@subscription)
+        @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
+        @order.amount = @order.calculate_amount # because of added CC order_line
+        @order.save
+        redirect_to make_payment_order_path(@order)
+      else
+        render :new
+      end
     end
   end
 

@@ -11,9 +11,6 @@ Other payment methods:
       =check_box_tag :direct_debit
       Direct Credit
     %td
-      =check_box_tag :cheque
-      Cheque
-    %td
       =check_box_tag :visa
       Visa
     %td
@@ -24,6 +21,9 @@ Other payment methods:
   %tr
     %td{:colspan => 4 }
       For Direct Crediting - Account No. 06 0501 0145507 00 - give your Membership ID for reference
+  %tr
+    %td{:colspan => 4 }
+      If you are paying by Credit Card, a 2.3% surcharge will be added to cover the cost to us of the transaction.
 
 %table.payment
   %tr
@@ -70,4 +70,4 @@ Other payment methods:
     %td Invoice #{@subscription.begins_on.strftime "%Y"}-#{@reader.nzffa_membership_id} Date 1/12/#{@subscription.begins_on.strftime "%Y"}
 
 %p.if-you-make-changes
-  If you make any changes to the above amounts or are paying by credit card or cheque, please return one copy of this form to the NZFFA National Office and retain the other for your records
+  If you make any changes to the above amounts or are paying by credit card, please return one copy of this form to the NZFFA National Office and retain the other for your records

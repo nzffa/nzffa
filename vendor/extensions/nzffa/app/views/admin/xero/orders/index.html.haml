@@ -1,0 +1,27 @@
+.outset
+  %table.index#orders{:summary=>'Orders not yet synced to Xero', :style => " background-color: white; color: black"}
+    %thead
+      %tr
+        %th id
+        %th reader
+        %th amount
+        %th created on
+
+    %tbody
+      - @unsynced_orders.each do |order|
+        %tr
+          %td.name=link_to(order.id, admin_order_path(order))
+          %td=order.reader.name if order.reader
+          %td=number_to_currency(order.amount)
+          %td
+            -if order.created_at
+              =l order.created_at.to_date
+      - if @unsynced_orders.empty?
+        %tr
+          %td{:colspan => 4}= "There are currently no orders that are not synced to Xero"
+
+
+  #actions
+    = pagination_for(@unsynced_orders)
+    %ul
+      %li= link_to image('plus') + " Sync orders to Xero", "/admin/xero/orders/sync", :class => 'action_button'
