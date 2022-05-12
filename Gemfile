@@ -1,16 +1,5 @@
 source 'https://rubygems.org'
 
-git 'https://github.com/makandra/rails.git', :branch => '2-3-lts' do
-  gem 'rails', '~>2.3.18'
-  gem 'actionmailer',     :require => false
-  gem 'actionpack',       :require => false
-  gem 'activerecord',     :require => false
-  gem 'activeresource',   :require => false
-  gem 'activesupport',    :require => false
-  gem 'railties',         :require => false
-  gem 'railslts-version', :require => false
-end
-
 # Because LTS
 git 'https://github.com/makandra/rails.git', branch: '2-3-lts' do
   gem 'rails', '~>2.3.18'
@@ -67,25 +56,25 @@ gem "radiant-snippets-extension",            "~> 1.1.3"
 # gem "radiant-japanese_language_pack-extension", "~> 1.0.0"
 # gem "radiant-russian_language_pack-extension",  "~> 1.0.0"
 
-gem "radiant-clipped-extension", :git => 'git://github.com/radiant/radiant-clipped-extension.git', :branch => :with_rails_lts
+gem "radiant-clipped-extension", :git => 'https://github.com/radiant/radiant-clipped-extension.git', :branch => :with_rails_lts
 # gem "radiant-clipped-extension", :path => "vendor/extensions/clipped"
 
 # This depends on radiant-layouts-extension
-gem 'radiant-reader-extension', :git => 'git://github.com/jomz/radiant-reader-extension.git', :branch => :with_rails_lts
+gem 'radiant-reader-extension', :git => 'https://github.com/jomz/radiant-reader-extension.git', :branch => :with_rails_lts
 # gem 'radiant-reader-extension', :path => 'vendor/extensions/reader'
 
-gem "radiant-forum-extension", :git => 'git://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
+gem "radiant-forum-extension", :git => 'https://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
 # gem "radiant-forum-extension", :path => 'vendor/extensions/forum'
 
-gem "radiant-page_reader_group_permissions-extension", :git => 'git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git'
+gem "radiant-page_reader_group_permissions-extension", :git => 'https://github.com/nzffa/radiant-page_reader_group_permissions-extension.git'
 # gem "radiant-page_reader_group_permissions-extension", :path => 'vendor/extensions/page_reader_group_permissions'
 
 # gem "radiant-conference-extension", :path => 'vendor/extensions/conference'
-gem "radiant-conference-extension", :git => 'git://github.com/nzffa/radiant-nzffa_conference-extension.git'
+gem "radiant-conference-extension", :git => 'https://github.com/nzffa/radiant-nzffa_conference-extension.git'
 
 # gem "radiant-marketplace-extension", :path => 'vendor/extensions/marketplace'
 # gem "spreadsheet"
-gem "radiant-marketplace-extension", :git => 'git://github.com/nzffa/radiant-nzffa_marketplace-extension.git'
+gem "radiant-marketplace-extension", :git => 'https://github.com/nzffa/radiant-nzffa_marketplace-extension.git'
 
 gem "radiant-reorder_children-extension"
 gem 'radiant-relations-extension'
@@ -93,12 +82,12 @@ gem 'radiant-relations-extension'
 gem "radiant-linx-extension"
 
 # gem "radiant-downloads-extension", :path => 'vendor/extensions/downloads'
-gem "radiant-downloads-extension", :git => 'git://github.com/nzffa/radiant-downloads-extension.git'
-gem "radiant-scheduler-extension", :git => "git://github.com/nzffa/radiant-scheduler-extension", :branch => :with_rails_lts
+gem "radiant-downloads-extension", :git => 'https://github.com/nzffa/radiant-downloads-extension.git'
+gem "radiant-scheduler-extension", :git => "https://github.com/nzffa/radiant-scheduler-extension", :branch => :with_rails_lts
 # gem "radiant-scheduler-extension", :path => "vendor/extensions/scheduler"
 gem "radiant-navigation_tags-extension", "~> 0.2.7"
 gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
-gem "radiant-settings-extension", "~> 1.1.1", :git => 'git://github.com/enspiral/radiant-settings.git'
+gem "radiant-settings-extension", "~> 1.1.1", :git => 'https://github.com/enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
 gem "radiant-search-extension"
 gem "radiant-copy_move-extension",          "~> 2.4.9"
@@ -112,11 +101,11 @@ gem "radiant-find_replace-extension", "~> 1.0.6"
 # gem "radiant-find_replace-extension", :path => 'vendor/extensions/find_replace'
 gem "radiant-if_date_tags-extension", "~> 1.0.0"
 
-gem 'radiant-layouts-extension', :git => 'git://github.com/enspiral/radiant-share-layouts-extension.git'
+gem 'radiant-layouts-extension', :git => 'https://github.com/enspiral/radiant-share-layouts-extension.git'
 # The above gem uses rr for mocking
 gem 'rr', :group => :test
 
-gem 'backup', :git => 'git://github.com/jdutil/backup.git'
+gem 'backup', :git => 'https://github.com/jdutil/backup.git'
 # gem 'fog', '1.1.0'
 gem 'net-ssh', '4.2.0'
 gem 'multi_json', '~> 1.3.0'
