@@ -1,0 +1,47 @@
+-form_for(@subscription, :url => @action_path) do |f|
+  =f.hidden_field :reader_id
+  %h3 How many hectares of planted trees do you have?
+  %p#ha_of_planted_trees
+    =f.radio_button :ha_of_planted_trees, '0 - 10'
+    =f.label :ha_of_planted_trees_0__10, '0 - 10ha'
+    %br
+    =f.radio_button :ha_of_planted_trees, '11 - 40'
+    =f.label :ha_of_planted_trees_11__40, '11 - 40ha'
+    %br
+    =f.radio_button :ha_of_planted_trees, '41+'
+    =f.label :ha_of_planted_trees_41, '40+ ha'
+
+  %h3 Select the main branch you want to belong to
+  %p#main_branch
+    =f.collection_select :main_branch_name, Group.branches, :name, :name
+
+  %h3 Select any additional branches you want to be a member of
+  %p#associated_branches
+    =f.collection_select :associated_branch_names, Group.branches, :name, :name, {}, :multiple => true
+
+  %h3 Select any special interest groups you want to belong to
+  %p#special_interest_groups
+    =f.collection_select :action_group_ids, Group.action_groups, :id, :name, {}, :multiple => true
+
+  %h3 Research Fund Contribution
+  %p
+    =f.check_box :contribute_to_research_fund
+    =f.label :contribute_to_research_fund, "Contribute to Research Fund"
+  #research_fund_contribution
+    #research_fund_contribution_amount
+      =f.label :research_fund_contribution_amount, 'Amount to contribute'
+      %input{:name => "subscription[research_fund_contribution_amount]", :id => "subscription_research_fund_contribution_amount", :type => 'number', :min => 0}
+
+      %p If you want your contribution treated as a donation (receipt acknowledgement will be sent) tick the below box
+      =f.check_box :research_fund_contribution_is_donation
+      =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
+
+  = render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
+
+  = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
+  = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
+  = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
+
+  =f.submit 'Proceed to payment'
+
+= render :partial => 'subscriptions/quote_js'

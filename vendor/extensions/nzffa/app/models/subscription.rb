@@ -6,8 +6,8 @@ class Subscription < ActiveRecord::Base
   has_many :group_subscriptions, :dependent => :destroy, :source => :group
   has_many :groups, :through => :group_subscriptions
 
-  validates_inclusion_of :membership_type, :in => ['full', 'casual']
-  validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
+  # validates_inclusion_of :membership_type, :in => ['full', 'casual']
+  # validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
   validates_presence_of :ha_of_planted_trees, :if => 'membership_type == "full"'
   validates_presence_of :nz_tree_grower_copies
   validates_presence_of :expires_on, :begins_on
@@ -140,9 +140,9 @@ class Subscription < ActiveRecord::Base
     list = []
     list << membership_type
 
-    if membership_type == 'full'
-      list << "Branches: [#{(branches.map{|b| b.name }).join(', ')}]"
-    end
+    # if membership_type == 'full'
+#       list << "Branches: [#{(branches.map{|b| b.name }).join(', ')}]"
+#     end
 
     list << "Begins: #{begins_on}"
     list << "Expires: #{expires_on}"
@@ -174,11 +174,11 @@ class Subscription < ActiveRecord::Base
     self.research_fund_contribution_amount ||= 0.0
   end
 
-  def before_save
-    if membership_type == 'full'
-      self.receive_tree_grower_magazine = true
-    end
-  end
+  # def before_save
+  #   if membership_type == 'full'
+  #     self.receive_tree_grower_magazine = true
+  #   end
+  # end
 
   def research_fund_contribution_amount
     if contribute_to_research_fund?

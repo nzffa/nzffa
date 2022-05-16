@@ -1,14 +1,8 @@
 =render :partial => 'subscriptions/load_js_libs'
 
 %h1 New Subscription
+
 =stylesheet_link_tag 'select2'
-- case @subscription.membership_type
-- when 'casual'
-  =render 'subscriptions/casual_membership_form'
-- when 'full'
-  =render 'subscriptions/full_membership_form'
-- else
-  =render 'subscriptions/select_membership_type_form'
 
-
+=render 'subscriptions/membership_form'
 
