@@ -40,62 +40,33 @@ class CreateOrder
 
   def create_order
     order = Order.new
-    case subscription.membership_type
-    when 'full'
-      order.add_charge(:kind => 'admin_levy',
-                       :particular => subscription.main_branch_name,
-                       :amount => admin_levy_amount)
-
-      order.add_charge(:kind => 'forest_size_levy',
-                       :particular => subscription.ha_of_planted_trees,
-                       :amount => forest_size_levy_amount)
-
-      subscription.branches.each do |branch|
-        order.add_charge(:kind => 'branch_levy',
-                         :particular => branch.name,
-                         :amount => branch_levy_amount(branch))
-      end
-
-      subscription.action_groups.each do |group|
-        order.add_charge(:kind => 'action_group_levy',
-                         :particular => group.name,
-                         :amount => action_group_levy_amount(group))
-      end
-
-      order.add_charge(:kind => 'nz_tree_grower_magazine_levy',
-                       :particular => 'full_membership',
-                       :amount => full_member_tree_grower_magazine_levy_amount)
-
-      if subscription.belongs_to_fft
-        order.add_charge(:kind => 'fft_marketplace_levy',
-                         :particular => 'full_membership',
-                         :amount => full_member_fft_marketplace_levy_amount)
-      end
-    when 'casual'
-      if subscription.receive_tree_grower_magazine?
-        order.add_charge(:kind => 'casual_member_nz_tree_grower_magazine_levy',
-                         :particular => subscription.tree_grower_delivery_location,
-                         :amount => casual_nz_tree_grower_levy)
-      end
-      if subscription.belongs_to_fft
-        order.add_charge(:kind => 'fft_marketplace_levy',
-                         :particular => 'casual_membership',
-                         :amount => casual_member_fft_marketplace_levy_amount)
-        order.add_charge(:kind => 'admin_levy',
-                         :particular => 'fft_marketplace',
-                         :amount => admin_levy_amount)
-      end
-    else
-      raise 'invalid membership type'
+    order.add_charge(:kind => 'admin_levy',
+                     :particular => subscription.main_branch_name,
+                     :amount => admin_levy_amount)
+    order.add_charge(:kind => 'forest_size_levy',
+                     :particular => subscription.ha_of_planted_trees,
+                     :amount => forest_size_levy_amount)
+    subscription.branches.each do |branch|
+      order.add_charge(:kind => 'branch_levy',
+                       :particular => branch.name,
+                       :amount => branch_levy_amount(branch))
     end
-
+    if subscription.receive_tree_grower_magazine?
+      order.add_charge(:kind => 'nz_tree_grower_magazine_levy',
+                      :particular => 'tgm_membership',
+                      :amount => tree_grower_magazine_levy_amount)
+    end
+    if subscription.belongs_to_fft
+      order.add_charge(:kind => 'fft_marketplace_levy',
+                       :particular => 'fft_membership',
+                       :amount => fft_marketplace_levy_amount)
+    end
     if subscription.contribute_to_research_fund?
       particular = if subscription.research_fund_contribution_is_donation?
                     'donation'
                   else
                     'payment'
                   end
-
       order.add_charge(:kind => 'research_fund_contribution',
                        :particular => particular,
                        :is_refundable => false,
@@ -107,28 +78,18 @@ class CreateOrder
     order
   end
 
-  def casual_member_fft_marketplace_levy_amount
+  def fft_marketplace_levy_amount
     subscription.length_in_years *
-      NzffaSettings.casual_member_fft_marketplace_levy.to_i
+      NzffaSettings.fft_marketplace_levy.to_i
   end
 
-  def full_member_fft_marketplace_levy_amount
-    subscription.length_in_years *
-      NzffaSettings.full_member_fft_marketplace_levy.to_i
-  end
-
-  def full_member_tree_grower_magazine_levy_amount
+  def tree_grower_magazine_levy_amount
     if reader.is_life_member? or
        reader.is_branch_life_member?
       0
     else
-      subscription.length_in_years *
-        NzffaSettings.full_member_tree_grower_magazine_levy.to_i
+      nz_tree_grower_levy
     end
-  end
-
-  def action_group_levy_amount(group)
-    subscription.length_in_years * group.annual_levy.to_i
   end
 
   def branch_levy_amount(branch)
@@ -159,7 +120,7 @@ class CreateOrder
     end
   end
 
-  def casual_nz_tree_grower_levy
+  def nz_tree_grower_levy
     per_copy = case subscription.tree_grower_delivery_location
                when 'new_zealand'
                  Group.tg_magazine_nz_group.annual_levy.to_i

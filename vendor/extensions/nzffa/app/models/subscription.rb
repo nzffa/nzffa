@@ -95,11 +95,8 @@ class Subscription < ActiveRecord::Base
       [:reader,
        :membership_type,
        :main_branch,
-       :special_interest_groups,
-       :belongs_to_fft,
        :begins_on,
        :expires_on,
-       :receive_tree_grower_magazine,
        :contribute_to_research_fund,
        :research_fund_contribution_amount,
        :research_fund_contribution_is_donation,
@@ -188,42 +185,31 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def action_groups
-    # Do not use groups.action_groups here; it will make new_with_same_attributes fail
-    groups.select{|g| g.is_action_group?}
-  end
-
-  def action_group_names
-    action_groups.map(&:name)
-  end
-
-  def action_group_ids
-    action_groups.map(&:id)
-  end
-
-  def action_group_ids=(ids)
-    self.groups -= Group.action_groups
-    self.groups += Group.action_groups.find(ids)
-  end
-
   def branches
     # Do not use groups.branches here; it will make new_with_same_attributes fail
-    groups.select{|g| g.is_branch_group?}
+    groups.select{|g| Subscription.subscribable_groups.include? g }
   end
 
-  def associated_branches
+  def additional_branches
     branches - [ main_branch ]
   end
 
-  def associated_branch_ids
-    associated_branches.map(&:id)
+  def additional_branch_ids
+    additional_branches.map(&:id)
   end
 
-  def associated_branch_names
-    associated_branches.map(&:name)
+  def additional_branch_ids=(ids)
+    if main_branch.present?
+      ids -= [main_branch.id]
+    end
+    self.groups += Group.find ids
   end
 
-  def associated_branch_names=(branch_names)
+  def additional_branch_names
+    additional_branches.map(&:name)
+  end
+
+  def additional_branch_names=(branch_names)
     if main_branch.present?
       branch_names -= [main_branch.name]
     end
@@ -234,26 +220,30 @@ class Subscription < ActiveRecord::Base
     main_branch.try :name
   end
 
-  def main_branch_name=(name)
-    self.main_branch = Group.branches.find_by_name(name)
+  def main_branch_id=(id)
+    self.main_branch = Group.find(id)
     self.groups << self.main_branch
+  end
+
+  def self.branch_select_options
+    [
+      ['Geographical branches', Group.branches.map{|g| [g.name, g.id]}],
+      ['Action groups', Group.action_groups.map{|ag| [ag.name, ag.id]}],
+      ['Tree Grower Magazine', Group.tgm_groups.map{|ag| [ag.name, ag.id]}],
+      ['Farm Forestry Timbers', [[Group.fft_group.name, Group.fft_group.id]]]
+    ]
+  end
+
+  def self.subscribable_groups
+    Group.branches + Group.action_groups + Group.tgm_groups + [Group.fft_group]
   end
 
   def belongs_to_fft
     self.groups.include?(Group.fft_group)
   end
 
-  def belongs_to_fft=(bool)
-    if bool.is_a? Integer
-      bool = bool > 0
-    elsif bool.is_a? String
-      bool = bool.to_i > 0
-    end
-    if bool
-      self.groups << Group.fft_group
-    else
-      self.groups -= [ Group.fft_group ]
-    end
+  def receive_tree_grower_magazine
+    (Group.tgm_groups & self.groups).any?
   end
 
   def price_when_sold

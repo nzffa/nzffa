@@ -2,7 +2,7 @@
   =f.hidden_field :subscription_id
   %p
     =f.label :payment_method
-    =f.select :payment_method, Order::PAYMENT_METHODS, :include_blank => true
+    =f.select :payment_method, Order::PAYMENT_METHODS, include_blank: true
   %p
     =f.label :paid_on
     =f.text_field :paid_on
@@ -10,7 +10,7 @@
 
   %p
     =f.label :details
-    =f.text_field :details, :style => 'width: 500px'
+    =f.text_field :details, style: 'width: 500px'
 
 
   %table.index#orders

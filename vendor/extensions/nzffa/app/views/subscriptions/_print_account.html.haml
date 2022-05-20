@@ -1,0 +1,158 @@
+%table{:style => 'width: 100%'}
+  %tr
+    %td{:style => 'width: 70%'}
+      - if params[:action] == 'print_renewal'
+        Please amend anything that has changed and write the total in the total column.
+        %br
+        -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
+        -base_levy = @order.admin_levy + @order.tree_grower_levy + @order.main_branch_levy
+        -areas = keys.sort.map{ |size| "#{size} ha ($#{(NzffaSettings.forest_size_levys[size] + base_levy).to_i})" }
+        Your main branch and forest area levy for other forest size options: #{areas.join(' and ')}
+    %td.price{:style => 'width: 15%'}
+      Rate
+    %td.price{:style => 'width: 15%'}
+      Total
+  %tr
+    %td
+      %b Main Branch and Forest Area:
+      =@subscription.main_branch_name
+      =@subscription.ha_of_planted_trees
+      ha
+    %td.price
+      =number_to_currency(@order.combined_member_levy)
+    %td
+    - if @subscription.belongs_to_fft
+      %tr
+        %td
+          %b Farm Forestry Timbers Marketplace
+        %td.price= number_to_currency(NzffaSettings.fft_marketplace_levy)
+        %td
+    - if @subscription.receive_tree_grower_magazine?
+      %tr
+        %td
+          -case @subscription.tree_grower_delivery_location
+          -when 'new_zealand'
+            NZ Tree Grower Magazine
+          -when 'australia'
+            NZ Tree Grower Magazine (delivered within Australia)
+          -when 'everywhere_else'
+            NZ Tree Grower Magazine (International delivery)
+          =pluralize(@subscription.nz_tree_grower_copies, 'copy')
+          per issue
+        %td.price
+          =number_to_currency(@order.casual_nz_tree_grower_levy)
+
+  %tr
+    %td
+      %b Additional Branches:
+      =@subscription.additional_branch_names.join(', ')
+    %td.price
+      =number_to_currency(@order.additional_branches_levy)
+  %tr
+    %td
+      %b Voluntary Research Contribution:
+    %td.price
+      = number_to_currency(@subscription.research_fund_contribution_amount)
+  - if params[:action] == 'print_renewal'
+    %tr
+      %td
+        = check_box_tag :box
+        Tick if you want your Research Contribution treated as a donation - receipt will be sent
+  - @order.order_lines.select{|ol| ol.kind == 'extra'}.each do |ol|
+    %tr
+      %td
+        %h4= ol.particular
+      %td.price= number_to_currency(ol.amount)
+  %tr
+    %td.subtotal
+      %b Subtotal:
+    %td.price=number_to_currency(@order.amount)
+    %td
+  %tr
+    %td
+      - if @reader.is_direct_debit?
+        %p Pay for Additional Options separately from the Direct Debit or contact us to change the amount
+
+      - if @reader.is_branch_life_member?
+        %p
+          As you are a Life Member of your branch, your base subscription is paid by the branch.
+          %br
+          However, you are welcome to purchase any of the Optional Additional items below:
+
+      - if @reader.is_paid_branch_life_member?
+        %p Paid branch life member.
+
+      - if @reader.is_life_member?
+        %p
+          As you are a Life Member of NZFFA, your base subscription is paid by the association.
+          %br
+          However, you are welcome to purchase any of the Optional Additional items below:
+
+      - if @reader.is_olsens?
+        %p
+          The invoice for your subscription will be sent directly to PF Olsen's head office.
+          %br
+          For your information, the preceding were paid last year on your behalf.
+          %br
+          The following are further subscription options that you may select - please contact NZFFA National Office to amend the invoice
+    %td
+    %td
+
+- if params[:action] == 'print_renewal'
+  .section
+    %h4 Additional Branches
+    %table
+      -branches = Group.branches.all(:order => 'name') - @subscription.branches
+      -branches.in_groups_of(4) do |group|
+        %tr
+          -group.compact.each do |b|
+            %td=check_box_tag b.id
+            %td #{b.name} ($#{b.annual_levy.to_i})
+  .section
+    %h4 Special Interest Groups
+    %table
+      - action_groups = Group.action_groups.all(:order => 'name') - @subscription.branches
+      - (action_groups << Group.find(NzffaSettings.fft_marketplace_group_id)) unless @subscription.groups.include? Group.fft_group
+      - action_groups.reverse.in_groups_of(3) do |group|
+        %tr
+          -group.compact.each do |b|
+            %td=check_box_tag b.id
+            %td #{b.name} ($#{b.annual_levy.to_i})
+
+  .section
+    %table{:width => '70%'}
+      %tr
+        %td
+          %b Other Products
+        %td.price
+          %b Price each
+        %td.price
+          %b Quantity
+      %tr
+        %td Wardle's Native Trees of New Zealand and Their Story
+        %td.price $50.00
+        %td.quantity
+      %tr
+        %td Wardle's 'Woodside - A small forest managed on multiple use principles'
+        %td.price $35.00
+        %td.quantity
+      %tr
+        %td Neil Barr Book - Eucalypt Trees for Milling
+        %td.price $15.00
+        %td.quantity
+      %tr
+        %td NZFFA Gate Sign, Jersey Badge and Lapel Pin Pack
+        %td.price $15.00
+        %td.quantity
+      %tr
+        %td NZFFA Insignia Cap
+        %td.price $25.00
+        %td.quantity
+
+%h3.gst-total
+  -if @subscription.receive_tree_grower_magazine? and @subscription.tree_grower_delivery_location != 'new_zealand'
+    NZ Dollar Total
+  -else
+    GST Inclusive Total
+  - if params[:action] == 'print'
+    = ": #{number_to_currency(@order.amount)}"

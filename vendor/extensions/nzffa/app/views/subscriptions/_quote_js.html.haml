@@ -35,18 +35,14 @@
   $('#subscription_contribute_to_research_fund').change(toggle_research_fund_contribution);
   $('#subscription_contribute_to_research_fund').trigger('change')
 
-  toggle_tgm_delivery_radios = function(){
-    if ($(this).prop('checked')){
-      $('#tree_grower_delivery_location input').removeAttr('disabled');
-      $('#tree_grower_delivery_location').show();
+  $('#subscription_additional_branch_ids').select2()
+  $('#subscription_additional_branch_ids').on('change', function (e) {
+    if ($('#subscription_additional_branch_ids').select2('data').filter(function(elem){return elem.text.indexOf('Grower') > 0}).length > 0){
+      $('#tgm_copies input').removeAttr('disabled');
+      $('#tgm_copies').show();
     }else{
-      $('#tree_grower_delivery_location input').attr('disabled','disabled');
-      $('#tree_grower_delivery_location').hide();
+      $('#tgm_copies input').attr('disabled','disabled');
+      $('#tgm_copies').hide();
     }
-  }
-  $('#subscription_receive_tree_grower_magazine').change(toggle_tgm_delivery_radios);
-  $('#subscription_receive_tree_grower_magazine').trigger('change')
-
-
-  $('#subscription_associated_branch_names').select2()
-  $('#subscription_action_group_ids').select2()
+  });
+  $('#subscription_additional_branch_ids').trigger({type: 'change'});

@@ -61,8 +61,7 @@ class SubscriptionsController < ReaderActionController
     else
       redirect_to :back
     end
-
-    @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
+    # @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
     @order = CreateOrder.from_subscription(@subscription)
     render 'print', :layout => false
   end
@@ -111,6 +110,7 @@ class SubscriptionsController < ReaderActionController
     # Rather than opening :edit and :update routes, add controller actions,
     # edit forms etc., we check for and re-use any existing 'abandoned'
     # subscription here, and update the invoice in Xero
+
     if @subscription = current_reader.threatening_duplicate_subscription
       # An 'abandoned' subscription exists so do not create a new one
       @subscription.group_subscriptions.clear
@@ -128,8 +128,12 @@ class SubscriptionsController < ReaderActionController
         @order = @subscription.order
         @order.order_lines = new_order.order_lines
         @order.update_attribute(:amount, new_order.amount) # all other attrs should not change
-        @order.update_xero_invoice
-        redirect_to make_payment_order_path(@order)
+        @order.update_xero_invoice if @order.xero_id
+        if params[:commit] == 'Print your subscription'
+          redirect_to print_renewal_subscriptions_path
+        else
+          redirect_to make_payment_order_path(@order)
+        end
       else
         render :new
       end
@@ -147,7 +151,11 @@ class SubscriptionsController < ReaderActionController
         @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
         @order.amount = @order.calculate_amount # because of added CC order_line
         @order.save
-        redirect_to make_payment_order_path(@order)
+        if params[:commit] == 'Print your subscription'
+          redirect_to print_subscriptions_path
+        else
+          redirect_to make_payment_order_path(@order)
+        end
       else
         render :new
       end

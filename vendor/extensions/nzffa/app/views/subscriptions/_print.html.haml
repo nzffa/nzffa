@@ -67,11 +67,7 @@
         %br
         %b.check-your-details Please check your details
 
--if @subscription.membership_type == 'full'
-  =render 'subscriptions/print_account_full_member'
--else
-  =render 'subscriptions/print_account_casual_member'
-
+=render 'subscriptions/print_account'
 
 .section
   .payment-box

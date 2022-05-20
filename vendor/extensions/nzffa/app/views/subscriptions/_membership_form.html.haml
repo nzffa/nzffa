@@ -13,15 +13,17 @@
 
   %h3 Select the main branch you want to belong to
   %p#main_branch
-    =f.collection_select :main_branch_name, Group.branches, :name, :name
+    = f.select :main_branch_id, grouped_options_for_select(Subscription.branch_select_options)
 
   %h3 Select any additional branches you want to be a member of
   %p#associated_branches
-    =f.collection_select :associated_branch_names, Group.branches, :name, :name, {}, :multiple => true
+    =f.select :additional_branch_ids, grouped_options_for_select(Subscription.branch_select_options), {}, multiple: true
 
-  %h3 Select any special interest groups you want to belong to
-  %p#special_interest_groups
-    =f.collection_select :action_group_ids, Group.action_groups, :id, :name, {}, :multiple => true
+  #tgm_copies{style: "display: none"}
+    %p Do you want more than 1 copy of each edition? If so, how many copies of each edition of NZ Tree Grower would you like?
+    =f.label :nz_tree_grower_copies, 'Number of copies'
+    =f.text_field :nz_tree_grower_copies
+
 
   %h3 Research Fund Contribution
   %p
@@ -36,12 +38,12 @@
       =f.check_box :research_fund_contribution_is_donation
       =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
 
-  = render :partial => 'subscriptions/fft_marketplace_choice', :locals => {:f => f}
-
   = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
   = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
   = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
 
   =f.submit 'Proceed to payment'
+  or
+  =f.submit 'Print your subscription'
 
 = render :partial => 'subscriptions/quote_js'

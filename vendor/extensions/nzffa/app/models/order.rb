@@ -26,20 +26,11 @@ class Order < ActiveRecord::Base
   after_save :check_if_paid
   after_create :create_xero_invoice
 
-  def combined_full_member_levy
-    # assume full member
+  def combined_member_levy
     total = admin_levy+
             forest_size_levy+
-            full_member_tree_grower_levy+
+            tree_grower_levy+
             main_branch_levy
-  end
-
-  def casual_member_fft_and_admin_levy
-     casual_member_fft_levy + admin_levy
-  end
-
-  def casual_member_fft_levy
-    line_amount('fft_marketplace_levy', 'casual_membership')
   end
 
   def admin_levy
@@ -50,11 +41,11 @@ class Order < ActiveRecord::Base
     line_amount('forest_size_levy')
   end
 
-  def full_member_tree_grower_levy
+  def tree_grower_levy
     line_amount('nz_tree_grower_magazine_levy')
   end
 
-  def associated_branches_levy
+  def additional_branches_levy
     total = order_lines.select{|l| l.kind == 'branch_levy'}.map(&:amount).sum
     total - main_branch_levy
   end
@@ -71,10 +62,6 @@ class Order < ActiveRecord::Base
 
   def action_groups_levy
     order_lines.select{|l| l.kind == 'action_group_levy'}.map(&:amount).sum
-  end
-
-  def casual_nz_tree_grower_levy
-    order_lines.select{|l| l.kind == 'casual_member_nz_tree_grower_magazine_levy'}.map(&:amount).sum
   end
 
   def before_destroy
@@ -181,7 +168,7 @@ class Order < ActiveRecord::Base
   def add_order_lines_to_invoice(invoice)
     order_lines.each do |line|
       case line.kind
-      when "admin_levy"
+      when "admin_levy" # 'national' levy; what goes to NZFFA head office
         if branch = Group.find_by_name(line.particular)
           account_code = branch.account_codes.split(",").last # admin levies always go to the '4 accounts..'
           li = invoice.add_line_item(
@@ -190,7 +177,7 @@ class Order < ActiveRecord::Base
             unit_amount: line.amount
           )
           li.add_tracking(name: 'Branch', option: line.particular)
-        elsif line.particular == 'fft_marketplace' # FFT admin levy for casual membership
+        elsif line.particular == 'fft_marketplace' # no longer occurs since we stopped having full/casual membership, I think.
           account_code = Group.fft_group.account_codes.split(",").last
           invoice.add_line_item(
             description: "FFT Admin levy",

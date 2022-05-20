@@ -23,6 +23,10 @@ module Nzffa::GroupExtension
       def self.fft_group
         find(NzffaSettings.fft_marketplace_group_id)
       end
+
+      def self.tgm_groups
+        [Group.tg_magazine_nz_group, Group.tgm_australia_group, Group.tgm_everywhere_else_group]
+      end
     end
   end
 
@@ -43,6 +47,6 @@ module Nzffa::GroupExtension
   end
 
   def is_tgm_group?
-    [Group.tg_magazine_nz_group, Group.tgm_australia_group, Group.tgm_everywhere_else_group].map(&:id).include? id
+    Group.tgm_groups.map(&:id).include? id
   end
 end
