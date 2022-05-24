@@ -24,9 +24,11 @@ module Nzffa::GroupExtension
         find(NzffaSettings.fft_marketplace_group_id)
       end
 
-      def self.tgm_groups
-        [Group.tg_magazine_nz_group, Group.tgm_australia_group, Group.tgm_everywhere_else_group]
+      def self.tgm_groups_holder
+        find(Radiant::Config['nzffa.tgm_groups_group_id'])
       end
+
+      named_scope :tgm_groups, :conditions => ['ancestry = ?', "#{Group.tgm_groups_holder.ancestry}/#{Group.tgm_groups_holder.id}"]
     end
   end
 
@@ -43,7 +45,7 @@ module Nzffa::GroupExtension
   end
 
   def is_fft_group?
-    id == Group.fft_group.id
+    id == NzffaSettings.fft_marketplace_group_id
   end
 
   def is_tgm_group?
