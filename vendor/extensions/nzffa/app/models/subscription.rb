@@ -227,9 +227,9 @@ class Subscription < ActiveRecord::Base
 
   def self.branch_select_options
     [
-      ['Geographical branches', Group.branches.map{|g| [g.name, g.id]}],
-      ['Action groups', Group.action_groups.map{|ag| [ag.name, ag.id]}],
-      ['Tree Grower Magazine', Group.tgm_groups.map{|ag| [ag.name, ag.id]}],
+      [Group.branches_holder.name, Group.branches.map{|g| [g.name, g.id]}],
+      [Group.action_groups_holder.name, Group.action_groups.map{|ag| [ag.name, ag.id]}],
+      [Group.tgm_groups_holder.name, Group.tgm_groups.map{|ag| [ag.name, ag.id]}],
       ['Farm Forestry Timbers', [[Group.fft_group.name, Group.fft_group.id]]]
     ]
   end
