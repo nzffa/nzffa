@@ -102,6 +102,7 @@ class Subscription < ActiveRecord::Base
        :research_fund_contribution_is_donation,
        :tree_grower_delivery_location,
        :ha_of_planted_trees,
+       :receive_tree_grower_magazine,
        :nz_tree_grower_copies].each do |attr|
          sub.send "#{attr}=", old_sub.send(attr)
        end

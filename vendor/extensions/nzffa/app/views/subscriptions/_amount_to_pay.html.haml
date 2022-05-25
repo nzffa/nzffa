@@ -1,4 +1,4 @@
--if @subscription.new_record?
+-if @subscription.new_record? || !@subscription.active?
   %p
     Subscription Price:
     %span#price

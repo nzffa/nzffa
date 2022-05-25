@@ -1,5 +1,5 @@
 :javascript
-  if ($new_form = $('form#new_subscription')) {
+  if ($new_form = $('form.new_subscription')) {
     $new_form.change(function(){
       $.post('/subscriptions/quote_new', $new_form.toJSON(), function(response){
         $('span#price').text(response.price)

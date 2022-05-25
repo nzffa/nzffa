@@ -71,7 +71,7 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'You cannot create a new subscription if you currently have a subscription.'
       redirect_to subscriptions_path and return
     end
-    @subscription = current_reader.subscriptions.new(params[:subscription])
+    @subscription = current_reader.threatening_duplicate_subscription || current_reader.subscriptions.new(params[:subscription])
     @action_path = subscriptions_path
   end
 
@@ -91,7 +91,6 @@ class SubscriptionsController < ReaderActionController
     new_sub = Subscription.new(params[:subscription])
 
     normal_price = CreateOrder.from_subscription(new_sub).amount
-
     credit = CalculatesSubscriptionLevy.credit_if_upgraded(current_sub)
 
     upgrade_price = CalculatesSubscriptionLevy.upgrade_price(current_sub, new_sub)

@@ -21,26 +21,26 @@
     %td.price
       =number_to_currency(@order.combined_member_levy)
     %td
-    - if @subscription.belongs_to_fft
-      %tr
-        %td
-          %b Farm Forestry Timbers Marketplace
-        %td.price= number_to_currency(NzffaSettings.fft_marketplace_levy)
-        %td
-    - if @subscription.receive_tree_grower_magazine?
-      %tr
-        %td
-          -case @subscription.tree_grower_delivery_location
-          -when 'new_zealand'
-            NZ Tree Grower Magazine
-          -when 'australia'
-            NZ Tree Grower Magazine (delivered within Australia)
-          -when 'everywhere_else'
-            NZ Tree Grower Magazine (International delivery)
-          =pluralize(@subscription.nz_tree_grower_copies, 'copy')
-          per issue
-        %td.price
-          =number_to_currency(@order.tree_grower_levy)
+  - if @subscription.belongs_to_fft
+    %tr
+      %td
+        %b Farm Forestry Timbers Marketplace
+      %td.price= number_to_currency(NzffaSettings.fft_marketplace_levy)
+      %td
+  - if @subscription.receive_tree_grower_magazine?
+    %tr
+      %td
+        -case @subscription.tree_grower_delivery_location
+        -when 'new_zealand'
+          NZ Tree Grower Magazine
+        -when 'australia'
+          NZ Tree Grower Magazine (delivered within Australia)
+        -when 'everywhere_else'
+          NZ Tree Grower Magazine (International delivery)
+        =pluralize(@subscription.nz_tree_grower_copies, 'copy')
+        per issue
+      %td.price
+        =number_to_currency(@order.tree_grower_levy)
 
   %tr
     %td
