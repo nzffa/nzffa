@@ -229,7 +229,6 @@ class Subscription < ActiveRecord::Base
     [
       [Group.branches_holder.name, Group.branches.map{|g| [g.name, g.id]}],
       [Group.action_groups_holder.name, Group.action_groups.map{|ag| [ag.name, ag.id]}],
-      [Group.tgm_groups_holder.name, Group.tgm_groups.map{|ag| [ag.name, ag.id]}],
       ['Farm Forestry Timbers', [[Group.fft_group.name, Group.fft_group.id]]]
     ]
   end
@@ -240,10 +239,6 @@ class Subscription < ActiveRecord::Base
 
   def belongs_to_fft
     self.groups.include?(Group.fft_group)
-  end
-
-  def receive_tree_grower_magazine
-    (Group.tgm_groups & self.groups).any?
   end
 
   def price_when_sold
