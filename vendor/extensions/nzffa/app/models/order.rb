@@ -51,9 +51,7 @@ class Order < ActiveRecord::Base
   end
 
   def main_branch_levy
-    admin_levy_line = order_lines.select{|l| l.kind == 'admin_levy'}.first
-    return 0 unless admin_levy_line
-    main_branch_name = admin_levy_line.particular
+    return 0 unless main_branch_name = subscription.main_branch_name
     main_branch_levy_line = order_lines.select do |l|
       l.kind == 'branch_levy' && l.particular == main_branch_name
     end.first
