@@ -47,4 +47,24 @@
   $('#subscription_receive_tree_grower_magazine').change(toggle_tgm_delivery_radios);
   $('#subscription_receive_tree_grower_magazine').trigger('change')
 
-  $('#subscription_additional_branch_ids').select2()
+  update_form_controls = function(){
+    // repopulate main branch selector options w/ selected groups only
+    var previously_selected_id = $('select#subscription_main_branch_id option:selected').val()
+    $('select#subscription_main_branch_id option').remove()
+    $('select#subscription_main_branch_id').append(`<option value="">Please select:</option>`);
+    $.each($('input.sgt:checked'), function( i, elem ) {
+      var text = $(elem).parent().contents()[3].nodeValue.split('(')[0]
+      var value = $(elem).val()
+      var selected = (value == previously_selected_id) ? " selected='selected'" : ""
+      $('select#subscription_main_branch_id').append(`<option value="${value}"${selected}>${text}</option>`);
+    });
+    // show or hide main branch selector
+    if($('input.sgt:checked').length > 1){
+      $('#main_branch_selection').show()
+    }
+    else{
+      $('#main_branch_selection').hide()
+    }
+  }
+  $('input.sgt').change(update_form_controls);
+  update_form_controls()

@@ -76,6 +76,7 @@ class SubscriptionsController < ReaderActionController
   end
 
   def quote_new
+    remove_empty_groups_from_params
     subscription = Subscription.new(params[:subscription])
     order = CreateOrder.from_subscription(subscription)
 
@@ -85,7 +86,13 @@ class SubscriptionsController < ReaderActionController
                      :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end
 
+  def remove_empty_groups_from_params
+    params['subscription']['branches'].reject!(&:blank?)
+    params['subscription']['action_groups'].reject!(&:blank?)
+  end
+
   def quote_upgrade
+    remove_empty_groups_from_params
     reader = Reader.find_by_id(params[:subscription][:reader_id])# || current_reader
     current_sub = Subscription.active_subscription_for(reader)
     new_sub = Subscription.new(params[:subscription])

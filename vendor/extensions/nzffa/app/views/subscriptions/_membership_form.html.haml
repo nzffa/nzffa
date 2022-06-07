@@ -18,7 +18,7 @@
     - Group.branches.all(:order => 'name').each do |b|
       %span{style: "width: 33%"}
         %label
-          = f.check_box :branches, {multiple: true, checked: f.object.branch_ids.include?(b.id)}, b.id, nil
+          = f.check_box :branches, {multiple: true, checked: f.object.branch_ids.include?(b.id), class: "sgt"}, b.id, nil
           = b.name
           ($#{b.annual_levy.to_i})
 
@@ -27,19 +27,19 @@
     - Group.action_groups.all(:order => 'name').each do |b|
       %span{style: "width: 33%"}
         %label
-          = f.check_box :action_groups, {multiple: true, checked: f.object.action_group_ids.include?(b.id)}, b.id, nil
+          = f.check_box :action_groups, {multiple: true, checked: f.object.action_group_ids.include?(b.id), class: "sgt"}, b.id, nil
           = b.name
           ($#{b.annual_levy.to_i})
 
   %h3 Farm Forestry Timbers Marketplace
   %p Farm Forestry Timbers is a society representing producers of specialty timbers. Joining means you can list your products or services and create adverts.
   %p#join_marketplace
-    =f.check_box :belongs_to_fft
+    =f.check_box :belongs_to_fft, html_options: {class: 'sgt'}
     =f.label :belongs_to_fft, 'Join Farm Forestry Timbers'
 
-  #main_branch{style: "display: block"}
+  #main_branch_selection
     %h3 Select the main branch you want to belong to
-    %p= f.select :main_branch_id, grouped_options_for_select(Subscription.branch_select_options)
+    %p= f.select :main_branch_id, {}
 
   %h3 NZ Tree Grower Magazine
   %p This Quarterly publication is the official Journal of the NZ Farm Forestry Association. Get it delivered.

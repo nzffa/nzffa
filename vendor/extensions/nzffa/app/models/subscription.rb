@@ -174,12 +174,6 @@ class Subscription < ActiveRecord::Base
     self.research_fund_contribution_amount ||= 0.0
   end
 
-  # def before_save
-  #   if membership_type == 'full'
-  #     self.receive_tree_grower_magazine = true
-  #   end
-  # end
-
   def research_fund_contribution_amount
     if contribute_to_research_fund?
       self[:research_fund_contribution_amount]
@@ -190,7 +184,7 @@ class Subscription < ActiveRecord::Base
 
   def branches
     # Do not use groups.branches here; it will make new_with_same_attributes fail
-    groups.select{|g| Subscription.subscribable_groups.include? g }
+    groups.select{|g| g.is_branch_group?}
   end
 
   def branch_ids
@@ -210,22 +204,8 @@ class Subscription < ActiveRecord::Base
     additional_branches.map(&:id)
   end
 
-  def additional_branch_ids=(ids)
-    if main_branch.present?
-      ids -= [main_branch.id]
-    end
-    self.groups += Group.find ids
-  end
-
   def additional_branch_names
     additional_branches.map(&:name)
-  end
-
-  def additional_branch_names=(branch_names)
-    if main_branch.present?
-      branch_names -= [main_branch.name]
-    end
-    self.groups += Group.branches.find_all_by_name branch_names
   end
 
   def main_branch_name
@@ -233,16 +213,11 @@ class Subscription < ActiveRecord::Base
   end
 
   def main_branch_id=(id)
-    self.main_branch = Group.find(id)
-    self.groups << self.main_branch
-  end
-
-  def self.branch_select_options
-    [
-      [Group.branches_holder.name, Group.branches.map{|g| [g.name, g.id]}],
-      [Group.action_groups_holder.name, Group.action_groups.map{|ag| [ag.name, ag.id]}],
-      ['Farm Forestry Timbers', [[Group.fft_group.name, Group.fft_group.id]]]
-    ]
+    if id.blank?
+      self.main_branch = (groups & Subscription.subscribable_groups).first || nil
+    else
+      self.main_branch = Group.find(id)
+    end
   end
 
   def action_groups
@@ -270,7 +245,7 @@ class Subscription < ActiveRecord::Base
   def belongs_to_fft
     self.groups.include?(Group.fft_group)
   end
-  
+
   def belongs_to_fft=(bool)
     if bool.is_a? Integer
       bool = bool > 0
