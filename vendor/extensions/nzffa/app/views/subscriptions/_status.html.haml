@@ -1,6 +1,5 @@
 =flash[:error]
 
-
 -if @subscription.blank?
   - if @last_year_subscription.present?
     %p
@@ -25,5 +24,3 @@
 
     %p If you want you can cancel this subscription and create a new one.
     =link_to 'Cancel Subscription', cancel_subscriptions_path, :method => :post
-
-

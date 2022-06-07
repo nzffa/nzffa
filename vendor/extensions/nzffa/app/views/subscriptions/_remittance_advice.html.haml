@@ -61,10 +61,7 @@ Other payment methods:
     %td
   %tr
     %td
-      -if @reader.full_nzffa_member?
-        NZFFA Member
-      -else
-        Subscriber id
+      NZFFA Member id
       #{@reader.nzffa_membership_id}
     %td
     %td Invoice #{@subscription.begins_on.strftime "%Y"}-#{@reader.nzffa_membership_id} Date 1/12/#{@subscription.begins_on.strftime "%Y"}

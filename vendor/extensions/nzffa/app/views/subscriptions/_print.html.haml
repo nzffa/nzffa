@@ -6,7 +6,7 @@
           =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
         %h2 New Zealand Farm Forestry Association (Inc)
         %h1
-          - if params[:action] == 'print_renewal'
+          - if ['print_renewal', 'print_batch'].include? params[:action]
             Subscription Renewal
           - else
             Tax Invoice
@@ -59,11 +59,10 @@
           Please provide email address
           =text_field_tag :email_address
 
-        -if @reader.full_nzffa_member?
-          -unless @reader.receive_nzffa_members_newsletter?
-            %br
-            =check_box_tag :subscribe_to_nzffa_newsletter
-            Tick to receive the NZFFA newsletter
+        -if !@reader.receive_nzffa_members_newsletter?
+          %br
+          =check_box_tag :subscribe_to_nzffa_newsletter
+          Tick to receive the NZFFA newsletter
         %br
         %b.check-your-details Please check your details
 

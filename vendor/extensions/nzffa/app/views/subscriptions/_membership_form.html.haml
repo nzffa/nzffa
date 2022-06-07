@@ -1,6 +1,7 @@
 - form_class = @subscription.active? ? 'edit_subscription' : 'new_subscription'
 -form_for(@subscription, url: @action_path, html: {class: form_class, method: :post}) do |f|
   =f.hidden_field :reader_id
+
   %h3 How many hectares of planted trees do you have?
   %p#ha_of_planted_trees
     =f.radio_button :ha_of_planted_trees, '0 - 10'
@@ -12,13 +13,33 @@
     =f.radio_button :ha_of_planted_trees, '41+'
     =f.label :ha_of_planted_trees_41, '40+ ha'
 
-  %h3 Select the main branch you want to belong to
-  %p#main_branch
-    = f.select :main_branch_id, grouped_options_for_select(Subscription.branch_select_options)
+  %h3 Select the Branches that you want to be a member of
+  %p#associated_branches{style: "display: flex; flex-wrap: wrap;"}
+    - Group.branches.all(:order => 'name').each do |b|
+      %span{style: "width: 33%"}
+        %label
+          = f.check_box :branches, {multiple: true, checked: f.object.branch_ids.include?(b.id)}, b.id, nil
+          = b.name
+          ($#{b.annual_levy.to_i})
 
-  %h3 Select any additional branches you want to be a member of
-  %p#associated_branches
-    =f.select :additional_branch_ids, grouped_options_for_select(Subscription.branch_select_options), {}, multiple: true
+  %h3 Select the Special Interest Groups that you want to be a member of
+  %p#special_interest_groups{style: "display: flex; flex-wrap: wrap;"}
+    - Group.action_groups.all(:order => 'name').each do |b|
+      %span{style: "width: 33%"}
+        %label
+          = f.check_box :action_groups, {multiple: true, checked: f.object.action_group_ids.include?(b.id)}, b.id, nil
+          = b.name
+          ($#{b.annual_levy.to_i})
+
+  %h3 Farm Forestry Timbers Marketplace
+  %p Farm Forestry Timbers is a society representing producers of specialty timbers. Joining means you can list your products or services and create adverts.
+  %p#join_marketplace
+    =f.check_box :belongs_to_fft
+    =f.label :belongs_to_fft, 'Join Farm Forestry Timbers'
+
+  #main_branch{style: "display: block"}
+    %h3 Select the main branch you want to belong to
+    %p= f.select :main_branch_id, grouped_options_for_select(Subscription.branch_select_options)
 
   %h3 NZ Tree Grower Magazine
   %p This Quarterly publication is the official Journal of the NZ Farm Forestry Association. Get it delivered.

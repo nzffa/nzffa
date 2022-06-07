@@ -103,6 +103,8 @@ class Subscription < ActiveRecord::Base
        :tree_grower_delivery_location,
        :ha_of_planted_trees,
        :receive_tree_grower_magazine,
+       :special_interest_groups,
+       :belongs_to_fft,
        :nz_tree_grower_copies].each do |attr|
          sub.send "#{attr}=", old_sub.send(attr)
        end
@@ -191,6 +193,15 @@ class Subscription < ActiveRecord::Base
     groups.select{|g| Subscription.subscribable_groups.include? g }
   end
 
+  def branch_ids
+    branches.map &:id
+  end
+
+  def branches=(ids)
+    self.groups -= Group.branches
+    self.groups += Group.branches.find(ids.reject(&:blank?))
+  end
+
   def additional_branches
     branches - [ main_branch ]
   end
@@ -234,12 +245,43 @@ class Subscription < ActiveRecord::Base
     ]
   end
 
+  def action_groups
+    # Do not use groups.action_groups here; it will make new_with_same_attributes fail
+    groups.select{|g| g.is_action_group?}
+  end
+
+  def action_groups=(ids)
+    self.groups -= Group.action_groups
+    self.groups += Group.action_groups.find(ids.reject(&:blank?))
+  end
+
+  def action_group_names
+    action_groups.map(&:name)
+  end
+
+  def action_group_ids
+    action_groups.map(&:id)
+  end
+
   def self.subscribable_groups
     Group.branches + Group.action_groups + Group.tgm_groups + [Group.fft_group]
   end
 
   def belongs_to_fft
     self.groups.include?(Group.fft_group)
+  end
+  
+  def belongs_to_fft=(bool)
+    if bool.is_a? Integer
+      bool = bool > 0
+    elsif bool.is_a? String
+      bool = bool.to_i > 0
+    end
+    if bool
+      self.groups << Group.fft_group
+    else
+      self.groups -= [ Group.fft_group ]
+    end
   end
 
   def price_when_sold
