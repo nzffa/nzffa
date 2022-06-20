@@ -34,8 +34,9 @@
   %h3 Farm Forestry Timbers Marketplace
   %p Farm Forestry Timbers is a society representing producers of specialty timbers. Joining means you can list your products or services and create adverts.
   %p#join_marketplace
-    =f.check_box :belongs_to_fft, html_options: {class: 'sgt'}
-    =f.label :belongs_to_fft, 'Join Farm Forestry Timbers'
+    %label
+      = f.check_box :belongs_to_fft, {class: 'sgt', checked: f.object.belongs_to_fft}, Group.fft_group.id
+      Farm Forestry Timbers
 
   #main_branch_selection
     %h3 Select the main Branch or Action Group you want to belong to
