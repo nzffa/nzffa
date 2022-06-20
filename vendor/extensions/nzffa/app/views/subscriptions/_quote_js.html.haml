@@ -68,3 +68,20 @@
   }
   $('input.sgt').change(update_form_controls);
   update_form_controls()
+
+  validate_main_branch_selection = function(){
+    var errd = false;
+    if($('input.sgt:checked').length > 1){
+      if($('select#subscription_main_branch_id option:selected').val() == ""){
+        $('select#subscription_main_branch_id').css('border', '3px solid red');
+        location.hash = "#main_branch_selection";
+        errd = true;
+      }
+    }
+    return !errd;
+  }
+  clear_main_branch_selector_error_styling = function(){
+    $('select#subscription_main_branch_id').css('border', 'revert');
+  }
+  $('select#subscription_main_branch_id').change(clear_main_branch_selector_error_styling);
+  $("form.new_subscription").submit(validate_main_branch_selection);
