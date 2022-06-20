@@ -168,6 +168,7 @@ class Subscription < ActiveRecord::Base
   def after_initialize
     self.begins_on ||= Date.today
     self.expires_on ||= Date.new(begins_on.year, 12, 31)
+    self.receive_tree_grower_magazine ||= true
     self.tree_grower_delivery_location ||= 'new_zealand'
     self.nz_tree_grower_copies ||= 1
     self.ha_of_planted_trees ||= '0 - 10'
