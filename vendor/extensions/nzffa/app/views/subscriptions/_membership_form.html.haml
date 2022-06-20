@@ -15,7 +15,7 @@
 
   %h3 Select the Branches that you want to be a member of
   %p#associated_branches{style: "display: flex; flex-wrap: wrap;"}
-    - Group.branches.all(:order => 'name').each do |b|
+    - Group.branches.each do |b|
       %span{style: "width: 33%"}
         %label
           = f.check_box :branches, {multiple: true, checked: f.object.branch_ids.include?(b.id), class: "sgt"}, b.id, nil
