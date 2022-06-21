@@ -135,7 +135,7 @@ class SubscriptionsController < ReaderActionController
         @order.order_lines = new_order.order_lines
         @order.update_attribute(:amount, new_order.amount) # all other attrs should not change
         @order.update_xero_invoice if @order.xero_id
-        if params[:commit] == 'Print your subscription'
+        if params[:commit] == 'Pay by direct credit'
           redirect_to print_renewal_subscriptions_path
         else
           redirect_to make_payment_order_path(@order)
@@ -157,7 +157,7 @@ class SubscriptionsController < ReaderActionController
         @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
         @order.amount = @order.calculate_amount # because of added CC order_line
         @order.save
-        if params[:commit] == 'Print your subscription'
+        if params[:commit] == 'Pay by direct credit'
           redirect_to print_subscriptions_path
         else
           redirect_to make_payment_order_path(@order)

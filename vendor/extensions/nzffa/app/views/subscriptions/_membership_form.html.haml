@@ -80,8 +80,8 @@
   = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
   = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
 
-  =f.submit 'Proceed to payment'
+  =f.submit 'Pay by credit card'
   or
-  =f.submit 'Print your subscription'
+  =f.submit 'Pay by direct credit'
 
 = render :partial => 'subscriptions/quote_js'
