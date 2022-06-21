@@ -85,3 +85,15 @@
   }
   $('select#subscription_main_branch_id').change(clear_main_branch_selector_error_styling);
   $("form.new_subscription").submit(validate_main_branch_selection);
+
+  validate_at_least_one_group_selected = function(){
+    var errd = false;
+    if($('input.sgt:checked').length < 1){
+      if($('#subscription_receive_tree_grower_magazine:checked').length < 1){
+        alert('You must select at least one subscription option.')
+        errd = true;
+      }
+    }
+    return !errd;
+  }
+  $("form.new_subscription").submit(validate_at_least_one_group_selected);
