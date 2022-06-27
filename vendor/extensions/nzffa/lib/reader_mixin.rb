@@ -67,7 +67,7 @@ module ReaderMixin
 
   def name
     if forename.present? and surname.present?
-      "#{forename} #{surname}".squeeze # avoid double spaces as Xero chokes on them
+      "#{forename} #{surname}".squeeze(' ') # avoid double spaces as Xero chokes on them
     else
       nil
     end
