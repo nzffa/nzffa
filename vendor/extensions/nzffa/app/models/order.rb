@@ -42,6 +42,10 @@ class Order < ActiveRecord::Base
     line_amount('nz_tree_grower_magazine_levy')
   end
 
+  def fft_marketplace_levy
+    line_amount('fft_marketplace_levy')
+  end
+
   def branches_levy
     order_lines.select{|l| l.kind == 'branch_levy'}.map(&:amount).sum
   end

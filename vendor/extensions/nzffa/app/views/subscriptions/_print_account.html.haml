@@ -23,7 +23,7 @@
     %tr
       %td
         %b Farm Forestry Timbers Marketplace
-      %td.price= number_to_currency(NzffaSettings.fft_marketplace_levy)
+      %td.price= number_to_currency(@order.fft_marketplace_levy)
       %td
   - if @subscription.receive_tree_grower_magazine?
     %tr
