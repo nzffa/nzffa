@@ -6,8 +6,7 @@ class Subscription < ActiveRecord::Base
   has_many :group_subscriptions, :dependent => :destroy, :source => :group
   has_many :groups, :through => :group_subscriptions
 
-  # validates_inclusion_of :membership_type, :in => ['full', 'casual']
-  # validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine? && membership_type == "casual"'
+  validates_inclusion_of :tree_grower_delivery_location, :in => ['new_zealand', 'australia', 'everywhere_else'], :if => 'receive_tree_grower_magazine?'
   validates_presence_of :ha_of_planted_trees, :if => 'membership_type == "full"'
   validates_presence_of :nz_tree_grower_copies
   validates_presence_of :expires_on, :begins_on
@@ -188,25 +187,17 @@ class Subscription < ActiveRecord::Base
     groups.select{|g| g.is_branch_group?}
   end
 
-  def branch_ids
-    branches.map &:id
-  end
-
   def branches=(ids)
     self.groups -= Group.branches
     self.groups += Group.branches.find(ids.reject(&:blank?))
   end
 
-  def additional_branches
-    branches - [ main_branch ]
+  def branch_ids
+    branches.map &:id
   end
 
-  def additional_branch_ids
-    additional_branches.map(&:id)
-  end
-
-  def additional_branch_names
-    additional_branches.map(&:name)
+  def branch_names
+    branches.map(&:name)
   end
 
   def main_branch_name

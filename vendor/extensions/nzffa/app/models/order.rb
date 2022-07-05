@@ -26,11 +26,8 @@ class Order < ActiveRecord::Base
   after_save :check_if_paid
   after_create :create_xero_invoice
 
-  def combined_member_levy
-    total = admin_levy+
-            forest_size_levy+
-            tree_grower_levy+
-            main_branch_levy
+  def admin_and_forest_size_levy
+    admin_levy + forest_size_levy
   end
 
   def admin_levy
@@ -45,17 +42,8 @@ class Order < ActiveRecord::Base
     line_amount('nz_tree_grower_magazine_levy')
   end
 
-  def additional_branches_levy
-    total = order_lines.select{|l| l.kind == 'branch_levy'}.map(&:amount).sum
-    total - main_branch_levy
-  end
-
-  def main_branch_levy
-    return 0 unless main_branch_name = subscription.main_branch_name
-    main_branch_levy_line = order_lines.select do |l|
-      l.kind == 'branch_levy' && l.particular == main_branch_name
-    end.first
-    main_branch_levy_line.amount
+  def branches_levy
+    order_lines.select{|l| l.kind == 'branch_levy'}.map(&:amount).sum
   end
 
   def action_groups_levy
@@ -175,7 +163,7 @@ class Order < ActiveRecord::Base
             unit_amount: line.amount
           )
           li.add_tracking(name: 'Branch', option: line.particular)
-        elsif line.particular == 'fft_marketplace' # no longer occurs since we stopped having full/casual membership, I think.
+        elsif line.particular == 'fft_marketplace'
           account_code = Group.fft_group.account_codes.split(",").last
           invoice.add_line_item(
             description: "FFT Admin levy",

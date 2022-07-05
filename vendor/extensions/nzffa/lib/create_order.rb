@@ -28,7 +28,6 @@ class CreateOrder
     order.save!
     order.remove_cancelling_order_lines!
     order
-
   end
 
   def initialize(subscription)
@@ -50,6 +49,11 @@ class CreateOrder
       order.add_charge(:kind => 'branch_levy',
                        :particular => branch.name,
                        :amount => branch_levy_amount(branch))
+    end
+    subscription.action_groups.each do |group|
+      order.add_charge(:kind => 'action_group_levy',
+                       :particular => group.name,
+                       :amount => action_group_levy_amount(group))
     end
     if subscription.receive_tree_grower_magazine?
       order.add_charge(:kind => 'nz_tree_grower_magazine_levy',
@@ -90,6 +94,10 @@ class CreateOrder
     else
       nz_tree_grower_levy
     end
+  end
+
+  def action_group_levy_amount(group)
+    subscription.length_in_years * group.annual_levy.to_i
   end
 
   def branch_levy_amount(branch)

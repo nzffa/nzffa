@@ -5,21 +5,19 @@
         Please amend anything that has changed and write the total in the total column.
         %br
         -keys = NzffaSettings.forest_size_levys.keys - [@subscription.ha_of_planted_trees]
-        -base_levy = @order.admin_levy + @order.tree_grower_levy + @order.main_branch_levy
-        -areas = keys.sort.map{ |size| "#{size} ha ($#{(NzffaSettings.forest_size_levys[size] + base_levy).to_i})" }
-        Your main branch and forest area levy for other forest size options: #{areas.join(' and ')}
+        -areas = keys.sort.map{ |size| "#{size} ha ($#{(NzffaSettings.forest_size_levys[size] + @order.admin_levy).to_i})" }
+        Your national levy and forest area levy for other forest size options: #{areas.join(' and ')}
     %td.price{:style => 'width: 15%'}
       Rate
     %td.price{:style => 'width: 15%'}
       Total
   %tr
     %td
-      %b Main Branch and Forest Area:
-      =@subscription.main_branch_name
-      =@subscription.ha_of_planted_trees
+      %b Admin levy and Forest Area levy:
+      = @subscription.ha_of_planted_trees
       ha
     %td.price
-      =number_to_currency(@order.combined_member_levy)
+      =number_to_currency(@order.admin_and_forest_size_levy)
     %td
   - if @subscription.belongs_to_fft
     %tr
@@ -30,13 +28,15 @@
   - if @subscription.receive_tree_grower_magazine?
     %tr
       %td
-        -case @subscription.tree_grower_delivery_location
-        -when 'new_zealand'
-          NZ Tree Grower Magazine
-        -when 'australia'
-          NZ Tree Grower Magazine (delivered within Australia)
-        -when 'everywhere_else'
-          NZ Tree Grower Magazine (International delivery)
+        %b
+          -case @subscription.tree_grower_delivery_location
+          -when 'new_zealand'
+            NZ Tree Grower Magazine
+          -when 'australia'
+            NZ Tree Grower Magazine (delivered within Australia)
+          -when 'everywhere_else'
+            NZ Tree Grower Magazine (International delivery)
+
         =pluralize(@subscription.nz_tree_grower_copies, 'copy')
         per issue
       %td.price
@@ -44,10 +44,16 @@
 
   %tr
     %td
-      %b Additional Branches:
-      =@subscription.additional_branch_names.join(', ')
+      %b Geographical Branches:
+      =@subscription.branch_names.join(', ')
     %td.price
-      =number_to_currency(@order.additional_branches_levy)
+      = number_to_currency(@order.branches_levy)
+  %tr
+    %td
+      %b Special Interest Groups:
+      =@subscription.action_group_names.join(', ')
+    %td.price
+      = number_to_currency(@order.action_groups_levy)
   %tr
     %td
       %b Voluntary Research Contribution:
@@ -109,7 +115,7 @@
             %td=check_box_tag b.id
             %td #{b.name} ($#{b.annual_levy.to_i})
   .section
-    %h4 Special Interest Groups
+    %h4 Additional Special Interest Groups
     %table
       - action_groups = Group.action_groups.all(:order => 'name') - @subscription.branches
       - (action_groups << Group.find(NzffaSettings.fft_marketplace_group_id)) unless @subscription.groups.include? Group.fft_group
