@@ -9,8 +9,7 @@
     -end_of_this_year = Date.new(begin_year, 12, 31).to_s
     -end_of_next_year = Date.new(begin_year+1, 12, 31).to_s
     =f.hidden_field :begins_on
-    =f.radio_button :expires_on, end_of_this_year
-    =f.label "expires_on_#{end_of_this_year.gsub('-','')}", "End of #{begin_year}"
-    %br
-    =f.radio_button :expires_on, end_of_next_year
-    =f.label "expires_on_#{end_of_next_year.gsub('-','')}", "End of #{begin_year + 1}"
+    - if(@subscription.reader.has_active_subscription?)
+      =f.hidden_field(:expires_on, value: end_of_next_year)
+    - else
+      =f.hidden_field(:expires_on, value: end_of_this_year)
