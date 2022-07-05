@@ -128,18 +128,19 @@ class SubscriptionsController < ReaderActionController
       end
 
       if @subscription.valid?
-        new_order = CreateOrder.from_subscription(@subscription)
-        new_order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
-        new_order.amount = new_order.calculate_amount
         @order = @subscription.order
+        new_order = CreateOrder.from_subscription(@subscription)
+        if params[:commit] == 'Pay by direct credit'
+          redirect_uri = show_payment_info_order_path(@order)
+        else
+          new_order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
+          redirect_uri = make_payment_order_path(@order)
+        end
+        new_order.amount = new_order.calculate_amount
         @order.order_lines = new_order.order_lines
         @order.update_attribute(:amount, new_order.amount) # all other attrs should not change
         @order.update_xero_invoice if @order.xero_id
-        if params[:commit] == 'Pay by direct credit'
-          redirect_to print_renewal_subscriptions_path
-        else
-          redirect_to make_payment_order_path(@order)
-        end
+        redirect_to redirect_uri
       else
         render :new
       end
@@ -154,14 +155,17 @@ class SubscriptionsController < ReaderActionController
 
       if @subscription.valid?
         @order = CreateOrder.from_subscription(@subscription)
-        @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
+        unless params[:commit] == 'Pay by direct credit'
+          @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
+        end
         @order.amount = @order.calculate_amount # because of added CC order_line
         @order.save
         if params[:commit] == 'Pay by direct credit'
-          redirect_to print_subscriptions_path
+          redirect_uri = show_payment_info_order_path(@order)
         else
-          redirect_to make_payment_order_path(@order)
+          redirect_uri = make_payment_order_path(@order)
         end
+        redirect_to redirect_uri
       else
         render :new
       end

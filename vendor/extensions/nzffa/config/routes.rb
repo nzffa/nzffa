@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
                      :cancel => :post}
 
   map.resources :orders, :only => [],
-   :member => { :make_payment => :get },
+   :member => { :make_payment => :get, :show_payment_info => :get },
    :collection => { :payment_finished => :get }
 
   map.membership_details '/membership/details', :controller => :membership, :action => :details
