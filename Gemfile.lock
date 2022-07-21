@@ -360,7 +360,7 @@ GEM
       libv8 (~> 3.16.14.15)
       ref
     thor (0.14.6)
-    tzinfo (0.3.60)
+    tzinfo (0.3.61)
     uuidtools (2.1.5)
     vcard (0.2.16)
     whenever (0.9.4)
