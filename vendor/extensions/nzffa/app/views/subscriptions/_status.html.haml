@@ -5,10 +5,6 @@
     %p
       Your subscription has expired.
       =link_to "Renew your subscription", renew_subscriptions_path
-    %h3 Tax invoices
-    - @reader.subscriptions.active_anytime.each do |sub|
-      = link_to sub.begins_on.strftime("%Y"), print_subscriptions_path(params: {id: sub.id})
-
   - else
     %p
       You have no active subscription.
@@ -28,3 +24,7 @@
 
     %p If you want you can cancel this subscription and create a new one.
     =link_to 'Cancel Subscription', cancel_subscriptions_path, :method => :post
+
+%h3 Tax invoices
+- @reader.subscriptions.active_anytime.each do |sub|
+  = link_to sub.begins_on.strftime("%Y"), print_subscriptions_path(params: {id: sub.id})
