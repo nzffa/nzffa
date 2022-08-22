@@ -43,7 +43,11 @@ class SubscriptionsController < ReaderActionController
   end
 
   def print
-    @subscription = Subscription.last_paid_subscription_for(current_reader)
+    if params[:id]
+      @subscription = current_reader.subscriptions.find(params[:id])
+    else
+      @subscription = Subscription.last_paid_subscription_for(current_reader)
+    end
     if @subscription.nil?
       flash[:error] = 'No active subscription found'
       redirect_to(:action => :index) and return
@@ -130,8 +134,8 @@ class SubscriptionsController < ReaderActionController
       if @subscription.valid?
         @order = @subscription.order
         new_order = CreateOrder.from_subscription(@subscription)
-        if params[:commit] == 'Pay by direct credit'
-          redirect_uri = show_payment_info_order_path(@order)
+        if params[:commit] == 'Print and pay by direct credit'
+          redirect_uri = print_subscriptions_path({params: {id: @subscription.id}})
         else
           new_order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
           redirect_uri = make_payment_order_path(@order)

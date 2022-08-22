@@ -7,7 +7,6 @@ class MembershipController < MarketplaceController
   def details
     @reader = current_reader
     @subscription = Subscription.active_subscription_for(@reader)
-    @last_year_subscription = Subscription.last_year_subscription_for(@reader)
   end
 
   def dashboard
@@ -74,7 +73,7 @@ class MembershipController < MarketplaceController
       else
         params[:reader][:email] = params[:reader].delete(:pdnlb)
       end
-      
+
       @reader.update_attributes(params[:reader])
       if @reader.save
         update_newsletter_preference

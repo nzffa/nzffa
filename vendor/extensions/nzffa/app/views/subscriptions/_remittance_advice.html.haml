@@ -20,7 +20,8 @@ Other payment methods:
       Sorry, no American Express
   %tr
     %td{:colspan => 4 }
-      For Direct Crediting - Account No. 06 0501 0145507 00 - give your Membership ID for reference
+      For Direct Crediting - Account No. 06 0501 0145507 00 - give your Membership ID for reference:
+      = "#{@reader.nzffa_membership_id} #{@reader.name}"
   %tr
     %td{:colspan => 4 }
       If you are paying by Credit Card, a 2.3% surcharge will be added to cover the cost to us of the transaction.
