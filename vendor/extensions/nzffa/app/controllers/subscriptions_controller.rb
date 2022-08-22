@@ -159,12 +159,12 @@ class SubscriptionsController < ReaderActionController
 
       if @subscription.valid?
         @order = CreateOrder.from_subscription(@subscription)
-        unless params[:commit] == 'Pay by direct credit'
+        unless params[:commit] == 'Print and pay by direct credit'
           @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
         end
         @order.amount = @order.calculate_amount # because of added CC order_line
         @order.save
-        if params[:commit] == 'Pay by direct credit'
+        if params[:commit] == 'Print and pay by direct credit'
           redirect_uri = show_payment_info_order_path(@order)
         else
           redirect_uri = make_payment_order_path(@order)
@@ -182,11 +182,15 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'You cannot upgrade a subscription if it has not beed paid'
       redirect_to subscriptions_path and return
     end
-    new_sub = Subscription.new(params[:subscription])
-    new_sub.reader = current_reader
+    new_sub = current_reader.subscriptions.new(params[:subscription])
     if new_sub.valid?
       @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
-      redirect_to make_payment_order_path(@order)
+      if params[:commit] == 'Print and pay by direct credit'
+        redirect_uri = print_subscriptions_path(params: {id: @order.subscription.id})
+      else
+        redirect_uri = make_payment_order_path(@order)
+      end
+      redirect_to redirect_uri
     else
       render :modify
     end

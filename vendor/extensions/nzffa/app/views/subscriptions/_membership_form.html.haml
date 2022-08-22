@@ -1,5 +1,6 @@
 - form_class = @subscription.active? ? 'edit_subscription' : 'new_subscription'
--form_for(@subscription, url: @action_path, html: {class: form_class, method: :post}) do |f|
+- form_method = (params[:action] == 'modify') ? :put : :post
+-form_for(@subscription, url: @action_path, html: {class: form_class, method: form_method}) do |f|
   =f.hidden_field :reader_id
 
   %h3 How many hectares of planted trees do you have?
