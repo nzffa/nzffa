@@ -8,14 +8,14 @@ class Admin::SubscriptionsController < AdminController
     read_batch_params
     @options = batch_params_hash
 
-    @subscriptions = Subscription.expiring_before(@expiring_before)
+    @subscriptions = Subscription.with_readers_having_no_real_email_or_disallowing_renewal_mails.expiring_before(@expiring_before)
     @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
   end
 
   def print_batch
     read_batch_params
 
-    @subscriptions = Subscription.expiring_before(@expiring_before)
+    @subscriptions = Subscription.with_readers_having_no_real_email_or_disallowing_renewal_mails.expiring_before(@expiring_before)
     @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
 
     @unsaved_orders = @subs_by_postcode[@postcode].map do |sub|

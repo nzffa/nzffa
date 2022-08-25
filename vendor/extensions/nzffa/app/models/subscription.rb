@@ -35,11 +35,16 @@ class Subscription < ActiveRecord::Base
   named_scope :casual_membership, {:conditions => "membership_type = 'casual'"}
 
   named_scope :with_readers_having_no_real_email_or_disallowing_renewal_mails, {joins: :reader,
-    conditions: ["(readers.email NOT LIKE ?) OR (readers.disallow_renewal_mails IS TRUE)", '%@nzffa.org.nz']}
+    conditions: ["(readers.email LIKE ?) OR (readers.disallow_renewal_mails = ?)", '%@nzffa.org.nz', true]}
 
-  def self.expiring_before(date)
-    self.active.find(:all, :conditions => ['expires_on <?', date])
-  end
+  named_scope :expiring_before, lambda{|expiry_date|
+    {joins: :order,
+     conditions: ['begins_on <= ? AND
+       expires_on >= ? AND
+       expires_on <? AND
+       cancelled_on IS NULL AND
+       orders.paid_on > "2001-01-01"', Date.today, Date.today, expiry_date]}
+    }
 
   def self.last_subscription_for(reader)
     find_by_reader_id(reader.id, :order => 'id desc')
