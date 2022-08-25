@@ -157,7 +157,7 @@ module ReaderMixin
       if active_subscription.belongs_to_fft
         group_ids << NzffaSettings.fft_marketplace_group_id
       end
-      group_ids += active_subscription.associated_branches.map(&:id)
+      group_ids += active_subscription.branches.map(&:id)
       group_ids.join(' ')
     end
   end
