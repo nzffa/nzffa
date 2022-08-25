@@ -1,5 +1,5 @@
 - form_class = @subscription.active? ? 'edit_subscription' : 'new_subscription'
-- form_method = (params[:action] == 'modify') ? :put : :post
+- form_method = (['modify', 'edit'].include? params[:action]) ? :put : :post
 -form_for(@subscription, url: @action_path, html: {class: form_class, method: form_method}) do |f|
   =f.hidden_field :reader_id
 
@@ -40,8 +40,11 @@
       Farm Forestry Timbers
 
   #main_branch_selection
+    - select_opt_ids = f.object.belongs_to_fft ? [Group.fft_group.id] : []
+    - select_opt_ids += f.object.action_group_ids + f.object.branch_ids
+    - options = options_for_select(select_opt_ids.map{|group_id| [Group.find(group_id).name, group_id] })
     %h3 Select the main Branch or Action Group you want to belong to
-    %p= f.select :main_branch_id, {}
+    %p= f.select :main_branch_id, options
     %p Your primary branch Councillor participates in Association decision making.
 
   %h3 NZ Tree Grower Magazine
@@ -81,8 +84,11 @@
   = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
   = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
 
-  =f.submit 'Pay by credit card'
-  or
-  =f.submit 'Print and pay by direct credit'
+  - if params[:controller].match 'admin'
+    = f.submit 'Proceed to payment'
+  - else
+    =f.submit 'Pay by credit card'
+    or
+    =f.submit 'Print and pay by direct credit'
 
 = render :partial => 'subscriptions/quote_js'
