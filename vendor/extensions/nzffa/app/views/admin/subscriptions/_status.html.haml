@@ -23,6 +23,11 @@
       -subscription.action_groups.each do |action_group|
         %li=action_group.name
 
+  - unless subscription.main_branch_id.blank?
+    %p
+      %b Main branch:
+      = subscription.main_branch_name
+
   - unless subscription.paid?
     %p the subscription has not been paid. Either #{link_to('cancel', cancel_admin_reader_subscription_path(@reader, subscription), method: :post, confirm: "Really cancel this?")} or #{link_to('mark as paid', edit_admin_order_path(subscription.order))}.
 
