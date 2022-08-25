@@ -1,0 +1,22 @@
+.outset
+  %table#products.index{:style => " background-color: white; color: black"}
+    %thead
+      %th Name
+      %th Price
+      %th Xero account
+      %th.actions
+    %tbody
+      - @products.each do |product|
+        %tr
+          %td.name= link_to product.name, admin_product_path(product)
+          %td= number_to_currency product.price
+          %td= product.xero_account
+
+          %td=link_to image('minus') + ' ' + t('remove'), admin_product_path(product), method: 'delete', confirm: "Are you sure you want to delete this product?", :class => 'action'
+
+      - if @products.empty?
+        %tr
+          %td{:colspan => 4}= 'No products'
+#actions
+  %p= link_to image('plus') + " " + 'Create Product', new_admin_product_path, {:class => 'action_button', :style => 'color: #000'}
+  = will_paginate @products

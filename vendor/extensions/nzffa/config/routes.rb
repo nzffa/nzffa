@@ -53,6 +53,7 @@ ActionController::Routing::Routes.draw do |map|
       :except => [:new, :create],
       :member => [:create_user]
     admin.resources :orders
+    admin.resources :products
     admin.resources :readers, :only => [] do |readers|
      readers.resources :orders, :only => :index
      readers.resources :subscriptions, :member => { :cancel => :post }
