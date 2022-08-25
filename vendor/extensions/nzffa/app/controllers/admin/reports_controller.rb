@@ -4,6 +4,7 @@ class Admin::ReportsController < AdminController
     :when => [:admin, :designer]
 
   def index
+    @councillor_votes_per_branch_id = Subscription.active.group_by(&:main_branch_id)
   end
 
   def past_members_no_subscription
