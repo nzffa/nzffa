@@ -92,6 +92,18 @@ class Order < ActiveRecord::Base
     order_lines.build(params)
   end
 
+  def add_extra_products_from_params_hash(phash)
+    phash.each do |idstring, actual_amount|
+      # "products"=>{"1_amount"=>"2", "2_amount"=>"0", "3_amount"=>"1", ...}
+      if actual_amount.to_i > 0
+        product = Product.find(idstring.to_i)
+        self.add_charge(kind: 'extra_product',
+                         particular: "#{actual_amount}x #{product.name}",
+                         amount: (product.price.to_i * actual_amount.to_i))
+      end
+    end
+  end
+
   def remove_cancelling_order_lines!
     charge_order_lines.each do |charge_line|
       refund_order_lines.each do |refund_line|

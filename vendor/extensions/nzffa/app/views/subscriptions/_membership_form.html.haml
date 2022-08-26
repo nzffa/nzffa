@@ -80,6 +80,14 @@
       =f.check_box :research_fund_contribution_is_donation
       =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
 
+  %h3 Consider other products?
+  - Product.all.each do |product|
+    %p
+      = product.name
+      = number_to_currency product.price
+      %span{style: "float: right"}
+        = text_field_tag "products_#{product.id}_amount", 0, {type: 'number', size: 2, name: "products[#{product.id}_amount]"}
+
   = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
   = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
   = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}

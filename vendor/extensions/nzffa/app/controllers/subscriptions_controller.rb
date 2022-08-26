@@ -83,9 +83,10 @@ class SubscriptionsController < ReaderActionController
     remove_empty_groups_from_params
     subscription = Subscription.new(params[:subscription])
     order = CreateOrder.from_subscription(subscription)
+    order.add_extra_products_from_params_hash(params[:products])
 
-    render :json => {:price => "#{number_to_currency(order.amount)}",
-                     :credit_card_fee => "#{number_to_currency(order.amount * 0.023)}",
+    render :json => {:price => "#{number_to_currency(order.calculate_amount)}",
+                     :credit_card_fee => "#{number_to_currency(order.calculate_amount * 0.023)}",
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
                      :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end
@@ -101,13 +102,15 @@ class SubscriptionsController < ReaderActionController
     current_sub = Subscription.active_subscription_for(reader)
     new_sub = Subscription.new(params[:subscription])
 
-    normal_price = CreateOrder.from_subscription(new_sub).amount
+    order = CreateOrder.from_subscription(new_sub)
+    order.add_extra_products_from_params_hash(params[:products])
+
     credit = CalculatesSubscriptionLevy.credit_if_upgraded(current_sub)
 
     upgrade_price = CalculatesSubscriptionLevy.upgrade_price(current_sub, new_sub)
 
-    render :json => {:price => "#{number_to_currency(normal_price)}",
-                     :credit_card_fee => "#{number_to_currency(normal_price * 0.023)}",
+    render :json => {:price => "#{number_to_currency(order.calculate_amount)}",
+                     :credit_card_fee => "#{number_to_currency(order.calculate_amount * 0.023)}",
                      :credit => "#{number_to_currency(credit)}",
                      :upgrade_price => "#{number_to_currency(upgrade_price)}",
                      :expires_on => new_sub.expires_on.strftime('%e %B %Y').strip,
@@ -134,6 +137,7 @@ class SubscriptionsController < ReaderActionController
       if @subscription.valid?
         @order = @subscription.order
         new_order = CreateOrder.from_subscription(@subscription)
+        new_order.add_extra_products_from_params_hash(params[:products])
         if params[:commit] == 'Print and pay by direct credit'
           redirect_uri = print_subscriptions_path({params: {id: @subscription.id}})
         else
@@ -159,6 +163,7 @@ class SubscriptionsController < ReaderActionController
 
       if @subscription.valid?
         @order = CreateOrder.from_subscription(@subscription)
+        @order.add_extra_products_from_params_hash(params[:products])
         unless params[:commit] == 'Print and pay by direct credit'
           @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
         end
