@@ -20,8 +20,9 @@ class Subscription < ActiveRecord::Base
     {:conditions => {:expires_on => expiry_date, :cancelled_on => nil}}}
 
   named_scope :active, lambda {
-    {:joins => :order,
-     :conditions => ['begins_on <= ? AND expires_on >= ? AND cancelled_on IS NULL AND orders.paid_on > "2001-01-01"',  Date.today, Date.today, ]}}
+    {joins: :order,
+     conditions: ['begins_on <= ? AND expires_on >= ? AND cancelled_on IS NULL AND orders.paid_on > "2001-01-01"',  Date.today, Date.today, ],
+     readonly: false}}
 
   named_scope :active_for_reader, lambda { |reader|
     {:joins => :order,
