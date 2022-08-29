@@ -165,7 +165,7 @@ class SubscriptionsController < ReaderActionController
         @order = CreateOrder.from_subscription(@subscription)
         @order.add_extra_products_from_params_hash(params[:products])
         unless params[:commit] == 'Print and pay by direct credit'
-          @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
+          @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
         end
         @order.amount = @order.calculate_amount # because of added CC order_line
         @order.save
