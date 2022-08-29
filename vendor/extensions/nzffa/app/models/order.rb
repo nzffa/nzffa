@@ -1,18 +1,18 @@
 class Order < ActiveRecord::Base
   # Leaving 'Cheque' in there for now, so as not to invalidate previous orders
   PAYMENT_METHODS = ['Direct Debit', 'Direct Credit', 'Credit Card', 'Cheque', 'Cash', 'Online', 'NoCharge']
-  belongs_to :subscription, :dependent => :destroy
-  belongs_to :old_subscription, :class_name => 'Subscription'
-  has_many :order_lines, :dependent => :destroy
-  has_many :refundable_order_lines, :conditions => {:is_refundable => true}, :class_name => 'OrderLine'
-  has_many :charge_order_lines, :conditions => 'amount >= 0', :class_name => 'OrderLine'
-  has_many :refund_order_lines, :conditions => 'amount < 0', :class_name => 'OrderLine'
+  belongs_to :subscription, dependent: :destroy
+  belongs_to :old_subscription, class_name: 'Subscription', readonly: false
+  has_many :order_lines, dependent: :destroy
+  has_many :refundable_order_lines, conditions: {is_refundable: true}, class_name: 'OrderLine'
+  has_many :charge_order_lines, conditions: 'amount >= 0', class_name: 'OrderLine'
+  has_many :refund_order_lines, conditions: 'amount < 0', class_name: 'OrderLine'
 
-  accepts_nested_attributes_for :order_lines, :reject_if => :all_blank
+  accepts_nested_attributes_for :order_lines, reject_if: :all_blank
   validates_presence_of :amount, :subscription
   validates_numericality_of :amount
-  validates_inclusion_of :payment_method, :in => PAYMENT_METHODS, :allow_blank => true
-  validates_presence_of :payment_method, :if => :paid_on
+  validates_inclusion_of :payment_method, in: PAYMENT_METHODS, allow_blank: true
+  validates_presence_of :payment_method, if: :paid_on
 
   default_scope :order => "created_at DESC"
 
@@ -20,8 +20,8 @@ class Order < ActiveRecord::Base
   named_scope :not_synced_to_xero, conditions: "xero_id IS NULL OR needs_xero_update IS TRUE"
   named_scope :with_not_zero_amount, conditions: "amount > 0 OR amount < 0"
 
-  delegate :reader, :to => :subscription
-  delegate :nzffa_member_id, :to => :reader
+  delegate :reader, to: :subscription
+  delegate :nzffa_member_id, to: :reader
 
   after_save :check_if_paid
   after_create :create_xero_invoice
@@ -93,7 +93,7 @@ class Order < ActiveRecord::Base
   end
 
   def add_extra_products_from_params_hash(phash)
-    phash.each do |idstring, actual_amount|
+    phash.to_hash.each do |idstring, actual_amount|
       # "products"=>{"1_amount"=>"2", "2_amount"=>"0", "3_amount"=>"1", ...}
       if actual_amount.to_i > 0
         product = Product.find(idstring.to_i)
