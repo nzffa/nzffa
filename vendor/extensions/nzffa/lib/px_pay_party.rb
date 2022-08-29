@@ -26,7 +26,7 @@ class PxPayParty
   def self.generate_request_xml(params)
     {'PxPayUserId' => PX_PAY_PARTY_SETTINGS[:px_pay_user_id],
      'PxPayKey' => PX_PAY_PARTY_SETTINGS[:px_pay_key],
-     'AmountInput' => format_amount(params[:amount].to_f),
+     'AmountInput' => format_amount(params[:amount]),
      'CurrencyInput' => (params[:currency] || PX_PAY_PARTY_SETTINGS[:currency]),
      'MerchantReference' => params[:merchant_reference],
      'TxnType' => 'Purchase',
