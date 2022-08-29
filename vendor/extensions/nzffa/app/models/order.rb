@@ -102,6 +102,7 @@ class Order < ActiveRecord::Base
                          amount: (product.price.to_i * actual_amount.to_i))
       end
     end
+    self.amount = self.calculate_amount
   end
 
   def remove_cancelling_order_lines!
