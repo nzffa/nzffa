@@ -266,9 +266,9 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def price_when_sold_without_research_contribution
+  def price_when_sold_without_research_contribution_or_products
     if order and order.paid?
-      order.amount - research_fund_contribution_amount
+      order.amount - (research_fund_contribution_amount + order.extra_product_order_lines.map(&:amount).sum)
     end
   end
 
