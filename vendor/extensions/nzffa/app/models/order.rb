@@ -98,11 +98,19 @@ class Order < ActiveRecord::Base
       if actual_amount.to_i > 0
         product = Product.find(idstring.to_i)
         self.add_charge(kind: 'extra_product',
-                         particular: "#{actual_amount}x #{product.name} (#{idstring})",
+                         particular: "#{actual_amount}x #{product.name} (#{idstring.to_i})",
                          amount: (product.price.to_i * actual_amount.to_i))
       end
     end
     self.amount = self.calculate_amount
+  end
+
+  def extra_product_order_lines
+    order_lines.select{|l| l.kind == 'extra_product'}
+  end
+
+  def has_extra_products?
+    extra_product_order_lines.any?
   end
 
   def remove_cancelling_order_lines!
@@ -142,8 +150,10 @@ class Order < ActiveRecord::Base
     update_attribute(:paid_on, date)
 
     if needs_donation_receipt?
-      # Send donation receipt
       BackOfficeMailer.deliver_donation_receipt_to_member(Order.find(id))
+    end
+    if has_extra_products?
+      BackOfficeMailer.deliver_order_with_extra_products_paid(Order.find(id))
     end
   end
 

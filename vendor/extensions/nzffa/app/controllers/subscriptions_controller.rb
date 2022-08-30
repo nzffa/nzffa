@@ -190,6 +190,13 @@ class SubscriptionsController < ReaderActionController
     new_sub = current_reader.subscriptions.new(params[:subscription])
     if new_sub.valid?
       @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
+      @order.add_extra_products_from_params_hash(params[:products])
+      unless params[:commit] == 'Print and pay by direct credit'
+        @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
+      end
+      @order.amount = @order.calculate_amount # because of added CC order_line
+      @order.save
+      
       if params[:commit] == 'Print and pay by direct credit'
         redirect_uri = print_subscriptions_path(params: {id: @order.subscription.id})
       else
