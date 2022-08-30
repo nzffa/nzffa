@@ -98,7 +98,7 @@ class Order < ActiveRecord::Base
       if actual_amount.to_i > 0
         product = Product.find(idstring.to_i)
         self.add_charge(kind: 'extra_product',
-                         particular: "#{actual_amount}x #{product.name}",
+                         particular: "#{actual_amount}x #{product.name} (#{idstring})",
                          amount: (product.price.to_i * actual_amount.to_i))
       end
     end
@@ -258,6 +258,19 @@ class Order < ActiveRecord::Base
           description: "Research fund contribution",
           account_code: "4-2030",
           unit_amount: line.amount
+        )
+      when "extra_product"
+        # self.add_charge(kind: 'extra_product',
+        #                  particular: "#{actual_amount}x #{product.name} (#{idstring})",
+        #                  amount: (product.price.to_i * actual_amount.to_i))
+        r=Regexp.new /(\d)x.*\((\d)\)/
+        product_amount, product_id = line.particular.match(r)[1,2]
+        product = Product.find(product_id)
+        invoice.add_line_item(
+          description: product.name,
+          account_code: product.xero_account,
+          unit_amount: product.price,
+          quantity: product_amount
         )
       when "extra"
         if line.particular == 'Credit Card Surcharge'
