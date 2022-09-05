@@ -170,7 +170,7 @@ class SubscriptionsController < ReaderActionController
         @order.amount = @order.calculate_amount # because of added CC order_line
         @order.save
         if params[:commit] == 'Print and pay by direct credit'
-          redirect_uri = show_payment_info_order_path(@order)
+          redirect_uri = print_subscriptions_path({params: {id: @subscription.id}})
         else
           redirect_uri = make_payment_order_path(@order)
         end
@@ -196,7 +196,7 @@ class SubscriptionsController < ReaderActionController
       end
       @order.amount = @order.calculate_amount # because of added CC order_line
       @order.save
-      
+
       if params[:commit] == 'Print and pay by direct credit'
         redirect_uri = print_subscriptions_path(params: {id: @order.subscription.id})
       else
