@@ -11,6 +11,16 @@ class OrderLine < ActiveRecord::Base
     id
   end
 
+  def quantity
+    # Only on 'extra product' items
+    r=Regexp.new /([\d]+)x.*\((\d)\)/
+    if matchdata = particular.match(r)
+      matchdata[1].to_i
+    else
+      nil
+    end
+  end
+
   def subscription_begins_on
     if order and order.subscription
       order.subscription.begins_on

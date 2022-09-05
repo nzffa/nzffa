@@ -109,6 +109,18 @@ class Order < ActiveRecord::Base
     order_lines.select{|l| l.kind == 'extra_product'}
   end
 
+  def order_line_for_product(product)
+    if product.class == Product
+      pid = product.id
+    elsif product.class == Integer
+      pid = product.to_i
+    else
+      raise "This method requires a Product or product ID"
+    end
+    r = Regexp.new /[\d]+x.*\(#{pid}\)/
+    extra_product_order_lines.select{|ol| ol.particular.match(r) }.first
+  end
+
   def has_extra_products?
     extra_product_order_lines.any?
   end
@@ -273,7 +285,7 @@ class Order < ActiveRecord::Base
         # self.add_charge(kind: 'extra_product',
         #                  particular: "#{actual_amount}x #{product.name} (#{idstring})",
         #                  amount: (product.price.to_i * actual_amount.to_i))
-        r=Regexp.new /(\d)x.*\((\d)\)/
+        r=Regexp.new /([\d]+)x.*\((\d)\)/
         product_amount, product_id = line.particular.match(r)[1,2]
         product = Product.find(product_id)
         invoice.add_line_item(
