@@ -210,9 +210,9 @@ module ReaderMixin
     false
   end
 
-  def full_nzffa_member?
-    group_ids.include? NzffaSettings.full_membership_group_id
-  end
+  # def full_nzffa_member?
+  #   group_ids.include? NzffaSettings.full_membership_group_id
+  # end
 
   def identifiers
     #Direct Debit 204 (Note: This is currently under special_cases)

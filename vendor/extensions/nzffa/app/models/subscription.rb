@@ -16,9 +16,6 @@ class Subscription < ActiveRecord::Base
   validates_inclusion_of :ha_of_planted_trees,
     :in => NzffaSettings.forest_size_levys.keys, :if => 'membership_type == "full"'
 
-  named_scope :expiring_on, lambda {|expiry_date|
-    {:conditions => {:expires_on => expiry_date, :cancelled_on => nil}}}
-
   named_scope :active, lambda {
     {joins: :order,
      conditions: ['begins_on <= ? AND expires_on >= ? AND cancelled_on IS NULL AND orders.paid_on > "2001-01-01"',  Date.today, Date.today, ],
@@ -31,12 +28,8 @@ class Subscription < ActiveRecord::Base
                       AND reader_id = ?',  Date.today, Date.today, reader.id ]}}
 
   named_scope :active_anytime, {:joins => :order, :conditions => ['cancelled_on IS NULL AND orders.paid_on > "2001-01-01"' ]}
-
-  named_scope :full_membership, {:conditions => "membership_type = 'full'"}
-  named_scope :casual_membership, {:conditions => "membership_type = 'casual'"}
-
-  named_scope :with_readers_having_no_real_email_or_disallowing_renewal_mails, {joins: :reader,
-    conditions: ["(readers.email LIKE ?) OR (readers.disallow_renewal_mails = ?)", '%@nzffa.org.nz', true]}
+  # named_scope :full_membership, {:conditions => "membership_type = 'full'"}
+  # named_scope :casual_membership, {:conditions => "membership_type = 'casual'"}
 
   named_scope :expiring_before, lambda{|expiry_date|
     {joins: :order,
@@ -46,6 +39,12 @@ class Subscription < ActiveRecord::Base
        cancelled_on IS NULL AND
        orders.paid_on > "2001-01-01"', Date.today, Date.today, expiry_date]}
     }
+
+  named_scope :expiring_on, lambda {|expiry_date|
+    {conditions: {expires_on: expiry_date, cancelled_on: nil}}}
+
+  named_scope :with_readers_having_no_real_email_or_disallowing_renewal_mails, {joins: :reader,
+    conditions: ["(readers.email LIKE ?) OR (readers.disallow_renewal_mails = ?)", '%@nzffa.org.nz', true]}
 
   def self.last_subscription_for(reader)
     find_by_reader_id(reader.id, :order => 'id desc')

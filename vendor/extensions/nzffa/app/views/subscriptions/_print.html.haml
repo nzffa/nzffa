@@ -42,10 +42,7 @@
         %h2
           =simple_format [@reader.name, @reader.postal_address.to_s].flatten.join("\n")
       %td.member-details
-        -if @reader.full_nzffa_member?
-          Membership id:
-        -else
-          Subscriber id:
+        Membership id:
         #{@reader.nzffa_membership_id}
 
         %br

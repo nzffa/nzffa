@@ -71,7 +71,7 @@ class Admin::ReportsController < AdminController
   def members
     @readers = Reader.all
     fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2
-    post_city post_province post_country postcode full_nzffa_member? main_branch_group_id
+    post_city post_province post_country postcode main_branch_group_id
     associated_branch_group_ids_string action_group_group_ids_string special_cases identifiers
     bank_account_number tree_grower_group_ids disallow_renewal_mails]
     csv_string = CSV.generate(:col_sep => "\t") do |csv|
@@ -98,7 +98,7 @@ class Admin::ReportsController < AdminController
   def members_w_subscription_renewal_optout
     @readers = Reader.find_all_by_disallow_renewal_mails(true)
     fields = %w[id nzffa_membership_id forename surname email phone mobile fax post_line1 post_line2
-    post_city post_province post_country postcode full_nzffa_member? main_branch_group_id
+    post_city post_province post_country postcode main_branch_group_id
     associated_branch_group_ids_string action_group_group_ids_string special_cases identifiers
     bank_account_number tree_grower_group_ids]
     csv_string = CSV.generate(:col_sep => "\t") do |csv|
