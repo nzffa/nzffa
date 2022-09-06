@@ -1,8 +1,20 @@
-%h1 Print Subscription Renewal Forms
-
-#{@subscriptions_count} subscriptions grouped by postcode
-
-%ul
--@subs_by_postcode.keys.map{|k| k.to_s }.sort.each do |postcode|
-  %li=link_to postcode, print_batch_admin_subscriptions_path(@options.merge(:postcode => postcode))
-
+- date_strings = [Date.today.end_of_year.strftime("%Y-%m-%d"), (Date.today - 1.year).end_of_year.strftime("%Y-%m-%d")]
+.outset
+  #filters{style: "background-color: #777; padding: 6px 10px; text-align: right; color: #fff;"}
+    - form_tag '/admin/subscriptions/batches_to_print', method: :get do
+      Readers with a paid subscription that will expire or has expired on
+      = select_tag "expiring_on", options_for_select(date_strings, (params[:expiring_on] || date_strings[0])), onchange: "this.form.submit();"
+  %table.index.subscriptions_batches
+    %thead
+      %tr
+        %th.info{colspan: 2}
+          %p Only readers without a real email address (i.e. memberid@nzffa.org.nz) or readers that have 'disallow renewal emails' checked are included.
+          %p Readers that already have an active subsription (if expiring on is end of last year) or that already have a paid subscription (expiring on is end of this year) are excluded.
+      %tr
+        %th Postcode
+        %th Number of readers
+    %tbody
+      -@subs_by_postcode.keys.map{|k| k.to_s }.sort.each do |postcode|
+        %tr
+          %td= link_to postcode, print_batch_admin_subscriptions_path(@options.merge(:postcode => postcode))
+          %td= @subs_by_postcode[postcode].size

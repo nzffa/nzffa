@@ -19,8 +19,9 @@ Other payment methods:
     %td
       Sorry, no American Express
   %tr
-    %td{:colspan => 4 }
-      For Direct Crediting - Account No. 06 0501 0145507 00 - give your Membership ID for reference
+    %td{colspan: 4, style: "font-weight: bold" }
+      For Direct Crediting - Account No. 06 0501 0145507 00 - give your Membership ID and name for reference:
+      = "#{@reader.nzffa_membership_id} #{@reader.name}"
   %tr
     %td{:colspan => 4 }
       If you are paying by Credit Card, a 2.3% surcharge will be added to cover the cost to us of the transaction.
@@ -61,10 +62,7 @@ Other payment methods:
     %td
   %tr
     %td
-      -if @reader.full_nzffa_member?
-        NZFFA Member
-      -else
-        Subscriber id
+      NZFFA Member id
       #{@reader.nzffa_membership_id}
     %td
     %td Invoice #{@subscription.begins_on.strftime "%Y"}-#{@reader.nzffa_membership_id} Date 1/12/#{@subscription.begins_on.strftime "%Y"}

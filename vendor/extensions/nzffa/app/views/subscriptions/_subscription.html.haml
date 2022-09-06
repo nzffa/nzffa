@@ -1,8 +1,4 @@
 %p
-  %b Membership Type:
-  =subscription.membership_type
-
-%p
   %b Listing in Farm Forestry Timbers Marketplace?
   =subscription.belong_to_fft? ? 'Yes' : 'No'
 
@@ -20,22 +16,24 @@
   %b Expires on:
   =l subscription.expires_on
 
--if subscription.membership_type == 'full'
-  %p
-    %b Forest Area:
-    =subscription.ha_of_planted_trees
-  %p
-    %b Branches:
-    %ul
-      -subscription.branches.each do |branch|
-        %li=branch.name
+%p
+  %b Forest Area:
+  =subscription.ha_of_planted_trees
+%p
+  %b Branches:
+  %ul
+    -subscription.branches.each do |branch|
+      %li=branch.name
 
+%p
+  %b Special Interest Groups:
+  %ul
+    -subscription.action_groups.each do |action_group|
+      %li=action_group.name
+- unless subscription.main_branch_id.blank?
   %p
-    %b Action Groups:
-    %ul
-      -subscription.action_groups.each do |action_group|
-        %li=action_group.name
-
+    %b Main branch:
+    = subscription.main_branch_name
 %p
   = link_to "Print receipt", print_subscriptions_path
   = link_to "Print renewal form", print_renewal_subscriptions_path

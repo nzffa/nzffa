@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
                      :cancel => :post}
 
   map.resources :orders, :only => [],
-   :member => { :make_payment => :get },
+   :member => { :make_payment => :get, :show_payment_info => :get },
    :collection => { :payment_finished => :get }
 
   map.membership_details '/membership/details', :controller => :membership, :action => :details
@@ -53,6 +53,7 @@ ActionController::Routing::Routes.draw do |map|
       :except => [:new, :create],
       :member => [:create_user]
     admin.resources :orders
+    admin.resources :products
     admin.resources :readers, :only => [] do |readers|
      readers.resources :orders, :only => :index
      readers.resources :subscriptions, :member => { :cancel => :post }

@@ -9,6 +9,16 @@ class OrdersController < ReaderActionController
 
   end
 
+  def show_payment_info
+    @order = Order.find params[:id]
+    @subscription = @order.subscription
+    @reader = @subscription.reader
+    if @reader != current_reader
+      flash[:error] = "You are not allowed to view the payment details for this order"
+      redirect_to :back and return
+    end
+  end
+
   def payment_finished
     success_or_failure
   end

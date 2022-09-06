@@ -1,14 +1,6 @@
 =render :partial => 'subscriptions/load_js_libs'
-
+- help_page = Page.find(4307)
 %h1 New Subscription
-=stylesheet_link_tag 'select2'
-- case @subscription.membership_type
-- when 'casual'
-  =render 'subscriptions/casual_membership_form'
-- when 'full'
-  =render 'subscriptions/full_membership_form'
-- else
-  =render 'subscriptions/select_membership_type_form'
-
-
-
+%span.help{style: "float: right"}
+  = link_to "Help", help_page.path
+=render 'subscriptions/membership_form'

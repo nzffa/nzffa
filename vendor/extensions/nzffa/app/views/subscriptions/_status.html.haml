@@ -1,8 +1,7 @@
 =flash[:error]
 
-
 -if @subscription.blank?
-  - if @last_year_subscription.present?
+  - if current_reader.subscriptions.active_anytime.any?
     %p
       Your subscription has expired.
       =link_to "Renew your subscription", renew_subscriptions_path
@@ -26,4 +25,6 @@
     %p If you want you can cancel this subscription and create a new one.
     =link_to 'Cancel Subscription', cancel_subscriptions_path, :method => :post
 
-
+%h3 Tax invoices
+- current_reader.subscriptions.active_anytime.each do |sub|
+  = link_to sub.begins_on.strftime("%Y"), print_subscriptions_path(params: {id: sub.id})

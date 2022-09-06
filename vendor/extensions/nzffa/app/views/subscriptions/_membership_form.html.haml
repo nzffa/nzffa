@@ -1,0 +1,102 @@
+- form_class = @subscription.active? ? 'edit_subscription' : 'new_subscription'
+- form_method = (['modify', 'edit'].include? params[:action]) ? :put : :post
+-form_for(@subscription, url: @action_path, html: {class: form_class, method: form_method}) do |f|
+  =f.hidden_field :reader_id
+
+  %h3 How many hectares of planted trees do you have?
+  %p#ha_of_planted_trees
+    =f.radio_button :ha_of_planted_trees, '0 - 10'
+    =f.label :ha_of_planted_trees_0__10, '0 - 10ha'
+    %br
+    =f.radio_button :ha_of_planted_trees, '11 - 40'
+    =f.label :ha_of_planted_trees_11__40, '11 - 40ha'
+    %br
+    =f.radio_button :ha_of_planted_trees, '41+'
+    =f.label :ha_of_planted_trees_41, '40+ ha'
+
+  %h3 Select the Branches that you want to be a member of
+  %p#associated_branches{style: "display: flex; flex-wrap: wrap;"}
+    - Group.branches.each do |b|
+      %span{style: "width: 33%"}
+        %label
+          = f.check_box :branches, {multiple: true, checked: f.object.branch_ids.include?(b.id), class: "sgt"}, b.id, nil
+          = b.name
+          ($#{b.annual_levy.to_i})
+
+  %h3 Select the Special Interest Groups that you want to be a member of
+  %p#special_interest_groups{style: "display: flex; flex-wrap: wrap;"}
+    - Group.action_groups.all(:order => 'name').each do |b|
+      %span{style: "width: 33%"}
+        %label
+          = f.check_box :action_groups, {multiple: true, checked: f.object.action_group_ids.include?(b.id), class: "sgt"}, b.id, nil
+          = b.name
+          ($#{b.annual_levy.to_i})
+
+  %h3 Farm Forestry Timbers Marketplace
+  %p Farm Forestry Timbers is a society representing producers of specialty timbers. Joining means you can list your products or services and create adverts.
+  %p#join_marketplace
+    %label
+      = f.check_box :belongs_to_fft, {class: 'sgt', checked: f.object.belongs_to_fft}, Group.fft_group.id
+      Farm Forestry Timbers
+
+  #main_branch_selection
+    - select_opt_ids = f.object.belongs_to_fft ? [Group.fft_group.id] : []
+    - select_opt_ids += f.object.action_group_ids + f.object.branch_ids
+    - options = options_for_select(select_opt_ids.map{|group_id| [Group.find(group_id).name, group_id] })
+    %h3 Select the main Branch or Action Group you want to belong to
+    %p= f.select :main_branch_id, options
+    %p Your primary branch Councillor participates in Association decision making.
+
+  %h3 NZ Tree Grower Magazine
+  %p This Quarterly publication is the official Journal of the NZ Farm Forestry Association. Get it delivered.
+  =f.check_box :receive_tree_grower_magazine
+  =f.label :receive_tree_grower_magazine, 'Subscribe to NZ Tree Grower Magazine'
+
+  #tree_grower_delivery_location
+    %p Where will you have the magazine delivered to?
+    =f.radio_button :tree_grower_delivery_location, 'new_zealand'
+    =f.label :tree_grower_delivery_location_new_zealand, 'New Zealand'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'australia'
+    =f.label :tree_grower_delivery_location_australia, 'Australia'
+    %br
+    =f.radio_button :tree_grower_delivery_location, 'everywhere_else'
+    =f.label :tree_grower_delivery_location_everywhere_else, 'Everywhere else'
+
+    %p Do you want more than 1 copy of each edition? If so, how many copies of each edition of NZ Tree Grower would you like?
+    =f.label :nz_tree_grower_copies, 'Number of copies'
+    =f.text_field :nz_tree_grower_copies
+
+  %h3 Research Fund Contribution
+  %p
+    =f.check_box :contribute_to_research_fund
+    =f.label :contribute_to_research_fund, "Contribute to Research Fund"
+  #research_fund_contribution
+    #research_fund_contribution_amount
+      =f.label :research_fund_contribution_amount, 'Amount to contribute'
+      %input{:name => "subscription[research_fund_contribution_amount]", :id => "subscription_research_fund_contribution_amount", :type => 'number', :min => 0}
+
+      %p If you want your contribution treated as a donation (receipt acknowledgement will be sent) tick the below box
+      =f.check_box :research_fund_contribution_is_donation
+      =f.label :research_fund_contribution_is_donation, 'Treat contribution as donation'
+
+  %h3 Consider other products?
+  - Product.all.each do |product|
+    %p
+      = product.name
+      = number_to_currency product.price
+      %span{style: "float: right"}
+        = text_field_tag "products_#{product.id}_amount", 0, {type: 'number', size: 2, name: "products[#{product.id}_amount]"}
+
+  = render :partial => 'subscriptions/subscription_term_choices', :locals => {:f => f}
+  = render :partial => 'subscriptions/expiry_date', :locals => {:f => f}
+  = render :partial => 'subscriptions/amount_to_pay', :locals => {:f => f}
+
+  - if params[:controller].match 'admin'
+    = f.submit 'Proceed to payment'
+  - else
+    =f.submit 'Pay by credit card'
+    or
+    =f.submit 'Print and pay by direct credit'
+
+= render :partial => 'subscriptions/quote_js'

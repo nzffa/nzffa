@@ -1,0 +1,6 @@
+%h1 Edit Product
+
+- form_for [:admin, @product] do |f|
+  %div{style: "display: flex"}
+    = render partial: 'form_fields', locals: {f: f}
+  = f.submit 'Update Product'

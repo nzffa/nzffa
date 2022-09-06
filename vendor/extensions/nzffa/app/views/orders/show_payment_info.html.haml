@@ -1,0 +1,70 @@
+%h3 Your subscription options
+
+%table{:style => 'width: 100%'}
+  %tr
+    %td{:style => 'width: 80%'}
+    %td.price{:style => 'width: 20%'}
+  %tr
+    %td
+      %b Admin levy and Forest Area levy:
+      = @subscription.ha_of_planted_trees
+      ha
+    %td.price
+      =number_to_currency(@order.admin_and_forest_size_levy)
+  - if @subscription.belongs_to_fft
+    %tr
+      %td
+        %b Farm Forestry Timbers Marketplace
+      %td.price= number_to_currency(NzffaSettings.fft_marketplace_levy)
+  - if @subscription.receive_tree_grower_magazine?
+    %tr
+      %td
+        %b
+          -case @subscription.tree_grower_delivery_location
+          -when 'new_zealand'
+            NZ Tree Grower Magazine
+          -when 'australia'
+            NZ Tree Grower Magazine (delivered within Australia)
+          -when 'everywhere_else'
+            NZ Tree Grower Magazine (International delivery)
+
+        =pluralize(@subscription.nz_tree_grower_copies, 'copy')
+        per issue
+      %td.price
+        =number_to_currency(@order.tree_grower_levy)
+
+  %tr
+    %td
+      %b Geographical Branches:
+      =@subscription.branch_names.join(', ')
+    %td.price
+      = number_to_currency(@order.branches_levy)
+  %tr
+    %td
+      %b Special Interest Groups:
+      =@subscription.action_group_names.join(', ')
+    %td.price
+      = number_to_currency(@order.action_groups_levy)
+  - if @subscription.contribute_to_research_fund
+    %tr
+      %td
+        %b Voluntary Research Contribution:
+      %td.price
+        = number_to_currency(@subscription.research_fund_contribution_amount)
+
+  - @order.order_lines.select{|ol| ol.kind == 'extra'}.each do |ol|
+    %tr
+      %td
+        %b= ol.particular
+      %td.price= number_to_currency(ol.amount)
+  %tr
+    %td.subtotal
+      %b Total:
+    %td.price{style: "border-top: 1px solid rgb(0, 153, 0)"}=number_to_currency(@order.amount)
+
+.section
+  %h3 Instructions for direct credit
+  %p
+    Pay to Account No. 06 0501 0145507 00
+    %br
+    Give your Membership ID and name for reference: "#{@reader.nzffa_membership_id} #{@reader.name}"

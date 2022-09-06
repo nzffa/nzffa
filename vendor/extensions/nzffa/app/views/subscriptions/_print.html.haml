@@ -6,10 +6,11 @@
           =image_tag 'admin/nzffa_print_logo.png', :class => 'nzffa-logo'
         %h2 New Zealand Farm Forestry Association (Inc)
         %h1
-          - if params[:action] == 'print_renewal'
-            Subscription Renewal
-          - else
+          - if @subscription.paid?
             Tax Invoice
+          - else
+            Subscription Renewal
+
           %br
           #{@subscription.begins_on.strftime('%B %Y')} - #{@subscription.expires_on.strftime('%B %Y')}
       %td.nzffa-address
@@ -41,10 +42,7 @@
         %h2
           =simple_format [@reader.name, @reader.postal_address.to_s].flatten.join("\n")
       %td.member-details
-        -if @reader.full_nzffa_member?
-          Membership id:
-        -else
-          Subscriber id:
+        Membership id:
         #{@reader.nzffa_membership_id}
 
         %br
@@ -59,19 +57,14 @@
           Please provide email address
           =text_field_tag :email_address
 
-        -if @reader.full_nzffa_member?
-          -unless @reader.receive_nzffa_members_newsletter?
-            %br
-            =check_box_tag :subscribe_to_nzffa_newsletter
-            Tick to receive the NZFFA newsletter
+        -if !@reader.receive_nzffa_members_newsletter?
+          %br
+          =check_box_tag :subscribe_to_nzffa_newsletter
+          Tick to receive the NZFFA newsletter
         %br
         %b.check-your-details Please check your details
 
--if @subscription.membership_type == 'full'
-  =render 'subscriptions/print_account_full_member'
--else
-  =render 'subscriptions/print_account_casual_member'
-
+=render 'subscriptions/print_account'
 
 .section
   .payment-box

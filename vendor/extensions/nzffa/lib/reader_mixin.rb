@@ -157,7 +157,7 @@ module ReaderMixin
       if active_subscription.belongs_to_fft
         group_ids << NzffaSettings.fft_marketplace_group_id
       end
-      group_ids += active_subscription.associated_branches.map(&:id)
+      group_ids += active_subscription.branches.map(&:id)
       group_ids.join(' ')
     end
   end
@@ -210,9 +210,9 @@ module ReaderMixin
     false
   end
 
-  def full_nzffa_member?
-    group_ids.include? NzffaSettings.full_membership_group_id
-  end
+  # def full_nzffa_member?
+  #   group_ids.include? NzffaSettings.full_membership_group_id
+  # end
 
   def identifiers
     #Direct Debit 204 (Note: This is currently under special_cases)

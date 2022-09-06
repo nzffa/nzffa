@@ -1,41 +1,4 @@
 GIT
-  remote: git://github.com/enspiral/radiant-settings.git
-  revision: 205a0af20cd878259f2c7df42d40beadfde33c38
-  specs:
-    radiant-settings-extension (1.1.2)
-      radiant (>= 0.9.1)
-
-GIT
-  remote: git://github.com/enspiral/radiant-share-layouts-extension.git
-  revision: e62392e917839095da521f6ca4197e600e494cf1
-  specs:
-    radiant-layouts-extension (1.1.3)
-      radiant (>= 0.9.1)
-
-GIT
-  remote: git://github.com/jdutil/backup.git
-  revision: bca9ab8b05cfaf65e78f069264ca78f5b4231799
-  specs:
-    backup (3.0.24)
-      open4 (~> 1.3.0)
-      thor (~> 0.14.6)
-
-GIT
-  remote: git://github.com/jomz/radiant-reader-extension.git
-  revision: 2558b51712565dbcd3e61f96f820cc99bd233986
-  branch: with_rails_lts
-  specs:
-    radiant-reader-extension (3.0.38)
-      ancestry (~> 1.2.4)
-      authlogic (~> 2.1.6)
-      color (>= 1.4.1)
-      radiant-layouts-extension (~> 1.1.3)
-      radiant-mailer_layouts-extension (~> 0.1.1)
-      sanitize (~> 2.0.1)
-      snail (~> 0.5.5)
-      vcard (~> 0.2.0)
-
-GIT
   remote: git://github.com/nzffa/radiant
   revision: d7e574a34a1d75e80abb01abb1650fb3356d058f
   branch: with_rails_lts
@@ -62,63 +25,6 @@ GIT
       will_paginate (~> 2.3.11)
 
 GIT
-  remote: git://github.com/nzffa/radiant-downloads-extension.git
-  revision: 9a5bb38b1dd9d786f2f92e9901cab1b809a409ce
-  specs:
-    radiant-downloads-extension (0.6.0)
-      paperclip (~> 2.7.0)
-
-GIT
-  remote: git://github.com/nzffa/radiant-forum-extension.git
-  revision: 551860016c44264981f9e3e752cf814528165fa2
-  branch: wackamole
-  specs:
-    radiant-forum-extension (3.0.6)
-      acts_as_list (~> 0.1.2)
-      radiant-reader-extension (~> 3.0.23)
-
-GIT
-  remote: git://github.com/nzffa/radiant-nzffa_conference-extension.git
-  revision: cbe1e72b922ddd12d21a72bd69e69e1071d0d9c1
-  specs:
-    radiant-conference-extension (1.0.0)
-
-GIT
-  remote: git://github.com/nzffa/radiant-nzffa_marketplace-extension.git
-  revision: 97b8a7f3adcc37319b7edecd22f8ba741f6ec9fd
-  specs:
-    radiant-marketplace-extension (1.0.1)
-      spreadsheet
-
-GIT
-  remote: git://github.com/nzffa/radiant-page_reader_group_permissions-extension.git
-  revision: f9809dd8121721befda98a2a17cfa21e1c826a98
-  specs:
-    radiant-page_reader_group_permissions-extension (1.1)
-      radiant (>= 0.9.1)
-
-GIT
-  remote: git://github.com/nzffa/radiant-scheduler-extension
-  revision: 5045d68d8a11df1fb6f95db8c1b741ee96782971
-  branch: with_rails_lts
-  specs:
-    radiant-scheduler-extension (1.0.3)
-
-GIT
-  remote: git://github.com/radiant/radiant-clipped-extension.git
-  revision: f629879c9621b3388c2e2c47b1b182bf6935fd93
-  branch: with_rails_lts
-  specs:
-    radiant-clipped-extension (1.1.3)
-      acts_as_list (= 0.1.4)
-      cocaine (~> 0.3.2)
-      fog (= 1.24.0)
-      fog-core (= 1.24.0)
-      net-ssh (~> 4.2.0)
-      paperclip (~> 2.7.0)
-      uuidtools (~> 2.1.2)
-
-GIT
   remote: git@github.com:nzffa/xeroizer.git
   revision: 93417c66b0d496e725e203614159d8bde7709b11
   branch: rails_2_lts
@@ -131,6 +37,43 @@ GIT
       oauth (>= 0.4.5)
       oauth2 (>= 1.4.0)
       tzinfo
+
+GIT
+  remote: https://github.com/enspiral/radiant-settings.git
+  revision: 205a0af20cd878259f2c7df42d40beadfde33c38
+  specs:
+    radiant-settings-extension (1.1.2)
+      radiant (>= 0.9.1)
+
+GIT
+  remote: https://github.com/enspiral/radiant-share-layouts-extension.git
+  revision: e62392e917839095da521f6ca4197e600e494cf1
+  specs:
+    radiant-layouts-extension (1.1.3)
+      radiant (>= 0.9.1)
+
+GIT
+  remote: https://github.com/jdutil/backup.git
+  revision: bca9ab8b05cfaf65e78f069264ca78f5b4231799
+  specs:
+    backup (3.0.24)
+      open4 (~> 1.3.0)
+      thor (~> 0.14.6)
+
+GIT
+  remote: https://github.com/jomz/radiant-reader-extension.git
+  revision: 2558b51712565dbcd3e61f96f820cc99bd233986
+  branch: with_rails_lts
+  specs:
+    radiant-reader-extension (3.0.38)
+      ancestry (~> 1.2.4)
+      authlogic (~> 2.1.6)
+      color (>= 1.4.1)
+      radiant-layouts-extension (~> 1.1.3)
+      radiant-mailer_layouts-extension (~> 0.1.1)
+      sanitize (~> 2.0.1)
+      snail (~> 0.5.5)
+      vcard (~> 0.2.0)
 
 GIT
   remote: https://github.com/makandra/rails.git
@@ -177,6 +120,63 @@ GIT
   specs:
     rspec (1.3.2)
 
+GIT
+  remote: https://github.com/nzffa/radiant-downloads-extension.git
+  revision: 9a5bb38b1dd9d786f2f92e9901cab1b809a409ce
+  specs:
+    radiant-downloads-extension (0.6.0)
+      paperclip (~> 2.7.0)
+
+GIT
+  remote: https://github.com/nzffa/radiant-forum-extension.git
+  revision: 551860016c44264981f9e3e752cf814528165fa2
+  branch: wackamole
+  specs:
+    radiant-forum-extension (3.0.6)
+      acts_as_list (~> 0.1.2)
+      radiant-reader-extension (~> 3.0.23)
+
+GIT
+  remote: https://github.com/nzffa/radiant-nzffa_conference-extension.git
+  revision: cbe1e72b922ddd12d21a72bd69e69e1071d0d9c1
+  specs:
+    radiant-conference-extension (1.0.0)
+
+GIT
+  remote: https://github.com/nzffa/radiant-nzffa_marketplace-extension.git
+  revision: 97b8a7f3adcc37319b7edecd22f8ba741f6ec9fd
+  specs:
+    radiant-marketplace-extension (1.0.1)
+      spreadsheet
+
+GIT
+  remote: https://github.com/nzffa/radiant-page_reader_group_permissions-extension.git
+  revision: f9809dd8121721befda98a2a17cfa21e1c826a98
+  specs:
+    radiant-page_reader_group_permissions-extension (1.1)
+      radiant (>= 0.9.1)
+
+GIT
+  remote: https://github.com/nzffa/radiant-scheduler-extension
+  revision: 5045d68d8a11df1fb6f95db8c1b741ee96782971
+  branch: with_rails_lts
+  specs:
+    radiant-scheduler-extension (1.0.3)
+
+GIT
+  remote: https://github.com/radiant/radiant-clipped-extension.git
+  revision: f629879c9621b3388c2e2c47b1b182bf6935fd93
+  branch: with_rails_lts
+  specs:
+    radiant-clipped-extension (1.1.3)
+      acts_as_list (= 0.1.4)
+      cocaine (~> 0.3.2)
+      fog (= 1.24.0)
+      fog-core (= 1.24.0)
+      net-ssh (~> 4.2.0)
+      paperclip (~> 2.7.0)
+      uuidtools (~> 2.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -218,7 +218,7 @@ GEM
     concurrent-ruby (1.1.9)
     delocalize (0.2.6)
     dry-inflector (0.2.1)
-    excon (0.85.0)
+    excon (0.92.3)
     execjs (2.0.0)
     faraday (1.5.1)
       faraday-em_http (~> 1.0)
@@ -271,7 +271,7 @@ GEM
     fog-softlayer (1.1.4)
       fog-core
       fog-json
-    fog-xml (0.1.3)
+    fog-xml (0.1.4)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (0.3.0)
@@ -355,7 +355,7 @@ GEM
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.19)
     snail (0.5.7)
-    spreadsheet (1.2.9)
+    spreadsheet (1.3.0)
       ruby-ole
     stringex (1.3.3)
     therubyracer (0.12.3)

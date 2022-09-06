@@ -9,23 +9,27 @@
     -if subscription.receive_tree_grower_magazine?
       #{subscription.nz_tree_grower_copies} copies
 
-  -if subscription.membership_type == 'full'
+  %p
+    %b Forest Area:
+    =subscription.ha_of_planted_trees
+  %p
+    %b Branches:
+    %ul
+      -subscription.branches.each do |branch|
+        %li=branch.name
+  %p
+    %b Special Interest Groups:
+    %ul
+      -subscription.action_groups.each do |action_group|
+        %li=action_group.name
+
+  - unless subscription.main_branch_id.blank?
     %p
-      %b Forest Area:
-      =subscription.ha_of_planted_trees
-    %p
-      %b Branches:
-      %ul
-        -subscription.branches.each do |branch|
-          %li=branch.name
-    %p
-      %b Action Groups:
-      %ul
-        -subscription.action_groups.each do |action_group|
-          %li=action_group.name
+      %b Main branch:
+      = subscription.main_branch_name
 
   - unless subscription.paid?
-    %p the subscription has not been paid. Either #{link_to('cancel', cancel_admin_reader_subscription_path(@reader, subscription), :method => :post, :confirm => "Really cancel this?")} or #{link_to('mark as paid', edit_admin_order_path(subscription.order))}.
+    %p the subscription has not been paid. Either #{link_to('cancel', cancel_admin_reader_subscription_path(@reader, subscription), method: :post, confirm: "Really cancel this?")} or #{link_to('mark as paid', edit_admin_order_path(subscription.order))}.
 
   %div.actions
     =link_to('Upgrade', edit_admin_subscription_path(subscription)) if subscription.can_upgrade?

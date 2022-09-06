@@ -43,7 +43,11 @@ class SubscriptionsController < ReaderActionController
   end
 
   def print
-    @subscription = Subscription.last_paid_subscription_for(current_reader)
+    if params[:id]
+      @subscription = current_reader.subscriptions.find(params[:id])
+    else
+      @subscription = Subscription.last_paid_subscription_for(current_reader)
+    end
     if @subscription.nil?
       flash[:error] = 'No active subscription found'
       redirect_to(:action => :index) and return
@@ -61,8 +65,7 @@ class SubscriptionsController < ReaderActionController
     else
       redirect_to :back
     end
-
-    @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
+    # @subscription = old_sub.renew_for_year(old_sub.expires_on.year + 1)
     @order = CreateOrder.from_subscription(@subscription)
     render 'print', :layout => false
   end
@@ -72,33 +75,42 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'You cannot create a new subscription if you currently have a subscription.'
       redirect_to subscriptions_path and return
     end
-    @subscription = current_reader.subscriptions.new(params[:subscription])
+    @subscription = current_reader.threatening_duplicate_subscription || current_reader.subscriptions.new(params[:subscription])
     @action_path = subscriptions_path
   end
 
   def quote_new
+    remove_empty_groups_from_params
     subscription = Subscription.new(params[:subscription])
     order = CreateOrder.from_subscription(subscription)
+    order.add_extra_products_from_params_hash(params[:products])
 
-    render :json => {:price => "#{number_to_currency(order.amount)}",
-                     :credit_card_fee => "#{number_to_currency(order.amount * 0.023)}",
+    render :json => {:price => "#{number_to_currency(order.calculate_amount)}",
+                     :credit_card_fee => "#{number_to_currency(order.calculate_amount * 0.023)}",
                      :expires_on => subscription.expires_on.strftime('%e %B %Y').strip,
                      :begins_on => subscription.begins_on.strftime('%e %B %Y').strip}
   end
 
+  def remove_empty_groups_from_params
+    params['subscription']['branches'].reject!(&:blank?)
+    params['subscription']['action_groups'].reject!(&:blank?)
+  end
+
   def quote_upgrade
+    remove_empty_groups_from_params
     reader = Reader.find_by_id(params[:subscription][:reader_id])# || current_reader
     current_sub = Subscription.active_subscription_for(reader)
     new_sub = Subscription.new(params[:subscription])
 
-    normal_price = CreateOrder.from_subscription(new_sub).amount
+    order = CreateOrder.from_subscription(new_sub)
+    order.add_extra_products_from_params_hash(params[:products])
 
     credit = CalculatesSubscriptionLevy.credit_if_upgraded(current_sub)
 
     upgrade_price = CalculatesSubscriptionLevy.upgrade_price(current_sub, new_sub)
 
-    render :json => {:price => "#{number_to_currency(normal_price)}",
-                     :credit_card_fee => "#{number_to_currency(normal_price * 0.023)}",
+    render :json => {:price => "#{number_to_currency(order.calculate_amount)}",
+                     :credit_card_fee => "#{number_to_currency(order.calculate_amount * 0.023)}",
                      :credit => "#{number_to_currency(credit)}",
                      :upgrade_price => "#{number_to_currency(upgrade_price)}",
                      :expires_on => new_sub.expires_on.strftime('%e %B %Y').strip,
@@ -111,6 +123,7 @@ class SubscriptionsController < ReaderActionController
     # Rather than opening :edit and :update routes, add controller actions,
     # edit forms etc., we check for and re-use any existing 'abandoned'
     # subscription here, and update the invoice in Xero
+
     if @subscription = current_reader.threatening_duplicate_subscription
       # An 'abandoned' subscription exists so do not create a new one
       @subscription.group_subscriptions.clear
@@ -122,14 +135,20 @@ class SubscriptionsController < ReaderActionController
       end
 
       if @subscription.valid?
-        new_order = CreateOrder.from_subscription(@subscription)
-        new_order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
-        new_order.amount = new_order.calculate_amount
         @order = @subscription.order
+        new_order = CreateOrder.from_subscription(@subscription)
+        new_order.add_extra_products_from_params_hash(params[:products])
+        if params[:commit] == 'Print and pay by direct credit'
+          redirect_uri = print_subscriptions_path({params: {id: @subscription.id}})
+        else
+          new_order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(new_order.amount * 0.023, precision: 2))
+          redirect_uri = make_payment_order_path(@order)
+        end
+        new_order.amount = new_order.calculate_amount
         @order.order_lines = new_order.order_lines
         @order.update_attribute(:amount, new_order.amount) # all other attrs should not change
-        @order.update_xero_invoice
-        redirect_to make_payment_order_path(@order)
+        @order.update_xero_invoice if @order.xero_id
+        redirect_to redirect_uri
       else
         render :new
       end
@@ -144,10 +163,18 @@ class SubscriptionsController < ReaderActionController
 
       if @subscription.valid?
         @order = CreateOrder.from_subscription(@subscription)
-        @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
+        @order.add_extra_products_from_params_hash(params[:products])
+        unless params[:commit] == 'Print and pay by direct credit'
+          @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
+        end
         @order.amount = @order.calculate_amount # because of added CC order_line
         @order.save
-        redirect_to make_payment_order_path(@order)
+        if params[:commit] == 'Print and pay by direct credit'
+          redirect_uri = print_subscriptions_path({params: {id: @subscription.id}})
+        else
+          redirect_uri = make_payment_order_path(@order)
+        end
+        redirect_to redirect_uri
       else
         render :new
       end
@@ -160,11 +187,22 @@ class SubscriptionsController < ReaderActionController
       flash[:error] = 'You cannot upgrade a subscription if it has not beed paid'
       redirect_to subscriptions_path and return
     end
-    new_sub = Subscription.new(params[:subscription])
-    new_sub.reader = current_reader
+    new_sub = current_reader.subscriptions.new(params[:subscription])
     if new_sub.valid?
       @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
-      redirect_to make_payment_order_path(@order)
+      @order.add_extra_products_from_params_hash(params[:products])
+      unless params[:commit] == 'Print and pay by direct credit'
+        @order.order_lines.build(kind: 'extra', particular: "Credit Card Surcharge", amount: number_with_precision(@order.amount * 0.023, precision: 2))
+      end
+      @order.amount = @order.calculate_amount # because of added CC order_line
+      @order.save
+
+      if params[:commit] == 'Print and pay by direct credit'
+        redirect_uri = print_subscriptions_path(params: {id: @order.subscription.id})
+      else
+        redirect_uri = make_payment_order_path(@order)
+      end
+      redirect_to redirect_uri
     else
       render :modify
     end

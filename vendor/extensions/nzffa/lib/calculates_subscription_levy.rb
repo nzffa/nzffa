@@ -25,9 +25,9 @@ class CalculatesSubscriptionLevy
     if subscription.price_when_sold == nil
       0
     else
-      subscription.price_when_sold_without_research_contribution -
-        (subscription.price_when_sold_without_research_contribution * 
-         fraction_used(subscription.begins_on, 
+      subscription.price_when_sold_without_research_contribution_or_products -
+        (subscription.price_when_sold_without_research_contribution_or_products *
+         fraction_used(subscription.begins_on,
                        subscription.expires_on))
     end
   end
@@ -41,16 +41,7 @@ class CalculatesSubscriptionLevy
     CreateOrder.from_subscription(subscription).amount
   end
 
-  def self.yearly_levy_for(subscription)
-    case subscription.membership_type
-    when 'casual' then casual_membership_levy(subscription)
-    when 'full' then full_membership_levy(subscription)
-    else
-      0
-    end
-  end
-
-  #the length is really focued around issues of tree grower magazine.. 
+  #the length is really focued around issues of tree grower magazine..
   # 215, 515 etc represent feb 15, may 15 (yearless)
   # which are publication dates of tree grower im told
   def self.subscription_length(begin_on, end_on)

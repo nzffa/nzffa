@@ -38,4 +38,13 @@ class BackOfficeMailer < ActionMailer::Base
     body       :order => order,
                :reader => order.subscription.reader
   end
+
+  def order_with_extra_products_paid(order)
+    subject    "An order with extra products has just been paid"
+    recipients ['admin@nzffa.org.nz']
+    from       'admin@nzffa.org.nz'
+
+    body       :order => order,
+               :reader => order.subscription.reader
+  end
 end

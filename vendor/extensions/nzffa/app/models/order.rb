@@ -1,18 +1,18 @@
 class Order < ActiveRecord::Base
   # Leaving 'Cheque' in there for now, so as not to invalidate previous orders
   PAYMENT_METHODS = ['Direct Debit', 'Direct Credit', 'Credit Card', 'Cheque', 'Cash', 'Online', 'NoCharge']
-  belongs_to :subscription, :dependent => :destroy
-  belongs_to :old_subscription, :class_name => 'Subscription'
-  has_many :order_lines, :dependent => :destroy
-  has_many :refundable_order_lines, :conditions => {:is_refundable => true}, :class_name => 'OrderLine'
-  has_many :charge_order_lines, :conditions => 'amount >= 0', :class_name => 'OrderLine'
-  has_many :refund_order_lines, :conditions => 'amount < 0', :class_name => 'OrderLine'
+  belongs_to :subscription, dependent: :destroy
+  belongs_to :old_subscription, class_name: 'Subscription', readonly: false
+  has_many :order_lines, dependent: :destroy
+  has_many :refundable_order_lines, conditions: {is_refundable: true}, class_name: 'OrderLine'
+  has_many :charge_order_lines, conditions: 'amount >= 0', class_name: 'OrderLine'
+  has_many :refund_order_lines, conditions: 'amount < 0', class_name: 'OrderLine'
 
-  accepts_nested_attributes_for :order_lines, :reject_if => :all_blank
+  accepts_nested_attributes_for :order_lines, reject_if: :all_blank
   validates_presence_of :amount, :subscription
   validates_numericality_of :amount
-  validates_inclusion_of :payment_method, :in => PAYMENT_METHODS, :allow_blank => true
-  validates_presence_of :payment_method, :if => :paid_on
+  validates_inclusion_of :payment_method, in: PAYMENT_METHODS, allow_blank: true
+  validates_presence_of :payment_method, if: :paid_on
 
   default_scope :order => "created_at DESC"
 
@@ -20,26 +20,14 @@ class Order < ActiveRecord::Base
   named_scope :not_synced_to_xero, conditions: "xero_id IS NULL OR needs_xero_update IS TRUE"
   named_scope :with_not_zero_amount, conditions: "amount > 0 OR amount < 0"
 
-  delegate :reader, :to => :subscription
-  delegate :nzffa_member_id, :to => :reader
+  delegate :reader, to: :subscription
+  delegate :nzffa_member_id, to: :reader
 
   after_save :check_if_paid
   after_create :create_xero_invoice
 
-  def combined_full_member_levy
-    # assume full member
-    total = admin_levy+
-            forest_size_levy+
-            full_member_tree_grower_levy+
-            main_branch_levy
-  end
-
-  def casual_member_fft_and_admin_levy
-     casual_member_fft_levy + admin_levy
-  end
-
-  def casual_member_fft_levy
-    line_amount('fft_marketplace_levy', 'casual_membership')
+  def admin_and_forest_size_levy
+    admin_levy + forest_size_levy
   end
 
   def admin_levy
@@ -50,31 +38,20 @@ class Order < ActiveRecord::Base
     line_amount('forest_size_levy')
   end
 
-  def full_member_tree_grower_levy
+  def tree_grower_levy
     line_amount('nz_tree_grower_magazine_levy')
   end
 
-  def associated_branches_levy
-    total = order_lines.select{|l| l.kind == 'branch_levy'}.map(&:amount).sum
-    total - main_branch_levy
+  def fft_marketplace_levy
+    line_amount('fft_marketplace_levy')
   end
 
-  def main_branch_levy
-    admin_levy_line = order_lines.select{|l| l.kind == 'admin_levy'}.first
-    return 0 unless admin_levy_line
-    main_branch_name = admin_levy_line.particular
-    main_branch_levy_line = order_lines.select do |l|
-      l.kind == 'branch_levy' && l.particular == main_branch_name
-    end.first
-    main_branch_levy_line.amount
+  def branches_levy
+    order_lines.select{|l| l.kind == 'branch_levy'}.map(&:amount).sum
   end
 
   def action_groups_levy
     order_lines.select{|l| l.kind == 'action_group_levy'}.map(&:amount).sum
-  end
-
-  def casual_nz_tree_grower_levy
-    order_lines.select{|l| l.kind == 'casual_member_nz_tree_grower_magazine_levy'}.map(&:amount).sum
   end
 
   def before_destroy
@@ -115,6 +92,39 @@ class Order < ActiveRecord::Base
     order_lines.build(params)
   end
 
+  def add_extra_products_from_params_hash(phash)
+    phash.to_hash.each do |idstring, actual_amount|
+      # "products"=>{"1_amount"=>"2", "2_amount"=>"0", "3_amount"=>"1", ...}
+      if actual_amount.to_i > 0
+        product = Product.find(idstring.to_i)
+        self.add_charge(kind: 'extra_product',
+                         particular: "#{actual_amount}x #{product.name} (#{idstring.to_i})",
+                         amount: (product.price.to_i * actual_amount.to_i))
+      end
+    end
+    self.amount = self.calculate_amount
+  end
+
+  def extra_product_order_lines
+    order_lines.select{|l| l.kind == 'extra_product'}
+  end
+
+  def order_line_for_product(product)
+    if product.class == Product
+      pid = product.id
+    elsif product.class == Integer
+      pid = product.to_i
+    else
+      raise "This method requires a Product or product ID"
+    end
+    r = Regexp.new /[\d]+x.*\(#{pid}\)/
+    extra_product_order_lines.select{|ol| ol.particular.match(r) }.first
+  end
+
+  def has_extra_products?
+    extra_product_order_lines.any?
+  end
+
   def remove_cancelling_order_lines!
     charge_order_lines.each do |charge_line|
       refund_order_lines.each do |refund_line|
@@ -152,8 +162,10 @@ class Order < ActiveRecord::Base
     update_attribute(:paid_on, date)
 
     if needs_donation_receipt?
-      # Send donation receipt
       BackOfficeMailer.deliver_donation_receipt_to_member(Order.find(id))
+    end
+    if has_extra_products?
+      BackOfficeMailer.deliver_order_with_extra_products_paid(Order.find(id))
     end
   end
 
@@ -181,7 +193,7 @@ class Order < ActiveRecord::Base
   def add_order_lines_to_invoice(invoice)
     order_lines.each do |line|
       case line.kind
-      when "admin_levy"
+      when "admin_levy" # 'national' levy; what goes to NZFFA head office
         if branch = Group.find_by_name(line.particular)
           account_code = branch.account_codes.split(",").last # admin levies always go to the '4 accounts..'
           li = invoice.add_line_item(
@@ -190,7 +202,7 @@ class Order < ActiveRecord::Base
             unit_amount: line.amount
           )
           li.add_tracking(name: 'Branch', option: line.particular)
-        elsif line.particular == 'fft_marketplace' # FFT admin levy for casual membership
+        elsif line.particular == 'fft_marketplace'
           account_code = Group.fft_group.account_codes.split(",").last
           invoice.add_line_item(
             description: "FFT Admin levy",
@@ -268,6 +280,19 @@ class Order < ActiveRecord::Base
           description: "Research fund contribution",
           account_code: "4-2030",
           unit_amount: line.amount
+        )
+      when "extra_product"
+        # self.add_charge(kind: 'extra_product',
+        #                  particular: "#{actual_amount}x #{product.name} (#{idstring})",
+        #                  amount: (product.price.to_i * actual_amount.to_i))
+        r=Regexp.new /([\d]+)x.*\((\d)\)/
+        product_amount, product_id = line.particular.match(r)[1,2]
+        product = Product.find(product_id)
+        invoice.add_line_item(
+          description: product.name,
+          account_code: product.xero_account,
+          unit_amount: product.price,
+          quantity: product_amount
         )
       when "extra"
         if line.particular == 'Credit Card Surcharge'

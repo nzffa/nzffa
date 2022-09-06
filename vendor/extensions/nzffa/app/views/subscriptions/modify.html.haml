@@ -3,16 +3,4 @@
 %h1 Edit Subscription
 =stylesheet_link_tag 'select2'
 
--if params[:subscription]
-  - case params[:subscription][:membership_type]
-  - when 'casual'
-    - @subscription.membership_type = 'casual'
-    =render 'subscriptions/casual_membership_form'
-  - when 'full'
-    - @subscription.membership_type = 'full'
-    =render 'subscriptions/full_membership_form'
-- else
-  =render 'subscriptions/select_membership_type_form'
-
-
-
+=render 'subscriptions/membership_form'

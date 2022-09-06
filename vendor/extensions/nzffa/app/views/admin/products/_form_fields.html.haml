@@ -1,0 +1,10 @@
+%p
+  = f.label :name, 'Description'
+  = f.text_field :name
+%p{style: "margin: 1em"}
+  = f.label :price
+  = '$ '
+  = text_field_tag :product_price, f.object.price, {type: "number", size: 4, name: "product[price]"}
+%p
+  = f.label :xero_account
+  = f.text_field :xero_account

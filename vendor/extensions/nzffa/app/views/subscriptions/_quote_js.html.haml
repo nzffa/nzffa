@@ -1,5 +1,5 @@
 :javascript
-  if ($new_form = $('form#new_subscription')) {
+  if ($new_form = $('form.new_subscription')) {
     $new_form.change(function(){
       $.post('/subscriptions/quote_new', $new_form.toJSON(), function(response){
         $('span#price').text(response.price)
@@ -47,6 +47,53 @@
   $('#subscription_receive_tree_grower_magazine').change(toggle_tgm_delivery_radios);
   $('#subscription_receive_tree_grower_magazine').trigger('change')
 
+  update_form_controls = function(){
+    // repopulate main branch selector options w/ selected groups only
+    var previously_selected_id = $('select#subscription_main_branch_id option:selected').val()
+    $('select#subscription_main_branch_id option').remove()
+    $('select#subscription_main_branch_id').append(`<option value="">Please select:</option>`);
+    $.each($('input.sgt:checked'), function( i, elem ) {
+      var text = $(elem).parent().contents()[3].nodeValue.split('(')[0]
+      var value = $(elem).val()
+      var selected = (value == previously_selected_id) ? " selected='selected'" : ""
+      $('select#subscription_main_branch_id').append(`<option value="${value}"${selected}>${text}</option>`);
+    });
+    // show or hide main branch selector
+    if($('input.sgt:checked').length > 1){
+      $('#main_branch_selection').show()
+    }
+    else{
+      $('#main_branch_selection').hide()
+    }
+  }
+  $('input.sgt').change(update_form_controls);
+  update_form_controls()
 
-  $('#subscription_associated_branch_names').select2()
-  $('#subscription_action_group_ids').select2()
+  validate_main_branch_selection = function(){
+    var errd = false;
+    if($('input.sgt:checked').length > 1){
+      if($('select#subscription_main_branch_id option:selected').val() == ""){
+        $('select#subscription_main_branch_id').css('border', '3px solid red');
+        location.hash = "#main_branch_selection";
+        errd = true;
+      }
+    }
+    return !errd;
+  }
+  clear_main_branch_selector_error_styling = function(){
+    $('select#subscription_main_branch_id').css('border', 'revert');
+  }
+  $('select#subscription_main_branch_id').change(clear_main_branch_selector_error_styling);
+  $("form.new_subscription").submit(validate_main_branch_selection);
+
+  validate_at_least_one_group_selected = function(){
+    var errd = false;
+    if($('input.sgt:checked').length < 1){
+      if($('#subscription_receive_tree_grower_magazine:checked').length < 1){
+        alert('You must select at least one subscription option.')
+        errd = true;
+      }
+    }
+    return !errd;
+  }
+  $("form.new_subscription").submit(validate_at_least_one_group_selected);

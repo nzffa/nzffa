@@ -7,20 +7,16 @@ class Admin::SubscriptionsController < AdminController
   def batches_to_print
     read_batch_params
     @options = batch_params_hash
-
-    @subscriptions = Subscription.expiring_before(@expiring_before)
-    @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
+    @subs_by_postcode = subs_by_postcode_from_batch_params
   end
 
   def print_batch
     read_batch_params
-
-    @subscriptions = Subscription.expiring_before(@expiring_before)
-    @subs_by_postcode = @subscriptions.reject{|s| s.reader.nil? }.group_by{|s| s.reader.postcode }
+    @subs_by_postcode = subs_by_postcode_from_batch_params
 
     @unsaved_orders = @subs_by_postcode[@postcode].map do |sub|
-                        sub.begins_on = @expiring_before
-                        sub.expires_on = @expiring_before.at_end_of_year
+                        sub.begins_on = (@expiring_on - 1.year).at_beginning_of_year
+                        sub.expires_on = (@expiring_on - 1.year)
                         CreateOrder.from_subscription(sub)
                       end
     render :layout => false
@@ -87,6 +83,7 @@ class Admin::SubscriptionsController < AdminController
 
     if @subscription.save!
       @order = CreateOrder.from_subscription(@subscription)
+      @order.add_extra_products_from_params_hash(params[:products])
       @order.save
       redirect_to edit_admin_order_path(@order)
     else
@@ -104,6 +101,7 @@ class Admin::SubscriptionsController < AdminController
     new_sub.reader = current_sub.reader
     if new_sub.valid?
       @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
+      @order.add_extra_products_from_params_hash(params[:products])
       redirect_to edit_admin_order_path(@order)
     else
       render :edit
@@ -145,39 +143,35 @@ class Admin::SubscriptionsController < AdminController
       output.write "Rebuilding non-renewed members groups ...\n"
       group = Group.find(NzffaSettings.non_renewed_members_group_id)
       group.readers.clear
-      last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "full"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
+      last_year_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year])
       last_year_member_ids = last_year_subscriptions.map(&:reader_id)
-      active_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'full'").map(&:reader_id)
+      active_member_ids = Subscription.active.map(&:reader_id)
       non_renewed_members = Reader.find(:all, :conditions => {:id => (last_year_member_ids - active_member_ids)}).select{|r| !r.is_resigned? }
       group.readers << non_renewed_members
       output.write "Added #{non_renewed_members.size} readers to non_renewed_members group\n"
-
-      casual_group = Group.find(NzffaSettings.non_renewed_casual_members_group_id)
-      casual_ex_fft = Group.find(NzffaSettings.non_renewed_cas_fft_members_group_id)
-      casual_group.readers.clear
-      casual_ex_fft.readers.clear
-
-      last_year_tg_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual" and receive_tree_grower_magazine = ?', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year, true])
-      last_year_tg_member_ids = last_year_tg_subscriptions.map(&:reader_id)
-      active_tg_member_ids = Subscription.active.find(:all, :conditions => ["membership_type = 'casual' and receive_tree_grower_magazine = ?", true]).map(&:reader_id)
-      non_renewed_tg_members = Reader.find(:all, :conditions => {:id => (last_year_tg_member_ids - active_tg_member_ids)}).select{|r| !r.is_resigned? }
-      casual_group.readers << non_renewed_tg_members
-      output.write "Added #{non_renewed_tg_members.size} readers to non_renewed_casual_members group\n"
-
-      last_year_fft_subscriptions = Subscription.find(:all, :conditions => ['expires_on > ? and expires_on < ? and membership_type = "casual"', 1.year.ago.beginning_of_year, 1.year.ago.end_of_year]).select{|s| s.belongs_to_fft }
-      last_year_fft_member_ids = last_year_fft_subscriptions.map(&:reader_id)
-      active_fft_member_ids = Subscription.active.find(:all, :conditions => "membership_type = 'casual'").select{|s| s.belongs_to_fft }.map(&:reader_id)
-      non_renewed_fft_members = Reader.find(:all, :conditions => {:id => (last_year_fft_member_ids - active_fft_member_ids)}).select{|r| !r.is_resigned? }
-      casual_ex_fft.readers << non_renewed_fft_members
-      output.write "Added #{non_renewed_fft_members.size} readers to non_renewed_fft_members group\n"
     }, :content_type => 'text/plain'
+  end
+
+  def subs_by_postcode_from_batch_params
+    if @expiring_on <= Date.today
+      # has expired or expires today, so scope to active_anytime;
+      @subscriptions = Subscription.active_anytime.with_readers_having_no_real_email_or_disallowing_renewal_mails.expiring_on(@expiring_on)
+      # remove subs where the reader already has an active subscription
+      @subscriptions = @subscriptions.delete_if {|s| s.reader.nil? || s.reader.has_active_subscription? }
+    else
+      # yet to expire, so scope to active;
+      @subscriptions = Subscription.active.with_readers_having_no_real_email_or_disallowing_renewal_mails.expiring_on(@expiring_on)
+      # remove subs where the reader already has a subscription for next year
+      @subscriptions = @subscriptions.delete_if {|s| s.reader.nil? || s.reader.has_subscription_for_next_year? }
+    end
+    @subscriptions.group_by{|s| s.reader.postcode }
   end
 
   private
 
-  def subscriptions_in_batches
-    Subscription.expiring_before(@expiring_before).each_slice(@batch_size)
-  end
+  # def subscriptions_in_batches
+  #   Subscription.expiring_before(@expiring_on).each_slice(@batch_size)
+  # end
 
   def load_reader
     unless params[:reader_id]
@@ -189,11 +183,11 @@ class Admin::SubscriptionsController < AdminController
 
   def read_batch_params
     @postcode = params.fetch(:postcode) { nil }
-    @expiring_before = Date.parse(params.fetch(:expiring_before) { "#{Date.today.year + 1}-01-01"})
+    @expiring_on = Date.parse(params.fetch(:expiring_on) { Date.today.end_of_year.strftime("%Y-%m-%d") })
   end
 
   def batch_params_hash
-    {:expiring_before => @expiring_before,
+    {:expiring_on => @expiring_on,
      :postcode => @postcode}
   end
 end

@@ -1,0 +1,14 @@
+A subscription order containing extra products to be shipped, has just been marked as paid:
+
+Name: <%= @reader.name %>
+Membership ID: <%= @reader.nzffa_membership_id %>
+Order ID: <%= @order.id %>
+Address: <%= @reader.postal_address %>
+
+Products to be shipped:
+<% @order.extra_product_order_lines.each do |order_line|
+  r=Regexp.new /(\d)x.*\((\d)\)/
+  product_amount, product_id = order_line.particular.match(r)[1,2]
+  product = Product.find(product_id) %>
+  <%= "#{product_amount} x #{product.name}" %>
+<% end -%>
