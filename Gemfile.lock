@@ -54,7 +54,8 @@ GIT
 
 GIT
   remote: https://github.com/jdutil/backup.git
-  revision: bca9ab8b05cfaf65e78f069264ca78f5b4231799
+  revision: 8c2a9588117fdae914c1cf25a4bfe697bf31981c
+  branch: bump_fog
   specs:
     backup (3.0.24)
       open4 (~> 1.3.0)

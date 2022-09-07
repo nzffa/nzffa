@@ -105,7 +105,7 @@ gem 'radiant-layouts-extension', :git => 'https://github.com/enspiral/radiant-sh
 # The above gem uses rr for mocking
 gem 'rr', :group => :test
 
-gem 'backup', :git => 'https://github.com/jdutil/backup.git'
+gem 'backup', git: 'https://github.com/jdutil/backup.git', branch: 'bump_fog'
 gem 'fog', '1.32.0'
 gem 'net-ssh', '4.2.0'
 gem 'multi_json', '~> 1.3.0'
