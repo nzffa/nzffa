@@ -445,6 +445,7 @@ DEPENDENCIES
   backup!
   capistrano (~> 2.14.1)
   execjs (= 2.0.0)
+  fog (= 1.32.0)
   hpricot
   httparty (= 0.20.0)
   irb

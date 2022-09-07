@@ -106,7 +106,7 @@ gem 'radiant-layouts-extension', :git => 'https://github.com/enspiral/radiant-sh
 gem 'rr', :group => :test
 
 gem 'backup', :git => 'https://github.com/jdutil/backup.git'
-# gem 'fog', '1.1.0'
+gem 'fog', '1.32.0'
 gem 'net-ssh', '4.2.0'
 gem 'multi_json', '~> 1.3.0'
 gem 'parallel', '~> 0.5.12'
