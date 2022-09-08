@@ -28,6 +28,7 @@ gem 'hpricot'
 gem 'httparty', '0.20.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '3.0'
+gem 'xmlrpc', '0.3.0'
 
 gem "mysql2", "~> 0.5.3"
 gem "activerecord-mysql2-adapter"
@@ -105,8 +106,8 @@ gem 'radiant-layouts-extension', :git => 'https://github.com/enspiral/radiant-sh
 # The above gem uses rr for mocking
 gem 'rr', :group => :test
 
-gem 'backup', git: 'https://github.com/jdutil/backup.git', branch: 'bump_fog'
-gem 'fog', '1.32.0'
+gem 'backup' #, git: 'https://github.com/jdutil/backup.git', branch: 'bump_fog'
+# gem 'fog', '1.4.0'
 gem 'net-ssh', '4.2.0'
 gem 'multi_json', '~> 1.3.0'
 gem 'parallel', '~> 0.5.12'
