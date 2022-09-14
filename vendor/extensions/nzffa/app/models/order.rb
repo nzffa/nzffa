@@ -125,6 +125,10 @@ class Order < ActiveRecord::Base
     extra_product_order_lines.any?
   end
 
+  def cc_charge_amount
+    order_lines.select{|l| l.particular == 'Credit Card Surcharge'}.first.try(:amount).to_i
+  end
+
   def remove_cancelling_order_lines!
     charge_order_lines.each do |charge_line|
       refund_order_lines.each do |refund_line|
