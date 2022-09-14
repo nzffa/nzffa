@@ -102,6 +102,8 @@ class Admin::SubscriptionsController < AdminController
     if new_sub.valid?
       @order = CreateOrder.upgrade_subscription(:from => current_sub, :to => new_sub)
       @order.add_extra_products_from_params_hash(params[:products])
+      @order.amount = @order.calculate_amount # because of added CC order_line
+      @order.save
       redirect_to edit_admin_order_path(@order)
     else
       render :edit

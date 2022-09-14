@@ -23,9 +23,6 @@ class CreateOrder
                        :amount => line.refund_amount(fraction_used))
     end
 
-
-    #old_sub.cancel!
-    order.save!
     order.remove_cancelling_order_lines!
     order
   end
