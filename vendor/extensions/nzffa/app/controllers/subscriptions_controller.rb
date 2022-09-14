@@ -21,9 +21,13 @@ class SubscriptionsController < ReaderActionController
 
   def modify
     @action_path = upgrade_subscriptions_path
-    @subscription = Subscription.active_subscription_for(current_reader)
-    @subscription.contribute_to_research_fund = false # errors when @subscription is nil (no active subscription for current reader)
-    @subscription.begins_on = Date.today
+    if @subscription = Subscription.active_subscription_for(current_reader)
+      @subscription.contribute_to_research_fund = false
+      @subscription.begins_on = Date.today
+    else
+      flash[:error] = 'No active subscription found'
+      redirect_to(:action => :index) and return
+    end
   end
 
   def renew
