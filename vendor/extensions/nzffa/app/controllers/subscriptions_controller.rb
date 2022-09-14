@@ -108,9 +108,10 @@ class SubscriptionsController < ReaderActionController
     credit = CalculatesSubscriptionLevy.credit_if_upgraded(current_sub)
 
     upgrade_price = CalculatesSubscriptionLevy.upgrade_price(current_sub, new_sub)
+    upgrade_price += order.extra_product_order_lines.map(&:amount).sum
 
     render :json => {:price => "#{number_to_currency(order.calculate_amount)}",
-                     :credit_card_fee => "#{number_to_currency(order.calculate_amount * 0.023)}",
+                     :credit_card_fee => "#{number_to_currency(upgrade_price * 0.023)}",
                      :credit => "#{number_to_currency(credit)}",
                      :upgrade_price => "#{number_to_currency(upgrade_price)}",
                      :expires_on => new_sub.expires_on.strftime('%e %B %Y').strip,
