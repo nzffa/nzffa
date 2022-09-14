@@ -16,7 +16,7 @@ gem 'rspec-rails', git: 'https://github.com/makandra/rspec-rails.git', branch: '
 gem 'irb', require: false
 
 # this breaks specs.. but is necessary for attachements i think
-gem "radiant", git: "git://github.com/nzffa/radiant", branch: 'with_rails_lts'
+gem "radiant", git: "https://github.com/nzffa/radiant.git", branch: 'with_rails_lts'
 # gem "radiant", :path => "../radiant"
 
 gem "rdoc", "6.3.2"
