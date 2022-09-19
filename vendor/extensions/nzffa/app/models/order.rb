@@ -126,7 +126,7 @@ class Order < ActiveRecord::Base
   end
 
   def cc_charge_amount
-    order_lines.select{|l| l.particular == 'Credit Card Surcharge'}.first.try(:amount).to_i
+    order_lines.select{|l| l.particular == 'Credit Card Surcharge'}.first.try(:amount).to_d
   end
 
   def remove_cancelling_order_lines!
