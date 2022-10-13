@@ -209,7 +209,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def main_branch_name
-    main_branch.try :name
+    main_branch.try(:name) || tgm_group.try(:name)
   end
 
   def main_branch_id=(id)
@@ -217,6 +217,18 @@ class Subscription < ActiveRecord::Base
       self.main_branch = (groups & Subscription.subscribable_groups).first || nil
     else
       self.main_branch = Group.find(id)
+    end
+  end
+
+  def tgm_group
+    return nil unless receive_tree_grower_magazine
+    case tree_grower_delivery_location
+    when 'new_zealand'
+      Group.find(NzffaSettings.tg_magazine_new_zealand_group_id)
+    when 'australia'
+      Group.find(NzffaSettings.tgm_australia_group_id)
+    else
+      Group.find(NzffaSettings.tgm_everywhere_else_group_id)
     end
   end
 
