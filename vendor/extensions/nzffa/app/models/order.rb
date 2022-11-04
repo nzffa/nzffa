@@ -198,8 +198,18 @@ class Order < ActiveRecord::Base
     order_lines.each do |line|
       case line.kind
       when "admin_levy" # 'national' levy; what goes to NZFFA head office
-        if branch = Group.find_by_name(line.particular)
-          account_code = branch.account_codes.split(",").last # admin levies always go to the '4 accounts..'
+        if group = Group.find_by_name(line.particular)
+          if Group.tgm_groups.include? group
+            if advance_payment?
+              index = 1
+            else
+              index = 2
+            end
+            account_code = group.account_codes.split(",")[index]
+          else
+            # group is a branch or action group
+            account_code = group.account_codes.split(",").last # admin levies always go to the '4 accounts..'
+          end
           li = invoice.add_line_item(
             description: "Admin levy",
             account_code: account_code,
@@ -230,7 +240,12 @@ class Order < ActiveRecord::Base
         li.add_tracking(name: 'Branch', option: line.particular)
       when "action_group_levy"
         action_group = Group.find_by_name(line.particular)
-        account_code = action_group.account_codes
+        if advance_payment?
+          index = 1
+        else
+          index = 0
+        end
+        account_code = action_group.account_codes.split(",")[index]
         li = invoice.add_line_item(
           description: "Action group levy - #{action_group.name}",
           account_code: account_code,
