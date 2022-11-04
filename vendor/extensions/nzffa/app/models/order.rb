@@ -201,9 +201,9 @@ class Order < ActiveRecord::Base
         if group = Group.find_by_name(line.particular)
           if Group.tgm_groups.include? group
             if advance_payment?
-              index = 1
+              index = 0
             else
-              index = 2
+              index = 1
             end
             account_code = group.account_codes.split(",")[index]
           else
