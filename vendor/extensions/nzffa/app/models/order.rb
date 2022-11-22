@@ -200,7 +200,7 @@ class Order < ActiveRecord::Base
       when "admin_levy" # 'national' levy; what goes to NZFFA head office
         if group = Group.find_by_name(line.particular)
           if Group.tgm_groups.include? group
-            if advance_payment?
+            if advance_payment? # indexes 0 and 1 because TGM groups do not have a refund account code
               index = 0
             else
               index = 1
@@ -208,7 +208,12 @@ class Order < ActiveRecord::Base
             account_code = group.account_codes.split(",")[index]
           else
             # group is a branch or action group
-            account_code = group.account_codes.split(",").last # admin levies always go to the '4 accounts..'
+            if advance_payment?
+              index = 1
+            else
+              index = 2
+            end
+            account_code = group.account_codes.split(",")[index]
           end
           li = invoice.add_line_item(
             description: "Admin levy",
@@ -217,7 +222,12 @@ class Order < ActiveRecord::Base
           )
           li.add_tracking(name: 'Branch', option: line.particular)
         elsif line.particular == 'fft_marketplace'
-          account_code = Group.fft_group.account_codes.split(",").last
+          if advance_payment?
+            index = 1
+          else
+            index = 2
+          end
+          account_code = Group.fft_group.account_codes.split(",")[index]
           invoice.add_line_item(
             description: "FFT Admin levy",
             account_code: account_code,
