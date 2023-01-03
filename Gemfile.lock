@@ -279,9 +279,9 @@ GEM
     haml (3.1.8)
     highline (1.6.21)
     hpricot (0.8.6)
-    httparty (0.10.0)
-      multi_json (~> 1.0)
-      multi_xml
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     io-console (0.5.9)
@@ -291,6 +291,7 @@ GEM
     jwt (2.2.3)
     libv8 (3.16.14.19)
     mime-types (1.22)
+    mini_mime (1.1.2)
     multi_json (1.3.7)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -383,7 +384,7 @@ DEPENDENCIES
   capistrano (~> 2.14.1)
   execjs (= 2.0.0)
   hpricot
-  httparty (= 0.10.0)
+  httparty (= 0.21.0)
   irb
   mime-types (= 1.22)
   multi_json (~> 1.3.0)
