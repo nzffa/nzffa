@@ -28,7 +28,7 @@ gem "rake", "10.5.0"
 gem "RedCloth", "~> 4.2.9"
 
 gem 'hpricot'
-gem 'httparty', '0.10.0'
+gem 'httparty', '0.21.0'
 gem 'sanitize', '2.0.3'
 gem 'mime-types', '1.22'
 
