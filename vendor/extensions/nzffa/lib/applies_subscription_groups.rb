@@ -24,6 +24,9 @@ class AppliesSubscriptionGroups
                    end
         reader.groups << Group.find(group_id)
       end
+      # Although 'full membership' is no longer a thing, collect all active members in this group;
+      reader.groups << Group.full_membership_group
+
       reader.memberships.find_all_by_group_id(NzffaSettings.small_scale_forest_grower_newsletter_group_id).each(&:destroy) # A previously 'full_member' would have this group removed.. why?
       subscription.groups.each do |group|
         reader.groups << group
