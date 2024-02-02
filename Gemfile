@@ -16,7 +16,7 @@ gem 'rspec-rails', git: 'https://github.com/makandra/rspec-rails.git', branch: '
 gem 'irb', require: false
 
 # this breaks specs.. but is necessary for attachements i think
-gem "radiant", git: "https://github.com/nzffa/radiant", branch: 'with_rails_lts'
+gem "radiant", git: "https://github.com/nzffa/radiant.git", branch: 'with_rails_lts'
 # gem "radiant", :path => "../radiant"
 
 gem "rdoc", "6.3.2"
@@ -91,7 +91,7 @@ gem "radiant-ck_editor_filter-extension", "~> 0.2.5"
 gem "radiant-settings-extension", "~> 1.1.1", :git => 'https://github.com/enspiral/radiant-settings.git'
 gem 'radiant-mailer-extension'
 gem "radiant-search-extension"
-gem "radiant-copy_move-extension",          "~> 2.4.10"
+gem "radiant-copy_move-extension",          "~> 2.4.11"
 # gem "radiant-copy_move-extension", :path => 'vendor/extensions/copy_move'
 gem "radiant-grandchildren_tags-extension"
 gem "radiant-if_id_tags-extension"
