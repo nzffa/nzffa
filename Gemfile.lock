@@ -193,7 +193,7 @@ GEM
     authlogic (2.1.11)
       activerecord (~> 2.3.0)
       activesupport (~> 2.3.0)
-    bigdecimal (3.0.2)
+    bigdecimal (3.1.6)
     builder (3.2.4)
     capistrano (2.14.2)
       highline
