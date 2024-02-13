@@ -3,14 +3,12 @@ module ReaderMixin
   module ClassMethods
     def with_membership(args={})
       active = args[:must_be_active] != false
-      type = args[:type] || 'full'
-      raise ArgumentError.new("Reader.with_membership called with type other than 'full' or 'casual'") unless ['full', 'casual'].include?(type)
 
       if active
         now = lambda{Date.today}
-        find(:all, :include => [:subscriptions => :order], :conditions => ["subscriptions.membership_type = ? and subscriptions.begins_on <= ? AND subscriptions.expires_on >= ? AND subscriptions.cancelled_on IS NULL AND orders.paid_on > '2001-01-01'", type, now.call, now.call])
+        find(:all, :include => [:subscriptions => :order], :conditions => ["subscriptions.begins_on <= ? AND subscriptions.expires_on >= ? AND subscriptions.cancelled_on IS NULL AND orders.paid_on > '2001-01-01'", now.call, now.call])
       else
-        find(:all, :include => :subscriptions, :conditions => ["subscriptions.membership_type = ?", type])
+        find(:all, :include => :subscriptions)
       end
     end
   end
@@ -209,10 +207,6 @@ module ReaderMixin
     end
     false
   end
-
-  # def full_nzffa_member?
-  #   group_ids.include? NzffaSettings.full_membership_group_id
-  # end
 
   def identifiers
     #Direct Debit 204 (Note: This is currently under special_cases)

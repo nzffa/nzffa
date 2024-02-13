@@ -2,6 +2,6 @@
 en:
   reader_extension:
     selected_groups_not_disallowed: "Selected groups but without readers that have paid a subscription for next year or that have disallowed subscription renewal emails"
-    selected_groups_casual_only: "Selected groups but only casual members"
-    selected_groups_full_only: "Selected groups but only full members"
+    selected_groups_current_members_only: "Selected groups but only current members"
+    selected_groups_including_non_renewed: "Selected groups including non-renewed members"
     target_selection_was_empty: "No readers matched the given targetting rules"

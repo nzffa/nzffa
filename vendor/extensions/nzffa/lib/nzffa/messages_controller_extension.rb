@@ -8,13 +8,16 @@ module Nzffa::MessagesControllerExtension
           load_readers_for_groups
           @readers = @readers.reject{|r| r.disallow_renewal_mails || r.has_subscription_for_next_year? }
           deliver_and_redirect
-        elsif params['delivery'] == 'selected_groups_full_only'
+        elsif params['delivery'] == 'selected_groups_current_members_only'
           load_selected_groups
           @readers = @groups.empty? ? [] : Reader.in_groups(@groups).with_membership
           deliver_and_redirect
-        elsif params['delivery'] == 'selected_groups_casual_only'
+        elsif params['delivery'] == 'selected_groups_including_non_renewed'
           load_selected_groups
-          @readers = @groups.empty? ? [] : Reader.in_groups(@groups).with_membership(:type => 'casual')
+          @readers = @groups.empty? ? [] : Reader.in_groups(@groups).with_membership
+          Group.find(NzffaSettings.non_renewed_members_group_id).readers.each do |reader|
+            @readers << reader unless (reader.subscriptions.last.group_ids & @groups.map(&:id)).empty?
+          end
           deliver_and_redirect
         else
           deliver_without_nzffa
