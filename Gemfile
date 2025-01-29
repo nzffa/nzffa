@@ -62,7 +62,7 @@ gem "radiant-clipped-extension", :git => 'https://github.com/radiant/radiant-cli
 
 # This depends on radiant-layouts-extension
 gem 'radiant-reader-extension', :git => 'https://github.com/jomz/radiant-reader-extension.git', :branch => :with_rails_lts
-# gem 'radiant-reader-extension', :path => 'vendor/extensions/reader'
+# gem 'radiant-reader-extension', path: 'vendor/extensions/reader'
 
 gem "radiant-forum-extension", :git => 'https://github.com/nzffa/radiant-forum-extension.git', :branch => :wackamole
 # gem "radiant-forum-extension", :path => 'vendor/extensions/forum'
@@ -141,4 +141,8 @@ end
 
 group :development do
   gem 'capistrano', "~> 2.14.1"
+  # For capistrano; see https://github.com/net-ssh/net-ssh/issues/478
+  gem 'rbnacl', "~> 3.2"
+  gem 'rbnacl-libsodium'
+  gem 'bcrypt_pbkdf', "~> 1.0"
 end
