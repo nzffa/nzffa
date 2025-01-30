@@ -4,11 +4,11 @@
   - if current_reader.subscriptions.active_anytime.any?
     %p
       Your subscription has expired.
-      =link_to "Renew your subscription", renew_subscriptions_path
+      =link_to "Renew your subscription", 'https://nzffa.gecco.co.nz/'
   - else
     %p
       You have no active subscription.
-      =link_to 'Buy a subscription', new_subscription_path
+      =link_to 'Buy a subscription', 'https://nzffa.gecco.co.nz/'
 -else
   =render 'subscriptions/subscription'
 
